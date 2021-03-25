@@ -1,0 +1,32 @@
+﻿.layersctl_rMenu {
+    position: absolute;
+    z-index: 999999;
+    display: none;
+    box-shadow: 0 1px 7px rgba(0, 0, 0, 0.4);
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    padding: 4px 0;
+    background-color: #fff;
+    cursor: default;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+.layersctl_rMenu ul {
+    margin: 0px;
+    padding: 0px;
+}
+
+.layersctl_rMenu ul li {
+    display: block;
+    color: #222;
+    font-size: 12px;
+    line-height: 20px;
+    text-decoration: none;
+    padding: 0 12px;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    cursor: default;
+    outline: none;
+}

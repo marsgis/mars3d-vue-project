@@ -1,0 +1,7 @@
+/* 2017-7-30 20:28:41 | 修改 木遥（微信:  http://marsgis.cn/weixin.html ） */
+.append_test {
+    position: absolute;
+    top: 50px;
+    right:100px;
+    z-index: 999;
+}

@@ -1,0 +1,54 @@
+/* 2017-12-5 14:44:06 | 修改 木遥（微信:  http://marsgis.cn/weixin.html ） */
+.toolBarRight {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 9999;
+    background: rgba(43, 44, 47, 0.8);
+    border-radius: 3px;
+    box-shadow: 1px 2px 1px rgba(0,0,0,.15);
+}
+
+.toolBarRight i {
+    padding-right: 5px;
+    min-width: 18px;
+}
+
+.toolBarRight-btn {
+    list-style-type: none;
+    cursor: pointer;
+    border-right: solid 1px #2b2c2f;
+    color: #edffff;
+}
+
+.toolBarRight-btn .btn-link a {
+    text-decoration: none;
+}
+
+.toolBarRight-btn:hover {
+    color: #fff;
+}
+
+.layui-layer-title i {
+    margin-right: 10px;
+}
+
+.toolBarRight-dropdown-menu {
+    background: rgba(43, 44, 47, 0.8);
+    border: 1px solid #2b2c2f;
+    min-width: 110px;
+}
+
+    .toolBarRight-dropdown-menu > li > a {
+        color: #edffff;
+    }
+
+        .toolBarRight-dropdown-menu > li > a:hover, .toolBarRight-dropdown-menu > li > a:focus {
+            color: #fff;
+            background-color: #444d59;
+        }
+
+    .toolBarRight-dropdown-menu > .active > a, .toolBarRight-dropdown-menu > .active > a:hover, .toolBarRight-dropdown-menu > .active > a:focus {
+        color: #fff;
+        background-color: #444d59;
+    }
