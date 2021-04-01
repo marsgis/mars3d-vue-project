@@ -1,6 +1,6 @@
 {
   "name": "mars3d-vue-widget",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Mars3D三维地球平台软件,Vue技术下的widget项目模版",
   "main": "index.js",
   "scripts": {
