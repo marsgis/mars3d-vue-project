@@ -52,6 +52,10 @@ function _getNodeConfig(layer) {
 
   var item = layer.options
 
+  if (item.name == '未命名') {
+    return
+  }
+
   var node = {
     id: layer.id,
     pId: layer.pid,

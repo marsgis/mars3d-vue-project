@@ -1,5 +1,5 @@
 /* 修改 木遥（微信:  http://marsgis.cn/weixin.html ） */
-// 第三方类库加载管理js，方便切换lib
+//第三方类库加载管理js，方便切换lib
 /* eslint-disable */
 ; (function () {
   var r = new RegExp('(^|(.*?\\/))(include-lib.js)(\\?|$)'),
@@ -41,11 +41,10 @@
     var arrInclude = (targetScript.getAttribute('include') || '').split(',')
     var libpath = targetScript.getAttribute('libpath') || ''
 
-
+ 
     //为了节省github空间，没有上传lib下面的类库到github
     //如果离线使用，可以从  http://mars3d.cn/download/lib.rar  下载后覆盖lib目录，并注释下面一行代码
     libpath = "http://mars3d.cn/lib/"
-
 
 
     if (libpath.lastIndexOf('/') !== libpath.length - 1) {

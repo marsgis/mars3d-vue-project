@@ -15,7 +15,11 @@
     "autoDisable": true,
     "disableOther": true
   },
-  "openAtStart": [ 
+  "openAtStart": [
+    {
+      "name": "POI查询",
+      "uri": "widgets/queryBaiduPOI/widget.js"
+    },
     {
       "name": "右上角工具栏",
       "uri": "widgets/toolBarRight/widget.js",
