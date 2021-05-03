@@ -143,14 +143,14 @@
           {
             "name": "全球",
             "type": "xyz",
-            "url": "{dataServer}/maptile/wgs3857img/{z}/{x}/{y}.jpg",
+            "url": "{dataServer}/maptile/googleImg/{z}/{x}/{y}.jpg",
             "minimumLevel": 0,
             "maximumLevel": 9
           },
           {
             "name": "中国",
             "type": "xyz",
-            "url": "{dataServer}/maptile/wgs3857img/{z}/{x}/{y}.jpg",
+            "url": "{dataServer}/maptile/googleImg/{z}/{x}/{y}.jpg",
             "minimumTerrainLevel": 10,
             "minimumLevel": 10,
             "maximumLevel": 12,
@@ -159,7 +159,7 @@
           {
             "name": "具体项目(如合肥)",
             "type": "xyz",
-            "url": "{dataServer}/maptile/wgs3857img/{z}/{x}/{y}.jpg",
+            "url": "{dataServer}/maptile/googleImg/{z}/{x}/{y}.jpg",
             "minimumTerrainLevel": 12,
             "minimumLevel": 12,
             "maximumLevel": 18,
@@ -273,7 +273,7 @@
         "pid": 4030,
         "name": "合肥规划图",
         "type": "arcgis_cache",
-        "url": "{dataServer}/maptile/hf/guihua/_alllayers/{z}/{y}/{x}.png",
+        "url": "{dataServer}/maptile-arcgis/hfgh/_alllayers/{z}/{y}/{x}.png",
         "minimumLevel": 1,
         "maximumLevel": 17,
         "minimumTerrainLevel": 1,
@@ -359,7 +359,7 @@
         "pid": 3040,
         "type": "geojson",
         "name": "示例数据",
-        "url": "{dataServer}/file/geojson/draw-demo.json",
+        "url": "{dataServer}/file/geojson/geojson-draw.json",
         "popup": "{draw_typename}",
         "show": false,
         "flyTo": true
@@ -967,8 +967,6 @@
         "type": "geojson",
         "name": "文庙-单体化",
         "url": " {dataServer}/file/geojson/draw-dth-wm.json",
-        "symbol": { "styleOptions": { "clampToGround": true } },
-        "hasOpacity": false,
         "dth": { "buffer": 3, "color": "#ffff00", "opacity": 0.5 },
         "popup": [
           { "field": "name", "name": "房屋名称" },

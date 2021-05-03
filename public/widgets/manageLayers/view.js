@@ -67,16 +67,18 @@ function _getNodeConfig(layer) {
     //空数组
     node.icon = 'img/folder.png'
     node.open = item.open == null ? true : item.open
+    layersObj[node.uuid] = layer
   } else if (layer.hasChildLayer) {
     //有子节点的数组
     node.icon = 'img/layerGroup.png'
     node.open = item.open == null ? true : item.open
+    layersObj[node.uuid] = layer
   } else {
     node.icon = 'img/layer.png'
     node.checked = layer.isAdded && layer.show
 
-    if (item._parent) {
-      node._parent = item._parent.uuid
+    if (layer.parent) {
+      node._parentId = layer.parent.uuid
     }
 
     //记录图层
@@ -158,7 +160,7 @@ function treeOverlays_onCheck(e, treeId, chktreeNode) {
   var treeObj = $.fn.zTree.getZTreeObj(treeId)
   //获得所有改变check状态的节点
   var changedNodes = treeObj.getChangeCheckedNodes()
-  for (var i = 0; i < changedNodes.length; i++) {
+  for (var i = changedNodes.length - 1; i >= 0; i--) {
     var treeNode = changedNodes[i]
     treeNode.checkedOld = treeNode.checked
     var layer = layersObj[treeNode.uuid]
@@ -195,9 +197,11 @@ function treeOverlays_onCheck(e, treeId, chktreeNode) {
     }
 
     //处理图层显示隐藏
-    if (treeNode._parent) {
-      var parentLayer = layersObj[treeNode._parent]
-      thisWidget.updateLayerShow(layer, treeNode.checked, parentLayer)
+    if (treeNode._parentId) {
+      var parentLayer = layersObj[treeNode._parentId]
+      if (parentLayer) {
+        thisWidget.updateLayerShow(parentLayer, treeNode.checked)
+      }
     } else {
       thisWidget.updateLayerShow(layer, treeNode.checked)
     }
