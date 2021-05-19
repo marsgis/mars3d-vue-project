@@ -14,6 +14,8 @@ import Vue from 'vue'
 // import './lib/mars3d.css'
 // import * as mars3d from './lib/mars3d'
 
+const mars3d = window.mars3d
+
 // 为了方便使用,绑定到原型链，在其他vue文件，直接 this.mars3d 来使用
 Vue.prototype.mars3d = window.mars3d
 Vue.prototype.Cesium = mars3d.Cesium
@@ -101,18 +103,18 @@ export default {
         this.$message.success(msg)
       }
 
-        //widget处理
-        mars3d.Resource.fetchJson({ url: this.widgetUrl }).then((data) => {
-          this.initStaticWidget(map, data);
-        });
+      // widget处理
+      mars3d.Resource.fetchJson({ url: this.widgetUrl }).then((data) => {
+        this.initStaticWidget(map, data)
+      })
 
       // 抛出事件
       this.$emit('onload', map)
     },
 
-    //初始化外部静态widget功能（兼容使用传统模式开发的一些widget）
-    initStaticWidget(map, widget){
-      mars3d.widget.init(map, widget,"/");
+    // 初始化外部静态widget功能（兼容使用传统模式开发的一些widget）
+    initStaticWidget(map, widget) {
+      mars3d.widget.init(map, widget, window.widgetPath || '/') // widgetPath定义在public/index.html
     }
   }
 }

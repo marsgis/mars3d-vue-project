@@ -8,7 +8,7 @@
 
     //弹窗配置
     get view() {
-      return { type: 'append', url: 'view.html', parent: '#centerDiv' }
+      return { type: 'append', url: 'view.html', parent: 'body' }
     }
 
     //初始化[仅执行1次]
