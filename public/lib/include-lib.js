@@ -160,8 +160,15 @@
         libpath + "terraformer/terraformer-1.0.9.min.js",
         libpath + "terraformer/terraformer-wkt-parser-1.2.0.min.js",
       ],
+      'cesium-tdt': [//天地图三维
+        libpath + "mars3d/plugins/tdt/mars3d-tdt.js",
+      ],
       "mars3d-esri": [//arcgis的wfs服务支持
         libpath + "mars3d/plugins/esri/mars3d-esri.js"
+      ],
+      'mars3d-space': [
+        //卫星插件
+        libpath + 'mars3d/plugins/space/mars3d-space.js',
       ],
       'mars3d-echarts': [
         //echarts支持插件
@@ -179,15 +186,16 @@
         libpath + 'mars3d/plugins/heatmap/heatmap.min.js',
         libpath + 'mars3d/plugins/heatmap/mars3d-heatmap.js',
       ],
-      'mars3d-space': [
-        //卫星插件
-        libpath + 'mars3d/plugins/space/mars3d-space.js',
+      "mars3d-wind": [//风场图层插件
+        libpath + "mars3d/plugins/wind/netcdfjs.js", //m10_windLayer解析nc
+        libpath + "mars3d/plugins/wind/mars3d-wind.js"
       ],
       'mars3d-widget': [
         //项目widget模块插件
         libpath + 'mars3d/plugins/widget/mars3d-widget.css',
         libpath + 'mars3d/plugins/widget/mars3d-widget.js',
       ],
+
       'mars3d': [
         //三维地球“主库”
         libpath + 'Cesium/Widgets/widgets.css', //cesium

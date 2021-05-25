@@ -46,13 +46,14 @@ function initWidgetView(_thisWidget) {
 }
 
 function _getNodeConfig(layer) {
-  if (layer == null || layer.options.noLayerManage) {
+  if (layer == null || !layer.options || layer.options.noLayerManage) {
     return
   }
 
   var item = layer.options
 
-  if (item.name == '未命名') {
+  if (!item.name) {
+    console.log('未命名图层不加入图层管理', layer)
     return
   }
 
@@ -61,29 +62,25 @@ function _getNodeConfig(layer) {
     pId: layer.pid,
     name: layer.name,
     uuid: layer.uuid,
+    checked: layer.isAdded && layer.show,
   }
 
   if (layer.hasEmptyGroup) {
     //空数组
     node.icon = 'img/folder.png'
     node.open = item.open == null ? true : item.open
-    layersObj[node.uuid] = layer
   } else if (layer.hasChildLayer) {
     //有子节点的数组
     node.icon = 'img/layerGroup.png'
     node.open = item.open == null ? true : item.open
-    layersObj[node.uuid] = layer
   } else {
     node.icon = 'img/layer.png'
-    node.checked = layer.isAdded && layer.show
-
     if (layer.parent) {
       node._parentId = layer.parent.uuid
     }
-
-    //记录图层
-    layersObj[node.uuid] = layer
   }
+  //记录图层
+  layersObj[node.uuid] = layer
   return node
 }
 
@@ -155,14 +152,33 @@ function treeOverlays_onDblClick(event, treeId, treeNode) {
 }
 
 //===================================勾选显示隐藏图层====================================
+function removeArrayItem(arr, val) {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] == val) {
+      arr.splice(i, 1)
+      return true
+    }
+  }
+  return false
+}
 
 function treeOverlays_onCheck(e, treeId, chktreeNode) {
   var treeObj = $.fn.zTree.getZTreeObj(treeId)
   //获得所有改变check状态的节点
   var changedNodes = treeObj.getChangeCheckedNodes()
-  for (var i = changedNodes.length - 1; i >= 0; i--) {
+
+  removeArrayItem(changedNodes, chktreeNode)
+  changedNodes.push(chktreeNode)
+
+  for (var i = 0; i < changedNodes.length; i++) {
     var treeNode = changedNodes[i]
     treeNode.checkedOld = treeNode.checked
+
+    if (treeNode.check_Child_State == 1) {
+      // 0:无子节点被勾选,  1:部分子节点被勾选,  2:全部子节点被勾选, -1:不存在子节点 或 子节点全部设置为 nocheck = true
+      continue
+    }
+
     var layer = layersObj[treeNode.uuid]
     if (layer == null) {
       continue
@@ -197,14 +213,7 @@ function treeOverlays_onCheck(e, treeId, chktreeNode) {
     }
 
     //处理图层显示隐藏
-    if (treeNode._parentId) {
-      var parentLayer = layersObj[treeNode._parentId]
-      if (parentLayer) {
-        thisWidget.updateLayerShow(parentLayer, treeNode.checked)
-      }
-    } else {
-      thisWidget.updateLayerShow(layer, treeNode.checked)
-    }
+    thisWidget.updateLayerShow(layer, treeNode.checked)
   }
 }
 
