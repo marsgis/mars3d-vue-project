@@ -41,7 +41,7 @@
     var arrInclude = (targetScript.getAttribute('include') || '').split(',')
     var libpath = targetScript.getAttribute('libpath') || ''
 
- 
+
     //为了节省github空间，没有上传lib下面的类库到github
     //如果离线使用，可以从  http://mars3d.cn/download/lib.rar  下载后覆盖lib目录，并注释下面一行代码
     libpath = "http://mars3d.cn/lib/"
@@ -162,9 +162,6 @@
       ],
       'cesium-tdt': [//天地图三维
         libpath + "mars3d/plugins/tdt/mars3d-tdt.js",
-      ],
-      "mars3d-esri": [//arcgis的wfs服务支持
-        libpath + "mars3d/plugins/esri/mars3d-esri.js"
       ],
       'mars3d-space': [
         //卫星插件
