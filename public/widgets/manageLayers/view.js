@@ -138,7 +138,15 @@ function updateNode(layer) {
 }
 
 //===================================双击定位图层====================================
-function treeOverlays_onClick(e, treeId, treeNode, clickFlag) {}
+function treeOverlays_onClick(e, treeId, treeNode, clickFlag) {
+  // if (treeNode == null || treeNode.uuid == null) {
+  //   return
+  // }
+  // var layer = layersObj[treeNode.uuid]
+  // if (layer) {
+  //   thisWidget.checkClickLayer(layer, treeNode.checked)
+  // }
+}
 
 function treeOverlays_onDblClick(event, treeId, treeNode) {
   if (treeNode == null || treeNode.uuid == null) {
@@ -214,6 +222,11 @@ function treeOverlays_onCheck(e, treeId, chktreeNode) {
 
     //处理图层显示隐藏
     thisWidget.updateLayerShow(layer, treeNode.checked)
+  }
+
+  var layerThis = layersObj[chktreeNode.uuid]
+  if (layerThis) {
+    thisWidget.checkClickLayer(layerThis, chktreeNode.checked)
   }
 }
 

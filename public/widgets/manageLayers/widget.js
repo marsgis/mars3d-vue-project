@@ -60,8 +60,42 @@
         layers: true, //是否取config.json中的layers
       })
     }
+    //对单击的图层做处理（单个）
+    checkClickLayer(layer, show) {
+      if (show) {
+        if (this.config.autoCenter && !layer.options.noCenter) {
+          //在对应config.json图层节点配置 noCenter:true 可以不定位
+          layer.flyTo()
+        }
 
-    //更新图层:显示隐藏状态
+        //存在关联widget时
+        let item = layer.options
+        if (item.onWidget) {
+          if (this._lastWidget) {
+            mars3d.widget.disable(this._lastWidget)
+            this._lastWidget = null
+          }
+
+          mars3d.widget.activate({
+            uri: item.onWidget,
+            layerItem: item,
+            disableOther: false,
+          })
+          this._lastWidget = item.onWidget
+        }
+      } else {
+        //存在关联widget时
+        let item = layer.options
+        if (item.onWidget) {
+          mars3d.widget.disable(item.onWidget)
+          if (this._lastWidget == item.onWidget) {
+            this._lastWidget = null
+          }
+        }
+      }
+    }
+
+    //更新图层:显示隐藏状态（勾选后的图层及其子级图层，多个）
     updateLayerShow(layer, show) {
       layer.show = show
 
@@ -71,30 +105,10 @@
           this.map.addLayer(layer)
           this.map.on(mars3d.EventType.addLayer, this._onAddLayerHandler, this)
         }
-        if (this.config.autoCenter && !layer.options.noCenter) {
-          //在对应config.json图层节点配置 noCenter:true 可以不定位
-          layer.flyTo()
-        }
-
-        //存在关联widget时
-        let item = layer.options
-        if (item.onWidget) {
-          mars3d.widget.activate({
-            uri: item.onWidget,
-            layerItem: item,
-            disableOther: false,
-          })
-        }
       } else {
         // if (layer.isAdded) {
         //   this.map.removeLayer(layer)
         // }
-
-        //存在关联widget时
-        let item = layer.options
-        if (item.onWidget) {
-          mars3d.widget.disable(item.onWidget)
-        }
       }
     }
   }

@@ -12,7 +12,6 @@ function getHeight() {
 function initWidgetView(_thisWidget) {
   thisWidget = _thisWidget
 
-
   $('#btn_bookmark_Add').bind('click', function () {
     saveBookmark()
   })
@@ -124,7 +123,8 @@ function saveBookmark() {
   }
 
   thisWidget.getThisExtent(function (bounds, base64) {
-    arrBookmark.insert(
+    haoutil.array.insert(
+      arrBookmark,
       {
         name: name,
         data: bounds,

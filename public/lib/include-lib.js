@@ -41,10 +41,10 @@
     var arrInclude = (targetScript.getAttribute('include') || '').split(',')
     var libpath = targetScript.getAttribute('libpath') || ''
 
-
+ 
     //为了节省github空间，没有上传lib下面的类库到github
     //如果离线使用，可以从  http://mars3d.cn/download/lib.rar  下载后覆盖lib目录，并注释下面一行代码
-    libpath = "http://mars3d.cn/lib/"
+    libpath = "//mars3d.cn/lib/"
 
 
     if (libpath.lastIndexOf('/') !== libpath.length - 1) {
@@ -163,6 +163,11 @@
       'cesium-tdt': [//天地图三维
         libpath + "mars3d/plugins/tdt/mars3d-tdt.js",
       ],
+      'cesium-pbf': [
+        libpath + "mars3d/thirdParty/pbf/ol.js",
+        libpath + "mars3d/thirdParty/pbf/mvt.js",
+        libpath + "mars3d/thirdParty/pbf/style/MapboxStreetsV6.js",
+      ],
       'mars3d-space': [
         //卫星插件
         libpath + 'mars3d/plugins/space/mars3d-space.js',
@@ -199,7 +204,7 @@
         libpath + 'Cesium/Cesium.js',
         // libpath + 'mars3d/plugins/compatible/cesium-version.js', //cesium版本兼容处理
         libpath + 'mars3d/mars3d.css', //mars3d
-        libpath + 'mars3d/mars3d.js', 
+        libpath + 'mars3d/mars3d.js',
       ],
     }
 
