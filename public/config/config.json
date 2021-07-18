@@ -46,6 +46,7 @@
       "infoBox": false,
       "geocoder": false,
       "geocoderConfig": { "key": ["ae29a37307840c7ae4a785ac905927e0"] },
+      "selectionIndicator":false,
 
       "defaultContextMenu": true,
       "mouseDownView": true,
@@ -883,6 +884,7 @@
       },
       { "id": 2060, "pid": 20, "name": "BIM模型", "type": "group" },
       {
+        "id": 20601121,
         "pid": 2060,
         "type": "3dtiles",
         "name": "大学教学楼",
@@ -1005,6 +1007,7 @@
         "flyTo": false
       },
       {
+        "id": 203015,
         "pid": 2030,
         "type": "3dtiles",
         "name": "小区",

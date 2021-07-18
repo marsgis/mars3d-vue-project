@@ -150,7 +150,7 @@
     },
     {
       "name": "卷帘对比",
-      "uri": "widgets/mapSwipe/widget.js",
+      "uri": "widgets/mapSplit/widget.js",
       "group": "mapCompare",
       "autoDisable": false,
       "disableOther": false

@@ -147,7 +147,11 @@
       ],
       'echarts-gl': [
         libpath + "echarts/echarts.min.js",
-        libpath + "echarts/echarts-gl.min.js"
+        libpath + "echarts/echarts-gl/echarts-gl.min.js"
+      ],
+      'echarts-liquidfill': [
+        libpath + "echarts/echarts.min.js",
+        libpath + "echarts/echarts-liquidfill/echarts-liquidfill.js"
       ],
       'highlight': [
         libpath + "highlight/styles/foundation.css",
@@ -174,8 +178,8 @@
       ],
       'mars3d-echarts': [
         //echarts支持插件
-        libpath + 'echarts/echarts.min.js',
-        libpath + 'echarts/echarts-gl.min.js',
+        libpath + "echarts/echarts.min.js",
+        libpath + "echarts/echarts-gl/echarts-gl.min.js",
         libpath + 'mars3d/plugins/echarts/mars3d-echarts.js',
       ],
       'mars3d-mapv': [
