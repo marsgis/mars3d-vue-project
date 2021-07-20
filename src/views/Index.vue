@@ -15,9 +15,10 @@ export default {
   },
 
   data() {
+    let basePathUrl = window.basePathUrl || ''
     return {
-      configUrl: 'config/config.json',
-      widgetUrl:"config/widget.json"
+      configUrl: basePathUrl + 'config/config.json',
+      widgetUrl: basePathUrl + "config/widget.json"
     }
   },
 

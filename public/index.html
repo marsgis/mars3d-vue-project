@@ -9,6 +9,10 @@
     
     <title>Mars3D基础项目模版（含widget模块）- Vue版</title>
  
+    <script>
+        window.basePathUrl = '<%= BASE_URL %>' //标识config、widgets所在的目录
+    </script>
+    
     <!--第三方lib-->
     <script
       type="text/javascript"
@@ -17,10 +21,7 @@
       include="jquery,jquery.range,bootstrap,bootstrap-checkbox,font-awesome,web-icons,layer,haoutil,nprogress,toastr,admui,turf,mars3d,mars3d-widget"
     ></script>
     <link href="<%= BASE_URL %>css/style.css?time=20210329" rel="stylesheet" />
-    <script>
-    		window.widgetPath = '<%= BASE_URL %>' //标识widgets所在的目录
-    </script>
-    
+
   </head>
   <body class="dark">
     <noscript>

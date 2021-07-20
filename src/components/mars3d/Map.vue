@@ -95,13 +95,13 @@ export default {
       // Vue.prototype[`map${this.mapKey}`] = map
 
       // 绑定对alert的处理，右键弹出信息更美观。
-      window.haoutil = window.haoutil || {}
-      window.haoutil.msg = (msg) => {
-        this.$message.success(msg)
-      }
-      window.haoutil.alert = (msg) => {
-        this.$message.success(msg)
-      }
+      // window.haoutil = window.haoutil || {}
+      // window.haoutil.msg = (msg) => {
+      //   this.$message.success(msg)
+      // }
+      // window.haoutil.alert = (msg) => {
+      //   this.$message.success(msg)
+      // }
 
       // widget处理
       mars3d.Resource.fetchJson({ url: this.widgetUrl }).then((data) => {
@@ -114,7 +114,7 @@ export default {
 
     // 初始化外部静态widget功能（兼容使用传统模式开发的一些widget）
     initStaticWidget(map, widget) {
-      mars3d.widget.init(map, widget, window.widgetPath || '/') // widgetPath定义在public/index.html
+      mars3d.widget.init(map, widget, window.basePathUrl || '/') // basePathUrl定义在public/index.html
     }
   }
 }
