@@ -95,6 +95,7 @@
       "uri": "widgets/measureChars/widget.js",
       "windowOptions": {
         "noTitle": true,
+        "maxmin": false,
         "position": {
           "bottom": 30,
           "left": 30,

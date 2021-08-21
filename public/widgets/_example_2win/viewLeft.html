@@ -1,81 +1,73 @@
 ﻿<!DOCTYPE html>
 <html class="no-js css-menubar" lang="zh-cn">
+  <head>
+    <title>弹窗子页面</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <!-- 移动设备 viewport -->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui" />
+    <meta name="author" content="火星科技 http://mars3d.cn " />
+    <!-- 360浏览器默认使用Webkit内核 -->
+    <meta name="renderer" content="webkit" />
+    <!-- Chrome浏览器添加桌面快捷方式（安卓） -->
+    <link rel="icon" type="image/png" href="../../img/favicon/favicon.png" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <!-- Safari浏览器添加到主屏幕（IOS） -->
+    <link rel="icon" sizes="192x192" href="img/favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="火星科技MarsGIS" />
+    <!-- Win8标题栏及ICON图标 -->
+    <link rel="apple-touch-icon-precomposed" href="../../img/favicon/apple-touch-icon.png" />
+    <meta name="msapplication-TileImage" content="../../img/favicon/app-icon72x72@2x.png" />
+    <meta name="msapplication-TileColor" content="#62a8ea" />
 
-<head>
-  <title>弹窗子页面</title>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <!-- 移动设备 viewport -->
-  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui">
-  <meta name="author" content="火星科技 http://mars3d.cn ">
-  <!-- 360浏览器默认使用Webkit内核 -->
-  <meta name="renderer" content="webkit">
-  <!-- Chrome浏览器添加桌面快捷方式（安卓） -->
-  <link rel="icon" type="image/png" href="../../img/favicon/favicon.png">
-  <meta name="mobile-web-app-capable" content="yes">
-  <!-- Safari浏览器添加到主屏幕（IOS） -->
-  <link rel="icon" sizes="192x192" href="img/favicon/apple-touch-icon.png">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="火星科技MarsGIS">
-  <!-- Win8标题栏及ICON图标 -->
-  <link rel="apple-touch-icon-precomposed" href="../../img/favicon/apple-touch-icon.png">
-  <meta name="msapplication-TileImage" content="../../img/favicon/app-icon72x72@2x.png">
-  <meta name="msapplication-TileColor" content="#62a8ea">
+    <!-- 第3方lib引入 -->
+    <script
+      type="text/javascript"
+      src="../../lib/include-lib.js?time=20210803"
+      libpath="../../lib/"
+      include="jquery,bootstrap,echarts,admui-frame"
+    ></script>
+    <link href="../../css/widget-win.css" rel="stylesheet" />
+  </head>
 
-  <!-- 第3方lib引入 -->
-  <script type="text/javascript" src="../../lib/include-lib.js?time=20210803" libpath="../../lib/" include="jquery,bootstrap,echarts,admui-frame"></script>
-  <link href="../../css/widget-win.css" rel="stylesheet" />
-</head>
+  <body style="padding: 5px; text-align: center">
+    <div>2个弹窗，交互示例</div>
 
-<body  style="padding:5px;text-align:center;">
+    <div class="btn-group" role="group" style="margin-bottom: 10px">
+      <button id="btn1" type="button" class="btn btn-primary btn-sm active">视角切换到南京</button>
+      <button id="btn2" type="button" class="btn btn-primary btn-sm">视角切换到合肥</button>
 
-  <div>2个弹窗，交互示例</div>
+      <button id="btn3" type="button" class="btn btn-primary btn-sm">调用右侧面板</button>
+    </div>
 
-  <div class="btn-group" role="group" style="margin-bottom:10px;">
-    <button id="btn1" type="button" class="btn btn-primary  btn-sm  active">
-      视角切换到南京
-    </button>
-    <button id="btn2" type="button" class="btn btn-primary  btn-sm">
-      视角切换到合肥
-    </button>
+    <div id="lblName">viewLeft</div>
 
-    <button id="btn3" type="button" class="btn btn-primary  btn-sm">
-      调用右侧面板
-    </button>
-  </div>
+    <!--页面js-->
+    <script>
+      //对应widget.js中MyWidget实例化后的对象
+      var thisWidget;
 
+      //当前页面业务
+      function initWidgetView(_thisWidget) {
+        thisWidget = _thisWidget;
 
-  <div id="lblName">viewLeft</div>
+        $("#btn1").click(function () {
+          thisWidget.testCenterAt1();
+        });
+        $("#btn2").click(function () {
+          thisWidget.testCenterAt2();
+        });
 
+        $("#btn3").click(function () {
+          thisWidget.viewWindowRight.testShowText("我是从左侧面板调用的" + new Date());
+        });
+      }
 
-
-
-  <!--页面js-->
-  <script>
-    //对应widget.js中MyWidget实例化后的对象
-    var thisWidget
-
-    //当前页面业务
-    function initWidgetView(_thisWidget) {
-      thisWidget = _thisWidget
-
-  $('#btn1').click(function () {
-        thisWidget.testCenterAt1()
-      })
-      $('#btn2').click(function () {
-        thisWidget.testCenterAt2()
-      })
-
-      $('#btn3').click(function () {
-        thisWidget.viewWindowRight.testShowText('我是从左侧面板调用的' + new Date())
-      })
-    }
-
-    function testShowText(text) {
-      $('#lblName').html(text)
-    }
-  </script>
-</body>
-
+      function testShowText(text) {
+        $("#lblName").html(text);
+      }
+    </script>
+  </body>
 </html>

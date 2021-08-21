@@ -124,6 +124,10 @@
       'bootstrap-checkbox': [
         libpath + "bootstrap/bootstrap-checkbox/awesome-bootstrap-checkbox.css",
       ],
+      'bootstrap-slider': [
+        libpath + "bootstrap/bootstrap-slider/bootstrap-slider.min.css",
+        libpath + "bootstrap/bootstrap-slider/bootstrap-slider.min.js",
+      ],
       'nprogress': [
         libpath + "nprogress/nprogress.css",
         libpath + "nprogress/nprogress.min.js",
@@ -140,6 +144,9 @@
       ],
       'haoutil': [
         libpath + "hao/haoutil.js"
+      ],
+      'localforage': [
+        libpath + "localforage/localforage.js"
       ],
       'echarts': [
         libpath + "echarts/echarts.min.js",
@@ -163,6 +170,12 @@
       'terraformer': [
         libpath + "terraformer/terraformer-1.0.9.min.js",
         libpath + "terraformer/terraformer-wkt-parser-1.2.0.min.js",
+      ],
+      'kriging': [
+        libpath + "kriging/kriging.min.js"
+      ],
+      'three': [
+        libpath + "three/three.js"
       ],
       'cesium-tdt': [//天地图三维
         libpath + "mars3d/plugins/tdt/mars3d-tdt.js",

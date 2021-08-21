@@ -18,7 +18,7 @@
 
     //初始化[仅执行1次]
     create() {
-      this.storageName = "mars3d_queryBaiduPOI";
+      this.storageName = "mars3d_queryGaodePOI";
       this.pageSize = 6;
       this.allpage = 0;
       this.thispage = 0;
@@ -71,7 +71,7 @@
       );
 
       //查询控制器
-      this._queryPoi = new mars3d.query.BaiduPOI({
+      this._queryPoi = new mars3d.query.GaodePOI({
         // city: '合肥市',
       });
     }
@@ -183,7 +183,7 @@
       this._queryPoi.getAddress({
         location: this.map.getCenter(),
         success: (result) => {
-          // console.log('地址', result)
+          console.log("地址", result);
           this.address = result;
 
           $("#queryAddress").html("地址：" + result.address);
@@ -232,7 +232,7 @@
             // var num = pois[index].num;
             // if (num > 0) continue;
 
-            inhtml += "<li><i class='fa fa-search'></i><a href=\"javascript:queryBaiduPOIWidget.autoSearch('" + name + "');\">" + name + "</a></li>";
+            inhtml += "<li><i class='fa fa-search'></i><a href=\"javascript:queryGaodePOIWidget.autoSearch('" + name + "');\">" + name + "</a></li>";
           }
           if (inhtml.length > 0) {
             $("#querybar_ul_autotip").html(inhtml);
@@ -322,7 +322,7 @@
           }
 
           inhtml +=
-            '<div class="querybar-site" onclick="queryBaiduPOIWidget.showDetail(\'' +
+            '<div class="querybar-site" onclick="queryGaodePOIWidget.showDetail(\'' +
             _id +
             '\')"> <div class="querybar-sitejj"> <h3>' +
             item.index +
@@ -343,7 +343,7 @@
             this.thispage +
             "/" +
             this.allpage +
-            '页  <a href="javascript:queryBaiduPOIWidget.showFirstPage()">首页</a> <a href="javascript:queryBaiduPOIWidget.showPretPage()">&lt;</a>  <a href="javascript:queryBaiduPOIWidget.showNextPage()">&gt;</a> </div>';
+            '页  <a href="javascript:queryGaodePOIWidget.showFirstPage()">首页</a> <a href="javascript:queryGaodePOIWidget.showPretPage()">&lt;</a>  <a href="javascript:queryGaodePOIWidget.showNextPage()">&gt;</a> </div>';
         } else {
           _fyhtml = "";
         }
@@ -519,7 +519,7 @@
       var inhtml = "";
       for (var index = this.arrHistory.length - 1; index >= 0; index--) {
         var item = this.arrHistory[index];
-        inhtml += "<li><i class='fa fa-history'/><a href=\"javascript:queryBaiduPOIWidget.autoSearch('" + item + "');\">" + item + "</a></li>";
+        inhtml += "<li><i class='fa fa-history'/><a href=\"javascript:queryGaodePOIWidget.autoSearch('" + item + "');\">" + item + "</a></li>";
       }
       $("#querybar_ul_history").html(inhtml);
       $("#querybar_histroy_view").show();
@@ -579,7 +579,7 @@
   }
 
   //注册到widget管理器中。
-  window.queryBaiduPOIWidget = mars3d.widget.bindClass(MyWidget);
+  window.queryGaodePOIWidget = mars3d.widget.bindClass(MyWidget);
 
   //每个widet之间都是直接引入到index.html中，会存在彼此命名冲突，所以闭包处理下。
 })(window, mars3d);

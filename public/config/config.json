@@ -46,7 +46,7 @@
       "infoBox": false,
       "geocoder": false,
       "geocoderConfig": { "key": ["ae29a37307840c7ae4a785ac905927e0"] },
-      "selectionIndicator":false,
+      "selectionIndicator": false,
 
       "defaultContextMenu": true,
       "mouseDownView": true,
@@ -56,7 +56,7 @@
         "fps": false,
         "crs": "CGCS2000_GK_Zone_3",
         "crsDecimal": 0,
-        "template": "<div>经度:{lng}</div> <div>纬度:{lat}</div> <div>横{crsx}  纵{crsy}</div> <div>海拔：{alt}米</div> <div>层级：{level}</div><div>方向：{heading}度</div> <div>俯仰角：{pitch}度</div><div>视高：{cameraHeight}米</div>"
+        "template": "<div>经度:{lng}</div> <div>纬度:{lat}</div> <div>横{crsx}  纵{crsy}</div> <div>海拔：{alt}米</div> <div>层级：{level}</div><div>方向：{heading}°</div> <div>俯仰角：{pitch}°</div><div>视高：{cameraHeight}米</div>"
       }
     },
     "terrain": {
@@ -240,6 +240,7 @@
         "url": "https://t{s}.tianditu.gov.cn/DataServer?T=ibo_w&x={x}&y={y}&l={z}&tk=9ae78c51a0a28f06444d541148496e36",
         "subdomains": "01234567",
         "maximumLevel": 10,
+        "mapSplit": false,
         "show": true
       },
       {
@@ -249,7 +250,8 @@
         "layer": "time",
         "minimumTerrainLevel": 4,
         "minimumLevel": 4,
-        "proxy": "//server.mars3d.cn/proxy/"
+        "proxy": "//server.mars3d.cn/proxy/",
+        "mapSplit": false
       },
 
       { "id": 60, "name": "地形", "type": "group" },
@@ -274,10 +276,10 @@
         "layers": "mars:hfjy",
         "crs": "EPSG:4326",
         "parameters": { "transparent": "true", "format": "image/png" },
-        "showClickFeature": true,
-        "pickFeatureStyle": { "clampToGround": true },
+        "highlight": { "type": "click", "clampToGround": true },
         "center": { "lat": 31.743214, "lng": 117.277097, "alt": 47197.7, "heading": 0.3, "pitch": -78.8 },
         "popup": "名称：{项目名称}<br />类型：{设施类型}<br />面积：{用地面积}亩<br />位置：{具体位置}",
+        "mapSplit": false,
         "show": false,
         "flyTo": true
       },
@@ -291,6 +293,7 @@
         "parameters": { "transparent": "true", "format": "image/png" },
         "center": { "lat": 31.743214, "lng": 117.277097, "alt": 47197.7, "heading": 0.3, "pitch": -78.8 },
         "popup": "all",
+        "mapSplit": false,
         "show": false,
         "flyTo": true
       },
@@ -302,8 +305,8 @@
         "layers": "mars:hfjzw",
         "crs": "EPSG:4326",
         "parameters": { "transparent": "true", "format": "image/png" },
-        "showClickFeature": true,
-        "pickFeatureStyle": {
+        "highlight": {
+          "type": "click",
           "showTime": 5000,
           "fill": true,
           "color": "#2deaf7",
@@ -327,7 +330,6 @@
         "layers": "mars:hfgh",
         "crs": "EPSG:4326",
         "parameters": { "transparent": "true", "format": "image/png" },
-        "showClickFeature": false,
         "center": { "lat": 31.743214, "lng": 117.277097, "alt": 47197.7, "heading": 0.3, "pitch": -78.8 },
         "popup": "all",
         "show": false,
@@ -353,11 +355,11 @@
         "name": "主要道路",
         "url": "//server.mars3d.cn/arcgis/rest/services/mars/hefei/MapServer",
         "layers": "24",
-        "showClickFeature": true,
-        "pickFeatureStyle": { "clampToGround": true },
+        "highlight": { "type": "click", "clampToGround": true },
         "center": { "lat": 31.814176, "lng": 117.225362, "alt": 5105.3, "heading": 359.2, "pitch": -83.1 },
         "popup": "all",
-        "onWidget": "widgets/manageLayers-tuli/heatmap.js"
+        "onWidget": "widgets/manageLayers-tuli/heatmap.js",
+        "mapSplit": false
       },
       {
         "id": 401086,
@@ -366,8 +368,8 @@
         "name": "建筑物",
         "url": "//server.mars3d.cn/arcgis/rest/services/mars/hefei/MapServer",
         "layers": "35,36,37,39",
-        "showClickFeature": true,
-        "pickFeatureStyle": {
+        "highlight": {
+          "type": "click",
           "fill": true,
           "color": "#2deaf7",
           "opacity": 0.6,
@@ -387,8 +389,8 @@
         "type": "arcgis",
         "name": "规划",
         "url": "//server.mars3d.cn/arcgis/rest/services/mars/guihua/MapServer",
-        "showClickFeature": true,
-        "pickFeatureStyle": {
+        "highlight": {
+          "type": "click",
           "showTime": 5000,
           "fill": true,
           "color": "#2deaf7",
@@ -417,7 +419,7 @@
         "type": "geojson",
         "name": "示例数据",
         "url": "{dataServer}/file/geojson/mars3d-draw.json",
-        "popup": "{draw_typename}",
+        "popup": "{type}{name}",
         "show": false,
         "flyTo": true
       },
@@ -554,7 +556,7 @@
             "scaleByDistance_near": 1000,
             "scaleByDistance_nearValue": 1,
             "verticalOrigin": 1,
-            "horizontalOrigin":0,
+            "horizontalOrigin": 0,
             "clampToGround": true,
             "label": {
               "text": "{NAME}",
@@ -572,7 +574,7 @@
               "distanceDisplayCondition": true,
               "distanceDisplayCondition_far": 1000000,
               "distanceDisplayCondition_near": 0,
-              "visibleDepth":true
+              "visibleDepth": true
             }
           }
         },
@@ -598,7 +600,7 @@
             "scaleByDistance_near": 1000,
             "scaleByDistance_nearValue": 1,
             "verticalOrigin": 1,
-            "horizontalOrigin":0,
+            "horizontalOrigin": 0,
             "clampToGround": true,
             "label": {
               "text": "{项目名称}",
@@ -699,7 +701,7 @@
         "center": { "lat": 31.812256, "lng": 117.229873, "alt": 4683.91, "heading": 357.4, "pitch": -65.4 },
         "popup": "all"
       },
-      { "id": 3010, "pid": 30, "name": "ArcGIS Feature", "type": "group" },
+      { "id": 3010, "pid": 30, "name": "ArcGIS WFS", "type": "group" },
       {
         "pid": 3010,
         "type": "arcgis_wfs",
@@ -707,7 +709,7 @@
         "url": "//server.mars3d.cn/arcgis/rest/services/mars/hefei/MapServer/1",
         "where": " 1=1 ",
         "minimumLevel": 15,
-        "center": { "lat": 31.818396, "lng": 117.229083, "alt": 2554.4, "heading": 359.2, "pitch": -83.1},
+        "center": { "lat": 31.818396, "lng": 117.229083, "alt": 2554.4, "heading": 359.2, "pitch": -83.1 },
         "symbol": {
           "type": "billboardP",
           "styleOptions": {
@@ -738,7 +740,8 @@
             "A900": { "image": "img/marker/mark4.png" }
           }
         },
-        "popup": "名称：{NAME}<br />地址：{address}"
+        "popup": "名称：{NAME}<br />地址：{address}",
+        "show": false
       },
       {
         "pid": 3010,
@@ -846,7 +849,7 @@
         "maximumScreenSpaceError": 1,
         "maximumMemoryUsage": 1024,
         "marsJzwStyle": true,
-        "showClickFeature": true,
+        "highlight": { "type": "click", "color": "#FFFF00" },
         "popup": [
           { "field": "objectid", "name": "编号" },
           { "field": "name", "name": "名称" },
@@ -875,7 +878,7 @@
             ]
           }
         },
-        "showClickFeature": true,
+        "highlight": { "type": "click", "color": "#FFFF00" },
         "popup": [
           { "field": "name", "name": "名称" },
           { "field": "floor", "name": "楼层" }
@@ -890,11 +893,10 @@
         "name": "大学教学楼",
         "url": "{dataServer}/3dtiles/bim-daxue/tileset.json",
         "position": { "lng": 117.251229, "lat": 31.844015, "alt": 31.2 },
-        "showClickFeature": true,
-        "pickFeatureStyle": { "color": "#FFFF00" },
+        "highlight": { "type": "click", "color": "#FFFF00" },
         "popup": "all",
         "scenetree": "scenetree.json",
-        "center":{"lat":31.842516,"lng":117.25107,"alt":145,"heading":8,"pitch":-39}
+        "center": { "lat": 31.842516, "lng": 117.25107, "alt": 145, "heading": 8, "pitch": -39 }
       },
       {
         "pid": 2060,
@@ -903,11 +905,10 @@
         "url": "{dataServer}/3dtiles/bim-ditiezhan/tileset.json",
         "position": { "lng": 117.203994, "lat": 31.857999, "alt": 28.9 },
         "rotation": { "z": 168.1 },
-        "showClickFeature": true,
-        "pickFeatureStyle": { "color": "#00FF00" },
+        "highlight": { "type": "click", "color": "#00FF00" },
         "popup": "all",
         "scenetree": "scenetree.json",
-        "center":{"lat":31.856125,"lng":117.204513,"alt":155,"heading":350,"pitch":-31}
+        "center": { "lat": 31.856125, "lng": 117.204513, "alt": 155, "heading": 350, "pitch": -31 }
       },
       {
         "id": 206012,
@@ -929,8 +930,7 @@
         "preloadWhenHidden": true,
         "center": { "lat": 31.849357, "lng": 117.099194, "alt": 306.2, "heading": 327.1, "pitch": -30.9 },
         "scenetree": "scenetree.json",
-        "showClickFeature": true,
-        "pickFeatureStyle": { "color": "#00FF00" },
+        "highlight": { "type": "click", "color": "#00FF00" },
         "popup": "all"
       },
       { "id": 2020, "pid": 20, "name": "人工建模", "type": "group" },
@@ -940,13 +940,13 @@
         "type": "3dtiles",
         "name": "地下管网",
         "url": "{dataServer}/3dtiles/max-piping/tileset.json",
-        "position": { "lng": 117.215457, "lat": 31.843363, "alt": -3.6  },
+        "position": { "lng": 117.215457, "lat": 31.843363, "alt": -3.6 },
         "rotation": { "z": 336.7 },
         "maximumScreenSpaceError": 2,
         "maximumMemoryUsage": 1024,
-        "showClickFeature": true,
+        "highlight": { "type": "click", "color": "#00FF00" },
         "popup": "all",
-        "center": {"lat":31.838821,"lng":117.216402,"alt":461,"heading":0,"pitch":-46},
+        "center": { "lat": 31.838821, "lng": 117.216402, "alt": 461, "heading": 0, "pitch": -46 },
         "msg": "演示数据，地下数据拖动时会在地面漂移"
       },
       {
@@ -955,13 +955,13 @@
         "type": "3dtiles",
         "name": "石化工厂",
         "url": "{dataServer}/3dtiles/max-shihua/tileset.json",
-        "position": { "lng": 117.077158, "lat": 31.659116,"alt": 24.6 },
+        "position": { "lng": 117.077158, "lat": 31.659116, "alt": 24.6 },
         "maximumScreenSpaceError": 1,
         "maximumMemoryUsage": 1024,
-        "showClickFeature": true,
+        "highlight": { "type": "click", "color": "#00FF00" },
         "popup": "all",
         "scenetree": "scenetree.json",
-        "center": {"lat":31.654916,"lng":117.08278,"alt":279,"heading":316,"pitch":-29}
+        "center": { "lat": 31.654916, "lng": 117.08278, "alt": 279, "heading": 316, "pitch": -29 }
       },
       {
         "id": 202030,
@@ -977,7 +977,7 @@
         "url": "{dataServer}/gltf/mars/zhamen.glb",
         "position": { "lng": 121.479813, "lat": 29.791278, "alt": 16 },
         "style": { "heading": 105 },
-        "center": {"lat":29.791607,"lng":121.479925,"alt":27,"heading":198,"pitch":-18}
+        "center": { "lat": 29.791607, "lng": 121.479925, "alt": 27, "heading": 198, "pitch": -18 }
       },
       {
         "id": 202011,
@@ -985,7 +985,7 @@
         "type": "3dtiles",
         "name": "整体",
         "url": "{dataServer}/3dtiles/max-fsdzm/tileset.json",
-        "position": { "alt": 15.2  },
+        "position": { "alt": 15.2 },
         "maximumScreenSpaceError": 1,
         "maximumMemoryUsage": 1024,
         "center": { "lat": 29.792675, "lng": 121.480207, "alt": 190.8, "heading": 196.1, "pitch": -49 }
@@ -1002,7 +1002,7 @@
         "maximumMemoryUsage": 2048,
         "dynamicScreenSpaceError": true,
         "cullWithChildrenBounds": false,
-        "center": { "lat": 28.440864, "lng": 119.486477, "alt": 588.23, "heading": 268.6, "pitch": -37.8},
+        "center": { "lat": 28.440864, "lng": 119.486477, "alt": 588.23, "heading": 268.6, "pitch": -37.8 },
         "show": false,
         "flyTo": false
       },
@@ -1026,7 +1026,18 @@
         "type": "geojson",
         "name": "文庙-单体化",
         "url": " {dataServer}/file/geojson/dth-wm.json",
-        "dth": { "buffer": 1, "color": "#ffff00", "opacity": 0.5 },
+        "symbol": {
+          "type": "polygonP",
+          "styleOptions": {
+            "color": "rgba(255, 255, 255, 0.01)",
+            "clampToGround": true,
+            "classification": true,
+            "buffer": 1,
+            "highlight": {
+              "color": "rgba(255,255,0,0.5)"
+            }
+          }
+        },
         "popup": [
           { "field": "name", "name": "房屋名称" },
           { "field": "jznf", "name": "建造年份" },
@@ -1040,7 +1051,7 @@
         "type": "3dtiles",
         "name": "文庙",
         "url": "{dataServer}/3dtiles/qx-simiao/tileset.json",
-        "position": { "alt":  80.6 },
+        "position": { "alt": 80.6 },
         "maximumScreenSpaceError": 2,
         "maximumMemoryUsage": 2048,
         "dynamicScreenSpaceError": true,
