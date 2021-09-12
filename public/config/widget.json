@@ -18,7 +18,7 @@
   "openAtStart": [
     {
       "name": "POI查询",
-      "uri": "widgets/queryBaiduPOI/widget.js"
+      "uri": "widgets/queryGaodePOI/widget.js"
     },
     {
       "name": "右上角工具栏",
@@ -187,6 +187,11 @@
       }
     },
     {
+      "name": "我的标记",
+      "uri": "widgets/addmarker/widget.js",
+      "hasClear": false
+    },
+    {
       "name": "标绘",
       "uri": "widgets/plot/widget.js",
       "windowOptions": {
@@ -196,6 +201,7 @@
           "right": 5
         }
       },
+      "hasClear": false,
       "openAtStart": false
     },
     {

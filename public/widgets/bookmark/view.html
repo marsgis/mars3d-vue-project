@@ -27,30 +27,64 @@
       type="text/javascript"
       src="../../lib/include-lib.js?time=20210803"
       libpath="../../lib/"
-      include="jquery,font-awesome,bootstrap,bootstrap-table,admui-frame,haoutil"
+      include="jquery,font-awesome,bootstrap,bootstrap-table,admui-frame,haoutil,localforage"
     ></script>
 
     <link href="../../css/widget-win.css" rel="stylesheet" />
     <style>
+      .table > thead > tr > th,
+      .table > tbody > tr > th,
+      .table > tfoot > tr > th,
+      .table > thead > tr > td,
+      .table > tbody > tr > td,
+      .table > tfoot > tr > td {
+        border-top: none;
+      }
+      .bootstrap-table .table {
+        border-bottom: none;
+      }
+
       .bookmarkitem {
         width: 100%;
         text-align: center;
         display: inline-block;
         margin: 0 auto;
-        border: #dedede 1px solid;
+        border-radius: 2px;
+        border: 2px solid #a9aaaa;
         cursor: pointer;
         padding: 0;
       }
 
       .bookmarkitem img {
         margin: 0;
-        width: 100%;
-        height: 100%;
+        border-bottom: 1px solid #a9aaaa;
       }
 
       .bookmarkitem .remove {
         float: right;
-        margin: 0 5px;
+        margin: 3px 8px 0 0;
+      }
+      .bookmarkitem .title p {
+        display: inline-block;
+        width: 188px;
+        padding: 5px 0 0 10px;
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .bookmarkitem .title p:hover {
+        height: 100%;
+        white-space: normal;
+        word-wrap: break-word;
+        color: white;
+      }
+      .bookmarkitem:hover {
+        border: 2px solid #6bb1da;
+        color: #6bb1da;
+      }
+      .bookmarkitem:hover img {
+        border-bottom: 1px solid #6bb1da;
       }
     </style>
   </head>

@@ -71,6 +71,8 @@ export default {
   },
 
   destroy() {
+    mars3d.widget.destroy()
+
     this[`map${this.mapKey}`].destroy()
     delete this[`map${this.mapKey}`]
   },

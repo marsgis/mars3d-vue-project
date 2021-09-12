@@ -39,7 +39,7 @@ function initWidgetView(_thisWidget) {
           return `<div class="bookmarkitem" title="${row.name}">
                       <img src="${row.icon}" style="width:100%;" />
                       <div class="title">
-                          ${row.name}
+                          <p>${row.name}</p>
                           <a class="remove" href="javascript:void(0)" title="删除"><i class="fa fa-trash"></i></a>
                         </div>
                   </div>`;
@@ -93,14 +93,12 @@ function initBookMarkList() {
       },
     });
   } else {
-    var lastcookie = haoutil.storage.get(storageName); //读取localStorage值
-    if (lastcookie != null) {
-      arrBookmark = eval(lastcookie);
-    }
-    if (arrBookmark == null || arrBookmark.length == 0) {
-      arrBookmark = [];
-    }
-    showListData(arrBookmark);
+    localforage.getItem(storageName).then((arrBookmark) => {
+      if (arrBookmark == null) {
+        arrBookmark = [];
+      }
+      showListData(arrBookmark);
+    });
   }
 }
 
@@ -152,10 +150,10 @@ function saveBookmark() {
       });
     } else {
       //本地存储
-      var lastcookie = JSON.stringify(arrBookmark);
-      haoutil.storage.add(storageName, lastcookie);
-      $("#txt_bookmark_name").val("");
-      initBookMarkList();
+      localforage.setItem(storageName, arrBookmark).then((value) => {
+        $("#txt_bookmark_name").val("");
+        initBookMarkList();
+      })
     }
   });
 }
@@ -182,8 +180,8 @@ function delBookMark(id) {
     for (var index = arrBookmark.length - 1; index >= 0; index--) {
       if (arrBookmark[index].id == id) {
         arrBookmark.splice(index, 1);
-        var lastcookie = JSON.stringify(arrBookmark);
-        haoutil.storage.add(storageName, lastcookie);
+
+        localforage.setItem(storageName, arrBookmark);
         showListData(arrBookmark);
         break;
       }

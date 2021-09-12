@@ -30,3 +30,15 @@
   cursor: default;
   outline: none;
 }
+/* 滑动条设置 */
+.slider {
+  width: 50px !important;
+  margin-left: 6px;
+  margin-top: -7px;
+}
+
+.slider-handle {
+  top: 4px;
+  width: 12px;
+  height: 12px;
+}

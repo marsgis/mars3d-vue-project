@@ -8,6 +8,8 @@
         type: "window",
         url: "view.html",
         windowOptions: {
+          // noTitle: true,
+          // closeBtn: 0,
           width: 250,
           height: 500,
         },
@@ -84,6 +86,10 @@
           this._lastWidget = item.onWidget;
         }
       } else {
+        if (this.config.autoCenter && !layer.options.noCenter) {
+          this.map.cancelFlight();
+        }
+
         //存在关联widget时
         let item = layer.options;
         if (item.onWidget) {

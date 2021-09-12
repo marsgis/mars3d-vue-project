@@ -153,10 +153,9 @@ function treeOverlays_onDblClick(event, treeId, treeNode) {
     return;
   }
   var layer = layersObj[treeNode.uuid];
-  if (layer == null) {
-    return;
+  if (layer && layer.show) {
+    layer.flyTo();
   }
-  layer.flyTo();
 }
 
 //===================================勾选显示隐藏图层====================================
@@ -194,9 +193,9 @@ function treeOverlays_onCheck(e, treeId, chktreeNode) {
 
     //显示隐藏透明度设置view
     if (treeNode.checked) {
-      $("#" + treeNode.tId + "_range").show();
+      $("#slider" + treeNode.tId).css("display", "");
     } else {
-      $("#" + treeNode.tId + "_range").hide();
+      $("#slider" + treeNode.tId).css("display", "none");
     }
 
     //特殊处理同目录下的单选的互斥的节点，可在config对应图层节点中配置"radio":true即可
@@ -242,26 +241,21 @@ function addOpacityRangeDom(treeId, tNode) {
   }
 
   var view = $("#" + tNode.tId);
-  var silder = '<input id="' + tNode.tId + '_range" type="range" style="width: 50px;" />';
+  var silder = '<input id="' + tNode.tId + '_range" style="display:none" />';
   view.append(silder);
-
-  if (!tNode.checked) {
-    $("#" + tNode.tId + "_range").hide();
-  }
-
-  $("#" + tNode.tId + "_range").range({
-    min: 0,
-    max: 100,
-    step: 1,
-    value: (layer.opacity || 1) * 100,
-    onChange: function (value) {
-      var opacity = value / 100;
+  $("#" + tNode.tId + "_range")
+    .slider({ id: "slider" + tNode.tId, min: 0, max: 100, step: 1, value: (layer.opacity || 1) * 100 })
+    .on("change", (e) => {
+      var opacity = e.value.newValue / 100;
       var layer = layersObj[tNode.uuid];
       //设置图层的透明度
       // thisWidget.udpateLayerOpacity(layer, opacity)
       layer.opacity = opacity;
-    },
-  });
+    });
+
+  if (!tNode.checked) {
+    $("#slider" + tNode.tId).css("display", "none");
+  }
 }
 
 //===================================右键菜单====================================
