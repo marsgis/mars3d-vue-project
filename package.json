@@ -1,44 +1,17 @@
 {
-  "name": "mars3d-vue-widget",
+  "name": "mars3d-vue-project",
   "version": "3.1.0",
-  "description": "Mars3D平台,Vue技术下的widget项目模版",
+  "description": "在`Vue 3.x`技术栈下的Mars3D平台 基础项目",
   "main": "index.js",
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
-  },
-  "dependencies": {
-    "core-js": "^3.6.4",
-    "vue": "^2.6.11",
-    "vue-router": "^3.1.5",
-    "vuex": "^3.1.2"
-  },
-  "devDependencies": {
-    "strip-pragma-loader": "^1.0.0",
-    "@vue/cli-plugin-babel": "~4.2.0",
-    "@vue/cli-plugin-eslint": "~4.2.0",
-    "@vue/cli-plugin-router": "~4.2.0",
-    "@vue/cli-plugin-vuex": "~4.2.0",
-    "@vue/cli-service": "~4.2.0",
-    "@vue/eslint-config-standard": "^5.1.0",
-    "babel-eslint": "^10.0.3",
-    "eslint": "^6.7.2",
-    "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-node": "^11.0.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.0",
-    "eslint-plugin-vue": "^6.1.2",
-    "sass": "^1.25.0",
-    "sass-loader": "^8.0.2",
-    "vue-template-compiler": "^2.6.11"
-  },
+  "scripts": {},
+  "dependencies": {},
+  "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "https://github.com/marsgis/mars3d-vue-widget.git"
+    "url": "https://github.com/marsgis/mars3d-vue-project.git"
   },
   "bugs": {
-    "url": "https://github.com/marsgis/mars3d-vue-widget/issues",
+    "url": "https://github.com/marsgis/mars3d-vue-project/issues",
     "email": "wh@marsgis.cn"
   },
   "keywords": [
@@ -46,27 +19,11 @@
     "mars3d",
     "cesium",
     "vue",
-    "gis"
+    "vue3",
+    "gis",
+    "webgis"
   ],
   "author": "火星科技",
   "license": "Apache-2.0",
-  "homepage": "http://mars3d.cn",
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "@vue/standard"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "rules": {}
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions"
-  ]
+  "homepage": "http://mars3d.cn"
 }
