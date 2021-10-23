@@ -1,13 +1,13 @@
-# Mars3D基础项目 - Vue3技术栈
+ 
+<p align="center">
+<img src="https://mars3d.cn/logo.png" width="300px" />
+</p>
 
- [**English**](./README_EN.md) |[**中文**](./README.md) 
+<p align="center">基于Vue3.x技术栈的 Mars3D🌎基础项目模板</p>
 
-<p>
+<p align="center">
 <a target="_black" href="https://github.com/marsgis/mars3d">
 <img alt="GitHub stars" src="https://img.shields.io/github/stars/marsgis/mars3d?style=flat&logo=github">
-</a>
-<a target="_black" href="https://github.com/marsgis/mars3d">
-<img alt="GitHub forks" src="https://img.shields.io/github/forks/marsgis/mars3d?style=flat&logo=github">
 </a>
 <a target="_black" href="https://www.npmjs.com/package/mars3d">
 <img alt="Npm downloads" src="https://img.shields.io/npm/dt/mars3d?style=flat&logo=npm">
@@ -17,9 +17,11 @@
 </a>
 </p>
 
- 🌎在`Vue 3.x`技术栈下的Mars3D平台 基础项目。 
+
+ [**English**](./README_EN.md) |[**中文**](./README.md) 
  
 
+ 
 
 ## 代码说明
 
@@ -37,8 +39,9 @@
 ### 相关网站 
 - Mars3D官网：[http://mars3d.cn](http://mars3d.cn)  
 
-- GitHub导航列表：[https://github.com/marsgis/mars3d](https://github.com/marsgis/mars3d)
+- Mars3D开源项目列表：[https://github.com/marsgis/mars3d](https://github.com/marsgis/mars3d)
 
 
 ## 版权说明
-1. 任何`个人或组织`可以在遵守Mars3D相关要求下`免费无限制`使用。
+1. Mars3D平台由[火星科技](http://marsgis.cn/)自主研发，拥有所有权利。
+2. 任何个人或组织可以在遵守相关要求下可以免费无限制使用。
