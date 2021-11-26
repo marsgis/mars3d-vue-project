@@ -8,7 +8,6 @@ export {}
 declare global {
   interface Window {
     mars3d: any
-    mapWork: any,
     configLibs:any
     $message: any
     $alert: any
