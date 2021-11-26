@@ -13,8 +13,11 @@ module.exports = {
   productionSourceMap: false,
   configureWebpack: (config) => {
     // console.log(config)
+    // const cesiumRunPath = path.join(config.output.path, config.output.publicPath) // cesium运行时主目录
+    const cesiumRunPath = "./cesium" // cesium运行时主目录
+
     const cesiumSourcePath = "node_modules/mars3d-cesium/Build/Cesium/" // cesium库目录
-    const cesiumRunPath = path.join(config.output.path, config.output.publicPath) // cesium运行时主目录
+
     const plugins = [
       // 标识cesium资源所在的主目录，cesium内部资源加载、多线程等处理时需要用到
       new webpack.DefinePlugin({
