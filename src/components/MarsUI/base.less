@@ -1,0 +1,313 @@
+/**
+ * 重写antd相关样式
+ *
+ * @copyright 火星科技 mars3d.cn
+ * @author 木遥 2021-11-01
+ */
+
+
+/* 统一所有输入控件的边框 */
+.ant-radio-wrapper,
+.ant-radio-button-wrapper,
+.ant-radio,
+.ant-radio-input,
+.ant-tree-checkbox-wrapper,
+.ant-tree-checkbox,
+.ant-tree-checkbox-input,
+.ant-checkbox-wrapper,
+.ant-checkbox,
+.ant-checkbox-input,
+.ant-input-affix-wrapper,
+.ant-picker,
+.ant-input-number,
+.ant-select:not(.ant-select-disabled),
+.ant-btn:not([disabled]) {
+  &:hover,
+  &:focus {
+    border-color: #4db3ff;
+    .ant-select-selector,
+    .ant-checkbox-inner,
+    .ant-tree-checkbox-inner,
+    .ant-radio,
+    .ant-radio-inner {
+      border-color: #4db3ff;
+    }
+  }
+}
+
+/* 文本、数字、下拉等input输入框 */
+.ant-input-affix-wrapper,
+.ant-input-number,
+.ant-select,
+.ant-picker {
+  color: #ffffff;
+  background-color: rgba(63, 72, 84, 0.7);
+  padding: 0;
+}
+.ant-input-affix-wrapper > input.ant-input,
+.ant-input-number-input,
+.ant-picker-input > input {
+  height: 28px;
+  padding: 0 10px;
+}
+.ant-input-number {
+  * {
+    color: #ffffff;
+  }
+}
+
+/* 小型 单击按钮 */
+.small-btn {
+  padding: 4px 5px;
+  height: 28px;
+}
+
+/*超链接 按钮*/
+.ant-btn-link {
+  border: none !important;
+}
+.ant-btn:not([disabled]) {
+  &:hover {
+    color: #4db3ff;
+  }
+  &:focus {
+    color: #4db3ff;
+  }
+}
+
+/*滑动条 未选择部分*/
+.ant-slider-rail {
+  background-color: #cde1de;
+}
+
+/*滑动条 输入面板内时修改高度等*/
+.ant-form-item-control-input {
+  .ant-slider{
+    margin: 0px 6px 6px 6px;
+  }
+  /*滑动条 未选择、已选择部分 高度*/
+  .ant-slider-rail,
+  .ant-slider-track {
+    height: 10px;
+    border-radius: 5px;
+  }
+  /*滑动条 刻度点*/
+  .ant-slider-dot {
+    border-color: #cde1de;
+    background-color: #16212c7d;
+    top: -1px;
+    height: 12px;
+    width: 12px;
+  }
+  .ant-slider-dot:first-child {
+    margin-left: -1px;
+  }
+  .ant-slider-dot:last-child {
+    right: -1px;
+    left: auto !important;
+  }
+
+  /*滑动条 拖拽点*/
+  .ant-slider-handle {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    margin-top: -4px;
+  }
+}
+
+/*多选框*/
+.ant-checkbox {
+  border-radius: 3px;
+  background-color: #fff;
+}
+
+/*单选框*/
+.ant-radio {
+  border-radius: 50%;
+  background-color: #fff;
+}
+.ant-radio-inner::after {
+  background-color: #4db3ff;
+}
+
+/*有下拉面板控件的背景统一处理*/
+.ant-select-dropdown,
+.ant-picker-panel-container,
+.ant-dropdown-menu,
+.ant-popover-inner,
+.ant-tree-node-selected,
+.ant-tree-treenode-selected::before {
+  background-color: rgba(32, 42, 68, 0.9) !important;
+}
+.ant-select-item-option-selected {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+.hu-color-picker {
+  width: 220px !important;
+  background-color: rgba(32, 42, 68, 0.9) !important;
+  box-shadow: none;
+}
+
+// 功能提示和已知问题提示框
+.notify-mesage {
+  padding: 15px 10px;
+  border: 1px solid rgba(32, 160, 255, 0.6);
+  background: rgba(30, 36, 50, 0.6);
+
+  .ant-notification-notice-icon{
+    margin: 0;
+    font-size: 22px;
+    line-height: 22px;
+  }
+  .ant-notification-notice-message {
+    height: 30px;
+    margin-left: 30px;
+    color: #ffffff;
+    font-size: 16px;
+    border-color: rgba(32, 160, 255, 0.3);
+  }
+  .ant-notification-notice-description {
+    color: #ffffff;
+    margin-left: 5px;
+    line-height: 21px;
+    text-indent: 25px;
+  }
+  .ant-notification-notice-close{
+    color: #ffffff;
+    top: 10px;
+    right: 10px;
+  }
+}
+
+// alert
+.global-alert {
+  .ant-modal-confirm-title {
+    margin: 0;
+    font-size: 16px;
+  }
+  .ant-modal-confirm-content {
+    font-size: 14px;
+  }
+  .ant-modal-confirm-btns {
+    margin-top: 20px;
+  }
+  .ant-modal-content {
+    background: rgba(30, 36, 50, 0.6);
+    border: 1px solid rgba(32, 160, 255, 0.6);
+  }
+  .ant-modal-body {
+    padding: 15px;
+  }
+}
+
+// 属性面板框内的控件
+.pannel-box {
+  font-size: 13px; /*统一字体大小*/
+
+  // 表单元素统一下边距
+  .ant-form-item {
+    margin-bottom: 10px !important;
+  }
+
+  .ant-form-item:nth-last-child(1) {
+    margin-bottom: 0 !important;
+  }
+
+  // 固定填满父元素
+  .ant-input-number,
+  .ant-picker {
+    width: 100%;
+  }
+
+  .ant-table,
+  .ant-table-thead > tr > th,
+  .ant-tree-show-line .ant-tree-switcher,
+  .ant-collapse,
+  .ant-collapse-content,
+  .ant-input-group-addon {
+    background: none !important;
+  }
+
+  .ant-table .ant-table-thead {
+    background-color: rgba(32, 160, 255, 0.2);
+  }
+
+  .ant-slider-track {
+    background-color: #4db3ff !important;
+  }
+  .ant-slider-dot-active,
+  .ant-slider-handle {
+    border-color: #4db3ff !important;
+  }
+
+  .ant-collapse,
+  .ant-collapse-item,
+  .ant-collapse-content {
+    border: none;
+  }
+
+  .ant-table-row:hover > td,
+  .ant-table-row-selected > td,
+  .ant-collapse-header {
+    background-color: rgba(32, 42, 68, 0.5) !important;
+  }
+
+  .ant-collapse-header {
+    padding: 5px 10px !important;
+    border-bottom: 1px solid #3b4d5e;
+  }
+
+  .ant-collapse-content-box {
+    padding: 5px;
+  }
+
+  .ant-collapse-extra {
+    .i-icon {
+      font-size: 16px;
+      line-height: 16px;
+      vertical-align: middle;
+    }
+  }
+
+  .ant-table-container,
+  .ant-table-cell {
+    border-color: #cde1de !important;
+  }
+  .ant-table-container {
+    border-right: 1px solid #cde1de !important;
+  }
+  .ant-table-cell:last-child {
+    border-right: 0 !important;
+  }
+
+  .ant-collapse-header {
+    .i-icon {
+      font-size: 16px !important;
+      line-height: 16px;
+      vertical-align: middle !important;
+    }
+  }
+  .ant-btn {
+    padding: 5px 10px;
+    font-size: 13px;
+    background-color: rgba(32, 160, 255, 0.2);
+    .i-icon {
+      font-size: 18px !important;
+      line-height: 18px;
+      vertical-align: middle !important;
+      padding-left: 2px;
+      padding-right: 2px;
+    }
+  }
+  .ant-btn-link {
+    background: none;
+    padding: 0;
+    height: initial;
+  }
+
+  .ant-input-group-addon {
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+}
