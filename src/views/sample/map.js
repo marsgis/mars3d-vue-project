@@ -4,15 +4,11 @@ export var map
 // 事件对象，用于抛出事件给vue
 export var eventTarget = new mars3d.BaseClass()
 
-//
-export function initWork(thismap) {
-  map = thismap
-  console.log("map.js", map)
-}
 
 // 初始化当前业务
 export function onMounted(e) {
   map = e // 记录map
+  console.log("map.js", map)
 
   // // 构造bloom效果 用于滑动条测试
   // bloomEffect = new mars3d.effect.BloomEffect()
