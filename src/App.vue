@@ -14,7 +14,7 @@ const sampleRef = ref()
 
 const marsOnload = (map: any) => {
   console.log("map构造完成", map)
-  sampleRef.value.initWork(map)
+  sampleRef.value.setMap(map)
 }
 </script>
 

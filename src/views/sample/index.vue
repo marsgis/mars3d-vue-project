@@ -38,11 +38,12 @@ mapWork.eventTarget.on("drawExtent", function (event: any) {
 })
 
 // 对父组件暴露 initWork 方法
-const initWork = (map: any) => {
-  mapWork.initWork(map)
+const setMap = (map: any) => {
+  mapWork.onMounted(map)
 }
+
 defineExpose({
-  initWork
+  setMap
 })
 </script>
 <style lang="less">

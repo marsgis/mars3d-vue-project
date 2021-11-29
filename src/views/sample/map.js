@@ -10,6 +10,25 @@ export function initWork(thismap) {
   console.log("map.js", map)
 }
 
+// 初始化当前业务
+export function onMounted(e) {
+  map = e // 记录map
+
+  // // 构造bloom效果 用于滑动条测试
+  // bloomEffect = new mars3d.effect.BloomEffect()
+  // map.addEffect(bloomEffect)
+}
+
+
+// 释放当前业务
+export function onUnmounted(e) {
+  // map.removeEffect(bloomEffect, true)
+  // bloomEffect = null
+
+  map = null
+}
+
+
 // 绘制矩形（演示map.js与index.vue的交互）
 export function drawExtent() {
   map.graphicLayer.clear()
