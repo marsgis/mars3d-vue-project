@@ -37,7 +37,7 @@ mapWork.eventTarget.on("drawExtent", function (event: any) {
   formState.extent = event.extent
 })
 
-// 对父组件暴露 initWork 方法
+// 对父组件暴露 setMap 方法
 const setMap = (map: any) => {
   mapWork.onMounted(map)
 }

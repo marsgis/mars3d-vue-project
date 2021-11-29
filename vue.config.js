@@ -13,7 +13,7 @@ module.exports = {
   productionSourceMap: false,
   configureWebpack: (config) => {
     // console.log(config)
-    // const cesiumRunPath = path.join(config.output.path, config.output.publicPath) // cesium运行时主目录
+    // const cesiumRunPath = config.output.publicPath// cesium运行时主目录
     const cesiumRunPath = "./cesium" // cesium运行时主目录
 
     const cesiumSourcePath = "node_modules/mars3d-cesium/Build/Cesium/" // cesium库目录
@@ -26,10 +26,10 @@ module.exports = {
       // cesium相关资源目录需要拷贝到系统目录下面
       new CopyWebpackPlugin({
         patterns: [
-          { from: path.join(cesiumSourcePath, "Workers"), to: path.join(cesiumRunPath, "Workers") },
-          { from: path.join(cesiumSourcePath, "Assets"), to: path.join(cesiumRunPath, "Assets") },
-          { from: path.join(cesiumSourcePath, "ThirdParty"), to: path.join(cesiumRunPath, "ThirdParty") },
-          { from: path.join(cesiumSourcePath, "Widgets"), to: path.join(cesiumRunPath, "Widgets") }
+          { from: path.join(cesiumSourcePath, "Workers"), to: path.join(config.output.path, cesiumRunPath, "Workers") },
+          { from: path.join(cesiumSourcePath, "Assets"), to: path.join(config.output.path, cesiumRunPath, "Assets") },
+          { from: path.join(cesiumSourcePath, "ThirdParty"), to: path.join(config.output.path, cesiumRunPath, "ThirdParty") },
+          { from: path.join(cesiumSourcePath, "Widgets"), to: path.join(config.output.path, cesiumRunPath, "Widgets") }
         ]
       })
     ]

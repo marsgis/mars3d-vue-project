@@ -4,7 +4,6 @@ export var map
 // 事件对象，用于抛出事件给vue
 export var eventTarget = new mars3d.BaseClass()
 
-
 // 初始化当前业务
 export function onMounted(e) {
   map = e // 记录map
@@ -15,7 +14,6 @@ export function onMounted(e) {
   // map.addEffect(bloomEffect)
 }
 
-
 // 释放当前业务
 export function onUnmounted(e) {
   // map.removeEffect(bloomEffect, true)
@@ -23,7 +21,6 @@ export function onUnmounted(e) {
 
   map = null
 }
-
 
 // 绘制矩形（演示map.js与index.vue的交互）
 export function drawExtent() {

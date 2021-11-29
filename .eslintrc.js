@@ -11,7 +11,9 @@ module.exports = {
     defineProps: "readonly",
     defineEmits: "readonly",
     defineExpose: "readonly",
-    withDefaults: "readonly"
+    withDefaults: "readonly",
+    mars3d: "readonly",
+    Cesium: "readonly"
   },
   rules: {
     // 关闭ts
