@@ -1,6 +1,7 @@
 // 地图对象
 export var map
 
+
 // 事件对象，用于抛出事件给vue
 export var eventTarget = new mars3d.BaseClass()
 
