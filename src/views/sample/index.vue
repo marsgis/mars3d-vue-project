@@ -36,15 +36,6 @@ const onClickDrawExtent = () => {
 mapWork.eventTarget.on("drawExtent", function (event: any) {
   formState.extent = event.extent
 })
-
-// 对父组件暴露 setMap 方法
-const setMap = (map: any) => {
-  mapWork.onMounted(map)
-}
-
-defineExpose({
-  setMap
-})
 </script>
 <style lang="less">
 .infoView {

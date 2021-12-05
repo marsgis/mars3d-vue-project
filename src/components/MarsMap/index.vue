@@ -8,18 +8,22 @@ const instance = getCurrentInstance()
 const mars3d = instance?.appContext.config.globalProperties.mars3d
 
 // props选项
-const props = withDefaults(defineProps<{
-  url: string
-  mapKey?: string
-  options: any
-}>(), {
-  url: "",
-  mapKey: "default",
-  options: () => ({})
-})
+const props = withDefaults(
+  defineProps<{
+    url: string
+    mapKey?: string
+    options: any
+    mapWork?: any
+  }>(),
+  {
+    url: "",
+    mapKey: "default",
+    options: () => ({})
+  }
+)
 
 // 用于存放地球组件实例
-let map:any = null
+let map: any = null
 
 // 使用用户传入的 mapKey 拼接生成 withKeyId 作为当前显示容器的id
 const withKeyId = computed(() => `mars3d-container-${props.mapKey}`)
@@ -39,6 +43,9 @@ onMounted(() => {
 const emit = defineEmits(["onload"])
 const initMars3d = (option: any) => {
   map = new mars3d.Map(withKeyId.value, option)
+  if (props.mapWork && props.mapWork.onMounted) {
+    props.mapWork.onMounted(map)
+  }
   emit("onload", map)
 }
 
@@ -48,7 +55,6 @@ onBeforeUnmount(() => {
     map.destroy()
   }
 })
-
 </script>
 
 <style lang="less">
@@ -56,7 +62,6 @@ onBeforeUnmount(() => {
   height: 100%;
   overflow: hidden;
 }
-
 
 /**cesium 工具按钮栏*/
 .cesium-viewer-toolbar {
@@ -150,11 +155,10 @@ onBeforeUnmount(() => {
 }
 
 /**cesium tileset调试信息面板*/
-.cesium-viewer-cesiumInspectorContainer{
+.cesium-viewer-cesiumInspectorContainer {
   top: 10px;
   left: 10px;
   right: auto;
   background-color: #3f4854;
 }
-
 </style>
