@@ -58,8 +58,7 @@ npm run dev
 npm run build
 ```
 
-## 运行效果 
- [在线Demo](http://mars3d.cn/project/vue-template/)  
+ 
 
 
 
