@@ -4,15 +4,8 @@
  * @author 木遥 2021-11-01
  */
 
-export {}
-declare global {
-  interface Window {
-    mars3d: any
-    configLibs:any
-    $message: any
-    $alert: any
-    $notify: any
-    $showLoading: any
-    $hideLoading: any
-  }
-}
+// export {}
+// declare global {
+//   interface Window {
+//   }
+// }

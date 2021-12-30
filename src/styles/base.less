@@ -1,0 +1,200 @@
+/**
+ * 所有页面全局公共CSS
+ *
+ * @copyright 火星科技 mars3d.cn
+ * @author 火星吴彦祖 2021-11-01
+ */
+
+/* 清除内外边距 */
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, /* structural elements 结构元素 */
+ dl, dt, dd, ul, ol, li, /* list elements 列表元素 */
+ pre, /* text formatting elements 文本格式元素 */
+ fieldset, lengend, button, input, textarea, /* form elements 表单元素 */
+ th, td {
+  /* table elements 表格元素 */
+  margin: 0;
+  padding: 0;
+  -moz-user-select: none; /*火狐*/
+  -webkit-user-select: none; /*webkit浏览器*/
+  -ms-user-select: none; /*IE10*/
+  -khtml-user-select: none; /*早期浏览器*/
+  user-select: none;
+}
+
+/* 设置默认字体 */
+html,
+body,
+button,
+input,
+select,
+textarea {
+  font-family: "Helvetica Neue", Helvetica, Tahoma, Arial, "Microsoft Yahei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
+}
+
+h1 {
+  font-size: 18px; /* 18px / 12px = 1.5 */
+}
+h2 {
+  font-size: 16px;
+}
+h3 {
+  font-size: 14px;
+}
+h4,
+h5,
+h6 {
+  font-size: 100%;
+}
+
+address,
+cite,
+dfn,
+em,
+var {
+  font-style: normal;
+} /* 将斜体扶正 */
+code,
+kbd,
+pre,
+samp,
+tt {
+  font-family: "Courier New", Courier, monospace;
+} /* 统一等宽字体 */
+small {
+  font-size: 12px;
+} /* 小于 12px 的中文很难阅读，让 small 正常化 */
+
+/* 重置列表元素 */
+ul,
+ol {
+  list-style: none;
+}
+
+/* 重置文本格式元素 */
+a {
+  text-decoration: none;
+  color: @primary-color !important;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+abbr[title],
+acronym[title] {
+  /* 注：1.ie6 不支持 abbr; 2.这里用了属性选择符，ie6 下无效果 */
+  border-bottom: 1px dotted;
+  cursor: help;
+}
+
+q:before,
+q:after {
+  content: "";
+}
+
+/* 重置表单元素 */
+legend {
+  color: #000;
+} /* for ie6 */
+fieldset,
+img {
+  border: none;
+} /* img 搭车：让链接里的 img 无边框 */
+/* 注：optgroup 无法扶正 */
+button,
+input,
+select,
+textarea {
+  font-size: 100%; /* 使得表单元素在 ie 下能继承字体大小 */
+}
+
+/* 重置表格元素 */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* 重置 hr */
+hr {
+  border: none;
+  height: 1px;
+}
+
+/*滚动条*/
+body,
+html {
+  scrollbar-base-color: #f4f7fc;
+  scrollbar-track-color: #f4f7fc;
+  scrollbar-face-color: #797979;
+  scrollbar-arrow-color: #f4f7fc;
+  scrollbar-shadow-color: #f4f7fc;
+  scrollbar-3dlight-color: #f4f7fc;
+  scrollbar-highlight-color: #f4f7fc;
+  scrollbar-darkshadow-color: #f4f7fc;
+  overflow: hidden;
+}
+
+::-webkit-scrollbar-button {
+  height: 0;
+  width: 0;
+  display: none;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-thumb {
+  border: 0;
+}
+
+::-webkit-scrollbar {
+  height: 10px;
+  width: 4px;
+  background: transparent;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  padding-top: 100px;
+  -webkit-box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.1), inset -1px -1px 0 rgba(0, 0, 0, 0.07);
+  background-color: rgba(79, 79, 79, 0.8);
+  min-height: 28px;
+  border-radius: 4px;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-thumb {
+  border: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  -webkit-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.25);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+::-webkit-scrollbar-thumb:active {
+  -webkit-box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.35);
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+#app {
+  height: 100%;
+}
+
+.base-overlay {
+  .ant-dropdown-menu {
+    background-color: rgba(63, 72, 84, 0.7) !important;
+    .i-icon {
+      vertical-align: middle;
+      margin-right: 4px;
+    }
+  }
+}
+
+.mars3d-popup-btn-custom {
+  padding: 3px 10px;
+  border: 1px solid #209ffd;
+  background: #209ffd1c;
+}

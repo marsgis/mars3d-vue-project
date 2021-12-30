@@ -5,6 +5,7 @@
     "strict": true,
     "jsx": "preserve",
     "allowJs": true,
+    "strictNullChecks": false,
     "importHelpers": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
@@ -13,21 +14,33 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
-    "types": ["webpack-env"],
+    "types": [
+      "webpack-env"
+    ],
     "paths": {
-      "@/*": ["src/*"],
-      "@comp/*": ["src/components/*"],
-      "@exmp/*": ["src/example/*"]
+      "@/*": [
+        "src/*"
+      ],
+      "@comp/*": [
+        "src/components/*"
+      ],
+      "@widgets/*": [
+        "src/widgets/*"
+      ]
     },
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable",
+      "scripthost"
+    ]
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "example/**/*.ts",
-    "example/**/*.tsx",
-    "example/**/*.vue",
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

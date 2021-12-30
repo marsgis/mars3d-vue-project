@@ -11,9 +11,7 @@ module.exports = {
     defineProps: "readonly",
     defineEmits: "readonly",
     defineExpose: "readonly",
-    withDefaults: "readonly",
-    mars3d: "readonly",
-    Cesium: "readonly"
+    withDefaults: "readonly"
   },
   rules: {
     // 关闭ts
@@ -22,6 +20,8 @@ module.exports = {
     "@typescript-eslint/no-non-null-assertion": "off",
     // 关闭ts不允许用any
     "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
 
     // require 必须在全局作用域下
     "global-require": "off",
@@ -34,19 +34,19 @@ module.exports = {
     // 块内行首行尾是否空行
     "padded-blocks": "off",
     // 不能有声明后未被使用的变量或参数
-    "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": ["off"],
+    // "no-unused-vars": "error",
+    // "@typescript-eslint/no-unused-vars": ['warn', { 'argsIgnorePattern': '^_' }],
     // 一行最后不允许有空格
     "no-trailing-spaces": "off",
     "comma-dangle": "error",
     // 强制使用有效的 JSDoc 注释
     "valid-jsdoc": "off",
     // @fixable 禁止使用 var
-    "no-var": "off",
+    "no-var": "error",
     // 不允许Object.prototype
     "no-prototype-builtins": "off",
     // 使用 === 替代 ==
-    eqeqeq: "off",
+    eqeqeq: "error",
     // 关闭${xxx}检测
     "no-template-curly-in-string": "off",
 
@@ -91,16 +91,22 @@ module.exports = {
     // 禁止重复定义类
     "no-dupe-class-members": "error",
     // 禁止重复 import 模块
-    "no-duplicate-imports": "off",
+    "no-duplicate-imports": "error",
     // 禁止出现没必要的 constructor，比如 constructor(value) { super(value) }
     "no-useless-constructor": "error",
     // 可以使用\转义
     "no-useless-escape": "off",
     // 关闭eslint标准模式callback回调报错
     "no-callback-literal": "off",
+    // 禁止对象字面量中出现重复的 key
+    "no-dupe-keys": "error",
+    // 禁止对 function 声明重新赋值
+    "no-func-assign": "error",
+    // 禁用嵌套的三元表达式
+    "no-nested-ternary": "error",
 
     "sort-imports": [
-      "error",
+      "off",
       {
         ignoreCase: false,
         ignoreMemberSort: false,

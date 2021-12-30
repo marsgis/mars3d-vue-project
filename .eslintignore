@@ -1,1 +1,5 @@
-/public/lib/
+/node_modules/
+src/components/
+src/common/uses/
+src/common/store/
+

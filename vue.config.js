@@ -1,16 +1,30 @@
 const path = require("path")
+const glob = require("glob")
 const webpack = require("webpack")
+const { getThemeVariables } = require("ant-design-vue/dist/theme")
 const CopyWebpackPlugin = require("copy-webpack-plugin")
+const variable = require("./build/variable")
 
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
+const pages = handleEntry("./src/pages/**/main.ts")
+
 module.exports = {
   publicPath: process.env.BASE_URL,
-  outputDir: "dist",
+  outputDir: "dist/jcxm-vue",
   assetsDir: "static",
   productionSourceMap: false,
+  devServer: {
+    // 它支持webPack-dev-server的所有选项
+    host: "localhost", // 也可以直接写IP地址这样方便真机测试
+    port: 2003, // 端口号
+    https: false, // https:{type:Boolean}
+    open: true // 配置自动启动浏览器
+  },
+  filenameHashing: false,
+  pages,
   configureWebpack: (config) => {
     // console.log(config)
     // const cesiumRunPath = config.output.publicPath// cesium运行时主目录
@@ -37,21 +51,39 @@ module.exports = {
     config.plugins = [...config.plugins, ...plugins]
   },
   chainWebpack: (config) => {
-    config.resolve.alias.set("@", resolve("src")).set("@comp", resolve("src/components"))
+    config.resolve.alias
+      .set("@", resolve("src"))
+      .set("@comp", resolve("src/components"))
+      .set("@widgets", resolve("src/widgets"))
   },
   css: {
-    requireModuleExtension: true,
     loaderOptions: {
       less: {
         modifyVars: {
-          "border-color-base": "#cde1de",
-          "primary-color": "#4db3ff",
-          "body-background": "#1c222b",
-          "font-size-base": "12px"
+          ...getThemeVariables({
+            dark: true
+          }),
+          ...variable
         },
-
         javascriptEnabled: true
       }
     }
   }
+}
+
+function handleEntry(entry) {
+  const entries = {}
+
+  glob.sync(entry).forEach((item) => {
+    const entryBaseName = item.replace(/\.\/src\/pages\/(\S*)\/main\.ts/g, "$1")
+    entries[entryBaseName] = {
+      entry: `src/pages/${entryBaseName}/main.ts`,
+      template: "public/index.html",
+      filename: `${entryBaseName}.html`,
+      title: "Mars3D",
+      chunks: ["chunk-vendors", "chunk-common", entryBaseName]
+    }
+  })
+
+  return entries
 }
