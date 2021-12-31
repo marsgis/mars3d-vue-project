@@ -185,7 +185,7 @@ index.vue 是vue组件，弹框使用mars-dialog组件、普通面板使用mars-
 vue中需要调用地图方法时，需得启用map.ts的生命周期
 
 ```js
-import useLifecycle from "@/common/uses/use-lifecycle"
+import useLifecycle from "@/common/uses/use-lifecycle.js"
 import * as mapWork from "./map"
 
 // 启用map.ts生命周期
