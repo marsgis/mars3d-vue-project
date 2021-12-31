@@ -2,9 +2,16 @@
   <div :id="withKeyId" class="mars3d-container"></div>
 </template>
 <script setup lang="ts">
+/**
+ * 地图渲染组件
+ * @copyright 火星科技 mars3d.cn
+ * @author 火星吴彦祖 2021-12-30
+ */
 import { computed, onBeforeUnmount, onMounted } from "vue"
 import * as mars3d from "mars3d"
 import { getQueryString, isPc } from "@/utils/index"
+
+import { $alert } from "@/components/mars-ui/"
 
 // props选项
 const props = withDefaults(
@@ -49,10 +56,8 @@ const initMars3d = (option: any) => {
     map.flyToPoint(new mars3d.LatLngPoint(lng, lat), { duration: 0 })
   }
 
-  // //开场动画
-  // if (window.location.hostname.indexOf("127.0.0.1") == -1) {
-  //   map.openFlyAnimation();
-  // }
+  // 开场动画
+  // map.openFlyAnimation();
 
   // //针对不同终端的优化配置
   if (isPc()) {
@@ -86,7 +91,7 @@ const initMars3d = (option: any) => {
 
   // webgl渲染失败后，刷新页面
   map.on(mars3d.EventType.renderError, async () => {
-    alert("程序内存消耗过大，请重启浏览器")
+    await $alert("程序内存消耗过大，请重启浏览器")
     window.location.reload()
   })
 

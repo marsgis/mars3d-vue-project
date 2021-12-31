@@ -10,11 +10,16 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * 渲染主入口
+ * @copyright 火星科技 mars3d.cn
+ * @author 火星吴彦祖 2021-12-30
+ */
 import zhCN from "ant-design-vue/es/locale/zh_CN"
 import { computed, provide, ref } from "vue"
 import { ConfigProvider } from "ant-design-vue"
 import { useStore } from "vuex"
-import MarsMap from "./mars-map.vue"
+import MarsMap from "@/components/marsgis/mars-map.vue"
 
 const locale = zhCN
 

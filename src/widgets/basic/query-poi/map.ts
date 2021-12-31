@@ -217,7 +217,7 @@ export function flyToGraphic(graphic: any, option: any): void {
   }, 3000)
 }
 
-function clearLayers(): void {
+export function clearLayers(): void {
   graphicLayer.closePopup()
   graphicLayer.clear()
 }

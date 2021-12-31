@@ -79,7 +79,7 @@ const data = [
 
 const showWidget = (widget: string) => {
   console.log(widget)
-  store.dispatch("showPannel", widget)
+  store.dispatch("activate", widget)
 }
 
 const clickMenu = ({ key }: any) => {

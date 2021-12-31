@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
+import { onUnmounted, ref } from "vue"
 import { BookmarkOne } from "@icon-park/vue-next"
 import useLifecycle from "@/common/uses/use-lifecycle.js"
 import MarsDialog from "@/components/marsgis/mars-dialog.js"
@@ -35,6 +35,10 @@ const onClickDrawExtent = () => {
 }
 mapWork.eventTarget.on("drawExtent", function (event: any) {
   extent.value = event.extent
+})
+
+onUnmounted(() => {
+  // 销毁操作
 })
 </script>
 <style lang="less"></style>

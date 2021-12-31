@@ -67,6 +67,10 @@ const url = "//www.amap.com/detail/"
 
 // 搜寻输入框数据之前的提示数据 以及搜寻过的历史数据  通过列表展现
 const handleSearch = (val: string) => {
+  if (val === "") {
+    mapWork.clearLayers()
+  }
+
   if (!val) {
     showHistoryList()
     return
@@ -87,19 +91,16 @@ const handleSearch = (val: string) => {
 
 // 展示搜寻过的历史数据
 const showHistoryList = () => {
-  try {
-    const historys = JSON.parse(localStorage.getItem(storageName)!)
-    if (historys.length <= 10) {
-      dataSource.value = (historys || []).map((item: any) => ({ value: item }))
-    }
-  } catch (err: any) {
-    throw new Error(err)
+  const historys = JSON.parse(localStorage.getItem(storageName)!)
+  if (historys && historys.length <= 10) {
+    dataSource.value = (historys || []).map((item: any) => ({ value: item }))
   }
 }
 
 // 输入关键字，开始查询
 const searchPoint = () => {
   const text = searchTxt.value
+
   if (!text) {
     $message("请输入搜索关键字！", "warning")
     return
@@ -133,8 +134,7 @@ const pagination = {
   size: "small",
   total: 0,
   pageSize: 6,
-  showSizeChanger: false,
-  showLessItems: true
+  simple: true
 }
 
 function querySiteList(text: string, page: number) {

@@ -29,7 +29,7 @@ export function onUnmounted() {
   map = null
 }
 
-export function addLayer(layer: any) {
+export function addLayer(layer: mars3d.BaseLayer) {
   map.addLayer(layer)
 }
 
@@ -40,7 +40,7 @@ export function getLayers() {
   })
 }
 
-export function flytoModelNode(nodeid: any, nodesphere: any) {
+export function flytoModelNode(nodeid: number, nodesphere: any) {
   if (!nodesphere || nodesphere[3] <= 0) {
     return
   }
@@ -58,7 +58,7 @@ export function flytoModelNode(nodeid: any, nodesphere: any) {
     duration: 0.5
   })
 }
-export function checkModelStyle(layerid: any, arrIds: any) {
+export function checkModelStyle(layerid: number, arrIds: any) {
   // 设置tileset的样式
   if (!map) {
     return

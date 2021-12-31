@@ -1,3 +1,8 @@
+/**
+ * index页面的widget配置
+ * @copyright 火星科技 mars3d.cn
+ * @author 火星吴彦祖 2021-12-30
+ */
 import { defineAsyncComponent, markRaw } from "vue"
 import { State } from "@/common/store/index.js"
 import { StoreOptions } from "vuex"

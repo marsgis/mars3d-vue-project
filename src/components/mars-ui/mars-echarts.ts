@@ -1,5 +1,9 @@
 import * as echarts from "echarts"
-
+/**
+ * echarts公共样式配置
+ * @copyright 火星科技 mars3d.cn
+ * @author 火星吴彦祖 2021-12-30
+ */
 
 echarts.registerTheme("dark", {
   color: [

@@ -582,7 +582,7 @@
         },
         "popup": [
           { "field": "NAME", "name": "名称" },
-          { "type": "details", "callback": "showPopupDetails", "field": "图片","className":"" }
+          { "type": "details", "callback": "showPopupDetails", "field": "图片","className":"mars3d-popup-btn-custom" }
         ],
         "show": false,
         "flyTo": true

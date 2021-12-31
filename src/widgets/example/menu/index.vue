@@ -4,7 +4,6 @@
       <mars-button @click="show('sample-pannel')">面板示例</mars-button>
       <mars-button @click="show('sample-dialog')">弹窗示例</mars-button>
       <mars-button @click="show('ui')">UI面板</mars-button>
-      <mars-button @click="show('typhoon')">台风</mars-button>
     </a-space>
   </mars-pannel>
 </template>
@@ -15,7 +14,7 @@ import MarsPannel from "@/components/marsgis/mars-pannel.js"
 const store = useStore()
 
 const show = (name: string) => {
-  store.dispatch("showPannel", name)
+  store.dispatch("activate", name)
 }
 </script>
 <style lang="less"></style>

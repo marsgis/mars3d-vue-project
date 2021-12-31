@@ -31,7 +31,7 @@ import { useStore } from "vuex"
 const store = useStore()
 
 onUnmounted(() => {
-  store.dispatch("hidePannel", "layer-tree")
+  store.dispatch("disable", "layer-tree")
 })
 
 useLifecycle(mapWork)
@@ -75,15 +75,15 @@ const checkedChange = (keys: string[], e: any) => {
     if (layer.options.onWidget) {
       if (e.checked) {
         if (lastWidget) {
-          store.dispatch("hidePannel", lastWidget)
+          store.dispatch("disable", lastWidget)
         }
 
-        store.dispatch("showPannel", {
+        store.dispatch("activate", {
           name: layer.options.onWidget
         })
         lastWidget = layer.options.onWidget
       } else {
-        store.dispatch("hidePannel", layer.options.onWidget)
+        store.dispatch("disable", layer.options.onWidget)
       }
     }
 
@@ -229,13 +229,13 @@ function findChild(parent: any, list: any[]) {
 }
 
 function initLayerTree(layer: any) {
-  store.dispatch("hidePannel", "layer-tree")
+  store.dispatch("disable", "layer-tree")
   // 处理图层构件树控件
   if (layer.options.scenetree) {
     layer.on("click", () => {
       const url = layer.options.url
       const id = layer.id
-      store.dispatch("showPannel", {
+      store.dispatch("activate", {
         name: "layer-tree",
         url,
         id

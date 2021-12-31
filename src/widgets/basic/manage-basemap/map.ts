@@ -15,9 +15,10 @@ export const eventTarget = new mars3d.BaseClass()
 export function onMounted(mapInstance: mars3d.Map): void {
   map = mapInstance // 记录map
 
-  const baseMaps = map.getBasemaps()
+  const baseMaps = map.getBasemaps(true)
+  const hasTerrain = map.hasTerrain
 
-  eventTarget.fire("mapLoaded", { baseMaps })
+  eventTarget.fire("mapLoaded", { baseMaps, hasTerrain })
 }
 
 // 释放当前业务

@@ -45,6 +45,8 @@ function initData(e: any) {
       options: markRaw(m.options)
     }
   })
+
+  chkHasTerrain.value = e.hasTerrain || false
 }
 
 function changeBaseMaps(item: any) {
