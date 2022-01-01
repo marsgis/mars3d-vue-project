@@ -31,16 +31,9 @@ Vue 版的特点：
 1. 基于**Vue3+TS**技术栈下开发的
 2. 继续沿用了原生 JS 版本 widget 架构的一些思想，使用 vue 方式实现了各 widget 功能
 
+
 ## 视频讲解
-<!-- 建议先看一遍视频讲解，再实际操作。您可以[新页面查看高清视频](https://www.bilibili.com/video/BV1PL41177SS/)
-
-视频预览：
-<iframe src="//player.bilibili.com/player.html?aid=464541155&bvid=BV1PL41177SS&cid=452039973&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="width:100%;min-height:550px;"> </iframe> -->
-
-
-（录制中……）
-
-
+建议先看一遍视频讲解，再实际操作。您可以[新页面查看高清视频](https://www.bilibili.com/video/bv1JF411q7Ut/)
 
 
 ## 下载运行项目
