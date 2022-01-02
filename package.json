@@ -19,7 +19,7 @@
     "geojson-to-kml": "^0.0.1",
     "kml-geojson": "^1.2.0",
     "localforage": "^1.10.0",
-    "mars3d": "^3.1.18",
+    "mars3d": "^3.1.19",
     "mars3d-cesium": "^1.88.2",
     "nprogress": "^0.2.0",
     "vue": "^3.2.20",
