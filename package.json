@@ -70,10 +70,5 @@
   ],
   "author": "火星科技",
   "license": "Apache-2.0",
-  "homepage": "http://mars3d.cn",
-  "lint-staged": {
-    "*.{js,jsx,vue,ts,tsx}": [
-      "npm run lint"
-    ]
-  }
+  "homepage": "http://mars3d.cn"
 }

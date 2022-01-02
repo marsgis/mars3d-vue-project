@@ -64,8 +64,7 @@ const initMars3d = (option: any) => {
     // Cesium 1.61以后会默认关闭反走样，对于桌面端而言还是开启得好，
     map.scene.postProcessStages.fxaa.enabled = true
 
-    // @ts-ignore 忽略本行行代码的检测
-    map.scene.screenSpaceCameraController._zoomFactor = 2.0 // 鼠标滚轮放大的步长参数
+    map.zoomFactor = 2.0 // 鼠标滚轮放大的步长参数
 
     // IE浏览器优化
     if (window.navigator.userAgent.toLowerCase().indexOf("msie") >= 0) {
@@ -73,8 +72,7 @@ const initMars3d = (option: any) => {
       map.scene.requestRenderMode = true // 取消实时渲染
     }
   } else {
-    // @ts-ignore 忽略本行行代码的检测
-    map.scene.screenSpaceCameraController._zoomFactor = 5.0 // 鼠标滚轮放大的步长参数
+    map.zoomFactor = 5.0 // 鼠标滚轮放大的步长参数
     map.scene.screenSpaceCameraController.enableTilt = false
 
     // 移动设备上禁掉以下几个选项，可以相对更加流畅

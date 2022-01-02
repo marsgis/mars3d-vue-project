@@ -1,5 +1,4 @@
 import * as mars3d from "mars3d"
-const Cesium = mars3d.Cesium
 
 export let map: mars3d.Map // 地图对象
 
@@ -9,12 +8,10 @@ export const eventTarget = new mars3d.BaseClass()
 // 初始化当前业务
 export function onMounted(mapInstance: mars3d.Map): void {
   map = mapInstance // 记录map
-  console.log("map.js", map)
 }
 
 // 释放当前业务
 export function onUnmounted(): void {
-  console.log("组件销毁时的操作")
   map = null
 }
 
@@ -31,8 +28,8 @@ export function drawExtent(): void {
       outlineWidth: 2,
       outlineColor: "rgba(255,255,0,1)"
     },
-    success: function (graphic: any) {
-      const rectangle = mars3d.PolyUtil.formatRectangle(graphic._rectangle_draw)
+    success: function (graphic: mars3d.graphic.RectangleEntity) {
+      const rectangle = graphic.getRectangle({ isFormat: true })
       eventTarget.fire("drawExtent", { extent: JSON.stringify(rectangle) }) // 抛出事件，可以vue中去监听事件
     }
   })
