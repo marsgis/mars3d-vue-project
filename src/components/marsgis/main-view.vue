@@ -1,9 +1,16 @@
 <template>
   <ConfigProvider :locale="locale">
-    <mars-map :url="configUrl" @onload="marsOnload" />
+    <div id="centerDiv" class="centerDiv-container">
+      <mars-map :url="configUrl" @onload="marsOnload" />
+    </div>
     <template v-if="loaded">
       <template v-for="comp in widgets" :key="comp.name">
-        <component v-if="openAtStart.includes(comp.name) && comp.visible" :is="comp.component" v-model:visible="comp.visible" />
+        <component
+          v-if="openAtStart.includes(comp.name) && comp.visible"
+          :is="comp.component"
+          v-model:visible="comp.visible"
+          v-bind="getWidgetAttr(comp)"
+        />
       </template>
     </template>
   </ConfigProvider>
@@ -20,6 +27,7 @@ import { computed, provide, ref } from "vue"
 import { ConfigProvider } from "ant-design-vue"
 import { useStore } from "vuex"
 import MarsMap from "@/components/marsgis/mars-map.vue"
+import { Widget } from "@/common/store"
 
 const locale = zhCN
 
@@ -41,4 +49,28 @@ const marsOnload = (map: any) => {
   mapInstance = map
   loaded.value = true
 }
+
+const getWidgetAttr = (widget: Widget) => {
+  let attr = {}
+  if (widget.meta && widget.meta.props) {
+    attr = {
+      ...attr,
+      ...widget.meta.props
+    }
+  }
+  if (widget.data && widget.data.props) {
+    attr = {
+      ...attr,
+      ...widget.data.props
+    }
+  }
+  return attr
+}
 </script>
+
+<style lang="less">
+.centerDiv-container {
+  height: 100%;
+  overflow: hidden;
+}
+</style>

@@ -16,14 +16,8 @@
 </a>
 </p>
 
- 
-
-
-
-
- 
 ## 项目介绍
- 
+
 Mars3D 基础项目 是基于[Mars3D 平台](http://mars3d.cn)做的一个应用系统，提供的一个基础项目模版，包含常用基础地图功能，可在该基础项目上快速开发搭建新项目。方便快速搭建三维地图产品，敏捷开发，可复用，支持各种配置，适合各种场景使用。
 
 Vue 版的特点：
@@ -31,10 +25,9 @@ Vue 版的特点：
 1. 基于**Vue3+TS**技术栈下开发的
 2. 继续沿用了原生 JS 版本 widget 架构的一些思想，使用 vue 方式实现了各 widget 功能
 
-
 ## 视频讲解
-建议先看一遍视频讲解，再实际操作。您可以[新页面查看高清视频](https://www.bilibili.com/video/bv1JF411q7Ut/)
 
+建议先看一遍视频讲解，再实际操作。您可以[新页面查看高清视频](https://www.bilibili.com/video/bv1JF411q7Ut/)
 
 ## 下载运行项目
 
@@ -130,7 +123,7 @@ npm run build
 - [Ant Design Vue](https://next.antdv.com/components/overview-cn/)：UI 控件库
 - [IconPark](https://iconpark.oceanengine.com/official)：UI 图标库
 
-> 需要有一定的知识储备，包括 vue3.0 中的 composition Api 模式等，建议浏览下[Web前端知识视频讲解](https://www.bilibili.com/video/BV1xr4y1U73r/)
+> 需要有一定的知识储备，包括 vue3.0 中的 composition Api 模式等，建议浏览下[Web 前端知识视频讲解](https://www.bilibili.com/video/BV1xr4y1U73r/)
 
 ### 主要目录说明
 
@@ -161,12 +154,11 @@ mars3d-vue-project
 
 项目所有功能主要在 `src/widgets/*/*`目录下，每一个功能对应了叶子目录下的一个`index.vue`和 `map.ts` 文件，复杂的 widget 目录下也会有相关子组建 `xxx.vue`。
 
-vue下的 widget 设计，沿用了我们 [原生JS版基础项目](http://mars3d.cn/dev/guide/project/widget.html)的设计理念：
+vue 下的 widget 设计，沿用了我们 [原生 JS 版基础项目](http://mars3d.cn/dev/guide/project/widget.html)的设计理念：
 
 - 所有的 widget 都是按需加载
 - 只需要通过简单的配置，即可控制不同业务面板间的互斥关系
 - 提供 api 可以手动的控制面板的显示隐藏
-
 
 #### widget 配置参数
 
@@ -202,23 +194,20 @@ interface Widget {
 
 ![image](http://mars3d.cn/dev/img/guide/project-vue-liu.jpg)
 
-
-
-
 ## 如何增加新的 widget
 
 下面我们以 `src\widgets\example\sample-dialog\` 为示例做讲解
 
 ### 1.创建示例
 
-在widgets目录下按项目需要建立好多层目录，比如我们将测试和演示的widget放在`src\widgets\example`目录下面，基础项目的功能放在`src\widgets\basic`目录下。
+在 widgets 目录下按项目需要建立好多层目录，比如我们将测试和演示的 widget 放在`src\widgets\example`目录下面，基础项目的功能放在`src\widgets\basic`目录下。
 
-首先建立后sample-dialog目录，并参考已有示例新建`index.vue` 和 `map.ts` 2个文件。
-
+首先建立后 sample-dialog 目录，并参考已有示例新建`index.vue` 和 `map.ts` 2 个文件。
 
 #### index.vue
 
-index.vue完整代码为：
+index.vue 完整代码为：
+
 ```vue
 <template>
   <mars-dialog title="弹窗标题" width="300" height="400" top="400" bottom="10" :right="10">
@@ -233,7 +222,7 @@ index.vue完整代码为：
       </a-col>
     </a-row>
     <template #icon>
-      <bookmark-one theme="outline" size="18"/>
+      <bookmark-one theme="outline" size="18" />
     </template>
   </mars-dialog>
 </template>
@@ -268,13 +257,14 @@ onUnmounted(() => {
 
 其中：
 
-#####  mar-dialog.vue
-mars-dialog是弹窗组件，我们widget内可以按需选择下面2个使用：
-- mars-dialog 弹框 组件 
+##### mar-dialog.vue
+
+mars-dialog 是弹窗组件，我们 widget 内可以按需选择下面 2 个使用：
+
+- mars-dialog 弹框 组件
 - mars-pannel 普通面板组件
 
-
-mars-dialog支持的配置参数包括：
+mars-dialog 支持的配置参数包括：
 
 ```ts
 interface Props {
@@ -297,8 +287,71 @@ interface Props {
 }
 ```
 
+##### 配置 widget 的 props 参数
 
-#####  useLifecycle
+widget 的 prop 参数默认有四中配置方式，默认情况下优先级从低到高分别为 内联 prop、defaultOption 中的 props、meta 中的 props 配置，动态传参，使用方式如下
+
+```html
+<!-- 内联 -->
+<mars-dialog title="图上量算" width="300" height="530" top="50"></mars-dialog>
+```
+
+```js
+// defaultOption中 注意 必须是meta
+const store: StoreOptions<State> = {
+  state: {
+    defaultOption: {
+      meta: {
+        props: {
+          top: 110
+        }
+      }
+    },
+    widgets: []
+  }
+}
+```
+
+```js
+// meta中
+widgets = [
+  {
+    component: markRaw(defineAsyncComponent(() => import("@widgets/hello.vue"))),
+    name: "hello",
+    autoDisable: true,
+    meta: {
+      props: {
+        top: 70
+      }
+    }
+  }
+]
+```
+
+```js
+// 动态传参
+store.dispatch("activate", {
+  name: "hello",
+  data: {
+    props: {
+      top: 70
+    }
+  }
+})
+```
+
+> 以上均为默认情况下的处理，再某些特殊情况下，可以在widget中通过下面这种方式，强制将内联 props 的优先级提升到最高
+
+```html
+<mars-dialog title="hello" width="300" height="530" top="50" :right="10" :min-width="297" v-bind="attrs"></mars-dialog>
+
+<script>
+  import { useAttrs } from "vue"
+  const attrs = useAttrs()
+</script>
+```
+
+##### useLifecycle
 
 vue 中需要调用地图方法时，需得启用 map.ts 的生命周期，并且在 map.ts 生命周期中获取 map 对象。
 
@@ -316,11 +369,10 @@ useLifecycle(mapWork)
 > 1. 开启生命周期的操作只需要在 index.vue 中执行，子组件不需要
 > 2. 尽量不要在 vue 的生命周期中操作 map，或者调用 map.ts 中操作 map 的函数，此时操作不能保证 map 存在
 
- 
- 
-
 #### map.ts
+
 map.ts 完整代码为：
+
 ```ts
 import * as mars3d from "mars3d"
 
@@ -362,7 +414,8 @@ export function drawExtent(): void {
 
 其中：
 
-#####  onMounted 
+##### onMounted
+
 初始化当前地图业务的钩子方法，可以通过 onMounted 函数的获取到 map 主对象。
 
 ```js
@@ -371,13 +424,12 @@ export function onMounted(mapInstance: mars3d.Map): void {
 }
 ```
 
-
 如果未调用，请请参考之前的步骤，检查是否正常使用`useLifecycle(mapWork)`启用生命周期
 
+##### onUnmounted
 
-#####  onUnmounted 
 释放当前地图业务的钩子方法,
-一般在onMounted添加的图层、绑定的事件，在onUnmounted中都需要做相反的移除、解绑等操作。
+一般在 onMounted 添加的图层、绑定的事件，在 onUnmounted 中都需要做相反的移除、解绑等操作。
 
 ```js
 export function onUnmounted(): void {
@@ -385,12 +437,10 @@ export function onUnmounted(): void {
 }
 ```
 
-
 #### `map.ts`和`index.vue`各自代码业务分离的原则
 
 - 涉及地图业务的操作均写在 map.ts 中
 - 涉及 UI 层面、和地图无关的操作均写在 index.vue 中,vue 中尽量不使用 mars3d 和 Cesium 开头的类
-
 
 #### index.vue 与 map.ts 交互
 
@@ -418,12 +468,11 @@ onUnmounted(() => {
 })
 ```
 
-
 ### 2.相关页面加入菜单入口
 
 #### store.ts 清单配置
 
-在对应page页面下的 `src\pages\example\store.ts` 中，需要配置刚才新建的widget相关信息；
+在对应 page 页面下的 `src\pages\example\store.ts` 中，需要配置刚才新建的 widget 相关信息；
 
 ```js
 import { defineAsyncComponent, markRaw } from "vue"
@@ -437,14 +486,15 @@ const store: StoreOptions<State> = {
       {
         component: markRaw(defineAsyncComponent(() => import("@widgets/example/sample-dialog/index.vue"))),
         name: "sample-dialog"
-      },
-    ],
+      }
+    ]
   }
 }
 export default store
 ```
 
-其中state下支持3个配置参数
+其中 state 下支持 3 个配置参数
+
 ```ts
 interface State {
   widgets: Widget[] // widget具体配置
@@ -453,7 +503,8 @@ interface State {
 }
 ```
 
-Widget支持配置以下参数
+Widget 支持配置以下参数
+
 ```ts
 interface Widget {
   name: string // 唯一标识
@@ -465,19 +516,18 @@ interface Widget {
   meta?: any // 额外参数 不会在每次关闭后清除
 }
 ```
+
 > 更多参数建议阅读源码的 `src\common\store\index.ts` (教程可能滞后，请参考源码注释为准)
 
- 
- 
 #### 菜单或其他入口文件中
 
-在需要的菜单单击事件或其他对象触发代码中，加入` store.dispatch("activate", 'sample-dialog') `来激活我们刚加入的控件，
+在需要的菜单单击事件或其他对象触发代码中，加入`store.dispatch("activate", 'sample-dialog')`来激活我们刚加入的控件，
 
 下面已目录为例：
 
 在`widgets\example\menu\index.vue`中加入“弹窗示例”按钮，按钮单击事件调用对应方法，
 
-store.dispatch 第2个名称参数与 store.ts 中的 name 需要一致。
+store.dispatch 第 2 个名称参数与 store.ts 中的 name 需要一致。
 
 ```vue
 <template>
@@ -499,9 +549,6 @@ const show = (name: string) => {
 </script>
 ```
 
-
-
-
 ## 开发中常见问题
 
 ### 1. 局域网离线使用时注意事项
@@ -515,11 +562,6 @@ const show = (name: string) => {
 - 修改 config.json 中`terrain`配置中，将已有的`"show": true`配置，改为`"show": false`
 - 修改 config.json 中`basemaps`数组配置中，将已有的`"show": true`的图层，将该值改为`"show": false` ，并将单张图片或离线地图加上`"show": true`，并修改相关 URL 地址。
 - 您也可以参考教程[发布三维数据服务](http://mars3d.cn/dev/guide/data/server.html)进行部署离线地图服务，里面也有一些示例离线数据。
-
-
-
-
-
 
 ## Mars3D 是什么
 

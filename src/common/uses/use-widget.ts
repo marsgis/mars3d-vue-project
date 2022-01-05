@@ -1,7 +1,7 @@
 /**
- * ×é¼şÖĞÍ¨¹ıname»ñÈ¡widgetÊı¾İ
- * @copyright »ğĞÇ¿Æ¼¼ mars3d.cn
- * @author »ğĞÇÎâÑå×æ 2021-12-30
+ * ç»„ä»¶ä¸­é€šè¿‡nameè·å–widgetæ•°æ®
+ * @copyright ç«æ˜Ÿç§‘æŠ€ mars3d.cn
+ * @author ç«æ˜Ÿå´å½¦ç¥– 2021-12-30
  */
 import { useStore } from "vuex"
 
