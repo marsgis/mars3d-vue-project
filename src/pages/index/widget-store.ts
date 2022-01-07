@@ -4,10 +4,10 @@
  * @author 火星吴彦祖 2021-12-30
  */
 import { defineAsyncComponent, markRaw } from "vue"
-import { State } from "@/common/store/index.js"
+import { WidgetState } from "@/common/store/widget.js"
 import { StoreOptions } from "vuex"
 
-const store: StoreOptions<State> = {
+const store: StoreOptions<WidgetState> = {
   state: {
     widgets: [
       {

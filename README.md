@@ -330,7 +330,7 @@ widgets = [
 
 ```js
 // 动态传参
-store.dispatch("activate", {
+activate({
   name: "hello",
   data: {
     props: {
@@ -472,14 +472,14 @@ onUnmounted(() => {
 
 #### store.ts 清单配置
 
-在对应 page 页面下的 `src\pages\example\store.ts` 中，需要配置刚才新建的 widget 相关信息；
+在对应 page 页面下的 `src\pages\example\widget-store.ts` 中，需要配置刚才新建的 widget 相关信息；
 
 ```js
 import { defineAsyncComponent, markRaw } from "vue"
-import { State } from "@/common/store"
+import { WidgetState } from "@/common/store/widget.js"
 import { StoreOptions } from "vuex"
 
-const store: StoreOptions<State> = {
+const store: StoreOptions<WidgetState> = {
   state: {
     //已忽略其他配置
     widgets: [
@@ -533,20 +533,23 @@ store.dispatch 第 2 个名称参数与 store.ts 中的 name 需要一致。
 <template>
   <mars-pannel>
     <a-space>
+      <mars-button @click="show('sample-pannel')">面板示例</mars-button>
       <mars-button @click="show('sample-dialog')">弹窗示例</mars-button>
+      <mars-button @click="show('ui')">UI面板</mars-button>
     </a-space>
   </mars-pannel>
 </template>
 
 <script setup lang="ts">
-import { useStore } from "vuex"
-import MarsPannel from "@/components/marsgis/mars-pannel.vue"
-const store = useStore()
+import MarsPannel from "@/components/marsgis/mars-pannel.js"
+import { useWidget } from "@/common/store/widget.js"
+const { activate } = useWidget()
 
 const show = (name: string) => {
-  store.dispatch("activate", name) //关键代码，通过管理器激活对应widget
+  activate(name)
 }
 </script>
+<style lang="less"></style>
 ```
 
 ## 开发中常见问题

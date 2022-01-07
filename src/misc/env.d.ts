@@ -26,14 +26,35 @@ declare module "@/components/marsgis/mars-pannel.js" {
   export default component
 }
 
-declare module "@/common/store/index.js" {
-  export interface State {
+declare module "@/common/store/widget.js" {
+  export interface WidgetState {
     widgets: any[]
     openAtStart: string[]
     defaultOptions?: DefaultOption
     graphic?: any
   }
   export const injectState: (options: StoreOptions<State>) => Store<State>
+
+  export const key: symbol
+
+  export type Widget = {
+    name: string // 唯一标识
+    component: any // widget关联的异步组件
+
+    autoDisable?: boolean // 是否能够被自动关闭
+    disableOther?: boolean | string[] // 是否自动关闭其他widget,或通过数组指定需要被关闭的widget
+    group?: string // group相同的widget一定是互斥的
+    visible?: boolean // 显示隐藏
+    data?: any // 额外传参 会在每次关闭后清除
+    meta?: any // 额外参数 不会在每次关闭后清除
+  }
+
+  export const useWidget: () => {
+    getWidget : (name: string) => any,
+    activate : (params: string | any) => void,
+    disable : (name: string) => void
+  }
+
 }
 
 declare module "kml-geojson" {

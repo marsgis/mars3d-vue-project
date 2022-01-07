@@ -27,11 +27,12 @@ import { computed, provide, ref } from "vue"
 import { ConfigProvider } from "ant-design-vue"
 import { useStore } from "vuex"
 import MarsMap from "@/components/marsgis/mars-map.vue"
-import { Widget } from "@/common/store"
+import { Widget } from "@/common/store/widget.js"
+import { key } from "@/common/store/widget.js"
 
 const locale = zhCN
 
-const store = useStore()
+const store = useStore(key)
 
 const widgets = computed(() => store.state.widgets)
 const openAtStart = computed(() => store.state.openAtStart)

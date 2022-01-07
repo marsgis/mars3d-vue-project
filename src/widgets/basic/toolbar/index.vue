@@ -53,6 +53,8 @@ import {
   Down
 } from "@icon-park/vue-next"
 import MarsPannel from "@/components/marsgis/mars-pannel.js"
+import { useWidget } from "@/common/store/widget.js"
+const { activate } = useWidget()
 
 const store = useStore()
 const data = [
@@ -78,8 +80,7 @@ const data = [
 ]
 
 const showWidget = (widget: string) => {
-  console.log(widget)
-  store.dispatch("activate", widget)
+  activate(widget)
 }
 
 const clickMenu = ({ key }: any) => {

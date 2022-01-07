@@ -26,12 +26,11 @@ import MarsDialog from "@/components/marsgis/mars-dialog.js"
 import { onUnmounted, nextTick, reactive, ref } from "vue"
 import useLifecycle from "@/common/uses/use-lifecycle.js"
 import * as mapWork from "./map"
-import { useStore } from "vuex"
-
-const store = useStore()
+import { useWidget } from "@/common/store/widget.js"
+const { disable, activate } = useWidget()
 
 onUnmounted(() => {
-  store.dispatch("disable", "layer-tree")
+  disable("layer-tree")
 })
 
 useLifecycle(mapWork)
@@ -75,15 +74,15 @@ const checkedChange = (keys: string[], e: any) => {
     if (layer.options.onWidget) {
       if (e.checked) {
         if (lastWidget) {
-          store.dispatch("disable", lastWidget)
+          disable(lastWidget)
         }
 
-        store.dispatch("activate", {
+        activate({
           name: layer.options.onWidget
         })
         lastWidget = layer.options.onWidget
       } else {
-        store.dispatch("disable", layer.options.onWidget)
+        disable(layer.options.onWidget)
       }
     }
 
@@ -229,13 +228,13 @@ function findChild(parent: any, list: any[]) {
 }
 
 function initLayerTree(layer: any) {
-  store.dispatch("disable", "layer-tree")
+  disable("layer-tree")
   // 处理图层构件树控件
   if (layer.options.scenetree) {
     layer.on("click", () => {
       const url = layer.options.url
       const id = layer.id
-      store.dispatch("activate", {
+      activate({
         name: "layer-tree",
         url,
         id

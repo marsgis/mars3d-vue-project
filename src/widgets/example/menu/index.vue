@@ -9,12 +9,12 @@
 </template>
 
 <script setup lang="ts">
-import { useStore } from "vuex"
 import MarsPannel from "@/components/marsgis/mars-pannel.js"
-const store = useStore()
+import { useWidget } from "@/common/store/widget.js"
+const { activate } = useWidget()
 
 const show = (name: string) => {
-  store.dispatch("activate", name)
+  activate(name)
 }
 </script>
 <style lang="less"></style>
