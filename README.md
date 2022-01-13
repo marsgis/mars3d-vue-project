@@ -553,48 +553,45 @@ const show = (name: string) => {
 ```
 
 
-## 如何在自己的项目使用widget
-> 前提条件：需要确保技术路线与本项目统一
+## 如何将当前基础项目集成到自己的项目中（2个项目的集成）
+> 前提条件：需要2个项目的技术栈基本是一致的，比如`vue3+ts+ant-design-vue`等
 
-1. 复制依赖，保证依赖存在且版本正确
+### 1. package.json依赖的融合
+
+复制package.json依赖包，保证依赖存在且版本正确。
 
 ```json
 {
-  "@icon-park/vue-next": "^1.3.5",
+  "mars3d": "^3.1.21",
+  "mars3d-cesium": "^1.89.0",
   "@turf/turf": "^6.5.0",
-  "ant-design-vue": "3.0.0-alpha.13",
+  "kml-geojson": "^1.2.0",
+  "vue": "^3.2.26",
+  "vuex": "^4.0.2",
+  "vue-color-kit": "^1.0.5",
   "axios": "^0.23.0",
   "core-js": "^3.6.5",
-  "echarts": "^5.2.2",
-  "kml-geojson": "^1.2.0",
-  "localforage": "^1.10.0",
-  "mars3d-cesium": "^1.89.0",
+  "ant-design-vue": "3.0.0-alpha.13",
+  "@icon-park/vue-next": "^1.3.5",
   "nprogress": "^0.2.0",
-  "vue": "^3.2.26",
-  "vue-color-kit": "^1.0.5",
-  "vuex": "^4.0.2"
+  "echarts": "^5.2.2",
+  "localforage": "^1.10.0"
 }
 ```
 
-2. 新建目录 src/marsgis 用于单独存放模板的相关代码
+### 2. 拷贝基础项目src代码
+ 在原有项目中新建目录`src/marsgis`，将基础项目src代码(比如component common misc utils widgets)拷贝到`src/marsgis`目录下面。
+  
 
-3. 拷贝 component common misc utils widgets 目录到 src/marsgis
-
-4. 修改项目别名配置和 process 相关配置
+### 3. 修改项目别名等配置
+ 
+ 修改`vite.config.ts`等配置文件中的项目别名配置和 process 相关配置
 
 ```js
 alias: {
   {
     find: /@mars\//,
     replacement: pathResolve('src/marsgis') + '/',
-  },
-  {
-    find: /@mars-comp\//,
-    replacement: pathResolve('src/marsgis/components') + '/',
-  },
-  {
-    find: /@mars/widgets\//,
-    replacement: pathResolve('src/marsgis/widgets') + '/',
   }
 }
 
@@ -605,7 +602,8 @@ define: {
 }
 ```
 
-5. 在 main.js 中加载和初始化相关依赖
+### 4. 修改初始化相关依赖
+ 在`src/main.js`文件中加载和初始化相关依赖
 
 ```js
 import { injectState, key } from '@mars/common/store/widget';
@@ -613,15 +611,21 @@ import widgetStore from './widget-store';
 import MarsUI from '@mars/components/mars-ui';
 
 app.use(MarsUI);
-
 app.use(injectState(widgetStore), key);
 ```
-6. 拷贝public下的资源
+
+### 5. 拷贝public下的资源
+  将基础项目public下所有文件拷贝到自己项目的public目录下。
+
+### 6.复制对应页面代码
+ 复制对应页面代码到组件中, 例如拷贝 `src\pages\index\App.vue` 代码到自己项目需要展示地图的vue文件中。
+
+### 7. 处理样式冲突
+  基础项目已经基本保证不会影响外部样式，此处要处理的是您项目中的全局样式对mars3d相关组件的影响。修改相关CSS保证基础项目功能UI正常即可。
 
 
-7. 复制对应页面代码到组件中, 例如拷贝 zhts/app 代码到 default.vue 中
 
-8. 处理样式冲突, 基础项目已经基本保证不会影响外部样式，此处要处理的是您项目中的全局样式对mars3d相关组件的影响。
+  
 
 
 ## 开发中常见问题
