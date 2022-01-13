@@ -63,19 +63,19 @@ const data = [
     name: "工具",
     icon: h(Tool, { theme: "outline", size: "18" }),
     children: [
-      { name: "图上量算", icon: h(Ruler, { theme: "outline", size: "18" }), widget: "measure" },
-      { name: "空间分析", icon: h(Analysis, { theme: "outline", size: "18" }), widget: "analysis" },
-      { name: "坐标定位", icon: h(Local, { theme: "outline", size: "18" }), widget: "select-point" },
-      { name: "地区导航", icon: h(Navigation, { theme: "outline", size: "18" }), widget: "navigation" },
-      { name: "我的标记", icon: h(Mark, { theme: "outline", size: "18" }), widget: "addmarker" },
-      { name: "视角书签", icon: h(Bookmark, { theme: "outline", size: "18" }), widget: "bookmark" },
-      { name: "地图打印", icon: h(Printer, { theme: "outline", size: "18" }), widget: "print" },
-      { name: "飞行漫游", icon: h(TakeOff, { theme: "outline", size: "18" }), widget: "roamLine" },
-      { name: "图上标绘", icon: h(HandPaintedPlate, { theme: "outline", size: "18" }), widget: "plot" },
-      { name: "路线导航", icon: h(Connection, { theme: "outline", size: "18" }), widget: "query-route" },
-      { name: "卷帘对比", icon: h(SwitchContrast, { theme: "outline", size: "18" }), widget: "map-split" },
-      { name: "分屏对比", icon: h(FullScreenPlay, { theme: "outline", size: "18" }), widget: "screen-compare" },
-      { name: "百度街景", icon: h(City, { theme: "outline", size: "18" }), widget: "street-view" }
+      // { name: "图上量算", icon: h(Ruler, { theme: "outline", size: "18" }), widget: "measure" },
+      // { name: "空间分析", icon: h(Analysis, { theme: "outline", size: "18" }), widget: "analysis" },
+      { name: "坐标定位", icon: h(Local, { theme: "outline", size: "18" }), widget: "select-point" }
+      // { name: "地区导航", icon: h(Navigation, { theme: "outline", size: "18" }), widget: "navigation" },
+      // { name: "我的标记", icon: h(Mark, { theme: "outline", size: "18" }), widget: "addmarker" },
+      // { name: "视角书签", icon: h(Bookmark, { theme: "outline", size: "18" }), widget: "bookmark" },
+      // { name: "地图打印", icon: h(Printer, { theme: "outline", size: "18" }), widget: "print" },
+      // { name: "飞行漫游", icon: h(TakeOff, { theme: "outline", size: "18" }), widget: "roamLine" },
+      // { name: "图上标绘", icon: h(HandPaintedPlate, { theme: "outline", size: "18" }), widget: "plot" },
+      // { name: "路线导航", icon: h(Connection, { theme: "outline", size: "18" }), widget: "query-route" },
+      // { name: "卷帘对比", icon: h(SwitchContrast, { theme: "outline", size: "18" }), widget: "map-split" },
+      // { name: "分屏对比", icon: h(FullScreenPlay, { theme: "outline", size: "18" }), widget: "screen-compare" },
+      // { name: "百度街景", icon: h(City, { theme: "outline", size: "18" }), widget: "street-view" }
     ]
   }
 ]
