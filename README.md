@@ -135,7 +135,6 @@ mars3d-vue-project
 │   └───directive       指令
 │   └───misc            ts模块定义
 │   └───pages           页面入口
-│   └───styles          样式文件
 │   └───utils           工具方法
 │   └───widget          功能相关的widget控件【重要】
 │
@@ -160,31 +159,36 @@ vue 下的 widget 设计，沿用了我们 [原生 JS 版基础项目](http://ma
 - 只需要通过简单的配置，即可控制不同业务面板间的互斥关系
 - 提供 api 可以手动的控制面板的显示隐藏
 
+
 #### widget 配置参数
 
-widget 加载相关的代码在 `src/common/store/index.ts`下，使用的 vuex 管理相关状态，默认状态字段有
+widget 加载相关的代码在 `src\common\store\widget.ts`下，使用的 vuex 管理相关状态，默认状态字段有
 
 ```ts
-interface State {
-  widgets: Widget[] // widget具体配置
-  openAtStart: string[] // 默认加载的widget
-  defaultOptions?: DefaultOption // 支持配置默认参数
-}
-
-interface DefaultOption {
+// 为 store state 声明类型
+export interface DefaultOption {
   autoDisable?: boolean
   disableOther?: boolean | string[]
+  group?: string // group相同的widget一定是互斥的
+  meta?: any // 额外参数 不会在每次关闭后清除
 }
 
-interface Widget {
+export interface Widget {
   name: string // 唯一标识
+  key?: string // 作为vue diff 环节的key，用于控制组件重载
+  component?: any // widget关联的异步组件
   autoDisable?: boolean // 是否能够被自动关闭
   disableOther?: boolean | string[] // 是否自动关闭其他widget,或通过数组指定需要被关闭的widget
   group?: string // group相同的widget一定是互斥的
-  component: DefineComponent // widget关联的异步组件
   visible?: boolean // 显示隐藏
-  data?: any // 额外参数 会在每次关闭后清除
+  data?: any // 额外传参 会在每次关闭后清除
   meta?: any // 额外参数 不会在每次关闭后清除
+}
+
+export interface WidgetState {
+  widgets: Widget[] // widget具体配置
+  openAtStart: string[] // 默认加载的widget
+  defaultOption?: DefaultOption // 支持配置默认参数
 }
 ```
 
@@ -193,6 +197,9 @@ interface Widget {
 示例的内部构造处理流程图：
 
 ![image](http://mars3d.cn/dev/img/guide/project-vue-liu.jpg)
+
+
+
 
 ## 如何增加新的 widget
 
@@ -222,7 +229,7 @@ index.vue 完整代码为：
       </a-col>
     </a-row>
     <template #icon>
-      <bookmark-one theme="outline" size="18" />
+      <bookmark-one theme="outline" size="18"/>
     </template>
   </mars-dialog>
 </template>
@@ -257,12 +264,12 @@ onUnmounted(() => {
 
 其中：
 
-##### mar-dialog.vue
+##### mars-dialog.vue
 
 mars-dialog 是弹窗组件，我们 widget 内可以按需选择下面 2 个使用：
 
-- mars-dialog 弹框 组件
-- mars-pannel 普通面板组件
+- mars-dialog 弹框 组件: `src\components\mars-work\mars-dialog.vue`
+- mars-pannel 普通面板组件: `src\components\mars-work\mars-pannel.vue`
 
 mars-dialog 支持的配置参数包括：
 
@@ -357,7 +364,7 @@ vue 中需要调用地图方法时，需得启用 map.ts 的生命周期，并�
 
 ```js
 // vue中
-import useLifecycle from "@mars/common/lifecyles/use-lifecycle"
+import useLifecycle from "@mars/common/uses/use-lifecycle"
 import * as mapWork from "./map"
 
 // 启用map.ts生命周期
@@ -410,6 +417,7 @@ export function drawExtent(): void {
     }
   })
 }
+
 ```
 
 其中：
@@ -476,7 +484,7 @@ onUnmounted(() => {
 
 ```js
 import { defineAsyncComponent, markRaw } from "vue"
-import { WidgetState } from "@mars/common/store/widget.js"
+import { WidgetState } from "@mars/common/store/widget"
 import { StoreOptions } from "vuex"
 
 const store: StoreOptions<WidgetState> = {
@@ -486,7 +494,7 @@ const store: StoreOptions<WidgetState> = {
       {
         component: markRaw(defineAsyncComponent(() => import("@mars/widgets/example/sample-dialog/index.vue"))),
         name: "sample-dialog"
-      }
+      },
     ]
   }
 }
@@ -508,6 +516,8 @@ Widget 支持配置以下参数
 ```ts
 interface Widget {
   name: string // 唯一标识
+  key?: string // 作为vue diff 环节的key，用于控制组件重载
+  component?: any // widget关联的异步组件
   autoDisable?: boolean // 是否能够被自动关闭
   disableOther?: boolean | string[] // 是否自动关闭其他widget,或通过数组指定需要被关闭的widget
   group?: string // group相同的widget一定是互斥的
@@ -515,9 +525,10 @@ interface Widget {
   data?: any // 额外传参 会在每次关闭后清除
   meta?: any // 额外参数 不会在每次关闭后清除
 }
+
 ```
 
-> 更多参数建议阅读源码的 `src\common\store\index.ts` (教程可能滞后，请参考源码注释为准)
+> 更多参数建议阅读源码的 `src\common\store\widget.ts` (教程可能滞后，请参考源码注释为准)
 
 #### 菜单或其他入口文件中
 
@@ -541,9 +552,10 @@ store.dispatch 第 2 个名称参数与 store.ts 中的 name 需要一致。
 </template>
 
 <script setup lang="ts">
-import MarsPannel from "@mars/components/mars-work/mars-pannel.js"
-import { useWidget } from "@mars/common/store/widget.js"
-const { activate } = useWidget()
+import MarsPannel from "@mars/components/mars-work/mars-pannel.vue"
+import { useWidget } from "@mars/common/store/widget"
+
+const { activate} = useWidget()
 
 const show = (name: string) => {
   activate(name)
@@ -553,10 +565,38 @@ const show = (name: string) => {
 ```
 
 
-## 如何将当前基础项目集成到自己的项目中（2个项目的集成）
+## 将当前项目集成到自己的项目中(合并2个项目)
+ 
 > 前提条件：需要2个项目的技术栈基本是一致的，比如`vue3+ts+ant-design-vue`等
 
-### 1. package.json依赖的融合
+### 流程概览：
+
+需要拷贝的目录和文件：
+- `/src/` 拷贝到 `/src/marsgis`
+- `/public/` 拷贝到 `/public/`
+- `/src/pages/index/widget-store.ts` 拷贝到`/src/marsgis/widget-store.ts` 
+
+需要修改自己项目的文件：
+- `package.json`
+- `vite.config.ts`
+- `src/main.js`
+- 需要加地图的`vue文件`
+
+
+![image](http://mars3d.cn/dev/img/guide/project-vue-hebing.jpg)
+
+
+
+
+### 1. 拷贝基础项目src代码
+ 在原有项目中新建目录`src/marsgis`，将基础项目src代码拷贝到`src/marsgis`目录下面，其中pages目录非必须，可以按需拷贝。
+  
+
+### 2. 拷贝public下的资源
+  将基础项目`public`下所有文件拷贝到自己项目的`public`目录下。
+
+ 
+### 3. package.json依赖的融合
 
 复制package.json依赖包，保证依赖存在且版本正确。
 
@@ -579,11 +619,8 @@ const show = (name: string) => {
 }
 ```
 
-### 2. 拷贝基础项目src代码
- 在原有项目中新建目录`src/marsgis`，将基础项目src代码(比如component common misc utils widgets)拷贝到`src/marsgis`目录下面。
-  
 
-### 3. 修改项目别名等配置
+### 4. 修改项目别名等配置
  
  修改`vite.config.ts`等配置文件中的项目别名配置和 process 相关配置
 
@@ -602,30 +639,28 @@ define: {
 }
 ```
 
-### 4. 修改初始化相关依赖
- 在`src/main.js`文件中加载和初始化相关依赖
+### 5. 修改初始化相关依赖
+ 将`src\pages\index\widget-store.ts`配置文件拷贝`src/marsgis/widget-store.ts`位置。
+ 
+ 再在`src/main.js`文件中加载和初始化相关依赖。
 
 ```js
 import { injectState, key } from '@mars/common/store/widget';
-import widgetStore from './widget-store';
+import widgetStore from '@mars/widget-store';
 import MarsUI from '@mars/components/mars-ui';
 
 app.use(MarsUI);
 app.use(injectState(widgetStore), key);
 ```
-
-### 5. 拷贝public下的资源
-  将基础项目public下所有文件拷贝到自己项目的public目录下。
-
-### 6.复制对应页面代码
+ 
+### 6.复制对应vue页面代码
  复制对应页面代码到组件中, 例如拷贝 `src\pages\index\App.vue` 代码到自己项目需要展示地图的vue文件中。
+
 
 ### 7. 处理样式冲突
   基础项目已经基本保证不会影响外部样式，此处要处理的是您项目中的全局样式对mars3d相关组件的影响。修改相关CSS保证基础项目功能UI正常即可。
 
 
-
-  
 
 
 ## 开发中常见问题
