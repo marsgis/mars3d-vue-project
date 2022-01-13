@@ -1,8 +1,8 @@
 import * as echarts from "echarts"
 /**
- * echarts¹«¹²ÑùÊ½ÅäÖÃ
- * @copyright »ğĞÇ¿Æ¼¼ mars3d.cn
- * @author »ğĞÇÎâÑå×æ 2021-12-30
+ * echartså…¬å…±æ ·å¼é…ç½®
+ * @copyright ç«æ˜Ÿç§‘æŠ€ mars3d.cn
+ * @author ç«æ˜Ÿå´å½¦ç¥– 2021-12-30
  */
 
 echarts.registerTheme("dark", {
@@ -254,7 +254,7 @@ echarts.registerTheme("dark", {
       axisLine: {
           show: true,
           lineStyle: {
-              color: "#666666"
+              color: "#91cc75"
           }
       },
       axisTick: {
@@ -266,7 +266,7 @@ echarts.registerTheme("dark", {
       axisLabel: {
           show: true,
           textStyle: {
-              color: "#eeeeee"
+              color: "#91cc75"
           }
       },
       splitLine: {
@@ -291,7 +291,7 @@ echarts.registerTheme("dark", {
       axisLine: {
           show: true,
           lineStyle: {
-              color: "#666666"
+              color: "#91cc75"
           }
       },
       axisTick: {
@@ -328,7 +328,7 @@ echarts.registerTheme("dark", {
       axisLine: {
           show: true,
           lineStyle: {
-              color: "#666666"
+              color: "#91cc75"
           }
       },
       axisTick: {
@@ -365,7 +365,7 @@ echarts.registerTheme("dark", {
       axisLine: {
           show: true,
           lineStyle: {
-              color: "#666666"
+              color: "#91cc75"
           }
       },
       axisTick: {

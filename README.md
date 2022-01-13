@@ -230,8 +230,8 @@ index.vue 完整代码为：
 <script setup lang="ts">
 import { onUnmounted, ref } from "vue"
 import { BookmarkOne } from "@icon-park/vue-next"
-import useLifecycle from "@/common/uses/use-lifecycle"
-import MarsDialog from "@/components/marsgis/mars-dialog.vue"
+import useLifecycle from "@mars/common/uses/use-lifecycle"
+import MarsDialog from "@mars/components/mars-work/mars-dialog.vue"
 import * as mapWork from "./map"
 
 // 启用map.ts生命周期
@@ -316,7 +316,7 @@ const store: StoreOptions<State> = {
 // meta中
 widgets = [
   {
-    component: markRaw(defineAsyncComponent(() => import("@widgets/hello.vue"))),
+    component: markRaw(defineAsyncComponent(() => import("@mars/widgets/hello.vue"))),
     name: "hello",
     autoDisable: true,
     meta: {
@@ -357,7 +357,7 @@ vue 中需要调用地图方法时，需得启用 map.ts 的生命周期，并�
 
 ```js
 // vue中
-import useLifecycle from "@/common/lifecyles/use-lifecycle"
+import useLifecycle from "@mars/common/lifecyles/use-lifecycle"
 import * as mapWork from "./map"
 
 // 启用map.ts生命周期
@@ -476,7 +476,7 @@ onUnmounted(() => {
 
 ```js
 import { defineAsyncComponent, markRaw } from "vue"
-import { WidgetState } from "@/common/store/widget.js"
+import { WidgetState } from "@mars/common/store/widget.js"
 import { StoreOptions } from "vuex"
 
 const store: StoreOptions<WidgetState> = {
@@ -484,7 +484,7 @@ const store: StoreOptions<WidgetState> = {
     //已忽略其他配置
     widgets: [
       {
-        component: markRaw(defineAsyncComponent(() => import("@widgets/example/sample-dialog/index.vue"))),
+        component: markRaw(defineAsyncComponent(() => import("@mars/widgets/example/sample-dialog/index.vue"))),
         name: "sample-dialog"
       }
     ]
@@ -521,7 +521,7 @@ interface Widget {
 
 #### 菜单或其他入口文件中
 
-在需要的菜单单击事件或其他对象触发代码中，加入`store.dispatch("activate", 'sample-dialog')`来激活我们刚加入的控件，
+在需要的菜单单击事件或其他对象触发代码中，加入`activate('sample-dialog')`来激活我们刚加入的控件，
 
 下面已目录为例：
 
@@ -541,8 +541,8 @@ store.dispatch 第 2 个名称参数与 store.ts 中的 name 需要一致。
 </template>
 
 <script setup lang="ts">
-import MarsPannel from "@/components/marsgis/mars-pannel.js"
-import { useWidget } from "@/common/store/widget.js"
+import MarsPannel from "@mars/components/mars-work/mars-pannel.js"
+import { useWidget } from "@mars/common/store/widget.js"
 const { activate } = useWidget()
 
 const show = (name: string) => {
@@ -551,6 +551,78 @@ const show = (name: string) => {
 </script>
 <style lang="less"></style>
 ```
+
+
+## 如何在自己的项目使用widget
+> 前提条件：需要确保技术路线与本项目统一
+
+1. 复制依赖，保证依赖存在且版本正确
+
+```json
+{
+  "@icon-park/vue-next": "^1.3.5",
+  "@turf/turf": "^6.5.0",
+  "ant-design-vue": "3.0.0-alpha.13",
+  "axios": "^0.23.0",
+  "core-js": "^3.6.5",
+  "echarts": "^5.2.2",
+  "kml-geojson": "^1.2.0",
+  "localforage": "^1.10.0",
+  "mars3d-cesium": "^1.89.0",
+  "nprogress": "^0.2.0",
+  "vue": "^3.2.26",
+  "vue-color-kit": "^1.0.5",
+  "vuex": "^4.0.2"
+}
+```
+
+2. 新建目录 src/marsgis 用于单独存放模板的相关代码
+
+3. 拷贝 component common misc utils widgets 目录到 src/marsgis
+
+4. 修改项目别名配置和 process 相关配置
+
+```js
+alias: {
+  {
+    find: /@mars\//,
+    replacement: pathResolve('src/marsgis') + '/',
+  },
+  {
+    find: /@mars-comp\//,
+    replacement: pathResolve('src/marsgis/components') + '/',
+  },
+  {
+    find: /@mars/widgets\//,
+    replacement: pathResolve('src/marsgis/widgets') + '/',
+  }
+}
+
+define: {
+  'process.env': {
+    BASE_URL: '/',
+  },
+}
+```
+
+5. 在 main.js 中加载和初始化相关依赖
+
+```js
+import { injectState, key } from '@mars/common/store/widget';
+import widgetStore from './widget-store';
+import MarsUI from '@mars/components/mars-ui';
+
+app.use(MarsUI);
+
+app.use(injectState(widgetStore), key);
+```
+6. 拷贝public下的资源
+
+
+7. 复制对应页面代码到组件中, 例如拷贝 zhts/app 代码到 default.vue 中
+
+8. 处理样式冲突, 基础项目已经基本保证不会影响外部样式，此处要处理的是您项目中的全局样式对mars3d相关组件的影响。
+
 
 ## 开发中常见问题
 

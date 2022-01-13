@@ -67,7 +67,8 @@ const MarsColorPicker = defineComponent({
           visible: visible.value,
           "onUpdate:visible": (v: boolean) => {
             visible.value = v
-          }
+          },
+          color: "rgba(32, 42, 68, 0.9)"
         },
         {
           default: () => h("div", { class: "marsColorView", style: { backgroundColor: props.value } }),

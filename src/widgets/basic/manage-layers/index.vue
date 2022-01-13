@@ -2,7 +2,7 @@
   <mars-dialog title="图层" width="320" :min-width="320" top="50" bottom="40" right="10">
     <mars-tree checkable :tree-data="treeData" v-model:expandedKeys="expandedKeys" v-model:checkedKeys="checkedKeys" @check="checkedChange">
       <template #title="node">
-        <a-dropdown :trigger="['contextmenu']">
+        <mars-dropdown :trigger="['contextmenu']">
           <span @dblclick="flyTo(node)">{{ node.title }}</span>
           <template #overlay v-if="node.hasZIndex">
             <a-menu @click="(menu: any) => onContextMenuClick(node, menu.key)">
@@ -12,7 +12,7 @@
               <a-menu-item key="4">图层置为底层</a-menu-item>
             </a-menu>
           </template>
-        </a-dropdown>
+        </mars-dropdown>
         <span v-if="node.hasOpacity" v-show="node.checked" class="tree-slider">
           <!-- <a-slider v-model:value="node.data.opacity" :min="0" :step="1" :max="100" @change="opcityChange(node)" /> -->
           <a-slider v-model:value="opacityObj[node.id]" :min="0" :step="1" :max="100" @change="opcityChange(node)" />
@@ -22,12 +22,13 @@
   </mars-dialog>
 </template>
 <script lang="ts" setup>
-import MarsDialog from "@/components/marsgis/mars-dialog.js"
+import MarsDialog from "@mars/components/mars-work/mars-dialog.vue"
 import { onUnmounted, nextTick, reactive, ref } from "vue"
-import useLifecycle from "@/common/uses/use-lifecycle.js"
+import useLifecycle from "@mars/common/uses/use-lifecycle"
 import * as mapWork from "./map"
-import { useWidget } from "@/common/store/widget.js"
-const { disable, activate } = useWidget()
+import { useWidget } from "@mars/common/store/widget"
+
+const { activate, disable } = useWidget()
 
 onUnmounted(() => {
   disable("layer-tree")
@@ -52,11 +53,30 @@ mapWork.eventTarget.on("loadOK", () => {
 let lastWidget: any
 const checkedChange = (keys: string[], e: any) => {
   const layer = layersObj[e.node.id]
-  console.log(layer)
+  // console.log("点击的矢量图层", layer)
 
   if (layer) {
     if (!layer.isAdded) {
       mapWork.addLayer(layer)
+    }
+
+    // 特殊处理同目录下的单选的互斥的节点，可在config对应图层节点中配置"radio":true即可
+    if (layer.options.radio && e.checked) {
+      // 循环所有的图层
+      for (const i in layersObj) {
+        const item = layersObj[i]
+        // 循环所有的打开的图层
+        checkedKeys.value.forEach((key, index) => {
+          // 在所有图层中筛选与打开图层对应key值的图层 以及 与当前操作的图层的pid相同的图层
+          if (item === layersObj[key] && layer.pid === layersObj[key].pid) {
+            // 筛选出不是当前的其他图层进行图层隐藏以及移除
+            if (item !== layer) {
+              checkedKeys.value.splice(index, 1)
+              item.show = false
+            }
+          }
+        })
+      }
     }
     if (keys.indexOf(e.node.id) !== -1) {
       layer.show = true
@@ -76,7 +96,6 @@ const checkedChange = (keys: string[], e: any) => {
         if (lastWidget) {
           disable(lastWidget)
         }
-
         activate({
           name: layer.options.onWidget
         })
@@ -85,11 +104,11 @@ const checkedChange = (keys: string[], e: any) => {
         disable(layer.options.onWidget)
       }
     }
+  }
 
-    // 处理子节点
-    if (e.node.children && e.node.children.length) {
-      renderChildNode(keys, e.node.children)
-    }
+  // 处理子节点
+  if (e.node.children && e.node.children.length) {
+    renderChildNode(keys, e.node.children)
   }
 }
 
@@ -198,32 +217,30 @@ function findChild(parent: any, list: any[]) {
   return list
     .filter((item: any) => item.pid === parent.id)
     .map((item: any, i: number) => {
-      if ((item.pid = parent.id)) {
-        const node: any = {
-          index: i,
-          title: item.name,
-          key: item.id,
-          id: item.id,
-          pId: item.pid,
-          uuid: item.uuid,
-          hasZIndex: item.hasZIndex,
-          hasOpacity: item.hasOpacity,
-          opacity: 100 * (item.opacity || 0),
-          parent: parent
-        }
-        if (item.hasOpacity) {
-          opacityObj[item.id] = 100 * (item.opacity || 0)
-        }
-        layersObj[item.id] = item
-        node.children = findChild(node, list)
-        expandedKeys.value.push(node.key)
-        if (item.isAdded && item.show) {
-          nextTick(() => {
-            checkedKeys.value.push(node.key)
-          })
-        }
-        return node
+      const node: any = {
+        index: i,
+        title: item.name,
+        key: item.id,
+        id: item.id,
+        pId: item.pid,
+        uuid: item.uuid,
+        hasZIndex: item.hasZIndex,
+        hasOpacity: item.hasOpacity,
+        opacity: 100 * (item.opacity || 0),
+        parent: parent
       }
+      if (item.hasOpacity) {
+        opacityObj[item.id] = 100 * (item.opacity || 0)
+      }
+      layersObj[item.id] = item
+      node.children = findChild(node, list)
+      expandedKeys.value.push(node.key)
+      if (item.isAdded && item.show) {
+        nextTick(() => {
+          checkedKeys.value.push(node.key)
+        })
+      }
+      return node
     })
 }
 

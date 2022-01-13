@@ -15,8 +15,8 @@
 
 <script setup lang="ts">
 import { onUnmounted, ref, markRaw } from "vue"
-import useLifecycle from "@/common/uses/use-lifecycle.js"
-import MarsDialog from "@/components/marsgis/mars-dialog.js"
+import useLifecycle from "@mars/common/uses/use-lifecycle"
+import MarsDialog from "@mars/components/mars-work/mars-dialog.vue"
 import * as mapWork from "./map"
 
 // 启用map.ts生命周期

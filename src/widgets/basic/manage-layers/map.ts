@@ -40,6 +40,7 @@ export function getLayers() {
   })
 }
 
+// **********************************  图层的结构树控件  ****************************** //
 export function flytoModelNode(nodeid: number, nodesphere: any) {
   if (!nodesphere || nodesphere[3] <= 0) {
     return
@@ -87,3 +88,4 @@ export function checkModelStyle(layerid: number, arrIds: any) {
     }
   })
 }
+

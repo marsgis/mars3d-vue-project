@@ -19,8 +19,8 @@
 
 <script setup lang="ts">
 import { reactive } from "vue"
-import useLifecycle from "@/common/uses/use-lifecycle.js"
-import MarsPannel from "@/components/marsgis/mars-pannel.js"
+import useLifecycle from "@mars/common/uses/use-lifecycle"
+import MarsPannel from "@mars/components/mars-work/mars-pannel.vue"
 import * as mapWork from "./map"
 
 // 启用map.ts生命周期

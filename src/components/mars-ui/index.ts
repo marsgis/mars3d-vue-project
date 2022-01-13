@@ -10,11 +10,13 @@ import MarsInput from "./mars-input"
 import MarsInputNumber from "./mars-input-number"
 import MarsDatePicker from "./mars-date-picker"
 import MarsColorPicker from "./mars-color-picker"
+import MarsDropDown from "./mars-dropdown"
 import MarsMessage, { $message as marsMessage } from "./mars-message"
 import MarsAlert, { $alert as marsAlert } from "./mars-alert"
 import MarsNotify, { $notify as marsNotify } from "./mars-notify"
 import MarsLoading, { $hideLoading as marsHideLoading, $showLoading as marsShowLoading } from "./mars-loading"
 import MarsTree from "./mars-tree"
+
 import {
   AutoComplete,
   Button,
@@ -23,7 +25,6 @@ import {
   Col,
   Collapse,
   Divider,
-  Dropdown,
   Form,
   Input,
   InputNumber,
@@ -44,12 +45,16 @@ import {
   Tooltip,
   Tree,
   Typography,
-  Upload
+  Upload,
+  Card,
+  Image
 } from "ant-design-vue"
 
 import "./mars-echarts"
 
+import "./index.less"
 import "./base.less"
+import "./function.less"
 
 export const $alert = marsAlert
 export const $notify = marsNotify
@@ -57,7 +62,7 @@ export const $message = marsMessage
 export const $hideLoading = marsHideLoading
 export const $showLoading = marsShowLoading
 
-const components = [MarsSelect, MarsButton, MarsInput, MarsInputNumber, MarsDatePicker, MarsColorPicker, MarsTree]
+const components = [MarsSelect, MarsButton, MarsInput, MarsInputNumber, MarsDatePicker, MarsColorPicker, MarsTree, MarsDropDown]
 
 export default {
   install(app: App): App {
@@ -82,7 +87,6 @@ export default {
     app.use(Progress)
     app.use(PageHeader)
     app.use(Menu)
-    app.use(Dropdown)
     app.use(Popover)
     app.use(Spin)
     app.use(Modal)
@@ -90,6 +94,8 @@ export default {
     app.use(Tabs)
     app.use(Tooltip)
     app.use(Divider)
+    app.use(Card)
+    app.use(Image)
 
     components.forEach((comp) => {
       app.component(comp.name, comp)

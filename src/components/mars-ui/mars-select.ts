@@ -12,7 +12,7 @@ const MarsSesect = defineComponent({
   name: "mars-select",
   inheritAttrs: false,
   setup(props, context) {
-    return () => h(Select, { ...context.attrs, ...props }, context.slots)
+    return () => h(Select, { ...context.attrs, ...props, dropdownClassName: "mars-select-dropdown" }, context.slots)
   }
 })
 

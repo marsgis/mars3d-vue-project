@@ -1,5 +1,5 @@
 <template>
-  <mars-dialog title="弹窗标题" width="300" height="400" top="400" bottom="10" :right="10">
+  <mars-dialog title="我的弹窗" width="300" height="400" right="20" top="40" bottom="40">
     <a-row :gutter="5">
       <a-col :span="19">
         <mars-input v-model:value="extent" :allowClear="true"></mars-input>
@@ -11,34 +11,36 @@
       </a-col>
     </a-row>
     <template #icon>
-      <bookmark-one theme="outline" size="18"/>
+      <bookmark-one theme="outline" size="18" />
     </template>
   </mars-dialog>
 </template>
 
 <script setup lang="ts">
-import { onUnmounted, ref } from "vue"
+import { ref } from "vue"
 import { BookmarkOne } from "@icon-park/vue-next"
-import useLifecycle from "@mars/common/uses/use-lifecycle"
 import MarsDialog from "@mars/components/mars-work/mars-dialog.vue"
 import * as mapWork from "./map"
+import useLifecycle from "@mars/common/uses/use-lifecycle"
+import { useWidget } from "@mars/common/store/widget"
 
-// 启用map.ts生命周期
+const { getWidget } = useWidget()
+
+const widget = getWidget("my-widget")
+
+widget.onUpdate((e) => {
+  console.log(e)
+})
+
 useLifecycle(mapWork)
 
 const extent = ref("")
 
-// 渲染模型
-const onClickDrawExtent = () => {
-  // formState.extent = "测试组件内部数据是否响应"
-  mapWork.drawExtent()
+const onClickDrawExtent = async () => {
+  console.log(extent.value)
+  const data = await mapWork.drawExtent()
+  
+  extent.value = data.extent
 }
-mapWork.eventTarget.on("drawExtent", function (event: any) {
-  extent.value = event.extent
-})
-
-onUnmounted(() => {
-  // 销毁操作
-})
 </script>
 <style lang="less"></style>

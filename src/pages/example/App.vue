@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import MainView from "@/components/marsgis/main-view.vue"
+import MainView from "@mars/components/mars-work/main-view.vue"
 </script>
 
 <style></style>

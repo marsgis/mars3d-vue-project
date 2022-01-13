@@ -14,13 +14,17 @@ module.exports = {
     withDefaults: "readonly"
   },
   rules: {
-    // 关闭ts
-    "@typescript-eslint/no-var-requires": "off",
-    // 关闭ts
-    "@typescript-eslint/no-non-null-assertion": "off",
-    // 关闭ts不允许用any
+    //ts：允许用any
     "@typescript-eslint/no-explicit-any": "off",
+    //ts：不允许使用未定位类型自动转为any
+    "@typescript-eslint/no-useless-constructor": "error",
+    //ts：是否允许使用var
+    "@typescript-eslint/no-var-requires": "off",
+    //ts：非空赋值
+    "@typescript-eslint/no-non-null-assertion": "off",
+    //ts：是否需要显式定义函数将返回什么类型
     "@typescript-eslint/explicit-module-boundary-types": "off",
+    //ts：
     "@typescript-eslint/ban-ts-comment": "off",
 
     // require 必须在全局作用域下
@@ -93,7 +97,7 @@ module.exports = {
     // 禁止重复 import 模块
     "no-duplicate-imports": "error",
     // 禁止出现没必要的 constructor，比如 constructor(value) { super(value) }
-    "no-useless-constructor": "error",
+    "no-useless-constructor": "off",
     // 可以使用\转义
     "no-useless-escape": "off",
     // 关闭eslint标准模式callback回调报错

@@ -5,11 +5,11 @@
 </template>
 <script lang="ts" setup>
 import { toRaw, onMounted, ref } from "vue"
-import MarsDialog from "@/components/marsgis/mars-dialog.js"
+import MarsDialog from "@mars/components/mars-work/mars-dialog.vue"
 import * as mapWork from "./map"
 import axios from "axios"
-import { useWidget } from "@/common/store/widget.js"
-import { $message } from "@/components/mars-ui/"
+import { $message } from "@mars/components/mars-ui/index"
+import { useWidget } from "@mars/common/store/widget"
 
 const { getWidget } = useWidget()
 

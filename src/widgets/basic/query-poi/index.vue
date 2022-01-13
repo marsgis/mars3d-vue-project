@@ -43,12 +43,12 @@
 
 <script lang="ts" setup>
 import { ref } from "vue"
-import { isLonLat } from "@/utils/index"
-import useLifecycle from "@/common/uses/use-lifecycle.js"
-import MarsPannel from "@/components/marsgis/mars-pannel.js"
+import { isLonLat } from "@mars/utils/mars-util"
+import useLifecycle from "@mars/common/uses/use-lifecycle"
+import MarsPannel from "@mars/components/mars-work/mars-pannel.vue"
 import { Search as SearchO } from "@icon-park/vue-next"
 import * as mapWork from "./map"
-import { $alert, $message } from "@/components/mars-ui/"
+import { $message, $alert } from "@mars/components/mars-ui/index"
 
 // 启用map.ts生命周期
 useLifecycle(mapWork)
@@ -181,12 +181,14 @@ function addHistory(data: any) {
   background: none !important;
   border: none !important;
   padding: 0 !important;
+  overflow: visible !important;
 }
 </style>
 <style lang="less" scoped>
 .query-poi {
   padding: 0;
   width: 300px;
+  color: #fff;
   .search-input {
     width: 100%;
   }

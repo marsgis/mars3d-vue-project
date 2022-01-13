@@ -49,15 +49,16 @@ export function marsProj4Trans(JD: number, WD: number, radio: string) {
 
 // 地图选点
 export function bindMourseClick() {
-  map.setCursor(true)
+  map.setCursor("crosshair")
   map.once(mars3d.EventType.click, function (event: any) {
-    map.setCursor(false)
+    map.setCursor("")
     const cartesian = event.cartesian
     const point = mars3d.LatLngPoint.fromCartesian(cartesian)
     point.format() // 经度、纬度、高度
     eventTarget.fire("clickMap", { point })
   })
 }
+
 
 let pointEntity: any
 export function updateMarker(hasCenter: boolean, jd: number, wd: number, alt: number) {

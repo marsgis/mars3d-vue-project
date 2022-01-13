@@ -1,9 +1,7 @@
 const path = require("path")
 const glob = require("glob")
 const webpack = require("webpack")
-const { getThemeVariables } = require("ant-design-vue/dist/theme")
 const CopyWebpackPlugin = require("copy-webpack-plugin")
-const variable = require("./build/variable")
 
 function resolve(dir) {
   return path.join(__dirname, dir)
@@ -52,19 +50,12 @@ module.exports = {
   },
   chainWebpack: (config) => {
     config.resolve.alias
-      .set("@", resolve("src"))
-      .set("@comp", resolve("src/components"))
-      .set("@widgets", resolve("src/widgets"))
+      .set("@mars", resolve("src"))
+
   },
   css: {
     loaderOptions: {
       less: {
-        modifyVars: {
-          ...getThemeVariables({
-            dark: true
-          }),
-          ...variable
-        },
         javascriptEnabled: true
       }
     }

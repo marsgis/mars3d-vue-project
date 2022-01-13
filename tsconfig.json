@@ -18,14 +18,8 @@
       "webpack-env"
     ],
     "paths": {
-      "@/*": [
+      "@mars/*": [
         "src/*"
-      ],
-      "@comp/*": [
-        "src/components/*"
-      ],
-      "@widgets/*": [
-        "src/widgets/*"
       ]
     },
     "lib": [

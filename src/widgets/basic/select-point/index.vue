@@ -1,11 +1,11 @@
 <template>
-  <mars-dialog title="坐标拾取" :handles="false" width="360" height="314" top="50" right="10" :min-width="340">
+  <mars-dialog title="坐标拾取" :handles="false" width="298" height="330" top="50" right="10" :min-width="340">
     <template #icon>
       <local-i theme="outline" size="18" />
     </template>
     <div class="position-container">
       <a-form>
-        <a-form-item label="范围">
+        <a-form-item label="类型">
           <a-radio-group v-model:value="formState.radioFanwei" @change="changeFanwei">
             <a-radio value="1">十进制</a-radio>
             <a-radio value="2">度分秒</a-radio>
@@ -16,13 +16,13 @@
         <!-- 十进制的面板 -->
         <div v-show="formState.radioFanwei === '1'">
           <a-form-item label="经度">
-            <mars-input v-model:value="formState.lng"> </mars-input>
+            <mars-input v-model:value="formState.lng" class="lnglat-input"> </mars-input>
           </a-form-item>
           <a-form-item label="纬度">
-            <mars-input v-model:value="formState.lat"> </mars-input>
+            <mars-input v-model:value="formState.lat" class="lnglat-input"> </mars-input>
           </a-form-item>
           <a-form-item label="高程">
-            <mars-input v-model:value="formState.alt"> </mars-input>
+            <mars-input v-model:value="formState.alt" class="lnglat-input"> </mars-input>
           </a-form-item>
         </div>
 
@@ -41,7 +41,7 @@
             </a-space>
           </a-form-item>
           <a-form-item label="高程">
-            <mars-input v-model:value="formState.alt"> </mars-input>
+            <mars-input v-model:value="formState.alt" class="lnglat-input"> </mars-input>
           </a-form-item>
         </div>
 
@@ -54,13 +54,13 @@
             </a-radio-group>
           </a-form-item>
           <a-form-item label="纵坐标">
-            <mars-input v-model:value="formState.gk6X"> </mars-input>
+            <mars-input v-model:value="formState.gk6X" class="lnglat-input"> </mars-input>
           </a-form-item>
           <a-form-item label="横坐标">
-            <mars-input v-model:value="formState.gk6Y"> </mars-input>
+            <mars-input v-model:value="formState.gk6Y" class="lnglat-input"> </mars-input>
           </a-form-item>
           <a-form-item label="高度值">
-            <mars-input v-model:value="formState.alt"> </mars-input>
+            <mars-input v-model:value="formState.alt" class="lnglat-input"> </mars-input>
           </a-form-item>
         </div>
       </a-form>
@@ -78,10 +78,10 @@
 <script setup lang="ts">
 import { reactive, UnwrapRef } from "vue"
 import { Local as LocalI } from "@icon-park/vue-next"
-import useLifecycle from "@/common/uses/use-lifecycle.js"
-import MarsDialog from "@/components/marsgis/mars-dialog.js"
+import useLifecycle from "@mars/common/uses/use-lifecycle"
+import MarsDialog from "@mars/components/mars-work/mars-dialog.vue"
 import * as mapWork from "./map"
-import { $alert } from "@/components/mars-ui/"
+import { $alert } from "@mars/components/mars-ui/index"
 
 // 启用map.ts生命周期
 useLifecycle(mapWork)
@@ -213,5 +213,8 @@ const submitCenter = () => {
 <style lang="less" scoped>
 .position-container {
   padding: 10px;
+}
+.lnglat-input{
+  width:200px ;
 }
 </style>

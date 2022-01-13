@@ -137,13 +137,13 @@
 
 <script setup lang="ts">
 import { onMounted, reactive, ref } from "vue"
-import MarsPannel from "@/components/marsgis/mars-pannel.js"
-import useLifecycle from "@/common/uses/use-lifecycle.js"
+import MarsPannel from "@mars/components/mars-work/mars-pannel.vue"
+import useLifecycle from "@mars/common/uses/use-lifecycle"
 import { TableProps } from "ant-design-vue"
 import axios from "axios"
 import type { Dayjs } from "dayjs"
 import * as mapWork from "./map"
-import { $alert, $notify, $message, $showLoading, $hideLoading } from "@/components/mars-ui/"
+import { $alert, $notify, $message, $showLoading, $hideLoading } from "@mars/components/mars-ui/index"
 
 // 启用map.ts生命周期
 useLifecycle(mapWork)

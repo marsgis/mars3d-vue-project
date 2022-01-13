@@ -1,18 +1,20 @@
 <template>
   <ConfigProvider :locale="locale">
-    <div id="centerDiv" class="centerDiv-container">
-      <mars-map :url="configUrl" @onload="marsOnload" />
-    </div>
-    <template v-if="loaded">
-      <template v-for="comp in widgets" :key="comp.name">
-        <component
-          v-if="openAtStart.includes(comp.name) && comp.visible"
-          :is="comp.component"
-          v-model:visible="comp.visible"
-          v-bind="getWidgetAttr(comp)"
-        />
+    <div class="mars-main-view" id="mars-main-view">
+      <div id="centerDiv" class="centerDiv-container">
+        <mars-map :url="configUrl" @onload="marsOnload" />
+      </div>
+      <template v-if="loaded">
+        <template v-for="comp in widgets" :key="comp.key">
+          <component
+            v-if="openAtStart.includes(comp.name) && comp.visible"
+            :is="comp.component"
+            v-model:visible="comp.visible"
+            v-bind="getWidgetAttr(comp)"
+          />
+        </template>
       </template>
-    </template>
+    </div>
   </ConfigProvider>
 </template>
 
@@ -23,19 +25,14 @@
  * @author 火星吴彦祖 2021-12-30
  */
 import zhCN from "ant-design-vue/es/locale/zh_CN"
-import { computed, provide, ref } from "vue"
+import { provide, ref } from "vue"
 import { ConfigProvider } from "ant-design-vue"
-import { useStore } from "vuex"
-import MarsMap from "@/components/marsgis/mars-map.vue"
-import { Widget } from "@/common/store/widget.js"
-import { key } from "@/common/store/widget.js"
+import { useWidget, Widget } from "@mars/common/store/widget"
+import MarsMap from "@mars/components/mars-work/mars-map.vue"
 
 const locale = zhCN
 
-const store = useStore(key)
-
-const widgets = computed(() => store.state.widgets)
-const openAtStart = computed(() => store.state.openAtStart)
+const { widgets, openAtStart } = useWidget()
 
 const configUrl = `${process.env.BASE_URL}config/config.json`
 
@@ -69,7 +66,11 @@ const getWidgetAttr = (widget: Widget) => {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
+.mars-main-view {
+  height: 100%;
+  position: relative;
+}
 .centerDiv-container {
   height: 100%;
   overflow: hidden;

@@ -2,12 +2,10 @@ import "mars3d/dist/mars3d.css"
 
 import { createApp } from "vue"
 import Application from "./App.vue"
-import { injectState, key } from "@/common/store/widget.js"
+import { injectState, key } from "@mars/common/store/widget"
 import store from "./widget-store"
-import MarsUI from "@comp/mars-ui/"
-import directive from "@/directive/index"
-
-import "@/styles/index.less" // 加载全局样式
+import MarsUI from "@mars/components/mars-ui"
+import directive from "@mars/directive/index"
 
 const app = createApp(Application)
 

@@ -9,9 +9,8 @@
  */
 import { computed, onBeforeUnmount, onMounted } from "vue"
 import * as mars3d from "mars3d"
-import { getQueryString, isPc } from "@/utils/index"
-
-import { $alert } from "@/components/mars-ui/"
+import { getQueryString, isPc } from "@mars/utils/mars-util"
+import { $alert } from "@mars/components/mars-ui/index"
 
 // props选项
 const props = withDefaults(

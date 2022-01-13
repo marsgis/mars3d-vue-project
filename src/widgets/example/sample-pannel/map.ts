@@ -10,12 +10,10 @@ export const eventTarget = new mars3d.BaseClass()
 // 初始化当前业务
 export function onMounted(mapInstance: mars3d.Map): void {
   map = mapInstance // 记录map
-  console.log("map.js", map)
 }
 
 // 释放当前业务
 export function onUnmounted(): void {
-  console.log("组件销毁时的操作")
   map = null
 }
 
