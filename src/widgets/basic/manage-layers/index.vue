@@ -209,13 +209,15 @@ function initTree() {
       }
       node.children = findChild(node, layers)
       treeData.value.push(node)
+
       expandedKeys.value.push(node.key)
     }
   }
 }
 function findChild(parent: any, list: any[]) {
+
   return list
-    .filter((item: any) => item.pid === parent.id)
+    .filter((item: any) => item.pid === parent.id).reverse()
     .map((item: any, i: number) => {
       const node: any = {
         index: i,
@@ -229,11 +231,14 @@ function findChild(parent: any, list: any[]) {
         opacity: 100 * (item.opacity || 0),
         parent: parent
       }
+
       if (item.hasOpacity) {
         opacityObj[item.id] = 100 * (item.opacity || 0)
       }
       layersObj[item.id] = item
+
       node.children = findChild(node, list)
+
       expandedKeys.value.push(node.key)
       if (item.isAdded && item.show) {
         nextTick(() => {

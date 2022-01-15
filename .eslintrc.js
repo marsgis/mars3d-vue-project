@@ -5,8 +5,15 @@ module.exports = {
   },
   extends: ["plugin:vue/vue3-essential", "@vue/standard", "@vue/typescript/recommended"],
   parserOptions: {
-    ecmaVersion: 2020
+    parser: "@typescript-eslint/parser",
+    ecmaVersion: 2020,
+    sourceType: "module",
+    jsxPragma: "React",
+    ecmaFeatures: {
+      jsx: true
+    }
   },
+  parser: "vue-eslint-parser",
   globals: {
     defineProps: "readonly",
     defineEmits: "readonly",

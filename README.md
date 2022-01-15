@@ -159,10 +159,9 @@ vue 下的 widget 设计，沿用了我们 [原生 JS 版基础项目](http://ma
 - 只需要通过简单的配置，即可控制不同业务面板间的互斥关系
 - 提供 api 可以手动的控制面板的显示隐藏
 
-
 #### widget 配置参数
 
-widget 加载相关的代码在 `src\common\store\widget.ts`下，使用的 vuex 管理相关状态，默认状态字段有
+widget 加载相关的代码在 `src/common/store/widget.ts`下，使用的 vuex 管理相关状态，默认状态字段有
 
 ```ts
 // 为 store state 声明类型
@@ -198,16 +197,13 @@ export interface WidgetState {
 
 ![image](http://mars3d.cn/dev/img/guide/project-vue-liu.jpg)
 
-
-
-
 ## 如何增加新的 widget
 
-下面我们以 `src\widgets\example\sample-dialog\` 为示例做讲解
+下面我们以 `src/widgets/example/sample-dialog/` 为示例做讲解
 
 ### 1.创建示例
 
-在 widgets 目录下按项目需要建立好多层目录，比如我们将测试和演示的 widget 放在`src\widgets\example`目录下面，基础项目的功能放在`src\widgets\basic`目录下。
+在 widgets 目录下按项目需要建立好多层目录，比如我们将测试和演示的 widget 放在`src/widgets/example`目录下面，基础项目的功能放在`src/widgets/basic`目录下。
 
 首先建立后 sample-dialog 目录，并参考已有示例新建`index.vue` 和 `map.ts` 2 个文件。
 
@@ -229,7 +225,7 @@ index.vue 完整代码为：
       </a-col>
     </a-row>
     <template #icon>
-      <bookmark-one theme="outline" size="18"/>
+      <bookmark-one theme="outline" size="18" />
     </template>
   </mars-dialog>
 </template>
@@ -268,8 +264,8 @@ onUnmounted(() => {
 
 mars-dialog 是弹窗组件，我们 widget 内可以按需选择下面 2 个使用：
 
-- mars-dialog 弹框 组件: `src\components\mars-work\mars-dialog.vue`
-- mars-pannel 普通面板组件: `src\components\mars-work\mars-pannel.vue`
+- mars-dialog 弹框 组件: `src/components/mars-work/mars-dialog.vue`
+- mars-pannel 普通面板组件: `src/components/mars-work/mars-pannel.vue`
 
 mars-dialog 支持的配置参数包括：
 
@@ -347,10 +343,10 @@ activate({
 })
 ```
 
-> 以上均为默认情况下的处理，再某些特殊情况下，可以在widget中通过下面这种方式，强制将内联 props 的优先级提升到最高
+> 以上均为默认情况下的处理，再某些特殊情况下，可以在 widget 中通过下面这种方式，强制将内联 props 的优先级提升到最高
 
 ```html
-<mars-dialog title="hello" width="300" height="530" top="50" :right="10" :min-width="297" v-bind="attrs"></mars-dialog>
+<mars-dialog v-bind="attrs" title="hello" width="300" height="530" top="50" :right="10" :min-width="297"></mars-dialog>
 
 <script>
   import { useAttrs } from "vue"
@@ -417,7 +413,6 @@ export function drawExtent(): void {
     }
   })
 }
-
 ```
 
 其中：
@@ -480,7 +475,7 @@ onUnmounted(() => {
 
 #### store.ts 清单配置
 
-在对应 page 页面下的 `src\pages\example\widget-store.ts` 中，需要配置刚才新建的 widget 相关信息；
+在对应 page 页面下的 `src/pages/example/widget-store.ts` 中，需要配置刚才新建的 widget 相关信息；
 
 ```js
 import { defineAsyncComponent, markRaw } from "vue"
@@ -494,41 +489,16 @@ const store: StoreOptions<WidgetState> = {
       {
         component: markRaw(defineAsyncComponent(() => import("@mars/widgets/example/sample-dialog/index.vue"))),
         name: "sample-dialog"
-      },
+      }
     ]
   }
 }
 export default store
 ```
 
-其中 state 下支持 3 个配置参数
+> 其中 state 下的配置参数参考 `widget 配置参数`
 
-```ts
-interface State {
-  widgets: Widget[] // widget具体配置
-  openAtStart: string[] // 默认加载的widget
-  defaultOptions?: DefaultOption // 支持配置默认参数
-}
-```
-
-Widget 支持配置以下参数
-
-```ts
-interface Widget {
-  name: string // 唯一标识
-  key?: string // 作为vue diff 环节的key，用于控制组件重载
-  component?: any // widget关联的异步组件
-  autoDisable?: boolean // 是否能够被自动关闭
-  disableOther?: boolean | string[] // 是否自动关闭其他widget,或通过数组指定需要被关闭的widget
-  group?: string // group相同的widget一定是互斥的
-  visible?: boolean // 显示隐藏
-  data?: any // 额外传参 会在每次关闭后清除
-  meta?: any // 额外参数 不会在每次关闭后清除
-}
-
-```
-
-> 更多参数建议阅读源码的 `src\common\store\widget.ts` (教程可能滞后，请参考源码注释为准)
+> 更多参数建议阅读源码的 `src/common/store/widget.ts` (教程可能滞后，请参考源码注释为准)
 
 #### 菜单或其他入口文件中
 
@@ -536,9 +506,9 @@ interface Widget {
 
 下面已目录为例：
 
-在`widgets\example\menu\index.vue`中加入“弹窗示例”按钮，按钮单击事件调用对应方法，
+在`widgets/example/menu/index.vue`中加入“弹窗示例”按钮，按钮单击事件调用对应方法，
 
-store.dispatch 第 2 个名称参数与 store.ts 中的 name 需要一致。
+activate 和 disable 函数支持 string（直接传递 name） 和 Widget（传递 widget 对象，将会合并传递的属性，必须包含 name 字段） 类型的参数，上述 name 字段与 store.ts 中的 name 需要一致。
 
 ```vue
 <template>
@@ -555,52 +525,54 @@ store.dispatch 第 2 个名称参数与 store.ts 中的 name 需要一致。
 import MarsPannel from "@mars/components/mars-work/mars-pannel.vue"
 import { useWidget } from "@mars/common/store/widget"
 
-const { activate} = useWidget()
+const { activate } = useWidget()
 
 const show = (name: string) => {
   activate(name)
+  // 或
+  activate({
+    name
+  })
 }
 </script>
 <style lang="less"></style>
 ```
 
+## 将当前项目集成到自己的项目中(合并 2 个项目)
 
-## 将当前项目集成到自己的项目中(合并2个项目)
- 
-> 前提条件：需要2个项目的技术栈基本是一致的，比如`vue3+ts+ant-design-vue`等
+> 前提条件：需要 2 个项目的技术栈基本是一致的，比如`vue3+ts+ant-design-vue`等
 
 ### 流程概览：
 
 需要拷贝的目录和文件：
+
 - `/src/` 拷贝到 `/src/marsgis`
 - `/public/` 拷贝到 `/public/`
-- `/src/pages/index/widget-store.ts` 拷贝到`/src/marsgis/widget-store.ts` 
+- `/src/pages/index/widget-store.ts` 拷贝到`/src/marsgis/widget-store.ts`
 
 需要修改自己项目的文件：
+
 - `package.json`
-- `vite.config.ts`
+- `vite.config.ts` 或 `vue.config.js`
 - `src/main.js`
 - 需要加地图的`vue文件`
 
-
 ![image](http://mars3d.cn/dev/img/guide/project-vue-hebing.jpg)
 
+### 1. 拷贝基础项目 src 代码
 
+在原有项目中新建目录`src/marsgis`，将基础项目 src 代码拷贝到`src/marsgis`目录下面，其中 pages 目录非必须，可以按需拷贝。
 
+### 2. 拷贝 public 下的资源
 
-### 1. 拷贝基础项目src代码
- 在原有项目中新建目录`src/marsgis`，将基础项目src代码拷贝到`src/marsgis`目录下面，其中pages目录非必须，可以按需拷贝。
-  
+将基础项目`public`下所有文件拷贝到自己项目的`public`目录下。
 
-### 2. 拷贝public下的资源
-  将基础项目`public`下所有文件拷贝到自己项目的`public`目录下。
+### 3. package.json 依赖的融合
 
- 
-### 3. package.json依赖的融合
-
-复制package.json依赖包，保证依赖存在且版本正确。
+复制 package.json 依赖包，保证依赖存在且版本正确。
 
 ```json
+// dependencies中添加
 {
   "mars3d": "^3.1.21",
   "mars3d-cesium": "^1.89.0",
@@ -619,10 +591,9 @@ const show = (name: string) => {
 }
 ```
 
-
 ### 4. 修改项目别名等配置
- 
- 修改`vite.config.ts`等配置文件中的项目别名配置和 process 相关配置
+
+修改`vite.config.ts` 或 `vue.config.js` 配置文件中的项目别名配置和 process 相关配置
 
 ```js
 alias: {
@@ -640,28 +611,40 @@ define: {
 ```
 
 ### 5. 修改初始化相关依赖
- 将`src\pages\index\widget-store.ts`配置文件拷贝`src/marsgis/widget-store.ts`位置。
- 
- 再在`src/main.js`文件中加载和初始化相关依赖。
+
+将`src/pages/index/widget-store.ts`配置文件拷贝`src/marsgis/widget-store.ts`位置。
+
+再在`src/main.js`文件中加载和初始化相关依赖。
 
 ```js
-import { injectState, key } from '@mars/common/store/widget';
-import widgetStore from '@mars/widget-store';
-import MarsUI from '@mars/components/mars-ui';
+import { injectState, key } from "@mars/common/store/widget"
+import widgetStore from "@mars/widget-store"
+import MarsUI from "@mars/components/mars-ui"
 
-app.use(MarsUI);
-app.use(injectState(widgetStore), key);
+app.use(MarsUI)
+app.use(injectState(widgetStore), key)
 ```
- 
-### 6.复制对应vue页面代码
- 复制对应页面代码到组件中, 例如拷贝 `src\pages\index\App.vue` 代码到自己项目需要展示地图的vue文件中。
+
+### 6.复制对应 vue 页面代码
+
+复制对应页面代码到组件中, 例如拷贝 `src/pages/index/App.vue` 代码到自己项目需要展示地图的 vue 文件中。
+
+### 7. 合并项目规范等配置信息(可选)
+
+如果没有下面文件，可以直接拷贝到自己项目中，
+如果已有对应文件，可以对比参数，按需拷贝相关配置进已有文件中。
+
+- 复制`/.editorconfig` 文件到`src/marsgis/`目录下
+- 复制`/.eslintrc.js` 文件到`src/marsgis/`目录下
+- 复制`/.prettierrc` 文件到`src/marsgis/`目录下
+- 修改`/tsconfig.json` 文件
+
+> 如果项目中采用的 eslint 标准库与基础项目不一致，则根据提示安装对应的依赖，相关依赖如下, 按照项目实际情况安装，并作相应调整.
 
 
-### 7. 处理样式冲突
-  基础项目已经基本保证不会影响外部样式，此处要处理的是您项目中的全局样式对mars3d相关组件的影响。修改相关CSS保证基础项目功能UI正常即可。
+### 8. 处理样式冲突
 
-
-
+基础项目已经基本保证不会影响外部样式，此处要处理的是您项目中的全局样式对 mars3d 相关组件的影响。修改相关 CSS 保证基础项目功能 UI 正常即可。
 
 ## 开发中常见问题
 

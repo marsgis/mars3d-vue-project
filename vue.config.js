@@ -49,9 +49,7 @@ module.exports = {
     config.plugins = [...config.plugins, ...plugins]
   },
   chainWebpack: (config) => {
-    config.resolve.alias
-      .set("@mars", resolve("src"))
-
+    config.resolve.alias.set("@mars", resolve("src"))
   },
   css: {
     loaderOptions: {
