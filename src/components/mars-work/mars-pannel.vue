@@ -1,7 +1,13 @@
 <template>
   <teleport to="#mars-main-view">
     <div class="pannel-box" :class="[customClass, animationClass]" ref="pannelBox" v-show="visible">
-      <slot></slot>
+      <div class="pannel-content">
+        <slot></slot>
+      </div>
+
+      <div v-if="closeable" class="pannel-close-icon" @click="closeModel">
+        <close-one theme="outline" size="20" />
+      </div>
     </div>
   </teleport>
 </template>
@@ -13,28 +19,32 @@
  * @author 火星吴彦祖 2021-12-30
  */
 import { onMounted, ref, computed } from "vue"
+import { CloseOne } from "@icon-park/vue-next"
 
 interface Props {
-  visible: boolean
-  width?: number
-  height?: number
-  left?: number
-  right?: number
-  top?: number
-  bottom?: number
-  zIndex?: number
-  customClass?: string
+  warpper?: string // 容器id 默认是app，将作为定位的参照元素，一般不需要修改
+  visible?: boolean // 是否显示
+  width?: number | string // 初始宽度
+  height?: number | string // 初始高度
+  left?: number | string // 定位 left值
+  right?: number | string // 定位right值
+  top?: number | string // 定位top值
+  bottom?: number | string // 定位bottom值
+  zIndex?: number // 层级
+  customClass?: string // 自定义class
+  closeable?: boolean
+  beforeClose?: () => Promise<any> | boolean | void
 }
 const props = withDefaults(defineProps<Props>(), {
   warpper: "app",
   visible: false,
-  zIndex: 100
+  closeable: false,
+  zIndex: 200
 })
 
 const animationClass = computed(() => {
   const left = props.left
   const right = props.right
-  // console.log(left, right)
   if (typeof right === "number" && right >= 0 && right < 40) {
     return "fadein-right"
   } else if (!left || (left >= 0 && left < 40)) {
@@ -44,12 +54,34 @@ const animationClass = computed(() => {
   }
 })
 
+const emits = defineEmits(["update:visible"])
+
 onMounted(() => {
   initPosition()
   initSize()
 })
 
 const pannelBox = ref()
+
+// 点击按钮关闭
+const closeModel = async () => {
+  if (props.beforeClose && typeof props.beforeClose === "function") {
+    const result = props.beforeClose()
+
+    if (result instanceof Promise) {
+      try {
+        await result
+        emits("update:visible", false)
+      } catch (err) {
+        console.log("取消关闭")
+      }
+    } else if (result !== false) {
+      emits("update:visible", false)
+    }
+  } else {
+    emits("update:visible", false)
+  }
+}
 
 // 初始化位置
 function initPosition() {
@@ -58,17 +90,17 @@ function initPosition() {
   pannelStyle.zIndex = props.zIndex
   // 横向位置初始化
   if (props.left !== undefined) {
-    pannelStyle.left = `${Number(props.left)}px`
+    pannelStyle.left = antoUnit(props.left)
   } else if (props.right !== undefined) {
-    pannelStyle.right = `${Number(props.right)}px`
+    pannelStyle.right = antoUnit(props.right)
     pannelStyle.left = "initial"
   }
   // 纵向位置初始化
   if (props.top !== undefined) {
-    pannelStyle.top = `${Number(props.top)}px`
-  } else if (props.bottom !== undefined) {
-    pannelStyle.bottom = `${Number(props.bottom)}px`
-    pannelStyle.top = "initial"
+    pannelStyle.top = antoUnit(props.top)
+  }
+  if (props.bottom !== undefined) {
+    pannelStyle.bottom = antoUnit(props.bottom)
   }
 }
 
@@ -76,10 +108,21 @@ function initPosition() {
 function initSize() {
   const pannelStyle = pannelBox.value.style
   if (props.width) {
-    pannelStyle.width = `${props.width}px`
+    pannelStyle.width = antoUnit(props.width)
   }
-  if (props.height) {
-    pannelStyle.height = `${props.height}px`
+  if (!props.top || !props.bottom) {
+    if (props.height) {
+      pannelStyle.height = antoUnit(props.height)
+    }
+  }
+}
+
+// 处理传入的单位问题
+function antoUnit(value: number | string) {
+  if (typeof value === "number" || (typeof value === "string" && /^[0-9]*$/.test(value))) {
+    return `${value}px`
+  } else {
+    return value
   }
 }
 </script>
@@ -87,8 +130,6 @@ function initSize() {
 <style lang="less" scoped>
 .pannel-box {
   position: absolute;
-  top: 10px;
-  left: 10px;
   padding: 10px 10px;
   border-radius: 4px;
   z-index: 1000;
@@ -101,7 +142,18 @@ function initSize() {
   background-size: 1px 20px, 20px 1px, 1px 20px, 20px 1px;
   background-color: rgba(20, 20, 20, 0.5);
 
-  overflow-y: auto;
+  .pannel-content {
+    overflow-y: auto;
+    width: 100%;
+    height: 100%;
+  }
+
+  .pannel-close-icon {
+    position: absolute;
+    right: -8px;
+    top: -8px;
+    cursor: pointer;
+  }
 }
 
 @keyframes fadeInRight {

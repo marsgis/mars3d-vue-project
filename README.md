@@ -648,7 +648,33 @@ app.use(injectState(widgetStore), key)
 
 ## 开发中常见问题
 
-### 1. 局域网离线使用时注意事项
+
+### 1. 如果切换mars3d到授权版
+
+ 参考 [获取Mars3D](http://mars3d.cn/dev/guide/basics/download.html)中“从 Mars3D官网 下载获取”章节介绍。
+
+ 流程大概是：
+- 将npm安装后的`node_modules/mars3d/`下的所有文件拷贝一份放在`src\common\mars3d-sdk\`目录。
+- 将离线包内文件 覆盖至`src\common\mars3d-sdk\dist\`目录下。
+- 修改webpack或vue.config等相关配置文件中，增加下面配置
+```js 
+//已忽略其他配置
+chainWebpack: (config) => {
+    config.resolve.alias.set("mars3d", resolve("src/common/mars3d-sdk"))
+},
+```
+- 修改`package.json`删除mars3d包，增加@turf/turf mars3d-cesium包
+```json
+//已忽略其他配置
+"dependencies": {
+  "@turf/turf": "^6.5.0",
+  "mars3d-cesium": "^1.89.0",
+},
+```
+ ![image](http://mars3d.cn/dev/img/guide/basics-download-import.jpg) 
+
+
+### 2. 局域网离线使用时注意事项
 
 平台所有代码层面来说支持离线运行和使用的，但需要注意的是离线时的地图服务的相关处理。
 

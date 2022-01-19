@@ -20,6 +20,13 @@ declare module "uuid" {
   export const v4: any
 }
 
+declare module "mapv" {
+  export const geojson: any
+  export const DataSet: any
+  export const utilCityCenter: any
+  export const utilCurve: any
+}
+
 declare module "kml-geojson" {
   const kg: (...args: any[]) => any
   export default kg

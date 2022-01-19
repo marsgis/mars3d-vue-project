@@ -1,5 +1,5 @@
 <template>
-  <mars-pannel :height="700" :top="10" :right="10">
+  <mars-pannel top="10" bottom="10" right="10" width="400" :before-close="beforeClose" closeable>
     <a-form :model="formState" :rules="rules" :label-col="{ span: 6 }" :wrapper-col="{ span: 18 }">
       <a-collapse v-model:activeKey="activeKey">
         <!-- 自定义切换图标 -->
@@ -184,6 +184,10 @@ const rules = {
 //  输入框修改事件
 const onTextChange = () => {
   $message("您输入了文本:" + formState.url)
+}
+
+const beforeClose = () => {
+  return Promise.reject(new Error("失败"))
 }
 
 //  渲染模型

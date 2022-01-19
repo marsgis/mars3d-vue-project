@@ -78,6 +78,10 @@ const checkedChange = (keys: string[], e: any) => {
         })
       }
     }
+    // 处理子节点
+    if (e.node.children && e.node.children.length) {
+      renderChildNode(keys, e.node.children)
+    }
     if (keys.indexOf(e.node.id) !== -1) {
       layer.show = true
       layer.flyTo()
@@ -105,11 +109,22 @@ const checkedChange = (keys: string[], e: any) => {
       }
     }
   }
-
-  // 处理子节点
-  if (e.node.children && e.node.children.length) {
-    renderChildNode(keys, e.node.children)
   }
+
+  // let show = true
+  // keys.forEach((id: string) => {
+  //   const item = layersObj[id]
+  //   if (item && item.options.onWidget === "show-clock") {
+  //     clock.showClock()
+  //     show = true
+  //   } else {
+  //     show = false
+  //   }
+  // })
+  // // console.log(show)
+  // if (!show) {
+  //   clock.closeClock()
+  // }
 }
 
 function renderChildNode(keys: string[], children: any[]) {
@@ -134,13 +149,6 @@ function renderChildNode(keys: string[], children: any[]) {
   })
 }
 
-// 未知原因导致的性能问题？？？？
-// const opcityChange = (node: any) => {
-//   const layer = layersObj[node.id]
-//   if (layer) {
-//     layer.opacity = node.data.opacity / 100
-//   }
-// }
 const opcityChange = (node: any) => {
   const id = node.id
   const layer = layersObj[id]
@@ -215,9 +223,9 @@ function initTree() {
   }
 }
 function findChild(parent: any, list: any[]) {
-
   return list
-    .filter((item: any) => item.pid === parent.id).reverse()
+    .filter((item: any) => item.pid === parent.id)
+    .reverse()
     .map((item: any, i: number) => {
       const node: any = {
         index: i,
@@ -258,8 +266,10 @@ function initLayerTree(layer: any) {
       const id = layer.id
       activate({
         name: "layer-tree",
-        url,
-        id
+        data: {
+          url,
+          id
+        }
       })
     })
   }

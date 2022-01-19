@@ -80,6 +80,13 @@
     padding: 4px 5px;
   }
 
+  // 切换按钮
+  .ant-radio-button-wrapper {
+    background: rgba(32, 160, 255, 0.2);
+    color: @mars-basecolor;
+    box-shadow: none !important;
+  }
+
   // 表单元素
   .ant-form-item {
     margin-bottom: 10px !important;
@@ -256,7 +263,7 @@
     width: 20px;
   }
   .ant-tree-switcher-noop::before {
-    content: '';
+    content: "";
     display: inline-block;
     position: absolute;
     height: 26px;
@@ -264,7 +271,7 @@
   }
   .ant-tree-treenode-leaf-last {
     .ant-tree-switcher-noop::before {
-      content: '';
+      content: "";
       display: inline-block;
       position: absolute;
       height: 10px;
@@ -272,7 +279,7 @@
     }
   }
   .ant-tree-switcher-noop::after {
-    content: '';
+    content: "";
     display: inline-block;
     width: 8px;
     position: absolute;
@@ -375,27 +382,6 @@
   color: #4db3ff;
 }
 
-/*有下拉面板控件的背景统一处理*/
-.ant-select-dropdown,
-.ant-picker-panel-container,
-.ant-dropdown-menu,
-.ant-popover-inner,
-.ant-tree-node-selected,
-.ant-tree-treenode-selected::before {
-  background-color: rgba(32, 42, 68, 0.9) !important;
-}
-.ant-select-item {
-  font-size: 12px;
-}
-.ant-select-item-option-selected {
-  background-color: rgba(255, 255, 255, 0.08) !important;
-}
-.hu-color-picker {
-  width: 220px !important;
-  background-color: rgba(32, 42, 68, 0.9) !important;
-  box-shadow: none;
-}
-
 // 功能提示和已知问题提示框
 .mars-notify-message {
   * {
@@ -445,7 +431,7 @@
   }
   .ant-modal-confirm-btns {
     margin-top: 20px;
-    .ant-btn{
+    .ant-btn {
       background: rgba(32, 160, 255, 0.2);
       background-color: rgba(32, 160, 255, 0.2);
     }

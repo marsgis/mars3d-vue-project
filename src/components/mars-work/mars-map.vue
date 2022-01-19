@@ -12,6 +12,8 @@ import * as mars3d from "mars3d"
 import { getQueryString, isPc } from "@mars/utils/mars-util"
 import { $alert } from "@mars/components/mars-ui/index"
 
+// console.clear()
+
 // props选项
 const props = withDefaults(
   defineProps<{

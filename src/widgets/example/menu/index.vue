@@ -1,5 +1,5 @@
 <template>
-  <mars-pannel>
+  <mars-pannel width="370" left="10" top="10">
     <a-space>
       <mars-button @click="show('sample-pannel')">面板示例</mars-button>
       <mars-button @click="show('my-widget')">弹窗示例</mars-button>

@@ -39,22 +39,22 @@ import { computed, onMounted, onUnmounted, ref } from "vue"
 import { Close as CloseO } from "@icon-park/vue-next"
 
 interface Props {
-  warpper?: string
-  title?: string
-  visible: boolean
-  width?: number | string
-  height?: number | string
-  left?: number | string
-  right?: number | string
-  top?: number | string
-  bottom?: number | string
-  handles?: boolean | string
-  minWidth?: number
-  minHeight?: number
-  maxWidth?: number
-  maxHeight?: number
-  zIndex?: number
-  customClass?: string
+  warpper?: string // 容器id 默认是app，将作为定位的参照元素，一般不需要修改
+  title?: string // 弹框标题
+  visible?: boolean // 是否显示
+  width?: number | string // 初始宽度
+  height?: number | string // 初始高度
+  left?: number | string // 定位 left值
+  right?: number | string // 定位right值
+  top?: number | string // 定位top值
+  bottom?: number | string // 定位bottom值
+  handles?: boolean | string // 缩放控制器 默认 [x, y, xy]
+  minWidth?: number // 最小宽度
+  minHeight?: number // 最小高度
+  maxWidth?: number // 最大宽度
+  maxHeight?: number // 最大高度
+  zIndex?: number // 层级
+  customClass?: string // 自定义class
 }
 const props = withDefaults(defineProps<Props>(), {
   warpper: "app",

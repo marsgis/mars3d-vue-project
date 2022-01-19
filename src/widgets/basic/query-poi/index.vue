@@ -1,5 +1,5 @@
 <template>
-  <mars-pannel customClass="query-poi-pannel">
+  <mars-pannel customClass="query-poi-pannel" top="10" left="10">
     <div class="query-poi">
       <a-auto-complete
         class="search-input"

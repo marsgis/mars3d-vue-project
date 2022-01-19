@@ -115,7 +115,8 @@ module.exports = {
     "no-func-assign": "error",
     // 禁用嵌套的三元表达式
     "no-nested-ternary": "error",
-
+    //关闭eslint fromDegrees方法报错
+    "new-cap": "off",
     "sort-imports": [
       "off",
       {

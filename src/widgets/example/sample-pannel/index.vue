@@ -1,5 +1,5 @@
 <template>
-  <mars-pannel :width="400" :right="10" v-auto-height="100">
+  <mars-pannel top="100" left="10" :width="400" :right="10">
     <a-form :model="formState" :label-col="{ span: 6 }" :wrapper-col="{ span: 18 }">
       <a-form-item label="面板测试" name="extent">
         <a-row :gutter="5">
