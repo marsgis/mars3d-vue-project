@@ -28,7 +28,7 @@ const store: StoreOptions<WidgetState> = {
         component: markRaw(defineAsyncComponent(() => import(/* webpackChunkName: "my-widget" */"@mars/widgets/example/my-dialog/index.vue")))
       }
     ],
-    openAtStart: ["menu"]
+    openAtStart: ["menu", "ui"]
   }
 }
 

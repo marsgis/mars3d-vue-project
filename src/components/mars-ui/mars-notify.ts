@@ -21,7 +21,7 @@ export const $notify = (message: any, description: any, options: any = {}, type:
       func({
         message,
         description,
-        class: "notify-mesage",
+        class: "mars-notify-mesage",
         onClose() {
           resolve(true)
         }

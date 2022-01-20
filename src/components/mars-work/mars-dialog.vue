@@ -81,7 +81,7 @@ const animationClass = computed(() => {
   }
 })
 
-const emits = defineEmits(["update:visible"])
+const emits = defineEmits(["update:visible", "resize", "move"])
 
 const pannelBox = ref()
 
@@ -178,8 +178,13 @@ function mousedown(event: any) {
       pb.style.height = antoUnit(pb.offsetHeight)
       pb.style.bottom = "initial"
     }
-    pb.style.left = `${Math.min(Math.max(0, left), maxLeft)}px`
-    pb.style.top = `${Math.min(Math.max(0, top), maxTop)}px`
+
+    const xPos = Math.min(Math.max(0, left), maxLeft)
+    const yPos = Math.min(Math.max(0, top), maxTop)
+    pb.style.left = `${xPos}px`
+    pb.style.top = `${yPos}px`
+
+    emits("move", { x: xPos, y: yPos })
   }
 
   function handleUp(e: any) {
@@ -215,14 +220,18 @@ function handleDown(handle: string, event: any) {
 
   function handleMove(e: any) {
     e.preventDefault()
+    let width = 0
+    let height = 0
     if (handleName.indexOf("x") !== -1) {
-      const width = bw + e.clientX - x
-      pannelBox.value.style.width = `${Math.min(Math.max(props.minWidth, width, 0), props.maxWidth)}px`
+      width = Math.min(Math.max(props.minWidth, bw + e.clientX - x, 0), props.maxWidth)
+      pannelBox.value.style.width = `${width}px`
     }
     if (handleName.indexOf("y") !== -1) {
-      const height = bh + e.clientY - y
-      pannelBox.value.style.height = `${Math.min(Math.max(props.minHeight, height, 0), props.maxHeight)}px`
+      height = Math.min(Math.max(props.minHeight, bh + e.clientY - y, 0), props.maxHeight)
+      pannelBox.value.style.height = `${height}px`
     }
+
+    emits("resize", { width, height })
   }
 
   function handleUp(e: any) {
@@ -297,11 +306,11 @@ function removeEvent(el: any, event: any, handler: (e: any) => void) {
 .pannel-model__body {
   width: 100%;
   height: calc(100% - 40px);
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden;
 }
 .content {
-  overflow: hidden;
+  height: calc(100% - 40px);
+  overflow-y: auto;
 }
 .footer {
   height: 40px;
