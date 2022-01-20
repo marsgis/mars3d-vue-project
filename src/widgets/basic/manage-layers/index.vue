@@ -25,6 +25,7 @@
 import MarsDialog from "@mars/components/mars-work/mars-dialog.vue"
 import { onUnmounted, nextTick, reactive, ref } from "vue"
 import useLifecycle from "@mars/common/uses/use-lifecycle"
+import useClock from "@mars/common/uses/use-clock"
 import * as mapWork from "./map"
 import { useWidget } from "@mars/common/store/widget"
 
@@ -35,6 +36,7 @@ onUnmounted(() => {
 })
 
 useLifecycle(mapWork)
+const clock = useClock()
 
 const treeData = ref<any[]>([])
 
@@ -54,7 +56,6 @@ let lastWidget: any
 const checkedChange = (keys: string[], e: any) => {
   const layer = layersObj[e.node.id]
   // console.log("点击的矢量图层", layer)
-
   if (layer) {
     if (!layer.isAdded) {
       mapWork.addLayer(layer)
@@ -94,21 +95,30 @@ const checkedChange = (keys: string[], e: any) => {
       initLayerTree(layer)
     }
 
-    // 处理图层的关联事件
+    // 处理图层的关联事件 TODO: show-clock 封装为widget
     if (layer.options.onWidget) {
       if (e.checked) {
-        if (lastWidget) {
+        if (lastWidget === "show-clock") {
+          clock.closeClock()
+        } else if (lastWidget) {
           disable(lastWidget)
         }
-        activate({
-          name: layer.options.onWidget
-        })
+        if (layer.options.onWidget === "show-clock") {
+          clock.showClock()
+        } else {
+          activate({
+            name: layer.options.onWidget
+          })
+        }
         lastWidget = layer.options.onWidget
       } else {
-        disable(layer.options.onWidget)
+        if (layer.options.onWidget === "show-clock") {
+          // clock.closeClock()
+        } else {
+          disable(layer.options.onWidget)
+        }
       }
     }
-  }
   }
 
   // let show = true
