@@ -12,15 +12,10 @@ import * as mars3d from "mars3d"
 import { getQueryString, isPc } from "@mars/utils/mars-util"
 import { $alert, $message } from "@mars/components/mars-ui/index"
 
-
 // Mars3D地图内部使用，如右键菜单弹窗
 window.globalAlert = $alert
 window.globalMsg = $message
 
-
-// console.clear()
-
-// props选项
 const props = withDefaults(
   defineProps<{
     url: string
@@ -113,6 +108,7 @@ const initMars3d = (option: any) => {
 onBeforeUnmount(() => {
   if (map) {
     map.destroy()
+    map = null
   }
 })
 </script>
