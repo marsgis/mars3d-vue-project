@@ -19,15 +19,35 @@
 ## 项目介绍
 
 Mars3D 基础项目 是基于[Mars3D 平台](http://mars3d.cn)做的一个应用系统，提供的一个基础项目模版，包含常用基础地图功能，可在该基础项目上快速开发搭建新项目。方便快速搭建三维地图产品，敏捷开发，可复用，支持各种配置，适合各种场景使用。
+ 
+ 
+## Vue 版特性 
+- **最新技术栈**：使用 Vue3/vite2 等前端前沿技术开发
+- **TypeScript**: 应用程序级 JavaScript 的语言
+- **适用于地图场景的widget模块化**: 继续沿用了原生 JS 版本 widget 架构的一些思想，使用 vue 方式实现了各 widget 功能
+ 
 
-Vue 版的特点：
+ 
+## 文档
+- [官网教程地址](http://mars3d.cn/dev/guide/project/vue.html) 
+ 
+### 准备
 
-1. 基于**Vue3+TS**技术栈下开发的
-2. 继续沿用了原生 JS 版本 widget 架构的一些思想，使用 vue 方式实现了各 widget 功能
+- [node](http://nodejs.org/) 和 [git](https://git-scm.com/) -项目开发环境
+- [Vite](https://vitejs.dev/) - 熟悉 vite 特性
+- [Vue3](https://v3.vuejs.org/) - 熟悉 Vue 基础语法
+- [TypeScript](https://www.typescriptlang.org/) - 熟悉`TypeScript`基本语法
+- [Es6+](http://es6.ruanyifeng.com/) - 熟悉 es6 基本语法
+- [Vue-Router-Next](https://next.router.vuejs.org/) - 熟悉 vue-router 基本使用
+- [Ant-Design-Vue](https://2x.antdv.com/docs/vue/introduce-cn/) - ui 基本使用
 
-## 视频讲解
+### 视频讲解
 
 建议先看一遍视频讲解，再实际操作。您可以[新页面查看高清视频](https://www.bilibili.com/video/bv1JF411q7Ut/)
+
+
+
+
 
 ## 下载运行项目
 
@@ -47,7 +67,7 @@ git clone git@gitee.com:marsgis/mars3d-vue-project.git
 
 ### 运行环境
 
-- 推荐使用 vscode，安装参考[开发环境搭建教程](guide/start/env.html)
+- 推荐使用 vscode，安装参考[开发环境搭建教程](/guide/start/env.html)
 - 安装 vscode 插件，推荐安装 volar（并禁用 vetur）、ESlint 、 Prettier
 - 配置 vscode 参数
 
@@ -101,6 +121,21 @@ npm run build
 访问[基础项目 Vue 版](http://mars3d.cn/project/jcxm-vue/index.html) 在线体验效果和功能
 
 ![image](https://muyao1987.gitee.io/cdn/mars3d.cn/xm/jcxm-vue/1.jpg)
+
+
+
+## 浏览器支持
+
+本地开发推荐使用`Chrome 80+` 浏览器
+
+支持现代浏览器, 不支持 IE
+
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
+| :-: | :-: | :-: | :-: | :-: |
+| not support | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
+
+ 
+
 
 ## 如何反馈问题？
 
@@ -574,7 +609,7 @@ const show = (name: string) => {
 ```json
 // dependencies中添加
 {
-  "mars3d": "^3.1.21",
+  "mars3d": "^3.1.23",
   "mars3d-cesium": "^1.89.0",
   "@turf/turf": "^6.5.0",
   "kml-geojson": "^1.2.0",
