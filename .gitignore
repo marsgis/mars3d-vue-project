@@ -26,3 +26,4 @@ yarn-error.log*
 .DS_Store
 Thumbs.db
 package-lock.json
+package-lock.json
