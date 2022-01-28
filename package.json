@@ -17,6 +17,7 @@
     "ant-design-vue": "3.0.0-alpha.16",
     "axios": "^0.25.0",
     "core-js": "^3.6.5",
+    "echarts": "^5.3.0",
     "localforage": "^1.10.0",
     "mapv": "^2.0.62",
     "mars3d": "^3.2.0",

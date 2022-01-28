@@ -62,10 +62,7 @@ export default ({ mode }: ConfigEnv) => {
       rollupOptions: {
         input: {
           index: path.resolve(__dirname, "index.html"),
-          login: path.resolve(__dirname, "login.html"),
-          example: path.resolve(__dirname, "example.html"),
-          dzsp: path.resolve(__dirname, "dzsp.html"),
-          zhts: path.resolve(__dirname, "zhts.html")
+          example: path.resolve(__dirname, "example.html")
         }
       },
       // 当设置为 true, 构建后将会生成 manifest.json 文件
