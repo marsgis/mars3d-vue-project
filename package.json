@@ -1,6 +1,6 @@
 {
   "name": "mars3d-vue-project",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "在`Vue 3.x`技术栈下的Mars3D平台 基础项目",
   "main": "index.js",
   "private": true,
@@ -20,7 +20,7 @@
     "kml-geojson": "^1.2.0",
     "localforage": "^1.10.0",
     "mapv": "^2.0.62",
-    "mars3d": "^3.1.23",
+    "mars3d": "^3.2.0",
     "mars3d-cesium": "^1.89.0",
     "mars3d-echarts": "^3.1.22",
     "mars3d-heatmap": "^3.1.22",
