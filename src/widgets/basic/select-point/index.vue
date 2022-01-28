@@ -135,12 +135,6 @@ mapWork.eventTarget.on("loadOK", function (event: any) {
 
 const changeFanwei = () => {
   switch (formState.radioFanwei) {
-    default:
-      // 十进制
-      formState.lng = mapWork.marsUtilFormtNum(currJD, 6)
-      formState.lat = mapWork.marsUtilFormtNum(currWD, 6)
-      formState.alt = mapWork.marsUtilFormtNum(currGD, 6)
-      break
     case "2": // 度分秒
       formState.jdDegree = mapWork.marsPointTrans(currJD).degree
       formState.jdMinute = mapWork.marsPointTrans(currJD).minute
@@ -154,6 +148,12 @@ const changeFanwei = () => {
       break
     case "3": // CGCS2000
       changeFendai()
+      break
+    default:
+      // 十进制
+      formState.lng = mapWork.marsUtilFormtNum(currJD, 6)
+      formState.lat = mapWork.marsUtilFormtNum(currWD, 6)
+      formState.alt = mapWork.marsUtilFormtNum(currGD, 6)
       break
   }
 }
@@ -214,7 +214,7 @@ const submitCenter = () => {
 .position-container {
   padding: 10px;
 }
-.lnglat-input{
-  width:200px ;
+.lnglat-input {
+  width: 200px;
 }
 </style>

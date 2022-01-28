@@ -1,5 +1,5 @@
 import * as mars3d from "mars3d"
-// const Cesium = mars3d.Cesium
+
 
 let map: mars3d.Map // 地图对象
 

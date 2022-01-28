@@ -21,7 +21,7 @@
 Mars3D 基础项目 是基于[Mars3D 平台](http://mars3d.cn)做的一个应用系统，提供的一个基础项目模版，包含常用基础地图功能，可在该基础项目上快速开发搭建新项目。方便快速搭建三维地图产品，敏捷开发，可复用，支持各种配置，适合各种场景使用。
  
  
-## Vue 版特性 
+## 项目特性 
 - **最新技术栈**：使用 Vue3/vite2 等前端前沿技术开发
 - **TypeScript**: 应用程序级 JavaScript 的语言
 - **适用于地图场景的widget模块化**: 继续沿用了原生 JS 版本 widget 架构的一些思想，使用 vue 方式实现了各 widget 功能
@@ -30,18 +30,9 @@ Mars3D 基础项目 是基于[Mars3D 平台](http://mars3d.cn)做的一个应用
  
 ## 文档
 - [官网教程地址](http://mars3d.cn/dev/guide/project/vue.html) 
- 
-### 准备
+  
 
-- [node](http://nodejs.org/) 和 [git](https://git-scm.com/) -项目开发环境
-- [Vite](https://vitejs.dev/) - 熟悉 vite 特性
-- [Vue3](https://v3.vuejs.org/) - 熟悉 Vue 基础语法
-- [TypeScript](https://www.typescriptlang.org/) - 熟悉`TypeScript`基本语法
-- [Es6+](http://es6.ruanyifeng.com/) - 熟悉 es6 基本语法
-- [Vue-Router-Next](https://next.router.vuejs.org/) - 熟悉 vue-router 基本使用
-- [Ant-Design-Vue](https://2x.antdv.com/docs/vue/introduce-cn/) - ui 基本使用
-
-### 视频讲解
+## 视频讲解
 
 建议先看一遍视频讲解，再实际操作。您可以[新页面查看高清视频](https://www.bilibili.com/video/bv1JF411q7Ut/)
 
@@ -151,14 +142,17 @@ npm run build
 
 ### 技术选型
 
+- [node](http://nodejs.org/) 和 [git](https://git-scm.com/) ：项目开发环境 
 - [Vue3](https://v3.cn.vuejs.org/api/)：开发框架
-- [Vue CLI](https://cli.vuejs.org/zh/guide/)：开发环境
+- [Vite](https://vitejs.dev/)：开发环境
 - [TypeScript](https://www.tslang.cn/):开发语言
+- [Es6+](http://es6.ruanyifeng.com/) - 熟悉 es6 基本语法
+- [Ant Design Vue](https://next.antdv.com/components/overview-cn/)：UI 控件库 
 - [ESlint](https://eslint.bootcss.com/)：代码检查工具
-- [Ant Design Vue](https://next.antdv.com/components/overview-cn/)：UI 控件库
 - [IconPark](https://iconpark.oceanengine.com/official)：UI 图标库
 
 > 需要有一定的知识储备，包括 vue3.0 中的 composition Api 模式等，建议浏览下[Web 前端知识视频讲解](https://www.bilibili.com/video/BV1xr4y1U73r/)
+
 
 ### 主要目录说明
 
@@ -177,11 +171,11 @@ mars3d-vue-project
 │   └───config          地图的配置文件等
 │   └───img             图片资源
 │
-│───.eslintrc.js        eslint配置文件
-│───babel.config.js     babel配置
-│───package.json        项目配置信息
-└───vue.config.js       vueCLI 配置文件
-└───tsconfig.js         ts 配置文件
+│─── .eslintrc.js        eslint配置文件
+│─── package.json        项目配置信息
+└─── vite.config.ts      vite 配置文件
+└─── tsconfig.js         ts 配置文件
+└─── *.html              各页面入口
 ```
 
 #### 功能主目录
@@ -575,7 +569,12 @@ const show = (name: string) => {
 
 ## 将当前项目集成到自己的项目中(合并 2 个项目)
 
+可以参考已集成好的mars3d-vue-project-admin项目:
+[github:vue-mars3d-admin](https://github.com/marsgis/mars3d-vue-project-admin)、
+[gitee:vue-mars3d-admin](https://gitee.com/marsgis/mars3d-vue-project-admin)
+
 > 前提条件：需要 2 个项目的技术栈基本是一致的，比如`vue3+ts+ant-design-vue`等
+
 
 ### 流程概览：
 
@@ -609,7 +608,7 @@ const show = (name: string) => {
 ```json
 // dependencies中添加
 {
-  "mars3d": "^3.2.0",
+  "mars3d": "^3.1.21",
   "mars3d-cesium": "^1.89.0",
   "@turf/turf": "^6.5.0",
   "kml-geojson": "^1.2.0",

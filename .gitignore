@@ -1,6 +1,7 @@
 .DS_Store
 node_modules
 /dist
+lib/CesiumUnminified/
 mars3d-*src.*
 
 # local env files
@@ -20,10 +21,9 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
-
-
+ 
+ 
 # System Files
 .DS_Store
 Thumbs.db
-package-lock.json
 package-lock.json

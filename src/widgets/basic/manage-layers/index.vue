@@ -54,7 +54,6 @@ let lastWidget: any
 const checkedChange = (keys: string[], e: any) => {
   const layer = layersObj[e.node.id]
   // console.log("点击的矢量图层", layer)
-
   if (layer) {
     if (!layer.isAdded) {
       mapWork.addLayer(layer)
@@ -78,6 +77,22 @@ const checkedChange = (keys: string[], e: any) => {
         })
       }
     }
+
+    // 处理图层的关联事件
+    if (layer.options.onWidget) {
+      if (e.checked) {
+        if (lastWidget) {
+          disable(lastWidget)
+        }
+        activate({
+          name: layer.options.onWidget
+        })
+        lastWidget = layer.options.onWidget
+      } else {
+        disable(layer.options.onWidget)
+      }
+    }
+
     // 处理子节点
     if (e.node.children && e.node.children.length) {
       renderChildNode(keys, e.node.children)
@@ -94,38 +109,12 @@ const checkedChange = (keys: string[], e: any) => {
       initLayerTree(layer)
     }
 
-    // 处理图层的关联事件
-    if (layer.options.onWidget) {
-      if (e.checked) {
-        if (lastWidget) {
-          disable(lastWidget)
-        }
-        activate({
-          name: layer.options.onWidget
-        })
-        lastWidget = layer.options.onWidget
-      } else {
-        disable(layer.options.onWidget)
-      }
+    if (layer.options.onWidght) {
+      const clockWidget = layer.options.onWidght
+      activate(clockWidget)
     }
   }
 }
-
-// let show = true
-// keys.forEach((id: string) => {
-//   const item = layersObj[id]
-//   if (item && item.options.onWidget === "show-clock") {
-//     clock.showClock()
-//     show = true
-//   } else {
-//     show = false
-//   }
-// })
-// // console.log(show)
-// if (!show) {
-//   clock.closeClock()
-// }
-// }
 
 function renderChildNode(keys: string[], children: any[]) {
   children.forEach((child) => {
@@ -221,6 +210,18 @@ function initTree() {
       expandedKeys.value.push(node.key)
     }
   }
+
+  treeData.value.forEach((data: any) => {
+    data.children.forEach((item: any) => {
+      if (item.children) {
+        item.children.forEach((chil: any) => {
+          if (layersObj[chil.key].options.radio) {
+            chil.parent.disabled = true
+          }
+        })
+      }
+    })
+  })
 }
 function findChild(parent: any, list: any[]) {
   return list
@@ -248,6 +249,7 @@ function findChild(parent: any, list: any[]) {
       node.children = findChild(node, list)
 
       expandedKeys.value.push(node.key)
+
       if (item.isAdded && item.show) {
         nextTick(() => {
           checkedKeys.value.push(node.key)

@@ -394,23 +394,21 @@ function findChild(parent: any, list: any[]) {
   return list
     .filter((item: any) => item.pid === parent.id)
     .map((item: any) => {
-      if ((item.pid = parent.id)) {
-        const node: any = {
-          title: item.name,
-          key: item.id,
-          id: item.id,
-          pId: item.pid,
-          uuid: item.uuid
-        }
-        const nodeLayer = mapWork.createLayer(item) //  创建图层
-        layersObj[item.id] = nodeLayer
-        node.children = findChild(node, list)
-        expandedKeys.value.push(node.key)
-        if (item.isAdded && item.show) {
-          checkedKeys.value.push(node.key)
-        }
-        return node
+      const node: any = {
+        title: item.name,
+        key: item.id,
+        id: item.id,
+        pId: item.pid,
+        uuid: item.uuid
       }
+      const nodeLayer = mapWork.createLayer(item) //  创建图层
+      layersObj[item.id] = nodeLayer
+      node.children = findChild(node, list)
+      expandedKeys.value.push(node.key)
+      if (item.isAdded && item.show) {
+        checkedKeys.value.push(node.key)
+      }
+      return node
     })
 }
 

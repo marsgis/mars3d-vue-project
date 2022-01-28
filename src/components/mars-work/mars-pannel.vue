@@ -43,15 +43,17 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const animationClass = computed(() => {
-  const left = props.left
-  const right = props.right
-  if (typeof right === "number" && right >= 0 && right < 40) {
+  const right = getNumber(props.right)
+  if (right && right >= 0 && right < 100) {
     return "fadein-right"
-  } else if (!left || (left >= 0 && left < 40)) {
-    return "fadein-left"
-  } else {
-    return "fadein-popup"
   }
+
+  const left = getNumber(props.left)
+  if (left || (left >= 0 && left < 100)) {
+    return "fadein-left"
+  }
+
+  return "fadein-popup"
 })
 
 const emits = defineEmits(["update:visible"])
@@ -114,6 +116,14 @@ function initSize() {
     if (props.height) {
       pannelStyle.height = antoUnit(props.height)
     }
+  }
+}
+
+function getNumber(value: number | string) {
+  if (typeof value === "number" || (typeof value === "string" && /^[0-9]*$/.test(value))) {
+    return Number(value)
+  } else {
+    return null
   }
 }
 

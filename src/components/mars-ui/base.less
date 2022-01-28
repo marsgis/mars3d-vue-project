@@ -75,6 +75,13 @@
       background: rgba(32, 160, 255, 0.2);
     }
   }
+  .ant-btn {
+    &:disabled {
+      color: @mars-basecolor;
+      border-color: #89bceb;
+      background: rgba(32, 160, 255, 0.2);
+    }
+  }
   /* 小型 单击按钮 */
   .small-btn {
     padding: 4px 5px;
@@ -242,6 +249,9 @@
   }
   .ant-table-cell:last-child {
     border-right: 0 !important;
+  }
+  .ant-table-placeholder > td {
+    background: rgba(32, 42, 68, 0.3) !important;
   }
 
   // 树控件

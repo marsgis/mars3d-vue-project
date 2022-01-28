@@ -51,6 +51,7 @@ import {
 } from "ant-design-vue"
 
 import "./mars-echarts"
+import "ant-design-vue/dist/antd.less"
 
 import "./index.less"
 import "./base.less"

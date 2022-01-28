@@ -32,16 +32,16 @@ export function onMounted(mapInstance: mars3d.Map): void {
     let inHtml = `<div class="mars-popup-titile"><a href="https://www.amap.com/detail/${item.id}"  target="_black" style="color: #ffffff; ">${item.name}</a></div><div class="mars-popup-content" >`
 
     if (item.tel !== "") {
-      inHtml += "<div><label>电话</label>" + item.tel + "</div>"
+      inHtml += "<div><label>电话:</label>" + item.tel + "</div>"
     }
 
     if (item.address) {
-      inHtml += "<div><label>地址</label>" + item.address + "</div>"
+      inHtml += "<div><label>地址:</label>" + item.address + "</div>"
     }
     if (item.type) {
       const fl = item.type
       if (fl !== "") {
-        inHtml += "<div><label>类别</label>" + fl + "</div>"
+        inHtml += "<div><label>类别:</label>" + fl + "</div>"
       }
     }
     inHtml += "</div>"
@@ -161,10 +161,10 @@ export function showPOIArr(arr: any): void {
  * 判断是否为经纬度值，
  * 若是，加载为矢量数据且定位至该矢量数据
  * 若否，返回
- * @param {any} text 输入框输入的关键字
+ * @param {string} text 输入框输入的关键字
  * @returns {void} 无
  */
-export function centerAtLonLat(text: any): void {
+export function centerAtLonLat(text: string): void {
   const arr = text.split(",")
   if (arr.length !== 2) {
     return
@@ -209,7 +209,7 @@ export function centerAtLonLat(text: any): void {
   })
 }
 
-export function flyToGraphic(graphic: any, option: any): void {
+export function flyToGraphic(graphic: mars3d.graphic.BaseGraphic, option: any): void {
   map.flyToGraphic(graphic, option)
 
   setTimeout(() => {

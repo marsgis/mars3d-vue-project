@@ -1,4 +1,3 @@
-import toKml from "kml-geojson"
 
 /**
  * 读取json文件内容 
@@ -26,18 +25,6 @@ export function readJSON<T>(file: any): Promise<T> {
   })
 }
 
-export function saveGeoJSON2Kml(geojson: string, options: any): void {
-  const geojsonObject = clone(geojson, null, null)
-
-  const kml = toKml(geojsonObject, {
-    name: "Mars3D标绘数据",
-    documentName: "Mars3D标绘数据文件",
-    documentDescription: "标绘数据 by mars3d.cn",
-    simplestyle: true,
-    ...options
-  })
-  return kml
-}
 
 function clone(obj: any, removeKeys: any, level: any): any {
   // 避免死循环，拷贝的层级最大深度

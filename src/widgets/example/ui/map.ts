@@ -1,5 +1,4 @@
 import * as mars3d from "mars3d"
-// const Cesium = mars3d.Cesium
 
 let map: mars3d.Map // 地图对象
 
@@ -83,7 +82,7 @@ export function createLayer(layer: any) {
 }
 
 // 添加图层
-export function addLayer(layer: any) {
+export function addLayer(layer: mars3d.BaseLayer) {
   map.addLayer(layer)
 }
 

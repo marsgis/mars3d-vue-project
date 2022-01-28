@@ -2,7 +2,7 @@
   <mars-dialog title="底图" :width="380" :height="500" :top="50" :right="10">
     <ul class="basemap">
       <li v-for="(item, i) in baseMaps" :key="i" class="basemap-card" :class="{ 'active-card': active === item.uuid }" @click="changeBaseMaps(item)">
-        <div><img class="icon" :src="`/${item.options.icon || 'img/basemaps/bingAerial.png'}`" /></div>
+        <div><img class="icon" :src="`${item.options.icon || 'img/basemaps/bingAerial.png'}`" /></div>
         <div>{{ item.name }}</div>
       </li>
     </ul>

@@ -5,7 +5,6 @@
  */
 import { Store, createStore } from "vuex"
 import { InjectionKey } from "vue"
-import _ from "lodash"
 
 export interface Test {
   count?: number

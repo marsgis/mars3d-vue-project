@@ -4,7 +4,6 @@
  * @author 火星吴彦祖 2021-12-10
  */
 import * as mars3d from "mars3d"
-// const Cesium = mars3d.Cesium
 
 let map: mars3d.Map // 地图对象
 

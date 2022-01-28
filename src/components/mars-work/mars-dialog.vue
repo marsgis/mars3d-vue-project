@@ -7,7 +7,7 @@
         <close-o @click="closeModel" class="close-btn" />
       </div>
       <div class="pannel-model__body">
-        <div class="content">
+        <div class="content" :class="{'full-content': !$slots.footer}">
           <slot></slot>
         </div>
         <div class="footer" v-if="$slots.footer">
@@ -311,6 +311,9 @@ function removeEvent(el: any, event: any, handler: (e: any) => void) {
 .content {
   height: calc(100% - 40px);
   overflow-y: auto;
+}
+.full-content{
+  height: 100%;
 }
 .footer {
   height: 40px;

@@ -21,7 +21,9 @@ const store: StoreOptions<WidgetState> = {
         autoDisable: true
       },
       {
-        component: markRaw(defineAsyncComponent(() => import(/* webpackChunkName: "manage-basemap" */ "@mars/widgets/basic/manage-basemap/index.vue"))),
+        component: markRaw(
+          defineAsyncComponent(() => import(/* webpackChunkName: "manage-basemap" */ "@mars/widgets/basic/manage-basemap/index.vue"))
+        ),
         name: "manage-basemap",
         group: "manage"
       },
@@ -32,18 +34,24 @@ const store: StoreOptions<WidgetState> = {
         disableOther: ["roamfly"]
       },
       {
-        component: markRaw(defineAsyncComponent(() => import(/* webpackChunkName: "layer-tree" */ "@mars/widgets/basic/manage-layers/layer-tree.vue"))),
+        component: markRaw(
+          defineAsyncComponent(() => import(/* webpackChunkName: "layer-tree" */ "@mars/widgets/basic/manage-layers/layer-tree.vue"))
+        ),
         name: "layer-tree"
       },
       {
         component: markRaw(
-          defineAsyncComponent(() => import(/* webpackChunkName: "layer-picture-heatmap" */ "@mars/widgets/basic/manage-layers/layer-picture-heatmap.vue"))
+          defineAsyncComponent(
+            () => import(/* webpackChunkName: "layer-picture-heatmap" */ "@mars/widgets/basic/manage-layers/layer-picture-heatmap.vue")
+          )
         ),
         name: "layer-picture-heatmap"
       },
       {
         component: markRaw(
-          defineAsyncComponent(() => import(/* webpackChunkName: "layer-picture-guihua" */ "@mars/widgets/basic/manage-layers/layer-picture-guihua.vue"))
+          defineAsyncComponent(
+            () => import(/* webpackChunkName: "layer-picture-guihua" */ "@mars/widgets/basic/manage-layers/layer-picture-guihua.vue")
+          )
         ),
         name: "layer-picture-guihua"
       },

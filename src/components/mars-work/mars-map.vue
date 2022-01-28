@@ -12,10 +12,6 @@ import * as mars3d from "mars3d"
 import { getQueryString, isPc } from "@mars/utils/mars-util"
 import { $alert, $message } from "@mars/components/mars-ui/index"
 
-// Mars3D地图内部使用，如右键菜单弹窗
-window.globalAlert = $alert
-window.globalMsg = $message
-
 const props = withDefaults(
   defineProps<{
     url: string
@@ -36,6 +32,7 @@ let map: mars3d.Map // 地图对象
 const withKeyId = computed(() => `mars3d-container-${props.mapKey}`)
 
 onMounted(() => {
+  console.log(mars3d)
   // 获取配置
   mars3d.Util.fetchJson({ url: props.url }).then((data: any) => {
     initMars3d({
@@ -95,13 +92,45 @@ const initMars3d = (option: any) => {
     window.location.reload()
   })
 
-  // 用于 config\config.json 中 西藏垭口 图层的详情按钮 演示
-  // @ts-ignore 忽略本行行代码的检测
-  window.showPopupDetails = (item: any) => {
-    alert(item.NAME)
-  }
+  // map构造完成后的一些处理
+  onMapLoad()
 
   emit("onload", map)
+}
+
+// map构造完成后的一些处理
+function onMapLoad() {
+  // Mars3D地图内部使用，如右键菜单弹窗
+  // @ts-ignore
+  window.globalAlert = $alert
+  // @ts-ignore
+  window.globalMsg = $message
+
+  // 用于 config.json 中 西藏垭口 图层的详情按钮 演示
+  // @ts-ignore
+  window.showPopupDetails = (item: any) => {
+    $alert(item.NAME)
+  }
+
+  // 用于 config.json中配置的图层，绑定额外方法和参数
+  const tiles3dLayer = map.getLayer(204012, "id") // 上海市区
+  if (tiles3dLayer) {
+    tiles3dLayer.options.onSetOpacity = function (opacity: number) {
+      tiles3dLayer.style = {
+        color: {
+          conditions: [
+            ["${floor} >= 200", "rgba(45, 0, 75," + 0.5 * opacity + ")"],
+            ["${floor} >= 100", "rgba(170, 162, 204," + opacity + ")"],
+            ["${floor} >= 50", "rgba(224, 226, 238," + opacity + ")"],
+            ["${floor} >= 25", "rgba(252, 230, 200," + opacity + ")"],
+            ["${floor} >= 10", "rgba(248, 176, 87," + opacity + ")"],
+            ["${floor} >= 5", "rgba(198, 106, 11," + opacity + ")"],
+            ["true", "rgba(127, 59, 8," + opacity + ")"]
+          ]
+        }
+      }
+    }
+  }
 }
 
 // 组件卸载之前销毁mars3d实例
