@@ -3,7 +3,7 @@ import type { ConfigEnv } from "vite"
 import { defineConfig, loadEnv } from "vite"
 import vue from "@vitejs/plugin-vue"
 import eslintPlugin from "vite-plugin-eslint"
-import mars3dCesium from "./build/cesium-plugin" 
+import mars3dCesium from "./build/cesium-plugin"
 
 export default ({ mode }: ConfigEnv) => {
   const root = process.cwd()
@@ -15,14 +15,10 @@ export default ({ mode }: ConfigEnv) => {
 
   return defineConfig({
     base: ENV.VITE_PUBLIC_PATH,
-    plugins: [
-      vue(),
-      eslintPlugin({ cache: false }),
-      mars3dCesium()
-    ],
+    plugins: [vue(), eslintPlugin({ cache: false }), mars3dCesium()],
     resolve: {
       alias: {
-        "@mars": path.join(__dirname, "src") 
+        "@mars": path.join(__dirname, "src")
       },
       extensions: [".js", ".ts", ".jsx", ".tsx", ".json"]
     },
@@ -47,7 +43,7 @@ export default ({ mode }: ConfigEnv) => {
     optimizeDeps: {
       include: [
         "@mars/common/store/widget"
-      ] 
+      ]
     },
     build: {
       // 输出路径
@@ -64,6 +60,9 @@ export default ({ mode }: ConfigEnv) => {
           index: path.resolve(__dirname, "index.html"),
           example: path.resolve(__dirname, "example.html")
         }
+      },
+      commonjsOptions: {
+        transformMixedEsModules: true
       },
       // 当设置为 true, 构建后将会生成 manifest.json 文件
       manifest: false,

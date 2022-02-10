@@ -28,11 +28,6 @@ declare module "kml-geojson" {
   export default kg
 }
 
-// declare module "*.svg" {
-//   const svg: any
-//   export default svg
-// }
-
 // declare module "*.png" {
 //   const png: string
 //   export default png
