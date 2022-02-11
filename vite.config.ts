@@ -41,9 +41,7 @@ export default ({ mode }: ConfigEnv) => {
       }
     },
     optimizeDeps: {
-      include: [
-        "@mars/common/store/widget"
-      ]
+      include: []
     },
     build: {
       // 输出路径
