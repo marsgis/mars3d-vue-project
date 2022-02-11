@@ -55,6 +55,9 @@
     "url": "https://github.com/marsgis/mars3d-vue-project/issues",
     "email": "wh@marsgis.cn"
   },
+  "engines": {
+    "node": ">=14"
+  },
   "keywords": [
     "marsgis",
     "mars3d",
