@@ -72,10 +72,12 @@ const getWidgetAttr = (widget: Widget) => {
 <style lang="less" scoped>
 .mars-main-view {
   height: 100%;
+  width:100%;
   position: relative;
 }
 .centerDiv-container {
   height: 100%;
+  width:100%;
   overflow: hidden;
 }
 </style>

@@ -1,5 +1,6 @@
 import { notification } from "ant-design-vue"
 import { App } from "vue"
+import "./notify.less"
 
 /**
  * 消息提醒
@@ -21,7 +22,7 @@ export const $notify = (message: any, description: any, options: any = {}, type:
       func({
         message,
         description,
-        class: "mars-notify-mesage",
+        class: "mars-notify-message",
         onClose() {
           resolve(true)
         }

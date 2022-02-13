@@ -1,5 +1,6 @@
 import { Dropdown } from "ant-design-vue"
 import { App, defineComponent, h } from "vue"
+import "./dropdown.less"
 
 /**
  * 下拉菜单
@@ -11,12 +12,12 @@ import { App, defineComponent, h } from "vue"
 const MarsDropdown = defineComponent({
   name: "mars-dropdown",
   inheritAttrs: false,
-  setup (props, context) {
+  setup(props, context) {
     return () => h(Dropdown, { ...context.attrs, ...props, overlayClassName: "mars-dropdown" }, context.slots)
   }
 })
 
-export function install (app: App): App {
+export function install(app: App): App {
   app.component(MarsDropdown.name, MarsDropdown)
   return app
 }

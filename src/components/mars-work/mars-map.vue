@@ -143,10 +143,6 @@ onBeforeUnmount(() => {
 </script>
 
 <style lang="less">
-.mars3d-container {
-  height: 100%;
-  overflow: hidden;
-}
 
 /**cesium 工具按钮栏*/
 .cesium-viewer-toolbar {

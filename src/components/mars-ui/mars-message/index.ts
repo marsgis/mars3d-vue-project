@@ -1,5 +1,6 @@
 import { message } from "ant-design-vue"
 import { App } from "vue"
+import "./message.less"
 
 /**
  * message 信息弹窗

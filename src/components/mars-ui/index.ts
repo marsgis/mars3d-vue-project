@@ -4,19 +4,20 @@
  * @author 木遥 2021-11-01
  */
 import { App } from "vue"
-import MarsSelect from "./mars-select"
-import MarsButton from "./mars-button"
-import MarsInput from "./mars-input"
-import MarsInputNumber from "./mars-input-number"
-import MarsDatePicker from "./mars-date-picker"
+import MarsSelect from "./mars-select/index.vue"
+import MarsButton from "./mars-button/index.vue"
+import MarsInput from "./mars-input/index.vue"
+import MarsInputNumber from "./mars-input-number/index.vue"
+import MarsDatePicker from "./mars-date-picker/index.vue"
 import MarsColorPicker from "./mars-color-picker"
 import MarsDropDown from "./mars-dropdown"
 import MarsMessage, { $message as marsMessage } from "./mars-message"
-import MarsAlert, { $alert as marsAlert } from "./mars-alert"
+import MarsAlert, { $alert as marsAlert } from "./mars-alert/"
 import MarsNotify, { $notify as marsNotify } from "./mars-notify"
 import MarsLoading, { $hideLoading as marsHideLoading, $showLoading as marsShowLoading } from "./mars-loading"
 import MarsTree from "./mars-tree"
-
+import MarsMenu from "./mars-menu"
+import MarsSteps from "./mars-steps"
 import {
   AutoComplete,
   Button,
@@ -54,7 +55,7 @@ import "./mars-echarts"
 import "ant-design-vue/dist/antd.less"
 
 import "./index.less"
-import "./base.less"
+// import "./base.less"
 import "./function.less"
 
 export const $alert = marsAlert
@@ -97,6 +98,8 @@ export default {
     app.use(Divider)
     app.use(Card)
     app.use(Image)
+    app.use(MarsMenu)
+    app.use(MarsSteps)
 
     components.forEach((comp) => {
       app.component(comp.name, comp)

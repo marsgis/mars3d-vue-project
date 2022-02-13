@@ -1,0 +1,52 @@
+.mars-main-view {
+  // 树控件
+  .ant-tree {
+    background: none;
+    color: @mars-basecolor;
+  }
+  .ant-tree-show-line .ant-tree-switcher,
+  .ant-tree-checkbox-inner {
+    background: none !important;
+  }
+  .anticon-file.ant-tree-switcher-line-icon {
+    display: none;
+  }
+  .ant-tree-show-line .ant-tree-indent-unit::before {
+    border-right: 1px dotted #fff;
+  }
+  .ant-tree-switcher-noop {
+    width: 20px;
+  }
+  .ant-tree-switcher-noop::before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    height: 26px;
+    border-right: 1px dotted #fff;
+  }
+  .ant-tree-treenode-leaf-last {
+    .ant-tree-switcher-noop::before {
+      content: "";
+      display: inline-block;
+      position: absolute;
+      height: 10px;
+      border-right: 1px dotted #fff;
+    }
+  }
+  .ant-tree-switcher-noop::after {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    position: absolute;
+    top: 10px;
+    border-bottom: 1px dotted #fff;
+  }
+  .ant-tree-node-content-wrapper {
+    .ant-tree-iconEle {
+      line-height: 2.2;
+    }
+    &:hover {
+      background: hsla(0, 0%, 100%, 0.08) !important;
+    }
+  }
+}

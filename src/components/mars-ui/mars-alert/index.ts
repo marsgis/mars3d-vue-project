@@ -1,5 +1,6 @@
 import { Modal } from "ant-design-vue"
 import { App } from "vue"
+import "./alert.less"
 
 /**
  * alert弹窗

@@ -238,4 +238,8 @@ function addHistory(data: any) {
   font-size: 14px;
   margin: 0;
 }
+
+:deep(.ant-input) {
+  background-color: @form-input-background !important;
+}
 </style>

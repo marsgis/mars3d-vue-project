@@ -7,8 +7,7 @@ node_modules
 .vscode
 .idea
 dist
-src/common/store/widget.js
-/public
+/public/lib/
 /docs
 .husky
 .local

@@ -1,6 +1,6 @@
 @mars-basecolor: #ffffff;
+@mars-disable-color: #ccc;
 @form-input-background: rgba(63, 72, 84, 0.7);
-
 .mars-main-view {
   color: @mars-basecolor;
   * {
@@ -37,56 +37,6 @@
     }
   }
 
-  // 按钮
-  .ant-btn {
-    font-size: 14px;
-    background: rgba(32, 160, 255, 0.2);
-    border-color: #20a0ff;
-    padding-left: 10px;
-    padding-right: 10px;
-    color: @mars-basecolor;
-    .i-icon {
-      font-size: 18px !important;
-      line-height: 18px;
-      vertical-align: middle !important;
-      padding-left: 2px;
-      padding-right: 2px;
-    }
-  }
-  .ant-btn-primary {
-    background: #0077ff;
-    border: none;
-  }
-  .ant-btn-link {
-    border: none !important;
-    background: none !important;
-    padding: 0;
-    height: initial;
-  }
-  .ant-btn:not([disabled]) {
-    &:hover {
-      color: @mars-basecolor;
-      border-color: #89bceb;
-      background: rgba(32, 160, 255, 0.2);
-    }
-    &:focus {
-      color: @mars-basecolor;
-      border-color: #89bceb;
-      background: rgba(32, 160, 255, 0.2);
-    }
-  }
-  .ant-btn {
-    &:disabled {
-      color: @mars-basecolor;
-      border-color: #89bceb;
-      background: rgba(32, 160, 255, 0.2);
-    }
-  }
-  /* 小型 单击按钮 */
-  .small-btn {
-    padding: 4px 5px;
-  }
-
   // 切换按钮
   .ant-radio-button-wrapper {
     background: rgba(32, 160, 255, 0.2);
@@ -104,67 +54,6 @@
   }
   .ant-form-item:nth-last-child(1) {
     margin-bottom: 0 !important;
-  }
-
-  /* 文本、数字、下拉等input输入框 */
-  .ant-input-affix-wrapper,
-  .ant-input,
-  .ant-input-number,
-  .ant-select,
-  .ant-picker {
-    * {
-      color: @mars-basecolor;
-    }
-    color: @mars-basecolor;
-    background-color: @form-input-background !important;
-  }
-  .ant-input-number-handler-wrap {
-    background: none;
-  }
-
-  // 下拉框
-  .ant-select {
-    color: #ffffff;
-    background: none;
-    .ant-select-selector {
-      background: none;
-      background-color: transparent !important;
-    }
-  }
-  .ant-select:not(.ant-select-disabled) {
-    &:hover,
-    &:focus {
-      border-color: #4db3ff;
-      .ant-select-selector {
-        border-color: #4db3ff;
-      }
-    }
-  }
-
-  //
-  // .ant-card-head-wrapper {
-  //   color: white;
-  // }
-
-  /*有下拉面板控件的背景统一处理*/
-  .ant-select-dropdown,
-  .ant-picker-panel-container,
-  .ant-dropdown-menu,
-  .ant-popover-inner,
-  .ant-tree-node-selected,
-  .ant-tree-treenode-selected::before {
-    background-color: rgba(32, 42, 68, 0.9) !important;
-  }
-  .ant-select-item {
-    font-size: 12px;
-  }
-  .ant-select-item-option-selected {
-    background-color: rgba(255, 255, 255, 0.08) !important;
-  }
-  .hu-color-picker {
-    width: 220px !important;
-    background-color: rgba(32, 42, 68, 0.9) !important;
-    box-shadow: none;
   }
 
   /* 卡片 */
@@ -254,57 +143,6 @@
     background: rgba(32, 42, 68, 0.3) !important;
   }
 
-  // 树控件
-  .ant-tree {
-    background: none;
-    color: @mars-basecolor;
-  }
-  .ant-tree-show-line .ant-tree-switcher,
-  .ant-tree-checkbox-inner {
-    background: none !important;
-  }
-  .anticon-file.ant-tree-switcher-line-icon {
-    display: none;
-  }
-  .ant-tree-show-line .ant-tree-indent-unit::before {
-    border-right: 1px dotted #fff;
-  }
-  .ant-tree-switcher-noop {
-    width: 20px;
-  }
-  .ant-tree-switcher-noop::before {
-    content: "";
-    display: inline-block;
-    position: absolute;
-    height: 26px;
-    border-right: 1px dotted #fff;
-  }
-  .ant-tree-treenode-leaf-last {
-    .ant-tree-switcher-noop::before {
-      content: "";
-      display: inline-block;
-      position: absolute;
-      height: 10px;
-      border-right: 1px dotted #fff;
-    }
-  }
-  .ant-tree-switcher-noop::after {
-    content: "";
-    display: inline-block;
-    width: 8px;
-    position: absolute;
-    top: 10px;
-    border-bottom: 1px dotted #fff;
-  }
-  .ant-tree-node-content-wrapper {
-    .ant-tree-iconEle {
-      line-height: 2.2;
-    }
-    &:hover {
-      background: hsla(0, 0%, 100%, 0.08) !important;
-    }
-  }
-
   // 分页
   .ant-pagination {
     * {
@@ -324,6 +162,13 @@
     }
   }
 
+  .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    background-color: transparent !important;
+  }
+  .ant-select-dropdown {
+    background-color: transparent !important;
+  }
+
   // 列表
   .ant-list-items {
     * {
@@ -335,122 +180,5 @@
     .ant-list-item-meta-description {
       color: hsla(0, 0%, 100%, 0.45);
     }
-  }
-}
-
-/* 此处处理挂载到全局的样式 */
-
-// 下拉菜单
-.mars-dropdown {
-  * {
-    color: @mars-basecolor;
-  }
-  .ant-dropdown-menu {
-    background-color: rgba(63, 72, 84, 0.7) !important;
-    .i-icon {
-      vertical-align: middle;
-      margin-right: 4px;
-    }
-  }
-
-  .ant-dropdown-menu-item,
-  .ant-dropdown-menu-submenu-title {
-    &:hover {
-      background-color: hsla(0, 0%, 100%, 0.08);
-    }
-  }
-}
-
-// 下拉选择
-.mars-select-dropdown {
-  background-color: rgb(63, 72, 84) !important;
-  .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
-    background-color: rgb(63, 72, 84) !important;
-  }
-  .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
-    font-weight: 700;
-    background-color: #91d5ff !important;
-  }
-  .ant-select-item {
-    transition: none;
-  }
-  * {
-    color: @mars-basecolor;
-  }
-}
-
-// 颜色选择器
-.hu-color-picker {
-  width: 220px !important;
-  background-color: rgba(32, 42, 68, 0.9) !important;
-  box-shadow: none;
-}
-
-/*提示*/
-.ant-message-info .anticon,
-.ant-message-loading .anticon {
-  color: #4db3ff;
-}
-
-// 功能提示和已知问题提示框
-.mars-notify-message {
-  * {
-    color: @mars-basecolor;
-  }
-  padding: 15px 10px;
-  border: 1px solid rgba(32, 160, 255, 0.6);
-  background: rgba(30, 36, 50, 0.6) !important;
-
-  .ant-notification-notice-icon {
-    margin: 0;
-    font-size: 22px;
-    line-height: 22px;
-  }
-  .ant-notification-notice-message {
-    height: 30px;
-    margin-left: 30px;
-    color: #ffffff;
-    font-size: 16px;
-    border-color: rgba(32, 160, 255, 0.3);
-  }
-  .ant-notification-notice-description {
-    color: #ffffff;
-    margin-left: 5px;
-    line-height: 21px;
-    text-indent: 25px;
-  }
-  .ant-notification-notice-close {
-    color: #ffffff;
-    top: 10px;
-    right: 10px;
-  }
-}
-// alert
-.mars-global-alert {
-  * {
-    color: @mars-basecolor;
-  }
-  .ant-modal-confirm-title {
-    margin: 0;
-    font-size: 16px;
-    color: @mars-basecolor !important;
-  }
-  .ant-modal-confirm-content {
-    font-size: 14px;
-    color: @mars-basecolor !important;
-  }
-  .ant-modal-confirm-btns {
-    margin-top: 20px;
-    .ant-btn {
-      background: rgba(32, 160, 255, 0.2);
-      background-color: rgba(32, 160, 255, 0.2);
-    }
-  }
-  .ant-modal-content {
-    background: rgba(30, 36, 50, 0.6);
-    border: 1px solid rgba(32, 160, 255, 0.6);
-  }
-  .ant-modal-body {
-    padding: 15px;
   }
 }

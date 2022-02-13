@@ -1,6 +1,7 @@
 import { Tree } from "ant-design-vue"
 import { App, defineComponent, h } from "vue"
 import { FolderClose, FolderOpen, FullSelection } from "@icon-park/vue-next"
+import "./tree.less"
 
 /**
  * 树控件

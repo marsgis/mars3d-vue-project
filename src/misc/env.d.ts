@@ -1,4 +1,9 @@
 /// <reference types="vite/client" />
+/**
+ * 统一定义ts模块类型
+ * @copyright 火星科技 mars3d.cn
+ * @author 木遥 2021-11-01
+ */
 
 declare module "*.vue" {
   import { DefineComponent } from "vue"
@@ -23,10 +28,15 @@ declare module "mapv" {
   export const utilCurve: any
 }
 
-declare module "kml-geojson" {
-  const kg: (...args: any[]) => any
-  export default kg
+declare module "kml-geojson" { 
+  export const toKml: (geojson:any, options:any) => any
+  export const toGeoJSON: (doc:any) => any
 }
+
+// declare module "*.svg" {
+//   const svg: any
+//   export default svg
+// }
 
 // declare module "*.png" {
 //   const png: string

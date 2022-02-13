@@ -1,6 +1,6 @@
 import { Popover } from "ant-design-vue"
 import { ColorPicker } from "vue-color-kit"
-import MarsButton from "./mars-button"
+import MarsButton from "../mars-button/index.vue"
 import { App, defineComponent, h, ref } from "vue"
 import "./mars-color-picker.less"
 

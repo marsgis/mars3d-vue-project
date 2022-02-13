@@ -19,7 +19,9 @@ module.exports = {
     "@typescript-eslint/ban-ts-comment": "off", // ts： 禁止ts注释
     "@typescript-eslint/no-unused-vars": "off", // ts：允许定义未引用使用的变量
     "vue/multi-word-component-names": ["error", { ignores: ["index", "App"] }], // vue：多词组件名称
-    "vue/comment-directive": ["off", { reportUnusedDisableDirectives: false }], // vue：允许在标签中写 HTML 注释。 
+    "vue/comment-directive": ["off", { reportUnusedDisableDirectives: false }], // vue：允许在标签中写 HTML 注释。
+    "vue/no-deprecated-slot-attribute": "off", // 允许使用slot
+    "vue/valid-v-slot": "off",
 
     camelcase: "off", // 强制驼峰命名规则 
     indent: "off", // 强制一致的缩进风格 
