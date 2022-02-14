@@ -11,7 +11,6 @@
           <template #extra>
             <icon-config theme="outline" />
           </template>
-
           <a-form-item label="简单文本" name="url">
             <mars-input v-model:value="formState.url" :allowClear="true" @change="onTextChange" />
           </a-form-item>
@@ -84,7 +83,7 @@
                 <template #icon><icon-download-one /></template>
                 提示
               </mars-button>
-              <mars-button size="middle" @click="onClickAlert">
+              <mars-button size="middle" @click="onClickAlert" disabled>
                 <template #icon><icon-download-one /></template>
                 弹窗
               </mars-button>
