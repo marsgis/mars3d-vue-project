@@ -6,14 +6,10 @@
   </a-select>
 </template>
 <script lang="ts">
-import { Select } from "ant-design-vue"
 import { useAttrs, useSlots, defineComponent } from "vue"
 export default defineComponent({
   name: "mars-select",
   inheritAttrs: false,
-  components: {
-    ASelect: Select
-  },
   setup() {
     const attrs = useAttrs()
     const slots = useSlots()

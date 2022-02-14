@@ -6,7 +6,6 @@
   </a-date-picker>
 </template>
 <script lang="ts">
-import { DatePicker } from "ant-design-vue"
 import { useAttrs, useSlots, defineComponent } from "vue"
 import dayjs from "dayjs"
 import "dayjs/locale/zh-cn"
@@ -14,9 +13,6 @@ import locale from "ant-design-vue/es/date-picker/locale/zh_CN"
 export default defineComponent({
   name: "mars-date-picker",
   inheritAttrs: false,
-  components: {
-    ADatePicker: DatePicker
-  },
   setup() {
     const attrs = useAttrs()
     const slots = useSlots()

@@ -24,7 +24,7 @@
       "scripthost"
     ],
     "isolatedModules": false,
-    "types": ["vite/client", "node"],
+    "types": ["vite/client"],
     "baseUrl": ".",
     "paths": {
       "@mars/*": [

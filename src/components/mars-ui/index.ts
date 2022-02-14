@@ -28,6 +28,7 @@ import {
   Form,
   Input,
   InputNumber,
+  Select,
   List,
   Menu,
   Modal,
@@ -51,10 +52,8 @@ import {
 } from "ant-design-vue"
 
 import "./mars-echarts"
-import "ant-design-vue/dist/antd.less"
 
 import "./index.less"
-// import "./base.less"
 import "./function.less"
 
 export const $alert = marsAlert
@@ -73,6 +72,7 @@ export default {
     app.use(Col)
     app.use(Collapse)
     app.use(Button)
+    app.use(Select)
     app.use(List)
     app.use(Form)
     app.use(Input)

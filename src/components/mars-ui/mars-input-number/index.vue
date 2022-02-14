@@ -6,14 +6,10 @@
   </a-input-number>
 </template>
 <script lang="ts">
-import { InputNumber } from "ant-design-vue"
 import { useAttrs, useSlots, defineComponent } from "vue"
 export default defineComponent({
   name: "mars-input-number",
   inheritAttrs: false,
-  components: {
-    AInputNumber: InputNumber
-  },
   setup() {
     const attrs = useAttrs()
     const slots = useSlots()

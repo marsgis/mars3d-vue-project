@@ -46,7 +46,6 @@
       "timeline": false,
       "infoBox": false,
       "geocoder": false,
-      "geocoderConfig": { "key": ["ae29a37307840c7ae4a785ac905927e0"] },
       "selectionIndicator": false,
 
       "defaultContextMenu": true,
@@ -166,6 +165,20 @@
       },
       {
         "id": 2017,
+        "pid": 10,
+        "name": "暗色底图",
+        "type": "gaode",
+        "icon": "img/basemaps/blackMarble.png",
+        "layer": "vec",
+        "invertColor": true,
+        "filterColor": "#4e70a6",
+        "brightness": 0.6,
+        "contrast": 1.8,
+        "gamma": 0.3,
+        "hue": 1,
+        "saturation": 0
+      },
+      {
         "pid": 10,
         "name": "蓝色底图",
         "icon": "img/basemaps/bd-c-midnight.png",
@@ -782,6 +795,7 @@
         "name": "汽车",
         "url": "{dataServer}/file/czml/car.czml",
         "center": { "lat": 40.894745, "lng": 121.920252, "alt": 904, "heading": 64, "pitch": -67 },
+        "onWidget": "show-clock",
          "radio": true,
         "flyTo": true
       },
@@ -792,6 +806,7 @@
         "name": "飞行编队",
         "url": "{dataServer}/file/czml/flight.czml",
         "popup": "all",
+        "onWidget": "show-clock",
         "radio": true,
         "flyTo": true
       },
@@ -802,6 +817,7 @@
         "name": "船舶编队",
         "url": "{dataServer}/file/czml/ship.czml",
         "popup": "all",
+        "onWidget": "show-clock",
         "radio": true,
         "flyTo": true
       },

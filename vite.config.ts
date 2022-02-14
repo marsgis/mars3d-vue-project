@@ -5,6 +5,8 @@ import vue from "@vitejs/plugin-vue"
 import eslintPlugin from "vite-plugin-eslint"
 import mars3dCesium from "./build/cesium-plugin"
 
+import { createStyleImportPlugin, AndDesignVueResolve } from "vite-plugin-style-import"
+
 export default ({ mode }: ConfigEnv) => {
   const root = process.cwd()
 
@@ -33,7 +35,7 @@ export default ({ mode }: ConfigEnv) => {
       extensions: [".js", ".ts", ".jsx", ".tsx", ".json"]
     },
     optimizeDeps: {
-      include: ["kml-geojson"]
+      include: ["kml-geojson", "mars3d"]
     },
     json: {
       // 支持从 .json 文件中进行按名导入
@@ -57,6 +59,7 @@ export default ({ mode }: ConfigEnv) => {
       cssCodeSplit: true,
       // 构建后是否生成 soutrce map 文件
       sourcemap: false,
+      // 自定义rollup-commonjs插件选项
       commonjsOptions: {
         include: /node_modules|src\/common/
       },
@@ -78,6 +81,22 @@ export default ({ mode }: ConfigEnv) => {
       // 默认情况下 若 outDir 在 root 目录下， 则 Vite 会在构建时清空该目录。
       emptyOutDir: true
     },
-    plugins: [vue(), eslintPlugin({ cache: false }), mars3dCesium()]
+    plugins: [
+      vue(),
+      eslintPlugin({ cache: false }),
+      mars3dCesium(),
+      createStyleImportPlugin({
+        resolves: [AndDesignVueResolve()],
+        libs: [
+          {
+            libraryName: "ant-design-vue",
+            esModule: true,
+            resolveStyle: (name) => {
+              return `ant-design-vue/es/${name}/style/index`
+            }
+          }
+        ]
+      })
+    ]
   })
 }

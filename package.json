@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@icon-park/vue-next": "^1.3.6",
+    "@iconify/vue": "^3.1.3",
     "@turf/turf": "^6.5.0",
     "ant-design-vue": "3.0.0-beta.9",
     "axios": "^0.25.0",
@@ -22,7 +23,7 @@
     "localforage": "^1.10.0",
     "mapv": "^2.0.62",
     "mars3d": "^3.2.0",
-    "mars3d-cesium": "^1.89.2",
+    "mars3d-cesium": "^1.90.2",
     "mars3d-echarts": "^3.2.0",
     "mars3d-heatmap": "^3.2.2",
     "mars3d-mapv": "^3.2.0",
@@ -36,9 +37,7 @@
     "@types/node": "^17.0.10",
     "@vitejs/plugin-vue": "^2.1.0",
     "@vue/eslint-config-typescript": "^10.0.0",
-    "standard": "^16.0.4",
-    "typescript": "^4.5.5",
-    "unplugin-vue-components": "^0.17.13",
+    "consola": "^2.15.3",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-node": "^11.1.0",
@@ -47,12 +46,17 @@
     "fs-extra": "^10.0.0",
     "less": "^4.1.2",
     "serve-static": "^1.14.2",
+    "standard": "^16.0.4",
+    "typescript": "^4.5.5",
+    "unplugin-vue-components": "^0.17.13",
     "vite": "^2.8.0",
     "vite-plugin-eslint": "^1.3.0",
+    "vite-plugin-style-import": "^2.0.0",
     "vue-tsc": "^0.31.1"
   },
   "engines": {
-    "node": ">=14.10.0"
+    "node": ">=14.18.0",
+    "npm": "^7.23.0"
   },
   "repository": {
     "type": "git",

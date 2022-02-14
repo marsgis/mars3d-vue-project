@@ -6,14 +6,10 @@
   </a-button>
 </template>
 <script lang="ts">
-import { Button } from "ant-design-vue"
 import { useAttrs, useSlots, defineComponent } from "vue"
 export default defineComponent({
   name: "mars-button",
   inheritAttrs: false,
-  components: {
-    AButton: Button
-  },
   setup() {
     const attrs = useAttrs()
     const slots = useSlots()
