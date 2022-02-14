@@ -57,6 +57,9 @@ export default ({ mode }: ConfigEnv) => {
       cssCodeSplit: true,
       // 构建后是否生成 soutrce map 文件
       sourcemap: false,
+      commonjsOptions: {
+        include: /node_modules|src\/common/
+      },
       // 自定义底层的 Rollup 打包配置
       rollupOptions: {
         input: {
