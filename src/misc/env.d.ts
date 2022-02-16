@@ -1,7 +1,7 @@
 /// <reference types="vite/client" />
 /**
- * 统一定义ts模块类型
- * @copyright 火星科技 mars3d.cn
+ * 统一锟斤拷锟斤拷ts模锟斤拷锟斤拷锟斤拷
+ * @copyright 锟斤拷锟角科硷拷 mars3d.cn
  * @author 木遥 2021-11-01
  */
 
