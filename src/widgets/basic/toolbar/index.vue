@@ -29,7 +29,7 @@
 /**
  * 导航菜单按钮 （右上角）
  * @copyright 火星科技 mars3d.cn
- * @author 火星吴彦祖 2021-12-10
+ * @author 火星吴彦祖 2022-01-10
  */
 import { useWidget } from "@mars/common/store/widget"
 
@@ -43,17 +43,17 @@ const data = [
     icon: "icon-park-outline:tool",
     children: [
       // { name: "图上量算", icon: "icon-park-outline:ruler", widget: "measure" },
-      // { name: "空间分析", icon: "icon-park-outline:analysis", widget: "analysis" },
-      { name: "坐标定位", icon: "icon-park-outline:local", widget: "select-point" }
-      // { name: "地区导航", icon: "icon-park-outline:navigation", widget: "navigation" },
+      // { name: "空间分析", icon: "icon-park-outline:analysis", widget: "analysis" }
+      { name: "坐标定位", icon: "icon-park-outline:local", widget: "location-point" }
+      // { name: "地区导航", icon: "icon-park-outline:location-region", widget: "location-region" },
       // { name: "我的标记", icon: "icon-park-outline:mark", widget: "addmarker" },
       // { name: "视角书签", icon: "icon-park-outline:bookmark", widget: "bookmark" },
       // { name: "地图打印", icon: "icon-park-outline:printer", widget: "print" },
-      // { name: "飞行漫游", icon: "icon-park-outline:take-off", widget: "roamLine" },
+      // { name: "飞行漫游", icon: "icon-park-outline:take-off", widget: "roamLine-list" },
       // { name: "图上标绘", icon: "icon-park-outline:hand-painted-plate", widget: "plot" },
       // { name: "路线导航", icon: "icon-park-outline:connection", widget: "query-route" },
       // { name: "卷帘对比", icon: "icon-park-outline:switch-contrast", widget: "map-split" },
-      // { name: "分屏对比", icon: "icon-park-outline:full-screen-play", widget: "screen-compare" }
+      // { name: "分屏对比", icon: "icon-park-outline:full-screen-play", widget: "map-compare" }
       // { name: "百度街景", icon: h(City, { theme: "outline", size: "18" }), widget: "street-view" }
     ]
   }

@@ -8,7 +8,7 @@ import "./mars-color-picker.less"
  * 颜色选择器
  *
  * @copyright 火星科技 mars3d.cn
- * @author 木遥 2021-11-01
+ * @author 木遥 2022-01-01
  */
 const MarsColorPicker = defineComponent({
   name: "mars-color-picker",

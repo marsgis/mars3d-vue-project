@@ -7,7 +7,7 @@ import "./message.less"
  * @export
  * @param {App} app vue实例
  * @copyright 火星科技 mars3d.cn
- * @author 木遥 2021-11-01
+ * @author 木遥 2022-01-01
  * @returns {void}
  */
 

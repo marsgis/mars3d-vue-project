@@ -1,7 +1,7 @@
 /**
  * index页面的widget配置
  * @copyright 火星科技 mars3d.cn
- * @author 火星吴彦祖 2021-12-30
+ * @author 火星吴彦祖 2022-02-19
  */
 import { defineAsyncComponent, markRaw } from "vue"
 import { WidgetState } from "@mars/common/store/widget"
@@ -31,7 +31,7 @@ const store: StoreOptions<WidgetState> = {
         component: markRaw(defineAsyncComponent(() => import(/* webpackChunkName: "manage-layers" */ "@mars/widgets/basic/manage-layers/index.vue"))),
         name: "manage-layers",
         group: "manage",
-        disableOther: ["roamfly"]
+        disableOther: ["roamLine"]
       },
       {
         component: markRaw(
@@ -56,8 +56,8 @@ const store: StoreOptions<WidgetState> = {
         name: "layer-picture-guihua"
       },
       {
-        component: markRaw(defineAsyncComponent(() => import(/* webpackChunkName: "select-point" */ "@mars/widgets/basic/select-point/index.vue"))),
-        name: "select-point",
+        component: markRaw(defineAsyncComponent(() => import(/* webpackChunkName: "location-point" */ "@mars/widgets/basic/location-point/index.vue"))),
+        name: "location-point",
         group: "tools"
       }
     ],

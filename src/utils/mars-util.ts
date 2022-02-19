@@ -1,8 +1,8 @@
 /**
- * 公共静态Util方法
+ * 项目内通用 静态Util方法
  *
  * @copyright 火星科技 mars3d.cn
- * @author 木遥 2021-11-01
+ * @author 木遥 2022-01-01
  */
 
 /**

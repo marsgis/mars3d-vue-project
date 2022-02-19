@@ -1,7 +1,7 @@
 /**
  * 图上选点
  * @copyright 火星科技 mars3d.cn
- * @author 火星 胡椒 2021-12-20
+ * @author 火星胡椒 2022-01-10
  */
 import * as mars3d from "mars3d"
 let map: mars3d.Map // 地图对象

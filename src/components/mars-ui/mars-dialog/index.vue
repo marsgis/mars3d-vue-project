@@ -34,7 +34,7 @@
 /**
  * dislog弹框
  * @copyright 火星科技 mars3d.cn
- * @author 火星吴彦祖 2021-12-30
+ * @author 火星吴彦祖 2022-02-19
  */
 import { computed, onMounted, onUnmounted, ref } from "vue"
 import { getConfig } from "../index"

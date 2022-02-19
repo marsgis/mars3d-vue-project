@@ -7,7 +7,7 @@ import "./alert.less"
  * @export
  * @param {App} app vue实例
  * @copyright 火星科技 mars3d.cn
- * @author 木遥 2021-11-01
+ * @author 木遥 2022-01-01
  * @returns { void }
  */
 export const $alert = (content: any, title = "提示", type: keyof typeof Modal = "info") => {

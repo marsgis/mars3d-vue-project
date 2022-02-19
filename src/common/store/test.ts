@@ -1,7 +1,7 @@
 /**
  * store 状态管理
  * @copyright 火星科技 mars3d.cn
- * @author 火星吴彦祖 2021-12-30
+ * @author 火星吴彦祖 2022-02-19
  */
 import { Store, createStore } from "vuex"
 import { InjectionKey } from "vue"

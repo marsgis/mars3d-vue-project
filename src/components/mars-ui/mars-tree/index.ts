@@ -6,7 +6,7 @@ import "./tree.less"
 /**
  * 树控件
  * @copyright 火星科技 mars3d.cn
- * @author 火星吴彦祖 2021-11-01
+ * @author 火星吴彦祖 2022-01-01
  */
 const MarsTree = defineComponent({
   name: "mars-tree",

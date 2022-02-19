@@ -802,7 +802,7 @@
         "name": "汽车",
         "url": "{dataServer}/file/czml/car.czml",
         "center": { "lat": 40.894745, "lng": 121.920252, "alt": 904, "heading": 64, "pitch": -67 },
-        "onWidget": "show-clock",
+        "onWidget": "control-clock",
         "radio": true,
         "flyTo": true
       },
@@ -813,7 +813,7 @@
         "name": "飞行编队",
         "url": "{dataServer}/file/czml/flight.czml",
         "popup": "all",
-        "onWidget": "show-clock",
+        "onWidget": "control-clock",
         "radio": true,
         "flyTo": true
       },
@@ -824,7 +824,7 @@
         "name": "船舶编队",
         "url": "{dataServer}/file/czml/ship.czml",
         "popup": "all",
-        "onWidget": "show-clock",
+        "onWidget": "control-clock",
         "radio": true,
         "flyTo": true
       },
