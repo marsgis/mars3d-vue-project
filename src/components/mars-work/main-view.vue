@@ -55,6 +55,7 @@ const getWidgetAttr = (widget: Widget) => {
   let attr = {}
   if (widget.meta && widget.meta.props) {
     attr = {
+      // ...widget.defaultOption.meta.props,
       ...attr,
       ...widget.meta.props
     }

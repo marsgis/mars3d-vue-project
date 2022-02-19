@@ -1,11 +1,22 @@
-@mars-basecolor: #ffffff;
-@mars-disable-color: #ccc;
-@form-input-background: rgba(63, 72, 84, 0.7);
+@mars-basecolor: #ffffffd9; // 基础字体颜色
+@mars-basecolor-reverse: #000; // 基础字体颜色-反色
+@primary-color: #4db3ff; // 主要颜色
+@mars-ordinary-color: #9fd9fd; // 普通颜色
+@font-size-base: 12px; // 主要字体大小
+@border-color-ordinary: grey; // 基础边框颜色
+@border-color-base: #ececec; // 基础边框颜色
+@mars-disable-color: #ccc; // 禁用字体颜色
+@form-input-background: rgba(63, 72, 84, 0.7); // input 背景色
+@input-background-active: rgba(37, 49, 63, 0.788); // input 激活背景色
+@background-base: #14141480; // 基础背景色
+@button-background-base: #20a0ff33; // 按钮背景
+@button-color-base: #ffffff; // 按钮字体颜色
+@button-color-active: #ffffff; // 按钮激活字体颜色
+@button-background-active: #20a0ff33; // 按钮激活背景颜色
+@collapse-header-color: #202a4480; // 折叠面板头部颜色
+
 .mars-main-view {
   color: @mars-basecolor;
-  * {
-    color: @mars-basecolor;
-  }
   // collapse 折叠面板相关样式
   .ant-collapse,
   .ant-collapse-item,
@@ -18,15 +29,18 @@
   }
 
   .ant-collapse-header {
-    background-color: rgba(32, 42, 68, 0.5) !important;
+    background-color: @collapse-header-color !important;
     padding: 5px 10px !important;
-    border-bottom: 1px solid #3b4d5e;
-    color: @mars-basecolor !important;
+    border-bottom: 1px solid @mars-basecolor-reverse;
+    color: #fff !important;
     .i-icon {
       font-size: 16px !important;
       line-height: 16px;
       vertical-align: middle !important;
     }
+  }
+  .ant-collapse-content {
+    color: @mars-basecolor !important;
   }
 
   .ant-collapse-extra {
@@ -45,6 +59,9 @@
   }
 
   // 表单元素
+  .ant-form {
+    color: rgba(255, 255, 255, 0.925);
+  }
   .ant-form-item {
     margin-bottom: 10px !important;
     color: @mars-basecolor;
@@ -74,18 +91,27 @@
     }
   }
 
-  // 滑动条
-  .ant-slider {
-    * {
-      color: @mars-basecolor;
-    }
+  // 文件选择
+  .ant-upload {
+    color: @mars-basecolor;
   }
 
   // 多选
+  // .ant-checkbox{
+  //   background-color: #fff;
+  // }
   .ant-checkbox-wrapper {
     color: @mars-basecolor;
     .ant-checkbox-inner {
-      background: none;
+      background-color: #fff;
+      border-color: @border-color-ordinary;
+    }
+    .ant-checkbox-checked {
+      background: @primary-color;
+      .ant-checkbox-inner {
+        background-color: @primary-color;
+        border-color: @primary-color;
+      }
     }
   }
 
@@ -93,9 +119,15 @@
   .ant-radio-wrapper {
     color: @mars-basecolor;
     .ant-radio-inner {
-      background: none;
+      background-color: #fff;
+      border-color: @border-color-ordinary;
       box-shadow: none !important;
       outline: none !important;
+    }
+    .ant-radio-checked {
+      .ant-radio-inner {
+        border-color: @primary-color;
+      }
     }
     .ant-radio-input {
       box-shadow: none !important;
@@ -124,9 +156,8 @@
     background: #141414;
   }
   .ant-table-row:hover > td,
-  .ant-table-row-selected > td,
-  .ant-collapse-header {
-    background-color: rgba(32, 42, 68, 0.5) !important;
+  .ant-table-row-selected > td {
+    background-color: @mars-ordinary-color !important;
   }
 
   .ant-table-container,
@@ -134,7 +165,7 @@
     border-color: #cde1de !important;
   }
   .ant-table-container {
-    border-right: 1px solid #cde1de !important;
+    border: 1px solid #cde1de !important;
   }
   .ant-table-cell:last-child {
     border-right: 0 !important;
@@ -162,12 +193,31 @@
     }
   }
 
+  .ant-select-dropdown {
+    background-color: @form-input-background !important;
+    .ant-select-item {
+      transition: none;
+      &:hover,
+      &:focus {
+        background-color: @input-background-active;
+      }
+    }
+    .ant-select-item-option-active {
+      background-color: @input-background-active !important;
+    }
+  }
   .ant-select:not(.ant-select-customize-input) .ant-select-selector {
     background-color: transparent !important;
   }
-  .ant-select-dropdown {
-    background-color: transparent !important;
-  }
+  // .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  //   background-color: transparent !important;
+  // }
+  // .ant-select-dropdown {
+  //   background-color: transparent !important;
+  // }
+  // .ant-select-arrow {
+  //   color: @mars-basecolor !important;
+  // }
 
   // 列表
   .ant-list-items {
@@ -181,4 +231,19 @@
       color: hsla(0, 0%, 100%, 0.45);
     }
   }
+
+  // 分割线
+  .ant-divider-vertical {
+    border-color: @mars-basecolor;
+  }
+}
+
+//树控件被选中
+.ant-tree .ant-tree-node-content-wrapper.ant-tree-node-selected {
+  background-color: @form-input-background !important;
+}
+
+//数组输入
+.ant-input-number-handler-wrap {
+  background-color: @form-input-background !important;
 }

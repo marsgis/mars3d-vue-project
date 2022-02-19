@@ -1,6 +1,6 @@
 import { Tree } from "ant-design-vue"
 import { App, defineComponent, h } from "vue"
-import { FolderClose, FolderOpen, FullSelection } from "@icon-park/vue-next"
+import { Icon } from "@iconify/vue"
 import "./tree.less"
 
 /**
@@ -14,11 +14,11 @@ const MarsTree = defineComponent({
   setup(props, context) {
     const icon = (isLeaf: boolean, expanded: boolean) => {
       if (isLeaf) {
-        return [h(FullSelection, { theme: "multi-color", size: "14", fill: ["#FFFFFF", "#4db3ff", "#4db3ff", "#4db3ff"] })]
+        return [h(Icon, { icon: "ph:browsers-fill", width: "14", color: "#79C1F8" })]
       } else if (expanded) {
-        return [h(FolderOpen, { theme: "filled", size: "14", fill: "#db9829" })]
+        return [h(Icon, { icon: "ph:folders-fill", width: "14", color: "#db9829" })]
       } else if (!expanded) {
-        return [h(FolderClose, { theme: "multi-color", size: "14", fill: ["#db9829", "#af7920", "#1c222b", "#af7920"] })]
+        return [h(Icon, { icon: "ph:folder-fill", width: "14", color: "#db9829" })]
       }
     }
     return () =>

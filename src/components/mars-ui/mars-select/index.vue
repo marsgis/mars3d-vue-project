@@ -29,6 +29,7 @@ export default defineComponent({
     color: @mars-basecolor;
   }
   :deep(.ant-select-selector) {
+    border-color: @border-color-ordinary !important;
     background: none;
     background-color: transparent !important;
   }
@@ -45,20 +46,17 @@ export default defineComponent({
 </style>
 <style lang="less">
 // 下拉选择
-.mars-select-dropdown {
-  background-color: rgb(63, 72, 84) !important;
-  .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
-    background-color: rgb(63, 72, 84) !important;
-  }
-  .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
-    font-weight: 700;
-    background-color: #91d5ff !important;
-  }
-  .ant-select-item {
-    transition: none;
-  }
-  * {
-    color: @mars-basecolor;
-  }
-}
+// .mars-select-dropdown {
+//   background-color: @dropdown-background !important;
+//   .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+//     background-color: @dropdown-active-background !important;
+//   }
+//   .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+//     font-weight: 700;
+//     background-color: @dropdown-active-background !important;
+//   }
+//   .ant-select-item {
+//     transition: none;
+//   }
+// }
 </style>

@@ -1,29 +1,56 @@
-.DS_Store
-node_modules
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
 /dist
-lib/CesiumUnminified/
+/tmp
+/out-tsc
+# Only exists if Bazel was run
+/bazel-out
+
+# dependencies
+/node_modules
+public/lib/CesiumUnminified/
+public/lib/mars3d/plugins/widget/
 mars3d-*src.*
+!mars3d-supermap-src.js*
+!mars3d-tdt-src.js*
 
-# local env files
-.env.local
-.env.*.local
+# profiling files
+chrome-profiler-events*.json
+speed-measure-plugin*.json
 
-# Log files
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# IDEs and editors
+/.vscode
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
 
-# Editor directories and files
-.idea
-.vscode
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
- 
- 
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
 # System Files
 .DS_Store
 Thumbs.db
 package-lock.json
+
+# 本地测试
+src/example/a-test

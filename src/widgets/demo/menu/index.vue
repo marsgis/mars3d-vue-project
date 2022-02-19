@@ -10,7 +10,6 @@
 </template>
 
 <script setup lang="ts">
-import MarsPannel from "@mars/components/mars-work/mars-pannel.vue"
 import { useWidget } from "@mars/common/store/widget"
 
 const { activate, updateWidget } = useWidget()

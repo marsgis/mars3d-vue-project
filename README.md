@@ -261,7 +261,6 @@ index.vue 完整代码为：
 
 <script setup lang="ts">
 import { onUnmounted, ref } from "vue"
-import { BookmarkOne } from "@icon-park/vue-next"
 import useLifecycle from "@mars/common/uses/use-lifecycle"
 import MarsDialog from "@mars/components/mars-work/mars-dialog.vue"
 import * as mapWork from "./map"
@@ -618,7 +617,6 @@ const show = (name: string) => {
   "axios": "^0.23.0",
   "core-js": "^3.6.5",
   "ant-design-vue": "3.0.0-alpha.13",
-  "@icon-park/vue-next": "^1.3.5",
   "nprogress": "^0.2.0",
   "echarts": "^5.2.2",
   "localforage": "^1.10.0"

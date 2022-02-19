@@ -1,8 +1,8 @@
 /// <reference types="vite/client" />
 /**
- * ͳһ����tsģ������
- * @copyright ���ǿƼ� mars3d.cn
- * @author ľң 2021-11-01
+ * 统一定义ts模块类型
+ * @copyright 火星科技 mars3d.cn
+ * @author 木遥 2021-11-01
  */
 
 declare module "*.vue" {
@@ -28,7 +28,7 @@ declare module "mapv" {
   export const utilCurve: any
 }
 
-declare module "kml-geojson" { 
+declare module "kml-geojson" {
   export const toKml: (geojson:any, options:any) => any
   export const toGeoJSON: (doc:any) => any
 }

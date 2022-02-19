@@ -28,9 +28,13 @@ export default defineComponent({
 <style lang="less" scoped>
 .mars-date-picker {
   color: @mars-basecolor;
+  border-color: @border-color-ordinary !important;
   background-color: @form-input-background !important;
   :deep(.ant-picker-input > input) {
     color: @mars-basecolor !important;
+  }
+  :deep(.ant-picker-clear) {
+    background: transparent;
   }
   * {
     color: @mars-basecolor !important;

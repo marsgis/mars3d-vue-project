@@ -16,8 +16,11 @@ message.config({
 })
 export const $message = (msg: string, type: keyof typeof message = "info") => {
   if (message[type] && typeof message[type] === "function") {
-    const func = message[type] as (a: string) => Promise<any>
-    return func(msg)
+    const func = message[type] as (a: any) => Promise<any>
+    return func({
+      class: "mars-message",
+      content: msg
+    })
   } else {
     return Promise!.reject()
   }

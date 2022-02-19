@@ -11,15 +11,13 @@
       </a-col>
     </a-row>
     <template #icon>
-      <bookmark-one theme="outline" size="18" />
+      <mars-icon icon="icon-park-outline:bookmark-one" width="18" />
     </template>
   </mars-dialog>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue"
-import { BookmarkOne } from "@icon-park/vue-next"
-import MarsDialog from "@mars/components/mars-work/mars-dialog.vue"
 import * as mapWork from "./map"
 import useLifecycle from "@mars/common/uses/use-lifecycle"
 import { useWidget } from "@mars/common/store/widget"
@@ -39,7 +37,7 @@ const extent = ref("")
 const onClickDrawExtent = async () => {
   console.log(extent.value)
   const data = await mapWork.drawExtent()
-  
+
   extent.value = data.extent
 }
 </script>

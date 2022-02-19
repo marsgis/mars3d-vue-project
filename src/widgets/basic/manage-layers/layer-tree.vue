@@ -5,7 +5,6 @@
 </template>
 <script lang="ts" setup>
 import { toRaw, onMounted, ref } from "vue"
-import MarsDialog from "@mars/components/mars-work/mars-dialog.vue"
 import * as mapWork from "./map"
 import axios from "axios"
 import { $message } from "@mars/components/mars-ui/index"

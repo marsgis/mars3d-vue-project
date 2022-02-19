@@ -1,13 +1,15 @@
 <template>
   <teleport to="#mars-main-view">
-    <div class="pannel-model" :class="[customClass, animationClass]" ref="pannelBox" v-show="visible">
+    <div class="pannel-model" :class="[customClass, animationClass]" ref="pannelBox" v-show="mergeProps.visible">
       <div ref="modelHeader" class="pannel-model__header" @mousedown="mousedown">
-        <slot name="icon"></slot>
-        <span class="title">{{ title }}</span>
-        <close-o @click="closeModel" class="close-btn" />
+        <span class="icon">
+          <slot name="icon"></slot>
+        </span>
+        <span class="title">{{ mergeProps.title }}</span>
+        <mars-icon icon="ph:x-light" :width="20" @click="closeModel" class="close-btn"></mars-icon>
       </div>
       <div class="pannel-model__body">
-        <div class="content" :class="{'full-content': !$slots.footer}">
+        <div class="content" :class="{ 'full-content': !$slots.footer }">
           <slot></slot>
         </div>
         <div class="footer" v-if="$slots.footer">
@@ -21,14 +23,13 @@
         :key="handle"
         class="handle"
         :class="['handle-' + handle]"
-        @mousedown.stop.prevent="handleDown(handle, $event)"
+        @mousedown="handleDown(handle, $event)"
       >
         <slot :name="handle"></slot>
       </div>
     </div>
   </teleport>
 </template>
-
 <script lang="ts" setup>
 /**
  * dislog弹框
@@ -36,7 +37,20 @@
  * @author 火星吴彦祖 2021-12-30
  */
 import { computed, onMounted, onUnmounted, ref } from "vue"
-import { Close as CloseO } from "@icon-park/vue-next"
+import { getConfig } from "../index"
+
+const CONFIG = getConfig()
+let globalConfig: Record<string, any> = {}
+if (CONFIG.dialog) {
+  globalConfig = CONFIG.dialog
+}
+
+interface Position {
+  left?: number | string // 定位 left值
+  right?: number | string // 定位right值
+  top?: number | string // 定位top值
+  bottom?: number | string // 定位bottom值
+}
 
 interface Props {
   warpper?: string // 容器id 默认是app，将作为定位的参照元素，一般不需要修改
@@ -44,10 +58,13 @@ interface Props {
   visible?: boolean // 是否显示
   width?: number | string // 初始宽度
   height?: number | string // 初始高度
+
   left?: number | string // 定位 left值
   right?: number | string // 定位right值
   top?: number | string // 定位top值
   bottom?: number | string // 定位bottom值
+  position?: Position
+
   handles?: boolean | string // 缩放控制器 默认 [x, y, xy]
   minWidth?: number // 最小宽度
   minHeight?: number // 最小高度
@@ -69,17 +86,61 @@ const props = withDefaults(defineProps<Props>(), {
   zIndex: 200
 })
 
-const animationClass = computed(() => {
-  const left = parseInt((props.left || "").toString())
-  const right = parseInt((props.right || "").toString())
-  if (props.left && left > 0 && left < 40) {
-    return "fadein-left"
-  } else if (props.right && right > 0 && right < 40) {
-    return "fadein-right"
-  } else {
-    return "fadein-popup"
+const mergeProps = computed(() => {
+  const newProps: Props = {}
+
+  for (const k in props) {
+    if (props[k] === undefined) {
+      newProps[k] = globalConfig[k]
+    } else {
+      newProps[k] = props[k]
+    }
   }
+
+  if (newProps.position) {
+    newProps.left = newProps.position.left
+    newProps.right = newProps.position.right
+    newProps.top = newProps.position.top
+    newProps.bottom = newProps.position.bottom
+  }
+  return newProps
 })
+
+const animationClass = computed(() => {
+  const right = getCssNumber(mergeProps.value.right)
+  if (right && right >= 0 && right < 100) {
+    return "fadein-right"
+  }
+  const left = getCssNumber(mergeProps.value.left)
+  if (left || (left >= 0 && left < 100)) {
+    return "fadein-left"
+  }
+  const top = getCssNumber(mergeProps.value.top)
+  if (left || (top >= 0 && top < 100)) {
+    return "fadein-down"
+  }
+  const bottom = getCssNumber(mergeProps.value.bottom)
+  if (bottom || (bottom >= 0 && bottom < 100)) {
+    return "fadein-up"
+  }
+  return "fadein-center"
+})
+
+function getCssNumber(value: number | string) {
+  if (typeof value === "number") {
+    return value
+  }
+  if (typeof value === "string") {
+    if (/^[0-9]*$/.test(value)) {
+      return Number(value)
+    }
+    if (value.endsWith("px")) {
+      value = value.replace("px", "")
+      return Number(value)
+    }
+  }
+  return null
+}
 
 const emits = defineEmits(["update:visible", "resize", "move"])
 
@@ -103,32 +164,34 @@ const closeModel = () => {
 function initPosition() {
   const pannelStyle = pannelBox.value.style
   // 层级位置
-  pannelStyle.zIndex = props.zIndex
+  pannelStyle.zIndex = mergeProps.value.zIndex
   // 横向位置初始化
-  if (props.left !== undefined) {
-    pannelStyle.left = antoUnit(props.left)
-  } else if (props.right !== undefined) {
-    pannelStyle.right = antoUnit(props.right)
+  if (mergeProps.value.left !== undefined) {
+    pannelStyle.left = antoUnit(mergeProps.value.left)
+  } else if (mergeProps.value.right !== undefined) {
+    pannelStyle.right = antoUnit(mergeProps.value.right)
     pannelStyle.left = "initial"
   }
   // 纵向位置初始化
-  if (props.top !== undefined) {
-    pannelStyle.top = antoUnit(props.top)
+  if (mergeProps.value.top !== undefined) {
+    pannelStyle.top = antoUnit(mergeProps.value.top)
+  } else if (mergeProps.value.height === undefined) {
+    pannelStyle.top = antoUnit(0)
   }
-  if (props.bottom !== undefined) {
-    pannelStyle.bottom = antoUnit(props.bottom)
+  if (mergeProps.value.bottom !== undefined) {
+    pannelStyle.bottom = antoUnit(mergeProps.value.bottom)
   }
 }
 
 // 初始化大小
 function initSize() {
   const pannelStyle = pannelBox.value.style
-  if (props.width) {
-    pannelStyle.width = antoUnit(props.width)
+  if (mergeProps.value.width) {
+    pannelStyle.width = antoUnit(mergeProps.value.width)
   }
-  if (!props.top || !props.bottom) {
-    if (props.height) {
-      pannelStyle.height = antoUnit(props.height)
+  if (!mergeProps.value.top || !mergeProps.value.bottom) {
+    if (mergeProps.value.height) {
+      pannelStyle.height = antoUnit(mergeProps.value.height)
     }
   }
 }
@@ -136,12 +199,12 @@ function initSize() {
 // 处理窗口缩放
 function resize() {
   const pb = pannelBox.value
-  const warpper = document.getElementById(props.warpper)
+  const warpper = document.getElementById(mergeProps.value.warpper)
   if (pb.offsetTop + pb.offsetHeight > warpper!.offsetHeight) {
-    pb.style.height = antoUnit(Math.max(warpper!.offsetHeight - pb.offsetTop, props.minHeight))
+    pb.style.height = antoUnit(Math.max(warpper!.offsetHeight - pb.offsetTop, mergeProps.value.minHeight))
   }
   if (pb.offsetLeft + pb.offsetWidth > warpper!.offsetWidth) {
-    pb.style.width = antoUnit(Math.max(warpper!.offsetWidth - pb.offsetLeft, props.minWidth))
+    pb.style.width = antoUnit(Math.max(warpper!.offsetWidth - pb.offsetLeft, mergeProps.value.minWidth))
   }
 }
 
@@ -156,7 +219,7 @@ function antoUnit(value: number | string) {
 
 // 移动窗口
 function mousedown(event: any) {
-  const warpper = document.getElementById(props.warpper)
+  const warpper = document.getElementById(mergeProps.value.warpper)
   const pb = pannelBox.value
   const x = event.clientX
   const y = event.clientY
@@ -164,6 +227,8 @@ function mousedown(event: any) {
   const bt = pb.offsetTop
   const maxLeft = warpper!.offsetWidth - pb.offsetWidth
   const maxTop = warpper!.offsetHeight - pb.offsetHeight
+
+  pb.style.height = antoUnit(pb.offsetHeight) // 处理没有height的情况
 
   addEvent(document.documentElement, "mousemove", toPointerPosition)
   addEvent(document.documentElement, "mouseup", handleUp)
@@ -174,7 +239,7 @@ function mousedown(event: any) {
     const distanceY = e.clientY - y
     const left = bl + distanceX
     const top = bt + distanceY
-    if (props.top && props.bottom) {
+    if (mergeProps.value.top && mergeProps.value.bottom) {
       pb.style.height = antoUnit(pb.offsetHeight)
       pb.style.bottom = "initial"
     }
@@ -198,11 +263,11 @@ function mousedown(event: any) {
 const defaultHandles = ["x", "y", "xy"]
 let handleName = ""
 const actualHandles = computed<string[]>(() => {
-  if (!props.handles) {
+  if (!mergeProps.value.handles) {
     return []
   }
-  if (typeof props.handles === "string") {
-    return props.handles.split("")
+  if (typeof mergeProps.value.handles === "string") {
+    return mergeProps.value.handles.split("")
   }
   return defaultHandles
 })
@@ -223,11 +288,11 @@ function handleDown(handle: string, event: any) {
     let width = 0
     let height = 0
     if (handleName.indexOf("x") !== -1) {
-      width = Math.min(Math.max(props.minWidth, bw + e.clientX - x, 0), props.maxWidth)
+      width = Math.min(Math.max(mergeProps.value.minWidth, bw + e.clientX - x, 0), mergeProps.value.maxWidth)
       pannelBox.value.style.width = `${width}px`
     }
     if (handleName.indexOf("y") !== -1) {
-      height = Math.min(Math.max(props.minHeight, bh + e.clientY - y, 0), props.maxHeight)
+      height = Math.min(Math.max(mergeProps.value.minHeight, bh + e.clientY - y, 0), mergeProps.value.maxHeight)
       pannelBox.value.style.height = `${height}px`
     }
 
@@ -267,6 +332,11 @@ function removeEvent(el: any, event: any, handler: (e: any) => void) {
   }
 }
 </script>
+<script lang="ts">
+export default {
+  name: "mars-dialog"
+}
+</script>
 
 <style lang="less" scoped>
 .pannel-model {
@@ -289,8 +359,8 @@ function removeEvent(el: any, event: any, handler: (e: any) => void) {
   overflow: hidden;
   border-bottom: 1px solid #3b4d5e;
   color: #fff;
-  :deep(.i-icon) {
-    vertical-align: sub;
+  .icon {
+    vertical-align: middle;
     margin-right: 5px;
   }
   .title {
@@ -300,6 +370,7 @@ function removeEvent(el: any, event: any, handler: (e: any) => void) {
     float: right;
     cursor: pointer;
     font-size: 16px;
+    margin-top: 8px;
   }
 }
 
@@ -312,7 +383,7 @@ function removeEvent(el: any, event: any, handler: (e: any) => void) {
   height: calc(100% - 40px);
   overflow-y: auto;
 }
-.full-content{
+.full-content {
   height: 100%;
 }
 .footer {
@@ -329,64 +400,6 @@ function removeEvent(el: any, event: any, handler: (e: any) => void) {
     align-items: center;
     background: rgb(64, 65, 70);
   }
-}
-
-@keyframes fadeInRight {
-  from {
-    opacity: 0;
-    transform: translate3d(100%, 0, 0);
-  }
-
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-@keyframes fadeInLeft {
-  from {
-    opacity: 0;
-    transform: translate3d(-100%, 0, 0);
-  }
-
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-@keyframes popup {
-  from {
-    opacity: 0;
-    transform: scale(0.1);
-  }
-
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-.fadein-right {
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  -webkit-animation-name: fadeInRight;
-  animation-name: fadeInRight;
-}
-.fadein-left {
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  -webkit-animation-name: fadeInLeft;
-  animation-name: fadeInLeft;
-}
-.fadein-popup {
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  -webkit-animation-name: popup;
-  animation-name: popup;
 }
 
 .active {
@@ -429,5 +442,111 @@ function removeEvent(el: any, event: any, handler: (e: any) => void) {
     top: -10px;
     position: absolute;
   }
+}
+
+/**下面是 5个 动画 */
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.fadein-right {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-name: fadeInRight;
+  animation-name: fadeInRight;
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.fadein-left {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-name: fadeInLeft;
+  animation-name: fadeInLeft;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+.fadein-up {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-name: fadeInUp;
+  animation-name: fadeInUp;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+.fadein-down {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-name: fadeInDown;
+  animation-name: fadeInDown;
+}
+
+@keyframes fadeInCenter {
+  from {
+    opacity: 0;
+    transform: scale(0.1);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.fadein-center {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-name: fadeInCenter;
+  animation-name: fadeInCenter;
 }
 </style>

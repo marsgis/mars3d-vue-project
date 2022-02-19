@@ -24,6 +24,7 @@ export default defineComponent({
 .mars-input-number {
   color: @mars-basecolor;
   background-color: @form-input-background !important;
+  border-color: @border-color-ordinary;
   * {
     color: @mars-basecolor;
   }

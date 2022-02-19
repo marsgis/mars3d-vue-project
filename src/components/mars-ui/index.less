@@ -29,6 +29,8 @@ body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, /* structural elements 结构�
 /*滚动条*/
 body,
 html {
+  background-color: @background-base;
+  color: @mars-basecolor;
   overflow: hidden;
   * {
     scrollbar-base-color: #f4f7fc;
@@ -39,7 +41,23 @@ html {
     scrollbar-3dlight-color: #f4f7fc;
     scrollbar-highlight-color: #f4f7fc;
     scrollbar-darkshadow-color: #f4f7fc;
+    font-size: @font-size-base;
     scrollbar-width: thin;
+  }
+}
+
+.layout-right__header {
+  h3 {
+    color: @mars-basecolor !important;
+  }
+}
+.editor-container .editor-header .fileTip {
+  color: @mars-basecolor !important;
+}
+
+.mars-link-btn-primary {
+  * {
+    color: @primary-color !important;
   }
 }
 
@@ -106,12 +124,32 @@ html {
   background: #209ffd1c;
 }
 
-.mars-popup-content label {
+.mars3d-template-content label {
   padding-right: 6px;
 }
 
-.mars-popup-titile a {
+.mars3d-template-titile a {
   font-size: 16px;
+}
+
+.icon-vertical-a {
+  width: 20px;
+  height: 20px;
+  vertical-align: -0.3em !important;
+}
+
+.ant-popover {
+  .ant-popover-title {
+    color: @mars-basecolor;
+  }
+}
+.ant-popover-inner-content {
+  a {
+    color: @primary-color !important;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 .mars-primary-table {

@@ -41,11 +41,11 @@
           </a-form-item>
 
           <a-form-item label="滑动条">
-            <a-slider v-model:value="formState.brightness" :min="-0.5" :max="1.5" :step="0.05" @change="onSliderChange" />
+            <mars-slider v-model:value="formState.brightness" :min="-0.5" :max="1.5" :step="0.05" @change="onSliderChange" />
           </a-form-item>
 
           <a-form-item label="刻度滑动条">
-            <a-slider v-model:value="formState.contrast" :marks="marks" :min="-255" :max="255" :step="1" @change="onMarkSliderChange" />
+            <mars-slider v-model:value="formState.contrast" :marks="marks" :min="-255" :max="255" :step="1" @change="onMarkSliderChange" />
           </a-form-item>
 
           <a-form-item label="多选">
@@ -136,7 +136,6 @@
 
 <script setup lang="ts">
 import { onMounted, reactive, ref } from "vue"
-import MarsPannel from "@mars/components/mars-work/mars-pannel.vue"
 import useLifecycle from "@mars/common/uses/use-lifecycle"
 import { TableProps } from "ant-design-vue"
 import axios from "axios"

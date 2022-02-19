@@ -14,7 +14,7 @@
         <a-input-search size="large" placeholder="搜索 地点" @search="searchPoint">
           <template #enterButton>
             <a-button>
-              <search-o size="20" fill="#FFF" />
+              <mars-icon icon="icon-park-outline:search" width="20" color="#fff"></mars-icon>
             </a-button>
           </template>
         </a-input-search>
@@ -45,8 +45,6 @@
 import { ref } from "vue"
 import { isLonLat } from "@mars/utils/mars-util"
 import useLifecycle from "@mars/common/uses/use-lifecycle"
-import MarsPannel from "@mars/components/mars-work/mars-pannel.vue"
-import { Search as SearchO } from "@icon-park/vue-next"
 import * as mapWork from "./map"
 import { $message, $alert } from "@mars/components/mars-ui/index"
 
@@ -241,5 +239,6 @@ function addHistory(data: any) {
 
 :deep(.ant-input) {
   background-color: @form-input-background !important;
+  color: @mars-basecolor;
 }
 </style>

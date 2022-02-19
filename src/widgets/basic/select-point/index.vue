@@ -1,7 +1,7 @@
 <template>
   <mars-dialog title="坐标拾取" :handles="false" width="298" height="330" top="50" right="10" :min-width="340">
     <template #icon>
-      <local-i theme="outline" size="18" />
+      <mars-icon icon="icon-park-outline:local" width="18" />
     </template>
     <div class="position-container">
       <a-form>
@@ -77,9 +77,7 @@
 
 <script setup lang="ts">
 import { reactive, UnwrapRef } from "vue"
-import { Local as LocalI } from "@icon-park/vue-next"
 import useLifecycle from "@mars/common/uses/use-lifecycle"
-import MarsDialog from "@mars/components/mars-work/mars-dialog.vue"
 import * as mapWork from "./map"
 import { $alert } from "@mars/components/mars-ui/index"
 

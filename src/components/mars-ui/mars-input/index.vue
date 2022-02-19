@@ -24,11 +24,17 @@ export default defineComponent({
 .mars-input {
   color: @mars-basecolor;
   background-color: @form-input-background !important;
-  * {
-    color: @mars-basecolor;
-  }
+  border-color: @border-color-ordinary;
   :deep(.ant-input) {
     background-color: @form-input-background !important;
+    border-color: @border-color-ordinary;
+    color: @mars-basecolor;
   }
+  :deep(.ant-input-suffix .anticon) {
+    color: @mars-basecolor;
+  }
+}
+.mars-input[disabled] {
+  color: @mars-disable-color;
 }
 </style>
