@@ -26,13 +26,22 @@ import useLifecycle from "@mars/common/uses/use-lifecycle"
 import * as mapWork from "./map"
 import { useWidget } from "@mars/common/store/widget"
 
-const { activate, disable } = useWidget()
+const { activate, disable, getWidget } = useWidget()
 
 onUnmounted(() => {
   disable("layer-tree")
 })
 
 useLifecycle(mapWork)
+
+const widget = getWidget("manage-layers")
+
+widget.onUpdate(() => {
+  treeData.value = []
+  expandedKeys.value = []
+  checkedKeys.value = []
+  initTree()
+})
 
 const treeData = ref<any[]>([])
 
@@ -187,7 +196,7 @@ function initTree() {
   for (let i = layers.length - 1; i >= 0; i--) {
     const layer = layers[i] // 创建图层
 
-    if (!layer._hasMapInit && layer.pid === -1) {
+    if (!layer._hasMapInit && layer.pid === -1 && layer.id !== 99) {
       layer.pid = 99 // 示例中创建的图层都放到99分组下面
     }
 

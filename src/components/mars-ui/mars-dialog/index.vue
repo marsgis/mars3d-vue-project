@@ -18,13 +18,7 @@
           </div>
         </div>
       </div>
-      <div
-        v-for="handle in actualHandles"
-        :key="handle"
-        class="handle"
-        :class="['handle-' + handle]"
-        @mousedown="handleDown(handle, $event)"
-      >
+      <div v-for="handle in actualHandles" :key="handle" class="handle" :class="['handle-' + handle]" @mousedown="handleDown(handle, $event)">
         <slot :name="handle"></slot>
       </div>
     </div>
@@ -63,7 +57,7 @@ interface Props {
   right?: number | string // 定位right值
   top?: number | string // 定位top值
   bottom?: number | string // 定位bottom值
-  position?: Position
+  position?: Position // 统一设置位置属性，优先级高于 left right top bottom
 
   handles?: boolean | string // 缩放控制器 默认 [x, y, xy]
   minWidth?: number // 最小宽度
@@ -83,7 +77,7 @@ const props = withDefaults(defineProps<Props>(), {
   minHeight: 100,
   maxWidth: 1000,
   maxHeight: 1000,
-  zIndex: 200
+  zIndex: 900
 })
 
 const mergeProps = computed(() => {
@@ -341,7 +335,7 @@ export default {
 <style lang="less" scoped>
 .pannel-model {
   position: absolute;
-  padding: 0 5px 10px 10px;
+  padding: 0;
   border-radius: 4px;
   border: 1px solid #4db3ff70;
   z-index: 100;
@@ -357,8 +351,10 @@ export default {
   line-height: 40px;
   cursor: move;
   overflow: hidden;
-  border-bottom: 1px solid #3b4d5e;
-  color: #fff;
+  padding: 0 5px 0px 15px;
+  border-bottom: 1px solid @border-color-ordinary;
+  background-color: @collapse-header-color;
+  color: @mars-basecolor;
   .icon {
     vertical-align: middle;
     margin-right: 5px;
@@ -377,6 +373,7 @@ export default {
 .pannel-model__body {
   width: 100%;
   height: calc(100% - 40px);
+  padding: 0 5px 10px 10px;
   overflow: hidden;
 }
 .content {
@@ -398,7 +395,7 @@ export default {
     bottom: 0;
     display: flex;
     align-items: center;
-    background: rgb(64, 65, 70);
+    background: @background-base;
   }
 }
 

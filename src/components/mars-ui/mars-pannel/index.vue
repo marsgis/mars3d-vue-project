@@ -55,7 +55,7 @@ const props = withDefaults(defineProps<Props>(), {
   warpper: "app",
   visible: false,
   closeable: false,
-  zIndex: 200
+  zIndex: 900
 })
 
 const mergeProps = computed(() => {

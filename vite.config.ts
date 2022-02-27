@@ -20,7 +20,7 @@ export default ({ mode }: ConfigEnv) => {
     server: {
       host: "localhost",
       https: false,
-      port: 3001
+      port: 3002
     },
     define: {
       "process.env": {

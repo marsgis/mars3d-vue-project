@@ -15,6 +15,7 @@ export const $notify = (message: any, description: any, options: any = {}, type:
     return new Promise((resolve) => {
       notification.config({
         placement: "bottomRight",
+        right: 20,
         duration: undefined,
         ...options
       })

@@ -29,6 +29,7 @@ export function onMounted(mapInstance: mars3d.Map): void {
  * @returns {void} 无
  */
 export function onUnmounted() {
+  map.graphicLayer.clear()
   map.removeEffect(bloomEffect, true)
   bloomEffect = null
   map = null

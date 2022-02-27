@@ -2,6 +2,7 @@
 @mars-basecolor-reverse: #000; // 基础字体颜色-反色
 @primary-color: #4db3ff; // 主要颜色
 @mars-ordinary-color: #9fd9fd; // 普通颜色
+@mars-background-active: #000000d9; // 全局激活背景色
 @font-size-base: 12px; // 主要字体大小
 @border-color-ordinary: grey; // 基础边框颜色
 @border-color-base: #ececec; // 基础边框颜色
@@ -208,6 +209,10 @@
   }
   .ant-select:not(.ant-select-customize-input) .ant-select-selector {
     background-color: transparent !important;
+  }
+
+  .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+    background-color: @mars-background-active !important;
   }
   // .ant-select:not(.ant-select-customize-input) .ant-select-selector {
   //   background-color: transparent !important;

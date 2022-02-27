@@ -5,7 +5,7 @@
 /**
  * 地图渲染组件
  * @copyright 火星科技 mars3d.cn
- * @author 火星吴彦祖 2021-12-30
+ * @author 火星吴彦祖 2022-02-19
  */
 import { computed, onBeforeUnmount, onMounted } from "vue"
 import * as mars3d from "mars3d"
@@ -32,7 +32,6 @@ let map: mars3d.Map // 地图对象
 const withKeyId = computed(() => `mars3d-container-${props.mapKey}`)
 
 onMounted(() => {
-  console.log(mars3d)
   // 获取配置
   mars3d.Util.fetchJson({ url: props.url }).then((data: any) => {
     initMars3d({
