@@ -16,13 +16,13 @@
         <!-- 十进制的面板 -->
         <div v-show="formState.radioFanwei === '1'">
           <a-form-item label="经度">
-            <mars-input v-model:value="formState.lng" class="lnglat-input"> </mars-input>
+            <mars-input v-model:value="formState.lng" class="lnglat-input" @change="changeJWD"> </mars-input>
           </a-form-item>
           <a-form-item label="纬度">
-            <mars-input v-model:value="formState.lat" class="lnglat-input"> </mars-input>
+            <mars-input v-model:value="formState.lat" class="lnglat-input" @change="changeJWD"> </mars-input>
           </a-form-item>
           <a-form-item label="高程">
-            <mars-input v-model:value="formState.alt" class="lnglat-input"> </mars-input>
+            <mars-input v-model:value="formState.alt" class="lnglat-input" @change="changeJWD"> </mars-input>
           </a-form-item>
         </div>
 
@@ -30,14 +30,16 @@
         <div v-show="formState.radioFanwei === '2'">
           <a-form-item label="经度">
             <a-space>
-              <mars-input v-model:value="formState.jdDegree"> </mars-input>° <mars-input v-model:value="formState.jdMinute"> </mars-input>'
-              <mars-input v-model:value="formState.jdSecond"> </mars-input>"
+              <mars-input v-model:value="formState.jdDegree" @change="changeDMS"> </mars-input>°
+              <mars-input v-model:value="formState.jdMinute" @change="changeDMS"> </mars-input>'
+              <mars-input v-model:value="formState.jdSecond" @change="changeDMS"> </mars-input>"
             </a-space>
           </a-form-item>
           <a-form-item label="纬度">
             <a-space>
-              <mars-input v-model:value="formState.wdDegree"> </mars-input>° <mars-input v-model:value="formState.wdMinute"> </mars-input>'
-              <mars-input v-model:value="formState.wdSecond"> </mars-input>"
+              <mars-input v-model:value="formState.wdDegree" @change="changeDMS"> </mars-input>°
+              <mars-input v-model:value="formState.wdMinute" @change="changeDMS"> </mars-input>'
+              <mars-input v-model:value="formState.wdSecond" @change="changeDMS"> </mars-input>"
             </a-space>
           </a-form-item>
           <a-form-item label="高程">
@@ -54,13 +56,13 @@
             </a-radio-group>
           </a-form-item>
           <a-form-item label="纵坐标">
-            <mars-input v-model:value="formState.gk6X" class="lnglat-input"> </mars-input>
+            <mars-input v-model:value="formState.gk6X" class="lnglat-input" @change="changeGKZone"> </mars-input>
           </a-form-item>
           <a-form-item label="横坐标">
-            <mars-input v-model:value="formState.gk6Y" class="lnglat-input"> </mars-input>
+            <mars-input v-model:value="formState.gk6Y" class="lnglat-input" @change="changeGKZone"> </mars-input>
           </a-form-item>
           <a-form-item label="高度值">
-            <mars-input v-model:value="formState.alt" class="lnglat-input"> </mars-input>
+            <mars-input v-model:value="formState.alt" class="lnglat-input" @change="changeGKZone"> </mars-input>
           </a-form-item>
         </div>
       </a-form>
@@ -130,6 +132,21 @@ mapWork.eventTarget.on("loadOK", function (event: any) {
   formState.lat = mapWork.marsUtilFormtNum(currWD, 6)
   formState.alt = mapWork.marsUtilFormtNum(currGD, 6)
 })
+
+const changeJWD = () => {
+  currJD = Number(formState.lng)
+  currWD = Number(formState.lat)
+}
+const changeDMS = () => {
+  currJD = mapWork.marsDms2degree(formState.jdDegree, formState.jdMinute, formState.jdSecond)
+  currWD = mapWork.marsDms2degree(formState.wdDegree, formState.wdMinute, formState.wdSecond)
+}
+
+const changeGKZone = () => {
+  const zoon = mapWork.marsZONEtoCRS(Number(formState.gk6X), Number(formState.gk6Y), formState.radioFendai)
+  currJD = zoon[0]
+  currWD = zoon[1]
+}
 
 const changeFanwei = () => {
   switch (formState.radioFanwei) {
@@ -205,7 +222,7 @@ const submitCenter = () => {
     return
   }
 
-  mapWork.updateMarker(true, formState.lng, formState.lat, formState.alt)
+  mapWork.updateMarker(true, currJD, currWD, currGD)
 }
 </script>
 <style lang="less" scoped>

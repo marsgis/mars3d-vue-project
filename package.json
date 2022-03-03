@@ -23,7 +23,7 @@
     "kml-geojson": "^1.2.0",
     "localforage": "^1.10.0",
     "mapv": "^2.0.62",
-    "mars3d": "^3.2.2",
+    "mars3d": "^3.2.4",
     "mars3d-cesium": "^1.90.2",
     "mars3d-echarts": "^3.2.2",
     "mars3d-heatmap": "^3.2.2",

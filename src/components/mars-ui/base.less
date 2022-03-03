@@ -252,3 +252,12 @@
 .ant-input-number-handler-wrap {
   background-color: @form-input-background !important;
 }
+
+//table表格滚动条
+.ant-table-body {
+  &::-webkit-scrollbar {
+    //整体样式
+    height: 0;
+    width: 0;
+  }
+}

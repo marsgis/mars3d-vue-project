@@ -1,5 +1,5 @@
 <template>
-  <mars-dialog title="底图" :width="380" :position="{ bottom: 'auto', top: 10, left: 50 }">
+  <mars-dialog title="底图" :width="380" :position="{ top: 50, right: 10 }">
     <ul class="basemap">
       <li v-for="(item, i) in baseMaps" :key="i" class="basemap-card" :class="{ 'active-card': active === item.uuid }" @click="changeBaseMaps(item)">
         <div><img class="icon" :src="`${item.options.icon || 'img/basemaps/bingAerial.png'}`" /></div>
