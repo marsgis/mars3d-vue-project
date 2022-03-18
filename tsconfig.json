@@ -17,6 +17,7 @@
     "experimentalDecorators": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "outDir": "./dist",
     "lib": [
       "esnext",
       "dom",
@@ -24,7 +25,7 @@
       "scripthost"
     ],
     "isolatedModules": false,
-    "types": ["vite/client"],
+    "types": ["vite/client", "node"],
     "baseUrl": ".",
     "paths": {
       "@mars/*": [

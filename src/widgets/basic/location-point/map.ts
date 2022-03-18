@@ -5,6 +5,7 @@
  */
 import * as mars3d from "mars3d"
 let map: mars3d.Map // 地图对象
+
 // 事件对象，用于抛出事件给vue
 export const eventTarget = new mars3d.BaseClass()
 

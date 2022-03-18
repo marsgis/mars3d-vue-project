@@ -29,7 +29,7 @@ export function onUnmounted() {
   map = null
 }
 
-export function addLayer(layer: mars3d.BaseLayer) {
+export function addLayer(layer: mars3d.layer.BaseLayer) {
   map.addLayer(layer)
 }
 

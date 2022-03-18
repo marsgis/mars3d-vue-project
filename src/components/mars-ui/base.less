@@ -1,11 +1,12 @@
 @mars-basecolor: #ffffffd9; // 基础字体颜色
 @mars-basecolor-reverse: #000; // 基础字体颜色-反色
 @primary-color: #4db3ff; // 主要颜色
-@mars-ordinary-color: #9fd9fd; // 普通颜色
+@mars-ordinary-color: rgba(32, 160, 255, 0.2); // 普通颜色
 @mars-background-active: #000000d9; // 全局激活背景色
 @font-size-base: 12px; // 主要字体大小
 @border-color-ordinary: grey; // 基础边框颜色
 @border-color-base: #ececec; // 基础边框颜色
+@tree-border-color: #ccc; //树控件复选框边框颜色
 @mars-disable-color: #ccc; // 禁用字体颜色
 @form-input-background: rgba(63, 72, 84, 0.7); // input 背景色
 @input-background-active: rgba(37, 49, 63, 0.788); // input 激活背景色
@@ -78,6 +79,7 @@
   .mars-ant-card {
     background: none;
     border: 1px solid @mars-basecolor;
+    color: @mars-basecolor;
     .ant-card-head {
       border-color: @mars-basecolor;
       min-height: auto;
@@ -164,6 +166,7 @@
   .ant-table-container,
   .ant-table-cell {
     border-color: #cde1de !important;
+    background: transparent !important;
   }
   .ant-table-container {
     border: 1px solid #cde1de !important;
@@ -173,6 +176,10 @@
   }
   .ant-table-placeholder > td {
     background: rgba(32, 42, 68, 0.3) !important;
+  }
+
+  .ant-table-row:nth-last-child(1) .ant-table-cell {
+    border-bottom: none;
   }
 
   // 分页

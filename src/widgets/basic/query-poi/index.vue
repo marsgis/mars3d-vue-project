@@ -10,6 +10,7 @@
         @search="handleSearch"
         @select="selectPoint"
         @focus="handleSearch(searchTxt)"
+        @blur="blurSearch"
       >
         <a-input-search size="large" placeholder="搜索 地点" @search="searchPoint">
           <template #enterButton>
@@ -85,6 +86,14 @@ const handleSearch = (val: string) => {
     })
     dataSource.value = list
   })
+}
+const blurSearch = () => {
+  const text = searchTxt.value
+
+  if (!text) {
+    mapWork.clearLayers()
+    siteListShow.value = false
+  }
 }
 
 // 展示搜寻过的历史数据

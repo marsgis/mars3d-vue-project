@@ -25,6 +25,8 @@ export default defineComponent({
   color: @mars-basecolor;
   background-color: @form-input-background !important;
   border-color: @border-color-ordinary;
+  font-size: 12px !important;
+
   :deep(.ant-input) {
     background-color: @form-input-background !important;
     border-color: @border-color-ordinary;

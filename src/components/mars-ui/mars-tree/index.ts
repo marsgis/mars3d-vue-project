@@ -12,13 +12,13 @@ const MarsTree = defineComponent({
   name: "mars-tree",
   inheritAttrs: false,
   setup(props, context) {
-    const icon = (isLeaf: boolean, expanded: boolean) => {
-      if (isLeaf) {
+    const icon = (isLeaf: boolean, expanded: boolean, group: boolean) => {
+      if (isLeaf && !group) {
         return [h(Icon, { icon: "ph:browsers-fill", width: "14", color: "#79C1F8" })]
-      } else if (expanded) {
-        return [h(Icon, { icon: "ph:folders-fill", width: "14", color: "#db9829" })]
       } else if (!expanded) {
         return [h(Icon, { icon: "ph:folder-fill", width: "14", color: "#db9829" })]
+      } else if (expanded) {
+        return [h(Icon, { icon: "ph:folders-fill", width: "14", color: "#db9829" })]
       }
     }
     return () =>
@@ -31,7 +31,7 @@ const MarsTree = defineComponent({
           ...props
         },
         {
-          icon: ({ isLeaf, expanded }: any) => h("span", null, icon(isLeaf, expanded)),
+          icon: ({ isLeaf, expanded, data }: any) => h("span", null, icon(isLeaf, expanded, data.group)),
           ...context.slots
         }
       )

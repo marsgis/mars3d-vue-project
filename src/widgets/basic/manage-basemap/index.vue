@@ -75,9 +75,10 @@ function changeTerrain() {
     .active-card();
   }
   .icon {
-    border: 2px solid #fff;
+    border: 1px solid #4db3ff78;
     width: 75px;
     height: 70px;
+    padding: 1px;
   }
 }
 

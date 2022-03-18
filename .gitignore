@@ -10,10 +10,9 @@
 # dependencies
 /node_modules
 public/lib/CesiumUnminified/
-public/lib/mars3d/plugins/widget/
+src/common/mars3d-sdk/dist/plugins/
 mars3d-*src.*
-!mars3d-supermap-src.js*
-!mars3d-tdt-src.js*
+
 
 # profiling files
 chrome-profiler-events*.json
