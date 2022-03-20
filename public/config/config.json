@@ -1035,16 +1035,17 @@
       {
         "id": 203015,
         "pid": 2030,
+        "name": "合肥天鹅湖",
         "type": "3dtiles",
-        "name": "小区",
-        "url": "{dataServer}/3dtiles/qx-xiaoqu/tileset.json",
-        "maximumScreenSpaceError": 6,
-        "maximumMemoryUsage": 2048,
+        "url": "{dataServer}/3dtiles/qx-teh/tileset.json",
+        "position": { "lng": 117.218434, "lat": 31.81807, "alt": 163 },
+        "maximumScreenSpaceError": 8,
+        "maximumMemoryUsage": 2024,
         "dynamicScreenSpaceError": true,
         "cullWithChildrenBounds": false,
         "skipLevelOfDetail": true,
         "preferLeaves": true,
-        "center": { "lat": 25.078322, "lng": 102.653514, "alt": 3006, "heading": 29, "pitch": -45 }
+        "center": { "lat": 31.795308, "lng": 117.21948, "alt": 1820, "heading": 0, "pitch": -39 }
       },
       {
         "id": 203013,

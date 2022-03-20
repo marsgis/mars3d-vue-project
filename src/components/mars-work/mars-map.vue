@@ -71,7 +71,8 @@ const initMars3d = (option: any) => {
     }
   } else {
     map.zoomFactor = 5.0 // 鼠标滚轮放大的步长参数
-    map.scene.screenSpaceCameraController.enableTilt = false
+
+    // map.scene.screenSpaceCameraController.enableTilt = false
 
     // 移动设备上禁掉以下几个选项，可以相对更加流畅
     map.scene.requestRenderMode = true // 取消实时渲染
