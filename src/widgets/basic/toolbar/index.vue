@@ -60,7 +60,6 @@ const data = [
 ]
 
 const showWidget = (widget: string) => {
-  console.log(widget)
   activate(widget)
 }
 

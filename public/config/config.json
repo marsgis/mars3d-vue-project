@@ -197,15 +197,6 @@
       },
       {
         "pid": 10,
-        "name": "灰色底图",
-        "icon": "img/basemaps/bd-c-grayscale.png",
-        "type": "mapbox",
-        "username": "marsgis",
-        "styleId": "cki0a92b123qo1aluk0e5v7sb",
-        "scaleFactor": true
-      },
-      {
-        "pid": 10,
         "name": "离线地图 (供参考)",
         "type": "group",
         "icon": "img/basemaps/google_img.png",
@@ -911,6 +902,30 @@
         ],
         "center": { "lat": 31.257341, "lng": 121.466139, "alt": 2170.8, "heading": 122.2, "pitch": -31.8 }
       },
+
+      { "id": 2050, "pid": 20, "name": "点云", "type": "group" },
+      {
+        "pid": 2050,
+        "type": "3dtiles",
+        "name": "高压线塔杆",
+        "url": "//data.mars3d.cn/3dtiles/pnts-ganta/tileset.json",
+        "maximumScreenSpaceError": 1,
+        "position": { "alt": 31 },
+        "style": {
+          "color": {
+            "conditions": [
+              ["(${Classification} >= 4) && (${Classification} < 5) ", "color('#DC143C')"],
+              ["(${Classification} >= 7) && (${Classification} < 8)  ", "color('#7B68EE')"],
+              ["(${Classification} >= 16) && (${Classification} < 17)  ", "color('#00CED1')"],
+              ["(${Classification} >= 17) && (${Classification} < 18)  ", "color('#3CB371')"],
+              ["(${Classification} >= 18) && (${Classification} < 19)  ", "color('#FFFF00')"],
+              ["(${Classification} >= 19) && (${Classification} < 20)  ", "color('#FFA500')"],
+              ["(${Classification} >= 20) && (${Classification} < 21)  ", "color('#FF6347')"]
+            ]
+          }
+        },
+        "center":{"lat":31.504746,"lng":118.264278,"alt":580,"heading":29,"pitch":-49}
+      },
       { "id": 2060, "pid": 20, "name": "BIM模型", "type": "group" },
       {
         "id": 20601121,
@@ -1039,8 +1054,8 @@
         "type": "3dtiles",
         "url": "{dataServer}/3dtiles/qx-teh/tileset.json",
         "position": { "lng": 117.218434, "lat": 31.81807, "alt": 163 },
-        "maximumScreenSpaceError": 8,
-        "maximumMemoryUsage": 2024,
+        "maximumScreenSpaceError": 16,
+        "maximumMemoryUsage": 1024,
         "dynamicScreenSpaceError": true,
         "cullWithChildrenBounds": false,
         "skipLevelOfDetail": true,

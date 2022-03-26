@@ -22,11 +22,9 @@ import * as mapWork from "./map"
 import useLifecycle from "@mars/common/uses/use-lifecycle"
 import { useWidget } from "@mars/common/store/widget"
 
-const { getWidget } = useWidget()
+const { currentWidget } = useWidget()
 
-const widget = getWidget("my-widget")
-
-widget.onUpdate((e) => {
+currentWidget.onUpdate((e) => {
   console.log(e)
 })
 

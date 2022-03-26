@@ -26,7 +26,7 @@ import useLifecycle from "@mars/common/uses/use-lifecycle"
 import * as mapWork from "./map"
 import { useWidget } from "@mars/common/store/widget"
 
-const { activate, disable, getWidget } = useWidget()
+const { activate, disable, currentWidget } = useWidget()
 
 onUnmounted(() => {
   disable("layer-tree")
@@ -34,9 +34,7 @@ onUnmounted(() => {
 
 useLifecycle(mapWork)
 
-const widget = getWidget("manage-layers")
-
-widget.onUpdate(() => {
+currentWidget.onUpdate(() => {
   treeData.value = []
   expandedKeys.value = []
   checkedKeys.value = []

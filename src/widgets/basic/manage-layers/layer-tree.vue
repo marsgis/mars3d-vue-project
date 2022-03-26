@@ -10,9 +10,7 @@ import axios from "axios"
 import { $message } from "@mars/components/mars-ui/index"
 import { useWidget } from "@mars/common/store/widget"
 
-const { getWidget } = useWidget()
-
-const widgetData = getWidget("layer-tree")
+const { currentWidget } = useWidget()
 
 // 加载拥有关联图层的树控件
 const LayerTreeData = ref<any[]>([])
@@ -20,7 +18,7 @@ const LayerTreeData = ref<any[]>([])
 let keyVal = 0
 
 onMounted(async () => {
-  const url = widgetData.data.url
+  const url = currentWidget.data.url
 
   const scenetree = url.substring(0, url.lastIndexOf("/") + 1) + "scenetree.json"
 
@@ -68,13 +66,13 @@ function isHaveChildren(arr: any) {
 
 // 点击节点 定位
 const flytoModelNode = (selectedKeys: any, selected: any) => {
-  const id = toRaw(widgetData.data.id)
+  const id = toRaw(currentWidget.data.id)
   mapWork.flytoModelNode(id, selected.node.sphere)
 }
 
 // 选中节点 修改样式
 const onModelChecked = (keys: string[], e: any) => {
-  const id = toRaw(widgetData.data.id)
+  const id = toRaw(currentWidget.data.id)
   // 判断
   if (keys.length > 2000) {
     $message(`勾选数据${keys.length}大于2000，请减少勾选数量。`)
