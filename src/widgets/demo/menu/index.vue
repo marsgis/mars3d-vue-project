@@ -1,10 +1,11 @@
 <template>
-  <mars-pannel width="370" left="10" top="10">
+  <mars-pannel  left="10" top="10">
     <a-space>
       <mars-button @click="show('sample-pannel')">面板示例</mars-button>
       <mars-button @click="show('my-widget')">弹窗示例</mars-button>
       <mars-button @click="show('ui')">UI面板</mars-button>
-      <mars-button @click="update">测试交互</mars-button>
+      <mars-button @click="update()">测试ui交互</mars-button>
+      <mars-button @click="show('test')">test</mars-button>
     </a-space>
   </mars-pannel>
 </template>

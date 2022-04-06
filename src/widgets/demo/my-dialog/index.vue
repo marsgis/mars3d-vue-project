@@ -11,7 +11,7 @@
       </a-col>
     </a-row>
     <template #icon>
-      <mars-icon icon="icon-park-outline:bookmark-one" width="18" />
+      <mars-icon icon="bookmark-one" width="18" />
     </template>
   </mars-dialog>
 </template>

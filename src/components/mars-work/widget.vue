@@ -4,6 +4,7 @@
 <script lang="ts">
 import { useAttrs, defineComponent, provide } from "vue"
 import type { Widget } from "@mars/common/store/widget"
+
 export default defineComponent({
   name: "mars-widget",
   props: ["widget"],

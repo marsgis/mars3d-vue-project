@@ -1,6 +1,6 @@
 import { Tree } from "ant-design-vue"
 import { App, defineComponent, h } from "vue"
-import { Icon } from "@iconify/vue"
+import Icon from "../mars-icon/index.vue"
 import "./tree.less"
 
 /**
@@ -14,11 +14,20 @@ const MarsTree = defineComponent({
   setup(props, context) {
     const icon = (isLeaf: boolean, expanded: boolean, group: boolean) => {
       if (isLeaf && !group) {
-        return [h(Icon, { icon: "ph:browsers-fill", width: "14", color: "#79C1F8" })]
+        return [
+          h(Icon, {
+            icon: "split",
+            width: "14",
+            color: "#79C1F8",
+            theme: "multi-color",
+            fill: ["#FFF", "#43CCF8", "#43CCF8", "#43CCF8"],
+            key: new Date().getTime()
+          })
+        ]
       } else if (!expanded) {
-        return [h(Icon, { icon: "ph:folder-fill", width: "14", color: "#db9829" })]
+        return [h(Icon, { icon: "folder-close", width: "14", color: "#db9829", theme: "filled", key: new Date().getTime() })]
       } else if (expanded) {
-        return [h(Icon, { icon: "ph:folders-fill", width: "14", color: "#db9829" })]
+        return [h(Icon, { icon: "folder-open", width: "14", color: "#db9829", theme: "filled", key: new Date().getTime() })]
       }
     }
     return () =>

@@ -1,7 +1,7 @@
 <template>
   <mars-dialog title="坐标拾取" :handles="false" width="298" height="330" top="50" right="10" :min-width="340">
     <template #icon>
-      <mars-icon icon="icon-park-outline:local" width="18" />
+      <mars-icon icon="local" width="18" />
     </template>
     <div class="position-container">
       <a-form>
@@ -78,7 +78,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, UnwrapRef } from "vue"
+import { onMounted, reactive, UnwrapRef } from "vue"
 import useLifecycle from "@mars/common/uses/use-lifecycle"
 import * as mapWork from "./map"
 import { $alert } from "@mars/components/mars-ui/index"
@@ -123,14 +123,14 @@ let currJD: number
 let currWD: number
 let currGD: number
 
-mapWork.eventTarget.on("loadOK", function (event: any) {
-  currJD = event.currJD
-  currWD = event.currWD
-  currGD = event.currGD
-
-  formState.lng = mapWork.marsUtilFormtNum(currJD, 6)
-  formState.lat = mapWork.marsUtilFormtNum(currWD, 6)
-  formState.alt = mapWork.marsUtilFormtNum(currGD, 6)
+onMounted(() => {
+  const defaultPoitn = mapWork.defultPoint()
+  currJD = defaultPoitn.lng
+  currWD = defaultPoitn.lat
+  currGD = defaultPoitn.alt
+  formState.lng = mapWork.marsUtilFormtNum(defaultPoitn.lng, 6)
+  formState.lat = mapWork.marsUtilFormtNum(defaultPoitn.lat, 6)
+  formState.alt = mapWork.marsUtilFormtNum(defaultPoitn.alt, 6)
 })
 
 const changeJWD = () => {

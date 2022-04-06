@@ -608,7 +608,7 @@ const show = (name: string) => {
 // dependencies中添加
 {
   "mars3d": "^3.3.0",
-  "mars3d-cesium": "^1.89.0",
+  "mars3d-cesium": "^1.92.0",
   "@turf/turf": "^6.5.0",
   "kml-geojson": "^1.2.0",
   "vue": "^3.2.26",
@@ -700,7 +700,7 @@ chainWebpack: (config) => {
 //已忽略其他配置
 "dependencies": {
   "@turf/turf": "^6.5.0",
-  "mars3d-cesium": "^1.89.0",
+  "mars3d-cesium": "^1.92.0",
 },
 ```
  ![image](http://mars3d.cn/dev/img/guide/basics-download-import.jpg) 

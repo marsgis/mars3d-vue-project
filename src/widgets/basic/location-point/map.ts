@@ -12,14 +12,6 @@ export const eventTarget = new mars3d.BaseClass()
 // 初始化当前业务
 export function onMounted(mapInstance: mars3d.Map): void {
   map = mapInstance // 记录map
-
-  const point = map.getCenter()
-  point.format()
-  const currJD = point.lng
-  const currWD = point.lat
-  const currGD = point.alt
-
-  eventTarget.fire("loadOK", { currJD, currWD, currGD })
 }
 
 // 释放当前业务
@@ -28,7 +20,19 @@ export function onUnmounted(): void {
     pointEntity.remove()
     pointEntity = null
   }
+  eventTarget.off()
   map = null
+}
+
+// 获取默认point点
+export function defultPoint() {
+  const point = map.getCenter()
+  point.format()
+  return {
+    lng: point.lng,
+    lat: point.lat,
+    alt: point.alt
+  }
 }
 
 // 坐标转化的三种方法

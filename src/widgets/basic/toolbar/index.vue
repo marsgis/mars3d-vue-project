@@ -9,7 +9,7 @@
         <mars-button type="link">
           <mars-icon :icon="item.icon" width="18"></mars-icon>
           <span>{{ item.name }}</span>
-          <mars-icon icon="icon-park-outline:down" width="18"></mars-icon>
+          <mars-icon icon="down" width="18"></mars-icon>
         </mars-button>
         <template #overlay>
           <a-menu @click="clickMenu">
@@ -36,24 +36,24 @@ import { useWidget } from "@mars/common/store/widget"
 const { activate } = useWidget()
 
 const data = [
-  { name: "底图", icon: "icon-park-outline:international", widget: "manage-basemap" },
-  { name: "图层", icon: "icon-park-outline:layers", widget: "manage-layers" },
+  { name: "底图", icon: "international", widget: "manage-basemap" },
+  { name: "图层", icon: "layers", widget: "manage-layers" },
   {
     name: "工具",
-    icon: "icon-park-outline:tool",
+    icon: "tool",
     children: [
-      // { name: "图上量算", icon: "icon-park-outline:ruler", widget: "measure" },
-      // { name: "空间分析", icon: "icon-park-outline:analysis", widget: "analysis" }
-      { name: "坐标定位", icon: "icon-park-outline:local", widget: "location-point" }
-      // { name: "地区导航", icon: "icon-park-outline:location-region", widget: "location-region" },
-      // { name: "我的标记", icon: "icon-park-outline:mark", widget: "addmarker" },
-      // { name: "视角书签", icon: "icon-park-outline:bookmark", widget: "bookmark" },
-      // { name: "地图打印", icon: "icon-park-outline:printer", widget: "print" },
-      // { name: "飞行漫游", icon: "icon-park-outline:take-off", widget: "roamLine-list" },
-      // { name: "图上标绘", icon: "icon-park-outline:hand-painted-plate", widget: "plot" },
-      // { name: "路线导航", icon: "icon-park-outline:connection", widget: "query-route" },
-      // { name: "卷帘对比", icon: "icon-park-outline:switch-contrast", widget: "map-split" },
-      // { name: "分屏对比", icon: "icon-park-outline:full-screen-play", widget: "map-compare" }
+      // { name: "图上量算", icon: "ruler", widget: "measure" },
+      // { name: "空间分析", icon: "analysis", widget: "analysis" },
+      { name: "坐标定位", icon: "local", widget: "location-point" }
+      // { name: "地区导航", icon: "navigation", widget: "location-region" },
+      // { name: "我的标记", icon: "mark", widget: "addmarker" },
+      // { name: "视角书签", icon: "bookmark", widget: "bookmark" },
+      // { name: "地图打印", icon: "printer", widget: "print" },
+      // { name: "飞行漫游", icon: "take-off", widget: "roamLine-list" },
+      // { name: "图上标绘", icon: "hand-painted-plate", widget: "plot" },
+      // { name: "路线导航", icon: "connection", widget: "query-route" },
+      // { name: "卷帘对比", icon: "switch-contrast", widget: "map-split" },
+      // { name: "分屏对比", icon: "full-screen-play", widget: "map-compare" }
       // { name: "百度街景", icon: h(City, { theme: "outline", size: "18" }), widget: "street-view" }
     ]
   }

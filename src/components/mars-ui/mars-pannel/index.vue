@@ -6,7 +6,7 @@
       </div>
 
       <div v-if="mergeProps.closeable" class="pannel-close-icon" @click="closeModel">
-        <mars-icon icon="icon-park-outline:close-one" width="20"></mars-icon>
+        <mars-icon icon="close-one" width="20"></mars-icon>
       </div>
     </div>
   </teleport>

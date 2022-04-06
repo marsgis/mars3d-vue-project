@@ -66,8 +66,13 @@ export default ({ mode }: ConfigEnv) => {
       // 自定义底层的 Rollup 打包配置
       rollupOptions: {
         input: {
-          demo: path.resolve(__dirname, "demo.html"),
-          index: path.resolve(__dirname, "index.html")
+          index: path.resolve(__dirname, "index.html"),
+          demo: path.resolve(__dirname, "demo.html")
+        },
+        output: {
+          manualChunks: {
+            "mars3d-cesium": ["mars3d-cesium"]
+          }
         }
       },
       // 当设置为 true, 构建后将会生成 manifest.json 文件

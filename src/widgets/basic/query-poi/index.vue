@@ -16,7 +16,7 @@
         <a-input-search size="large" placeholder="搜索 地点" @search="searchPoint">
           <template #enterButton>
             <a-button>
-              <mars-icon icon="icon-park-outline:search" width="20" color="#fff"></mars-icon>
+              <mars-icon icon="search" width="20" color="#fff"></mars-icon>
             </a-button>
           </template>
         </a-input-search>
