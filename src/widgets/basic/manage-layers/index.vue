@@ -21,13 +21,15 @@
   </mars-dialog>
 </template>
 <script lang="ts" setup>
-import { onUnmounted, nextTick, reactive, ref } from "vue"
+import { onUnmounted, nextTick, reactive, ref, onMounted } from "vue"
 import useLifecycle from "@mars/common/uses/use-lifecycle"
 import * as mapWork from "./map"
 import { useWidget } from "@mars/common/store/widget"
 
 const { activate, disable, currentWidget } = useWidget()
-
+onMounted(() => {
+  initTree()
+})
 onUnmounted(() => {
   disable("layer-tree")
 })
@@ -50,10 +52,6 @@ const checkedKeys = ref<string[]>([])
 const layersObj: any = {}
 
 const opacityObj: any = reactive({})
-
-mapWork.eventTarget.on("loadOK", () => {
-  initTree()
-})
 
 let lastWidget: any
 const checkedChange = (keys: string[], e: any) => {
@@ -112,11 +110,6 @@ const checkedChange = (keys: string[], e: any) => {
     // 处理图层构件树控件
     if (layer.options.scenetree) {
       initLayerTree(layer)
-    }
-
-    if (layer.options.onWidght) {
-      const clockWidget = layer.options.onWidght
-      activate(clockWidget)
     }
   }
 }
@@ -270,20 +263,29 @@ function findChild(parent: any, list: any[]) {
 
 function initLayerTree(layer: any) {
   disable("layer-tree")
+
+  if (lastBindClickLayer) {
+    lastBindClickLayer.off("click", onClickBimLayer)
+    lastBindClickLayer = null
+  }
+
   // 处理图层构件树控件
   if (layer.options.scenetree) {
-    layer.on("click", () => {
-      const url = layer.options.url
-      const id = layer.id
-      activate({
-        name: "layer-tree",
-        data: {
-          url,
-          id
-        }
-      })
-    })
+    layer.on("click", onClickBimLayer)
+    lastBindClickLayer = layer
   }
+}
+
+let lastBindClickLayer
+
+function onClickBimLayer(event: any) {
+  const layer = event.layer
+  const url = layer.options.url
+  const id = layer.id
+  activate({
+    name: "layer-tree",
+    data: { url, id }
+  })
 }
 </script>
 

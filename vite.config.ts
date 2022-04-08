@@ -35,7 +35,7 @@ export default ({ mode }: ConfigEnv) => {
       extensions: [".js", ".ts", ".jsx", ".tsx", ".json"]
     },
     optimizeDeps: {
-      include: ["kml-geojson", "mars3d", "@mars/common/store/widget"]
+      include: ["mars3d", "kml-geojson",  "@mars/common/store/widget"]
     },
     json: {
       // 支持从 .json 文件中进行按名导入

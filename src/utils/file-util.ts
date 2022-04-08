@@ -6,6 +6,22 @@
  */
 import { toKml } from "kml-geojson"
 
+export function saveJSON(data: any[]) {
+  if (data == null || !data) {
+    alert("当前未标记任何数据！")
+  } else {
+    const strData = JSON.stringify(data)
+
+    const aLink = document.createElement("a")
+    aLink.download = "我的标记点.json"
+    const blob = new Blob([strData])
+    aLink.href = URL.createObjectURL(blob)
+    document.body.appendChild(aLink)
+    aLink.click()
+    document.body.removeChild(aLink)
+  }
+}
+
 /**
  * 读取json文件内容
  *
