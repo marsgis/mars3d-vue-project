@@ -1,5 +1,5 @@
 <template>
-  <mars-pannel  left="10" top="10">
+  <mars-pannel left="10" top="10">
     <a-space>
       <mars-button @click="show('sample-pannel')">面板示例</mars-button>
       <mars-button @click="show('my-widget')">弹窗示例</mars-button>
@@ -11,7 +11,18 @@
 </template>
 
 <script setup lang="ts">
+import { defineCustomElement } from "vue"
 import { useWidget } from "@mars/common/store/widget"
+import useLifecycle from "@mars/common/uses/use-lifecycle"
+import * as mapWork from "./map"
+import MyButton from "./button.ce.vue"
+
+const MyElement = defineCustomElement(MyButton)
+
+customElements.define("my-element", MyElement)
+
+// 启用map.ts生命周期
+useLifecycle(mapWork)
 
 const { activate, updateWidget } = useWidget()
 
