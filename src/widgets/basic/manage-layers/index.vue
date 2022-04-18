@@ -209,7 +209,9 @@ function initTree() {
       node.children = findChild(node, layers)
       treeData.value.push(node)
 
-      expandedKeys.value.push(node.key)
+      if (layer.options.open !== false) {
+        expandedKeys.value.push(node.key)
+      }
     }
   }
 
@@ -250,7 +252,9 @@ function findChild(parent: any, list: any[]) {
 
       node.children = findChild(node, list)
 
-      expandedKeys.value.push(node.key)
+      if (item.options.open !== false) {
+        expandedKeys.value.push(node.key)
+      }
 
       if (item.isAdded && item.show) {
         nextTick(() => {

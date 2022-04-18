@@ -924,7 +924,7 @@
             ]
           }
         },
-        "center":{"lat":31.504746,"lng":118.264278,"alt":580,"heading":29,"pitch":-49}
+        "center": { "lat": 31.504746, "lng": 118.264278, "alt": 580, "heading": 29, "pitch": -49 }
       },
       { "id": 2060, "pid": 20, "name": "BIM模型", "type": "group" },
       {

@@ -33,9 +33,7 @@ useLifecycle(mapWork)
 const extent = ref("")
 
 const onClickDrawExtent = async () => {
-  console.log(extent.value)
   const data = await mapWork.drawExtent()
-
   extent.value = data.extent
 }
 </script>
