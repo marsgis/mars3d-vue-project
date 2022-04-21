@@ -1,0 +1,116 @@
+<template>
+  <a-form :label-col="labelCol" :wrapper-col="wrapperCol">
+    <template v-for="(item, i) in renderOptions" :key="i">
+      <a-form-item v-if="(item.show as any)(attrForm)" :label="item.label">
+        <component
+          :is="getComponent(item.type)"
+          v-model:value="item.value"
+          :min="item.min || item.min === 0 ? item.min : -Infinity"
+          :max="item.max || item.max === 0 ? item.max : Infinity"
+          :step="item.step || 0.1"
+          :options="item.data || []"
+          :units="item.units"
+          @change="itemChange(item)"
+        >
+        </component>
+      </a-form-item>
+    </template>
+  </a-form>
+</template>
+<script setup lang="ts">
+import { computed, ref, watchEffect } from "vue"
+import { components, GuiItem } from "./index"
+const props = defineProps<{
+  options: GuiItem[]
+}>()
+
+const emits = defineEmits(["change"])
+
+const renderOptions = ref<GuiItem[]>([])
+
+const attrForm = computed(() => {
+  const modelValues: Record<string, any> = {}
+  renderOptions.value.forEach((item) => {
+    modelValues[item.field] = item.value
+  })
+
+  return modelValues
+})
+
+const labelCol = { span: 6 }
+const wrapperCol = { span: 18 }
+
+watchEffect(() => {
+  renderOptions.value = props.options.map((item) => mergeItemOption(item))
+})
+
+defineExpose({
+  // 删除指定 field 或 索引的 元素
+  delete: (key: string | number) => {
+    let index: number
+    if (typeof key === "string") {
+      renderOptions.value.forEach((item, i) => {
+        if (item.field === key) {
+          index = i
+        }
+      })
+    }
+    if (typeof key === "number" && key >= 0 && key < renderOptions.value.length) {
+      index = key
+    }
+    if (index !== undefined) {
+      renderOptions.value.splice(index, 1)
+    }
+  },
+  // 在指定位置插入 一个 或 多个 元素
+  insert(index: number, ...args: GuiItem[]) {
+    args.forEach((item) => {
+      renderOptions.value.splice(index, 0, mergeItemOption(item))
+    })
+  },
+  updateField(field: string, value) {
+    renderOptions.value.forEach((item) => {
+      if (item.field === field) {
+        item.value = value
+      }
+    })
+  },
+  getValue(field: string) {
+    const item = renderOptions.value.find((it) => {
+      return it.field === field
+    })
+    if (item) {
+      return item.value
+    }
+    throw new Error("field is not exist")
+  },
+  getValues() {
+    return attrForm.value
+  }
+})
+
+function getComponent(type: keyof typeof components) {
+  return components[type]
+}
+
+function mergeItemOption(item) {
+  if (typeof item.show !== "function") {
+    item.show = () => (item.show === undefined ? true : !!item.show)
+  }
+  return item
+}
+
+function itemChange(item: GuiItem) {
+  emits("change", attrForm.value)
+  if (item.change) {
+    item.change(item.value, attrForm.value)
+  }
+}
+</script>
+<script lang="ts">
+export default {
+  name: "mars-gui"
+}
+</script>
+
+<style lang="less"></style>

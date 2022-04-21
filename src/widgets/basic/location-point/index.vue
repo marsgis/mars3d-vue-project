@@ -5,68 +5,8 @@
     </template>
     <div class="position-container">
       <a-form>
-        <a-form-item label="类型">
-          <a-radio-group v-model:value="formState.radioFanwei" @change="changeFanwei">
-            <a-radio value="1">十进制</a-radio>
-            <a-radio value="2">度分秒</a-radio>
-            <a-radio value="3" title="2000平面坐标">平面坐标</a-radio>
-          </a-radio-group>
-        </a-form-item>
-
-        <!-- 十进制的面板 -->
-        <div v-show="formState.radioFanwei === '1'">
-          <a-form-item label="经度">
-            <mars-input v-model:value="formState.lng" class="lnglat-input" @change="changeJWD"> </mars-input>
-          </a-form-item>
-          <a-form-item label="纬度">
-            <mars-input v-model:value="formState.lat" class="lnglat-input" @change="changeJWD"> </mars-input>
-          </a-form-item>
-          <a-form-item label="高程">
-            <mars-input v-model:value="formState.alt" class="lnglat-input" @change="changeJWD"> </mars-input>
-          </a-form-item>
-        </div>
-
-        <!-- 度分秒的面板 -->
-        <div v-show="formState.radioFanwei === '2'">
-          <a-form-item label="经度">
-            <a-space>
-              <mars-input v-model:value="formState.jdDegree" @change="changeDMS"> </mars-input>°
-              <mars-input v-model:value="formState.jdMinute" @change="changeDMS"> </mars-input>'
-              <mars-input v-model:value="formState.jdSecond" @change="changeDMS"> </mars-input>"
-            </a-space>
-          </a-form-item>
-          <a-form-item label="纬度">
-            <a-space>
-              <mars-input v-model:value="formState.wdDegree" @change="changeDMS"> </mars-input>°
-              <mars-input v-model:value="formState.wdMinute" @change="changeDMS"> </mars-input>'
-              <mars-input v-model:value="formState.wdSecond" @change="changeDMS"> </mars-input>"
-            </a-space>
-          </a-form-item>
-          <a-form-item label="高程">
-            <mars-input v-model:value="formState.alt" class="lnglat-input"> </mars-input>
-          </a-form-item>
-        </div>
-
-        <!-- 平面坐标的面板 -->
-        <div v-show="formState.radioFanwei === '3'">
-          <a-form-item label="分带">
-            <a-radio-group v-model:value="formState.radioFendai" @change="changeFendai">
-              <a-radio value="1">三度带</a-radio>
-              <a-radio value="2">六度带</a-radio>
-            </a-radio-group>
-          </a-form-item>
-          <a-form-item label="纵坐标">
-            <mars-input v-model:value="formState.gk6X" class="lnglat-input" @change="changeGKZone"> </mars-input>
-          </a-form-item>
-          <a-form-item label="横坐标">
-            <mars-input v-model:value="formState.gk6Y" class="lnglat-input" @change="changeGKZone"> </mars-input>
-          </a-form-item>
-          <a-form-item label="高度值">
-            <mars-input v-model:value="formState.alt" class="lnglat-input" @change="changeGKZone"> </mars-input>
-          </a-form-item>
-        </div>
+        <mars-gui ref="marsGuiRef" :options="options"></mars-gui>
       </a-form>
-
       <div class="f-pt f-tac">
         <a-space>
           <mars-button @click="bindMourseClick">图上拾取</mars-button>
@@ -78,151 +18,281 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, UnwrapRef } from "vue"
+import { onMounted, reactive, UnwrapRef, ref } from "vue"
 import useLifecycle from "@mars/common/uses/use-lifecycle"
 import * as mapWork from "./map"
 import { $alert } from "@mars/components/mars-ui/index"
+import type { GuiItem } from "@mars/components/mars-ui/mars-gui"
 
 // 启用map.ts生命周期
 useLifecycle(mapWork)
 
-interface FormState {
-  radioFanwei: string
-  radioFendai: string
-  lng: number
-  lat: number
-  alt: number
-  jdDegree: number
-  jdMinute: number
-  jdSecond: number
-  wdDegree: number
-  wdMinute: number
-  wdSecond: number
-  gk6X: number
-  gk6Y: number
-}
-
-const formState: UnwrapRef<FormState> = reactive({
-  radioFanwei: "1",
-  radioFendai: "2",
-  lng: 0,
-  lat: 0,
-  alt: 0,
-  jdDegree: 0,
-  jdMinute: 0,
-  jdSecond: 0,
-  wdDegree: 0,
-  wdMinute: 0,
-  wdSecond: 0,
-  gk6X: 0,
-  gk6Y: 0
-})
-
-// 全局中间变量
-let currJD: number
-let currWD: number
-let currGD: number
+const marsGuiRef = ref()
 
 onMounted(() => {
   const defaultPoitn = mapWork.defultPoint()
-  currJD = defaultPoitn.lng
-  currWD = defaultPoitn.lat
-  currGD = defaultPoitn.alt
-  formState.lng = mapWork.marsUtilFormtNum(defaultPoitn.lng, 6)
-  formState.lat = mapWork.marsUtilFormtNum(defaultPoitn.lat, 6)
-  formState.alt = mapWork.marsUtilFormtNum(defaultPoitn.alt, 6)
+
+  marsGuiRef.value.updateField("lng", mapWork.marsUtilFormtNum(defaultPoitn.lng, 6))
+  marsGuiRef.value.updateField("lat", mapWork.marsUtilFormtNum(defaultPoitn.lat, 6))
+  marsGuiRef.value.updateField("alt", mapWork.marsUtilFormtNum(defaultPoitn.alt, 6))
+
+  const lngDMS = [mapWork.marsPointTrans(defaultPoitn.lng).degree, mapWork.marsPointTrans(defaultPoitn.lng).minute, mapWork.marsPointTrans(defaultPoitn.lng).second]
+  const latDMS = [mapWork.marsPointTrans(defaultPoitn.lat).degree, mapWork.marsPointTrans(defaultPoitn.lat).minute, mapWork.marsPointTrans(defaultPoitn.lat).second]
+  marsGuiRef.value.updateField("lngDMS", lngDMS)
+  marsGuiRef.value.updateField("latDMS", latDMS)
+  marsGuiRef.value.updateField("altDMS", mapWork.marsUtilFormtNum(defaultPoitn.alt, 6))
+
+  const zone = mapWork.marsProj4Trans(defaultPoitn.lng, defaultPoitn.lat, marsGuiRef.value.getValue("radioFendai"))
+  marsGuiRef.value.updateField("gk6X", mapWork.marsUtilFormtNum(zone[0], 1))
+  marsGuiRef.value.updateField("gk6Y", mapWork.marsUtilFormtNum(zone[1], 1))
+  marsGuiRef.value.updateField("gkAlt", mapWork.marsUtilFormtNum(defaultPoitn.alt, 6))
+
 })
+const options: GuiItem[] = [
+  {
+    type: "radio",
+    field: "type",
+    label: "类型",
+    value: "1",
+    data: [
+      {
+        label: "十进制",
+        value: "1"
+      },
+      {
+        label: "度分秒",
+        value: "2"
+      },
+      {
+        label: "平面坐标",
+        value: "3"
+      }
+    ],
+    change(value, data) {
+      // changeValue(value, data)
+    }
+  },
+  {
+    type: "input",
+    field: "lng",
+    label: "经度",
+    value: "",
+    show(data) {
+      return data.type === "1"
+    },
+    change(value, data) {
+      changeValue3(value, data)
+    }
+  },
+  {
+    type: "input",
+    field: "lat",
+    label: "纬度",
+    value: "",
+    show(data) {
+      return data.type === "1"
+    },
+    change(value, data) {
+      changeValue3(value, data)
+    }
+  },
+  {
+    type: "input",
+    field: "alt",
+    label: "高程",
+    value: "",
+    show(data) {
+      return data.type === "1"
+    },
+    change(value, data) {
+      changeValue3(value, data)
+    }
+  },
+  {
+    type: "inputGroup",
+    field: "lngDMS",
+    label: "经度",
+    value: [0, 0, 0],
+    units: ["度", "分", "秒"],
+    show(data) {
+      return data.type === "2"
+    },
+    change(value, data) {
+      changeValue4(value, data)
+    }
 
-const changeJWD = () => {
-  currJD = Number(formState.lng)
-  currWD = Number(formState.lat)
-}
-const changeDMS = () => {
-  currJD = mapWork.marsDms2degree(formState.jdDegree, formState.jdMinute, formState.jdSecond)
-  currWD = mapWork.marsDms2degree(formState.wdDegree, formState.wdMinute, formState.wdSecond)
-}
-
-const changeGKZone = () => {
-  const zoon = mapWork.marsZONEtoCRS(Number(formState.gk6X), Number(formState.gk6Y), formState.radioFendai)
-  currJD = zoon[0]
-  currWD = zoon[1]
-}
-
-const changeFanwei = () => {
-  switch (formState.radioFanwei) {
-    case "2": // 度分秒
-      formState.jdDegree = mapWork.marsPointTrans(currJD).degree
-      formState.jdMinute = mapWork.marsPointTrans(currJD).minute
-      formState.jdSecond = mapWork.marsPointTrans(currJD).second
-
-      formState.wdDegree = mapWork.marsPointTrans(currWD).degree
-      formState.wdMinute = mapWork.marsPointTrans(currWD).minute
-      formState.wdSecond = mapWork.marsPointTrans(currWD).second
-
-      formState.alt = mapWork.marsUtilFormtNum(currGD, 6)
-      break
-    case "3": // CGCS2000
-      changeFendai()
-      break
-    default:
-      // 十进制
-      formState.lng = mapWork.marsUtilFormtNum(currJD, 6)
-      formState.lat = mapWork.marsUtilFormtNum(currWD, 6)
-      formState.alt = mapWork.marsUtilFormtNum(currGD, 6)
-      break
+  },
+  {
+    type: "inputGroup",
+    field: "latDMS",
+    label: "纬度",
+    value: [0, 0, 0],
+    units: ["度", "分", "秒"],
+    show(data) {
+      return data.type === "2"
+    },
+    change(value, data) {
+      changeValue4(value, data)
+    }
+  },
+  {
+    type: "input",
+    field: "altDMS",
+    label: "高程",
+    value: "",
+    show(data) {
+      return data.type === "2"
+    },
+    change(value, data) {
+      changeValue4(value, data)
+    }
+  },
+  {
+    type: "radio",
+    field: "radioFendai",
+    label: "分带",
+    value: "1",
+    data: [
+      {
+        label: "三度带",
+        value: "1"
+      },
+      {
+        label: "六度带",
+        value: "2"
+      }
+    ],
+    change(value, data) {
+      changeValue2(value, data)
+    },
+    show(data) {
+      return data.type === "3"
+    }
+  },
+  {
+    type: "input",
+    field: "gk6X",
+    label: "纵坐标",
+    value: "",
+    show(data) {
+      return data.type === "3"
+    },
+    change(value, data) {
+      changeValue5(value, data)
+    }
+  },
+  {
+    type: "input",
+    field: "gk6Y",
+    label: "横坐标",
+    value: "",
+    show(data) {
+      return data.type === "3"
+    },
+    change(value, data) {
+      changeValue5(value, data)
+    }
+  },
+  {
+    type: "input",
+    field: "gkAlt",
+    label: "高度值",
+    value: "",
+    show(data) {
+      return data.type === "3"
+    },
+    change(value, data) {
+      changeValue5(value, data)
+    }
   }
+]
+
+// 十进制转2000平面三分度六分度
+const changeValue2 = (value, data) => {
+
+  const zoon = mapWork.marsZONEtoCRS(Number(data.gk6X), Number(data.gk6Y), data.radioFendai)
+  marsGuiRef.value.updateField("lng", mapWork.marsUtilFormtNum(zoon[0], 6))
+  marsGuiRef.value.updateField("lat", mapWork.marsUtilFormtNum(zoon[1], 6))
+  marsGuiRef.value.updateField("alt", data.gkAlt)
+
+  const zone = mapWork.marsProj4Trans(mapWork.marsUtilFormtNum(data.lng, 6), mapWork.marsUtilFormtNum(data.lat, 6), data.radioFendai)
+  marsGuiRef.value.updateField("gk6X", mapWork.marsUtilFormtNum(zone[0], 1))
+  marsGuiRef.value.updateField("gk6Y", mapWork.marsUtilFormtNum(zone[1], 1))
+  marsGuiRef.value.updateField("gkAlt", mapWork.marsUtilFormtNum(data.alt, 6))
 }
 
-const changeFendai = () => {
-  if (formState.radioFendai === "2") {
-    // 十进制转2000平面六分度
-    const zoon6 = mapWork.marsProj4Trans(currJD, currWD, formState.radioFendai)
-    formState.gk6X = mapWork.marsUtilFormtNum(zoon6[0], 1)
-    formState.gk6Y = mapWork.marsUtilFormtNum(zoon6[1], 1)
-    formState.alt = mapWork.marsUtilFormtNum(currGD, 6)
-  } else {
-    // 十进制转2000平面三分度
-    const zone3 = mapWork.marsProj4Trans(currJD, currWD, formState.radioFendai)
-    formState.gk6X = mapWork.marsUtilFormtNum(zone3[0], 1)
-    formState.gk6Y = mapWork.marsUtilFormtNum(zone3[1], 1)
-    formState.alt = mapWork.marsUtilFormtNum(currGD, 6)
-  }
+const changeValue3 = (value, data) => {
+  const lngDMS = [mapWork.marsPointTrans(data.lng).degree, mapWork.marsPointTrans(data.lng).minute, mapWork.marsPointTrans(data.lng).second]
+  const latDMS = [mapWork.marsPointTrans(data.lat).degree, mapWork.marsPointTrans(data.lat).minute, mapWork.marsPointTrans(data.lat).second]
+  marsGuiRef.value.updateField("lngDMS", lngDMS)
+  marsGuiRef.value.updateField("latDMS", latDMS)
+  marsGuiRef.value.updateField("altDMS", mapWork.marsUtilFormtNum(data.alt, 6))
+
+  const zone = mapWork.marsProj4Trans(mapWork.marsUtilFormtNum(data.lng, 6), mapWork.marsUtilFormtNum(data.lat, 6), data.radioFendai)
+  marsGuiRef.value.updateField("gk6X", mapWork.marsUtilFormtNum(zone[0], 1))
+  marsGuiRef.value.updateField("gk6Y", mapWork.marsUtilFormtNum(zone[1], 1))
+  marsGuiRef.value.updateField("gkAlt", mapWork.marsUtilFormtNum(data.alt, 6))
 }
+
+const changeValue4 = (value, data) => {
+
+  marsGuiRef.value.updateField("lng", mapWork.marsDms2degree(mapWork.marsUtilFormtNum(data.lngDMS[0], 6), mapWork.marsUtilFormtNum(data.lngDMS[1], 6), mapWork.marsUtilFormtNum(data.lngDMS[2], 6)))
+  marsGuiRef.value.updateField("lat", mapWork.marsDms2degree(mapWork.marsUtilFormtNum(data.latDMS[0], 6), mapWork.marsUtilFormtNum(data.latDMS[1], 6), mapWork.marsUtilFormtNum(data.latDMS[2], 6)))
+  marsGuiRef.value.updateField("alt", data.altDMS)
+
+  const zone = mapWork.marsProj4Trans(data.lng, data.lat, data.radioFendai)
+  marsGuiRef.value.updateField("gk6X", mapWork.marsUtilFormtNum(zone[0], 1))
+  marsGuiRef.value.updateField("gk6Y", mapWork.marsUtilFormtNum(zone[1], 1))
+  marsGuiRef.value.updateField("gkAlt", mapWork.marsUtilFormtNum(data.altDMS, 6))
+}
+
+const changeValue5 = (value, data) => {
+
+  const zoon = mapWork.marsZONEtoCRS(Number(data.gk6X), Number(data.gk6Y), data.radioFendai)
+  marsGuiRef.value.updateField("lng", mapWork.marsUtilFormtNum(zoon[0], 6))
+  marsGuiRef.value.updateField("lat", mapWork.marsUtilFormtNum(zoon[1], 6))
+  marsGuiRef.value.updateField("alt", data.gkAlt)
+
+  const lngDMS = [mapWork.marsPointTrans(data.lng).degree, mapWork.marsPointTrans(data.lng).minute, mapWork.marsPointTrans(data.lng).second]
+  const latDMS = [mapWork.marsPointTrans(data.lat).degree, mapWork.marsPointTrans(data.lat).minute, mapWork.marsPointTrans(data.lat).second]
+  marsGuiRef.value.updateField("lngDMS", lngDMS)
+  marsGuiRef.value.updateField("latDMS", latDMS)
+  marsGuiRef.value.updateField("altDMS", mapWork.marsUtilFormtNum(data.gkAlt, 6))
+
+  console.log(data)
+}
+
 
 const bindMourseClick = () => {
   mapWork.bindMourseClick()
 }
 
 mapWork.eventTarget.on("clickMap", (event: any) => {
-  currJD = event.point.lng
-  currWD = event.point.lat
-  currGD = event.point.alt
+  const currJD = event.point.lng
+  const currWD = event.point.lat
+  const currGD = event.point.alt
 
-  formState.lng = mapWork.marsUtilFormtNum(currJD, 6)
-  formState.lat = mapWork.marsUtilFormtNum(currWD, 6)
-  formState.alt = mapWork.marsUtilFormtNum(currGD, 6)
-  changeFanwei()
+  marsGuiRef.value.updateField("lng", mapWork.marsUtilFormtNum(currJD, 6))
+  marsGuiRef.value.updateField("lat", mapWork.marsUtilFormtNum(currWD, 6))
+  marsGuiRef.value.updateField("alt", mapWork.marsUtilFormtNum(currGD, 6))
+
+  const lngDMS = [mapWork.marsPointTrans(currJD).degree, mapWork.marsPointTrans(currJD).minute, mapWork.marsPointTrans(currJD).second]
+  const latDMS = [mapWork.marsPointTrans(currWD).degree, mapWork.marsPointTrans(currWD).minute, mapWork.marsPointTrans(currWD).second]
+  marsGuiRef.value.updateField("lngDMS", lngDMS)
+  marsGuiRef.value.updateField("latDMS", latDMS)
+  marsGuiRef.value.updateField("altDMS", mapWork.marsUtilFormtNum(currGD, 6))
+
+  const zone = mapWork.marsProj4Trans(currJD, currWD, marsGuiRef.value.getValue("radioFendai"))
+  marsGuiRef.value.updateField("gk6X", mapWork.marsUtilFormtNum(zone[0], 1))
+  marsGuiRef.value.updateField("gk6Y", mapWork.marsUtilFormtNum(zone[1], 1))
+  marsGuiRef.value.updateField("gkAlt", mapWork.marsUtilFormtNum(currGD, 6))
   // 更新面板
   mapWork.updateMarker(false, currJD, currWD, currGD)
 })
 
 const submitCenter = () => {
-  if (!formState.lng || !formState.lat || !formState.alt) {
-    $alert("坐标不能为空")
-    return
-  }
-
-  if (formState.lng > 180 || formState.lng < -180) {
-    $alert("请输入有效的经度值！")
-    return
-  }
-
-  if (formState.lat > 90 || formState.lat < -90) {
-    $alert("请输入有效的纬度值！")
-    return
-  }
-
-  mapWork.updateMarker(true, currJD, currWD, currGD)
+  const data = marsGuiRef.value.getValues()
+  mapWork.updateMarker(true, data.lng, data.lat, data.alt)
 }
 </script>
 <style lang="less" scoped>

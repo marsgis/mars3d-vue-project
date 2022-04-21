@@ -20,13 +20,18 @@ export default ({ mode }: ConfigEnv) => {
     server: {
       host: "localhost",
       https: false,
-      port: 3002
+      port: 3002,
+      proxy: {
+        "/v1": "http://localhost:7001"
+      }
     },
     define: {
       "process.env": {
         mode: mode,
-        BASE_URL: ENV.VITE_BASE_URL
-      }
+        BASE_URL: ENV.VITE_BASE_URL,
+        API_BASE: ENV.VITE_API_BASE
+      },
+      buildTime: new Date()
     },
     resolve: {
       alias: {
