@@ -1,9 +1,7 @@
 <template>
-  <main-view />
+  <router-view></router-view>
 </template>
 
-<script setup lang="ts">
-import MainView from "@mars/components/mars-work/main-view.vue"
-</script>
+<script setup lang="ts"></script>
 
 <style></style>

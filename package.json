@@ -22,8 +22,8 @@
     "kml-geojson": "^1.2.0",
     "localforage": "^1.10.0",
     "mapv": "^2.0.62",
-    "mars3d": "^3.3.5",
-    "mars3d-cesium": "^1.92.4",
+    "mars3d": "^3.3.6",
+    "mars3d-cesium": "^1.92.5",
     "mars3d-echarts": "^3.3.0",
     "mars3d-heatmap": "^3.3.0",
     "mars3d-mapv": "^3.3.0",
@@ -31,6 +31,7 @@
     "uuid": "^8.3.2",
     "vue": "^3.2.31",
     "vue-color-kit": "^1.0.5",
+    "vue-router": "^4.0.14",
     "vuex": "^4.0.2"
   },
   "devDependencies": {

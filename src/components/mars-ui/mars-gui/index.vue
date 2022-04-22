@@ -8,11 +8,13 @@
           :min="item.min || item.min === 0 ? item.min : -Infinity"
           :max="item.max || item.max === 0 ? item.max : Infinity"
           :step="item.step || 0.1"
+          :range="item.range || false"
           :options="item.data || []"
           :units="item.units"
           @change="itemChange(item)"
         >
         </component>
+        <template v-if="item.extra" #extra>{{ item.extra(attrForm) }}</template>
       </a-form-item>
     </template>
   </a-form>
@@ -75,6 +77,13 @@ defineExpose({
       }
     })
   },
+  updateExtra(field: string, value) {
+    renderOptions.value.forEach((item) => {
+      if (item.field === field) {
+        item.extra = mergeExtra(value)
+      }
+    })
+  },
   getValue(field: string) {
     const item = renderOptions.value.find((it) => {
       return it.field === field
@@ -94,10 +103,34 @@ function getComponent(type: keyof typeof components) {
 }
 
 function mergeItemOption(item) {
+  // show字段转为function
   if (typeof item.show !== "function") {
     item.show = () => (item.show === undefined ? true : !!item.show)
   }
+
+  // extra 字段转为function
+  item.extra = mergeExtra(item.extra)
   return item
+}
+
+function mergeExtra(extra) {
+  let extraNew = extra
+  if (typeof extraNew !== "function" && extraNew) {
+    extraNew = () => {
+      if (typeof extra === "string") {
+        let str = extra
+        const paramsPattern = /[^{\}]+(?=})/g
+        const extractParams = str.match(paramsPattern) || []
+        extractParams.forEach((key) => {
+          str = str.replace(new RegExp(`{${key}}`, "g"), attrForm.value[key])
+        })
+        return str
+      } else {
+        return extra
+      }
+    }
+  }
+  return extraNew
 }
 
 function itemChange(item: GuiItem) {

@@ -30,9 +30,13 @@ const store: StoreOptions<WidgetState> = {
       {
         component: markRaw(defineAsyncComponent(() => import("@mars/widgets/demo/test/index.vue"))),
         name: "test"
+      },
+      {
+        component: markRaw(defineAsyncComponent(() => import("@mars/widgets/demo/power-pannel/index.vue"))),
+        name: "power-pannel"
       }
     ],
-    openAtStart: ["menu"]
+    openAtStart: ["menu", "power-pannel"]
   }
 }
 

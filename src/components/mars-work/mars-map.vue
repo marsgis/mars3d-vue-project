@@ -7,9 +7,9 @@
  * @copyright 火星科技 mars3d.cn
  * @author 火星吴彦祖 2022-02-19
  */
-import { computed, onBeforeUnmount, onMounted } from "vue"
+import { computed, onUnmounted, onMounted } from "vue"
 import * as mars3d from "mars3d"
-import { getQueryString, isPc } from "@mars/utils/mars-util"
+import { getQueryString } from "@mars/utils/mars-util"
 import { $alert, $message } from "@mars/components/mars-ui/index"
 
 const props = withDefaults(
@@ -57,25 +57,20 @@ const initMars3d = (option: any) => {
   // 开场动画
   // map.openFlyAnimation();
 
-  // //针对不同终端的优化配置
-  if (isPc()) {
-    // Cesium 1.61以后会默认关闭反走样，对于桌面端而言还是开启得好，
-    map.scene.postProcessStages.fxaa.enabled = true
-
+  // 针对不同终端的优化配置
+  if (mars3d.Util.isPCBroswer()) {
     map.zoomFactor = 2.0 // 鼠标滚轮放大的步长参数
 
     // IE浏览器优化
     if (window.navigator.userAgent.toLowerCase().indexOf("msie") >= 0) {
       map.viewer.targetFrameRate = 20 // 限制帧率
-      map.scene.requestRenderMode = true // 取消实时渲染
+      map.scene.requestRenderMode = false // 取消实时渲染
     }
   } else {
     map.zoomFactor = 5.0 // 鼠标滚轮放大的步长参数
 
-    // map.scene.screenSpaceCameraController.enableTilt = false
-
     // 移动设备上禁掉以下几个选项，可以相对更加流畅
-    map.scene.requestRenderMode = true // 取消实时渲染
+    map.scene.requestRenderMode = false // 取消实时渲染
     map.scene.fog.enabled = false
     map.scene.skyAtmosphere.show = false
     map.scene.globe.showGroundAtmosphere = false
@@ -134,16 +129,16 @@ function onMapLoad() {
 }
 
 // 组件卸载之前销毁mars3d实例
-onBeforeUnmount(() => {
+onUnmounted(() => {
   if (map) {
     map.destroy()
     map = null
   }
+  console.log("map销毁完成", map)
 })
 </script>
 
 <style lang="less">
-
 /**cesium 工具按钮栏*/
 .cesium-viewer-toolbar {
   top: auto !important;

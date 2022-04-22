@@ -1,0 +1,187 @@
+[
+  {
+    "id": "1",
+    "positions": [
+      [117.220904, 31.833797, 43.75],
+      [117.220356, 31.833959, 43.67],
+      [117.220361, 31.835111, 44.36],
+      [117.213242, 31.835863, 42.31],
+      [117.211926, 31.835738, 42.14],
+      [117.183103, 31.833906, 47.17],
+      [117.183136, 31.833586, 47.39],
+      [117.183968, 31.833637, 47.05],
+      [117.184038, 31.833134, 47.39],
+      [117.184364, 31.833142, 47.26],
+      [117.184519, 31.833375, 47.04]
+    ],
+    "style": { "color": "#ffff00", "width": 3 },
+    "attr": {
+      "name": "步行贴地路线",
+      "model": "model_man",
+      "clampToGround": true,
+      "interpolation": false,
+      "showGroundHeight": false,
+      "showLabel": false,
+      "showLine": false,
+      "showShadow": false,
+      "shadowType": "wall",
+      "cameraType": "gs",
+      "followedX": 50,
+      "followedZ": 10,
+      "clockLoop": false,
+      "speed": [50, 50, 50, 50, 50, 50, 50, 50, 50, 50]
+    }
+  },
+  {
+    "id": "2",
+    "positions": [
+      [116.043233, 30.845286, 392.48],
+      [116.046833, 30.846863, 411.33],
+      [116.052137, 30.848801, 439.45],
+      [116.060838, 30.850918, 442.91],
+      [116.069013, 30.852035, 435.14],
+      [116.18739, 30.854441, 244.53],
+      [116.205214, 30.859332, 300.96]
+    ],
+    "style": { "color": "#ffff00", "width": 3 },
+    "attr": {
+      "name": "驾车贴地路线",
+      "model": "model_car",
+      "clampToGround": true,
+      "showGroundHeight": false,
+      "showLabel": false,
+      "showLine": true,
+      "showShadow": false,
+      "shadowType": "wall",
+      "cameraType": "gs",
+      "followedX": 50,
+      "followedZ": 50,
+      "clockLoop": false,
+      "speed": 160
+    }
+  },
+  {
+    "id": "3",
+    "positions": [
+      [117.245989, 31.852285, 100],
+      [117.246347, 31.834418, 300],
+      [117.246703, 31.816635, 500]
+    ],
+    "style": { "color": "#ffff00", "width": 3 },
+    "attr": {
+      "name": "飞机飞行投影",
+      "point": "model_zhanji",
+      "showLabel": false,
+      "showLine": true,
+      "showSection": true,
+      "cameraType": "gs",
+      "followedX": 50,
+      "followedZ": 10,
+      "remark": "测试",
+      "showHeightWarn": true,
+      "warnHeight": 300,
+      "showShadow": true,
+      "showGroundHeight": false,
+      "shadowType": "wall",
+      "model": "model_zhanji",
+      "speed": 100
+    }
+  },
+  {
+    "id": "4",
+    "positions": [
+      [117.128256, 31.852721, 600],
+      [117.163191, 31.853176, 600],
+      [117.181754, 31.854023, 600]
+    ],
+    "style": { "color": "#ffff00", "width": 3 },
+    "attr": {
+      "name": "飞机飞行投影2",
+      "model": "model_air",
+      "showGroundHeight": true,
+      "showLabel": false,
+      "showLine": true,
+      "showShadow": true,
+      "shadowType": "cylinder",
+      "cameraType": "gs",
+      "followedX": 50,
+      "followedZ": 10,
+      "clockLoop": false
+    }
+  },
+  {
+    "id": "5",
+    "positions": [
+      [116.025851, 30.848967, 1311.6],
+      [116.098851, 30.833606, 1916.2],
+      [116.154079, 30.86119, 1693.3],
+      [116.171732, 30.927008, 1588.6],
+      [116.142015, 30.980604, 1963.6],
+      [116.080821, 31.001745, 2078.7],
+      [116.022691, 30.965067, 1756.5],
+      [116.016616, 30.904896, 1573.4]
+    ],
+    "style": { "color": "#ffff00", "width": 3 },
+    "attr": {
+      "name": "山区漫游",
+      "showLabel": false,
+      "showLine": false,
+      "showShadow": false,
+      "showHeightWarn": false,
+      "warnHeight": 500,
+      "cameraType": "dy",
+      "followedX": 50,
+      "followedZ": 10,
+      "speed": 300
+    }
+  },
+  {
+    "id": "6",
+    "positions": [
+      [106.714474, 26.838533, 1303.3],
+      [106.714448, 26.839618, 1309.4],
+      [106.714389, 26.840687, 1310.8],
+      [106.714685, 26.842783, 1295],
+      [106.715975, 26.846232, 1279.7],
+      [106.718505, 26.852513, 1278.6]
+    ],
+    "style": { "color": "#ffff00", "width": 3 },
+    "attr": {
+      "name": "园区漫游",
+      "point": "point",
+      "showLabel": false,
+      "showLine": false,
+      "showShadow": false,
+      "showHeightWarn": false,
+      "warnHeight": 500,
+      "cameraType": "dy",
+      "followedX": 200,
+      "followedZ": 50
+    }
+  },
+  {
+    "id": "7",
+    "name": "卫星轨道",
+    "positions": [
+      [122.167639, 47.692783, 100000],
+      [110.846366, 36.040396, 100000],
+      [102.61946, 23.716881, 100000]
+    ],
+    "style": { "color": "#ffff00", "width": 3 },
+    "attr": {
+      "name": "卫星轨道",
+      "point": "model_weixin",
+      "showLabel": false,
+      "showLine": true,
+      "showShadow": false,
+      "showHeightWarn": false,
+      "warnHeight": 500,
+      "cameraType": "gs",
+      "followedX": 50,
+      "followedZ": 10,
+      "clockLoop": true,
+      "model": "model_weixin",
+      "speed": 2000
+    }
+  }
+]

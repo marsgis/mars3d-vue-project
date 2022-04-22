@@ -5,6 +5,7 @@
  * @author 木遥 2022-01-01
  */
 import { toKml } from "kml-geojson"
+import _ from "lodash"
 
 export function saveJSON(data: any[]) {
   if (data == null || !data) {
@@ -49,7 +50,7 @@ export function readJSON<T>(file: any): Promise<T> {
 }
 
 export function saveGeoJSON2Kml(geojson: string, options: any): any {
-  const geojsonObject = clone(geojson, null, null)
+  const geojsonObject = _.cloneDeep(geojson)
 
   const kml = toKml(geojsonObject, {
     name: "Mars3D标绘数据",
@@ -59,67 +60,4 @@ export function saveGeoJSON2Kml(geojson: string, options: any): any {
     ...options
   })
   return kml
-}
-
-function clone(obj: any, removeKeys: any, level: any): any {
-  // 避免死循环，拷贝的层级最大深度
-  if (level == null) {
-    level = 9
-  }
-  if (removeKeys == null) {
-    removeKeys = ["_layer"]
-  }
-
-  if (obj === null || typeof obj !== "object") {
-    return obj
-  }
-
-  // Handle Date
-  if (isDate(obj)) {
-    const copy = new Date()
-    copy.setTime(obj.getTime())
-    return copy
-  }
-
-  // Handle Array
-  if (isArray(obj) && level >= 0) {
-    const copy = []
-    for (let i = 0, len = obj.length; i < len; i++) {
-      copy[i] = clone(obj[i], removeKeys, level - 1)
-    }
-    return copy
-  }
-
-  // Handle Object
-  if (typeof obj === "object" && level >= 0) {
-    try {
-      const copy: any = {}
-      for (const attr in obj) {
-        if (typeof attr === "function") {
-          continue
-        }
-        if (removeKeys.indexOf(attr) !== -1) {
-          continue
-        }
-
-        if (obj.hasOwnProperty(attr)) {
-          copy[attr] = clone(obj[attr], removeKeys, level - 1)
-        }
-      }
-      return copy
-    } catch (e) {
-      console.log(e)
-    }
-  }
-  return obj
-}
-function isArray(obj: any) {
-  if (typeof Array.isArray === "function") {
-    return Array.isArray(obj)
-  } else {
-    return Object.prototype.toString.call(obj) === "[object Array]"
-  }
-}
-function isDate(obj: any) {
-  return typeof obj === "object" && obj.constructor === Date
 }
