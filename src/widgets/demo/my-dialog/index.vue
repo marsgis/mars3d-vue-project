@@ -25,7 +25,7 @@ import { useWidget } from "@mars/common/store/widget"
 const { currentWidget } = useWidget()
 
 currentWidget.onUpdate((e) => {
-  console.log(e)
+  // console.log(e)
 })
 
 useLifecycle(mapWork)

@@ -1,9 +1,5 @@
 ﻿{
   "map3d": {
-    "templateValues": {
-      "dataServer": "//data.mars3d.cn",
-      "gltfServerUrl": "//data.mars3d.cn/gltf"
-    },
     "scene": {
       "center": { "lat": 31.686288, "lng": 117.229619, "alt": 11333.9, "heading": 359.2, "pitch": -39.5 },
       "scene3DOnly": false,
@@ -60,6 +56,10 @@
         "template": "<div>经度:{lng}</div> <div>纬度:{lat}</div> <div class='hide1000'>横{crsx}  纵{crsy}</div> <div>海拔：{alt}米</div> <div class='hide700'>层级：{level}</div><div>方向：{heading}°</div> <div>俯仰角：{pitch}°</div><div class='hide700'>视高：{cameraHeight}米</div>"
       }
     },
+    "templateValues": {
+      "dataServer": "//data.mars3d.cn",
+      "gltfServerUrl": "//data.mars3d.cn/gltf"
+    },
     "terrain": {
       "url": "//data.mars3d.cn/terrain",
       "show": true
@@ -73,8 +73,8 @@
         "icon": "img/basemaps/tdt_img.png",
         "type": "group",
         "layers": [
-          { "name": "底图", "type": "tdt", "layer": "img_d", "key": ["789e558be762ff832392a0393fd8a4f1"] },
-          { "name": "注记", "type": "tdt", "layer": "img_z", "key": ["789e558be762ff832392a0393fd8a4f1"] }
+          { "name": "底图", "type": "tdt", "layer": "img_d" },
+          { "name": "注记", "type": "tdt", "layer": "img_z" }
         ],
         "show": true
       },
@@ -84,8 +84,8 @@
         "icon": "img/basemaps/tdt_vec.png",
         "type": "group",
         "layers": [
-          { "name": "底图", "type": "tdt", "layer": "vec_d", "key": ["789e558be762ff832392a0393fd8a4f1"] },
-          { "name": "注记", "type": "tdt", "layer": "vec_z", "key": ["789e558be762ff832392a0393fd8a4f1"] }
+          { "name": "底图", "type": "tdt", "layer": "vec_d" },
+          { "name": "注记", "type": "tdt", "layer": "vec_z" }
         ]
       },
       {
@@ -152,7 +152,6 @@
         "name": "微软影像",
         "icon": "img/basemaps/bingAerial.png",
         "type": "bing",
-        "key": "Am5SdKm6pNdkP1P5zuUOMZwleCHeA7GD5vuQgZ3xBUbEMBeQ5cQ1WN4B8xqqV1Vt",
         "layer": "Aerial"
       },
       {
@@ -242,12 +241,10 @@
       {
         "pid": 50,
         "name": "行政区划界线",
-        "type": "xyz",
-        "url": "https://t{s}.tianditu.gov.cn/DataServer?T=ibo_w&x={x}&y={y}&l={z}&tk=789e558be762ff832392a0393fd8a4f1",
-        "subdomains": "01234567",
+        "type": "tdt",
+        "url": "https://t{s}.tianditu.gov.cn/DataServer?T=ibo_w&x={x}&y={y}&l={z}",
         "maximumLevel": 10,
-        "mapSplit": false,
-        "show": true
+        "mapSplit": false
       },
       {
         "pid": 50,
@@ -289,8 +286,6 @@
         "layers": "mars:hfjy",
         "crs": "EPSG:4326",
         "parameters": { "transparent": "true", "format": "image/png" },
-        "highlight": { "clampToGround": true },
-        "center": { "lat": 31.743214, "lng": 117.277097, "alt": 47197.7, "heading": 0.3, "pitch": -78.8 },
         "popup": "名称：{项目名称}<br />类型：{设施类型}<br />面积：{用地面积}亩<br />位置：{具体位置}",
         "mapSplit": false,
         "show": false,

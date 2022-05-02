@@ -3,30 +3,39 @@
   .ant-tree {
     background: none;
     color: @mars-basecolor;
+    padding-bottom: 2px;
   }
+
   .ant-tree-checkbox {
     margin-right: 0;
   }
+
   .ant-tree-show-line .ant-tree-switcher,
   .ant-tree-checkbox-inner {
     background: none !important;
-    border-color:@tree-border-color;
+    border-color: @tree-border-color;
   }
+
   .ant-tree-checkbox-checked {
     background: @primary-color;
+
     .ant-tree-checkbox-inner {
       border-color: @primary-color;
     }
   }
+
   .anticon-file.ant-tree-switcher-line-icon {
     display: none;
   }
+
   .ant-tree-show-line .ant-tree-indent-unit::before {
     border-right: 1px dotted @mars-basecolor;
   }
+
   .ant-tree-switcher-noop {
     width: 20px;
   }
+
   .ant-tree-switcher-noop::before {
     content: "";
     display: inline-block;
@@ -34,6 +43,7 @@
     height: 26px;
     border-right: 1px dotted @mars-basecolor;
   }
+
   .ant-tree-treenode-leaf-last {
     .ant-tree-switcher-noop::before {
       content: "";
@@ -43,6 +53,7 @@
       border-right: 1px dotted @mars-basecolor;
     }
   }
+
   .ant-tree-switcher-noop::after {
     content: "";
     display: inline-block;
@@ -51,10 +62,12 @@
     top: 10px;
     border-bottom: 1px dotted @mars-basecolor;
   }
+
   .ant-tree-node-content-wrapper {
     .ant-tree-iconEle {
       line-height: 2.2;
     }
+
     &:hover {
       background: hsla(0, 0%, 100%, 0.08) !important;
     }

@@ -92,7 +92,7 @@ export function apiArrayToSync(context: any, apiNames: string[], success = "succ
         options[error] = function (error) {
           reject(error)
         }
-        console.log("zhix", options)
+        // console.log("zhix", options)
         apiFunc.call(context, options)
       })
   })

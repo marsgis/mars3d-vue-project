@@ -210,11 +210,7 @@ export function centerAtLonLat(text: string): void {
 }
 
 export function flyToGraphic(graphic: mars3d.graphic.BaseGraphic, option: any): void {
-  map.flyToGraphic(graphic, option)
-
-  setTimeout(() => {
-    graphicLayer.openPopup(graphic)
-  }, 3000)
+  map.flyToGraphic(graphic, { ...option, complete: () => graphicLayer.openPopup(graphic) })
 }
 
 export function clearLayers(): void {

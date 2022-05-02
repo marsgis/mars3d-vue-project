@@ -34,7 +34,7 @@ const options: GuiItem[] = [
     value: [1, 2, 3],
     units: ["度", "分", "秒"],
     change(data) {
-      console.log(data)
+      console.log("数据change变化", data)
     }
   },
   {
@@ -61,7 +61,7 @@ const options: GuiItem[] = [
       }
     ],
     change(data) {
-      console.log(data)
+      console.log("数据change变化", data)
     }
   },
   {
@@ -87,7 +87,7 @@ const options: GuiItem[] = [
       }
     ],
     change(data) {
-      console.log(data)
+      console.log("数据change变化", data)
     }
   },
   {
@@ -116,7 +116,7 @@ const options: GuiItem[] = [
     label: "经度",
     value: "122.234324",
     change(data) {
-      console.log(data)
+      console.log("数据change变化", data)
     }
   },
   {
@@ -125,7 +125,7 @@ const options: GuiItem[] = [
     label: "备注",
     value: "测试",
     change(data) {
-      console.log(data)
+      console.log("数据change变化", data)
     }
   },
   {
@@ -134,7 +134,7 @@ const options: GuiItem[] = [
     label: "开关",
     value: true,
     change(data) {
-      console.log(data)
+      console.log("数据change变化", data)
     }
   },
   {
@@ -146,7 +146,7 @@ const options: GuiItem[] = [
     max: 100,
     value: 0.3,
     change(data) {
-      console.log(data)
+      console.log("数据change变化", data)
     }
   },
   {
@@ -159,7 +159,7 @@ const options: GuiItem[] = [
     value: 0.3,
     extra: "{opcity}",
     change(data) {
-      console.log(data)
+      console.log("数据change变化", data)
     }
   },
   {
@@ -173,7 +173,7 @@ const options: GuiItem[] = [
     value: [1, 50],
     extra: "{opcity}",
     change(data) {
-      console.log(data)
+      console.log("数据change变化", data)
     }
   }
 ]
@@ -193,7 +193,7 @@ function insertOne() {
     label: "纬度",
     value: "122.234324",
     change(data) {
-      console.log(data)
+      console.log("数据change变化", data)
     }
   })
 }
@@ -206,7 +206,7 @@ function insertMore() {
       label: "字段1",
       value: "字段一",
       change(data) {
-        console.log(data)
+        console.log("数据change变化", data)
       }
     },
     {
@@ -215,7 +215,7 @@ function insertMore() {
       label: "字段2",
       value: "字段二",
       change(data) {
-        console.log(data)
+        console.log("数据change变化", data)
       }
     }
   )
@@ -226,7 +226,7 @@ function updateExtra() {
 }
 
 function gui1Change(data) {
-  console.log(data)
+  console.log("数据change变化", data)
 }
 
 const options2 = ref<GuiItem[]>([
@@ -236,7 +236,7 @@ const options2 = ref<GuiItem[]>([
     label: "字段1",
     value: "字段一",
     change(data) {
-      console.log(data)
+      console.log("数据change变化", data)
     }
   }
 ])
@@ -249,7 +249,7 @@ function updateAll() {
       label: "字段2",
       value: "字段二",
       change(data) {
-        console.log(data)
+        console.log("数据change变化", data)
       }
     }
   ]
