@@ -85,6 +85,7 @@ git clone git@gitee.com:marsgis/mars3d-vue-project.git
 ```
 
 ### 运行命令
+请将机器Node版本升级到v14及以上版本
 
 #### 首次运行前安装依赖
 
@@ -109,7 +110,7 @@ npm run build
 
 ## 运行效果
 
-访问[基础项目 Vue 版](http://mars3d.cn/project/jcxm-vue/index.html) 在线体验效果和功能
+访问[基础项目 Vue 版](http://mars3d.cn/project/vue/index.html) 在线体验效果和功能
 
 ![image](https://muyao1987.gitee.io/cdn/mars3d.cn/xm/jcxm-vue/1.jpg)
 
@@ -117,16 +118,11 @@ npm run build
 
 ## 浏览器支持
 
-本地开发推荐使用`Chrome 80+` 浏览器
+推荐使用`Chrome 90+` 浏览器， 建议升级浏览器到最新版本访问。
 
-支持现代浏览器, 不支持 IE
-
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
+| IE | Edge | Firefox | Chrome | Safari |
 | :-: | :-: | :-: | :-: | :-: |
 | not support | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
-
- 
-
 
 ## 如何反馈问题？
 
@@ -149,7 +145,7 @@ npm run build
 - [Es6+](http://es6.ruanyifeng.com/) - 熟悉 es6 基本语法
 - [Ant Design Vue](https://next.antdv.com/components/overview-cn/)：UI 控件库 
 - [ESlint](https://eslint.bootcss.com/)：代码检查工具
-- [IconPark](https://iconpark.oceanengine.com/official)：UI 图标库
+- [IconPark](https://iconpark.oceanengine.com/official)：UI 图标库 
 
 > 需要有一定的知识储备，包括 vue3.0 中的 composition Api 模式等，建议浏览下[Web 前端知识视频讲解](https://www.bilibili.com/video/BV1xr4y1U73r/)
 
@@ -617,6 +613,7 @@ const show = (name: string) => {
   "axios": "^0.23.0",
   "core-js": "^3.6.5",
   "ant-design-vue": "3.0.0-alpha.13",
+  "@icon-park/vue-next": "^1.3.5",
   "nprogress": "^0.2.0",
   "echarts": "^5.2.2",
   "localforage": "^1.10.0"
@@ -683,7 +680,7 @@ app.use(injectState(widgetStore), key)
 
 ### 1. 如果切换mars3d到授权版
 
- 参考 [获取Mars3D](http://mars3d.cn/dev/guide/basics/download.html)中“从 Mars3D官网 下载获取”章节介绍。
+ 参考 [获取Mars3D](http://mars3d.cn/dev/guide/start/download.html)中“从 Mars3D官网 下载获取”章节介绍。
 
  流程大概是：
 - 将npm安装后的`node_modules/mars3d/`下的所有文件拷贝一份放在`src\common\mars3d-sdk\`目录。
@@ -703,7 +700,7 @@ chainWebpack: (config) => {
   "mars3d-cesium": "^1.93.0",
 },
 ```
- ![image](http://mars3d.cn/dev/img/guide/basics-download-import.jpg) 
+ ![image](http://mars3d.cn/dev/img/guide/start-download-import.jpg) 
 
 
 ### 2. 局域网离线使用时注意事项

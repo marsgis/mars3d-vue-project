@@ -8,8 +8,9 @@
     "clean-cache": "rimraf node_modules/.cache/ && rimraf node_modules/.vite",
     "clean-lib": "rimraf node_modules",
     "preview": "vite preview",
-    "build": "npm run lint && vite build",
-    "lint": "eslint ./src/**/*.{js,jsx,vue,ts,tsx} --fix && vue-tsc --noEmit"
+    "build": "vite build",
+    "lint": "vue-tsc --noEmit --skipLibCheck && eslint ./src/**/*.{js,jsx,vue,ts,tsx} --fix",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@icon-park/vue-next": "^1.3.6",
@@ -22,7 +23,7 @@
     "kml-geojson": "^1.2.0",
     "localforage": "^1.10.0",
     "mapv": "^2.0.62",
-    "mars3d": "^3.3.7",
+    "mars3d": "^3.3.8",
     "mars3d-cesium": "^1.93.0",
     "mars3d-echarts": "^3.3.0",
     "mars3d-heatmap": "^3.3.0",
@@ -39,13 +40,17 @@
     "@vitejs/plugin-vue": "^2.1.0",
     "@vue/eslint-config-typescript": "^10.0.0",
     "consola": "^2.15.3",
+    "eslint": "^7.32.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.2.0",
     "eslint-plugin-vue": "^8.3.0",
     "fs-extra": "^10.0.0",
+    "husky": "^7.0.4",
     "less": "^4.1.2",
+    "lint-staged": "^12.4.1",
+    "prettier": "^2.6.2",
     "rollup-plugin-visualizer": "^5.6.0",
     "serve-static": "^1.14.2",
     "standard": "^16.0.4",
@@ -80,5 +85,10 @@
   ],
   "author": "火星科技",
   "license": "Apache-2.0",
-  "homepage": "http://mars3d.cn"
+  "homepage": "http://mars3d.cn",
+  "lint-staged": {
+    "*.{js,jsx,vue,ts,tsx}": [
+      "npm run lint"
+    ]
+  }
 }

@@ -102,7 +102,9 @@ const checkedChange = (keys: string[], e: any) => {
     }
     if (keys.indexOf(e.node.id) !== -1) {
       layer.show = true
-      layer.flyTo()
+      layer.readyPromise.then(function (layer) {
+        layer.flyTo()
+      })
     } else {
       layer.show = false
     }
