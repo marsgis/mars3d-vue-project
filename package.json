@@ -9,6 +9,7 @@
     "clean-lib": "rimraf node_modules",
     "preview": "vite preview",
     "build": "vite build",
+    "serve:dist": "http-server ./dist",
     "lint": "vue-tsc --noEmit --skipLibCheck && eslint ./src/**/*.{js,jsx,vue,ts,tsx} --fix",
     "prepare": "husky install"
   },
