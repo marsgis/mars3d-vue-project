@@ -9,7 +9,8 @@
     "clean-lib": "rimraf node_modules",
     "preview": "vite preview",
     "build": "vite build",
-    "lint": "vue-tsc --noEmit --skipLibCheck && eslint ./src/**/*.{js,jsx,vue,ts,tsx} --fix",
+    "lint": "vue-tsc --noEmit --skipLibCheck && npm run eslint",
+    "eslint": "eslint ./src/**/*.{js,jsx,vue,ts,tsx} --fix",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -23,7 +24,7 @@
     "kml-geojson": "^1.2.0",
     "localforage": "^1.10.0",
     "mapv": "^2.0.62",
-    "mars3d": "^3.3.8",
+    "mars3d": "^3.3.9",
     "mars3d-cesium": "^1.93.0",
     "mars3d-echarts": "^3.3.0",
     "mars3d-heatmap": "^3.3.0",
@@ -88,7 +89,7 @@
   "homepage": "http://mars3d.cn",
   "lint-staged": {
     "*.{js,jsx,vue,ts,tsx}": [
-      "npm run lint"
+      "npm run eslint"
     ]
   }
 }
