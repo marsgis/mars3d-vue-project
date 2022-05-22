@@ -73,6 +73,7 @@ export function bindMourseClick() {
     const point = mars3d.LngLatPoint.fromCartesian(cartesian)
     point.format() // 经度、纬度、高度
     eventTarget.fire("clickMap", { point })
+    updateMarker(false, point.lng, point.lat, point.alt)
   })
 }
 

@@ -250,7 +250,7 @@ mapWork.eventTarget.on("clickMap", (event: any) => {
   marsPointTrans(data)
   marsProj4Trans(data)
   // 更新面板
-  mapWork.updateMarker(false, data.lng, data.lat, data.alt)
+  // mapWork.updateMarker(false, data.lng, data.lat, data.alt)
 })
 
 // 更新度分秒

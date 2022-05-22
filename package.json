@@ -4,7 +4,7 @@
   "description": "在Vue3技术栈下的Mars3D平台 基础项目",
   "scripts": {
     "dev": "vite",
-    "serve": "npm run clean-cache && vite",
+    "serve": "npm run clean-cache && vite --host",
     "clean-cache": "rimraf node_modules/.cache/ && rimraf node_modules/.vite",
     "clean-lib": "rimraf node_modules",
     "preview": "vite preview",
