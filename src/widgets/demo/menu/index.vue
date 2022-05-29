@@ -15,7 +15,7 @@ import { defineCustomElement } from "vue"
 import { useWidget } from "@mars/common/store/widget"
 import useLifecycle from "@mars/common/uses/use-lifecycle"
 import * as mapWork from "./map"
-import MyButton from "./button.ce.vue"
+import MyButton from "./demo-button.ce.vue"
 import { useRouter } from "vue-router"
 
 const router = useRouter()
