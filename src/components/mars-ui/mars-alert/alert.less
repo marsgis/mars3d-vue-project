@@ -1,31 +1,33 @@
 // alert
 .mars-global-alert {
-  * {
-    color: @mars-basecolor;
-  }
   .ant-modal-confirm-title {
-    margin: 0;
-    font-size: 16px;
-    color: @mars-basecolor !important;
+    .mars-msg-title();
   }
   .ant-modal-confirm-content {
-    font-size: 14px;
-    color: @mars-basecolor !important;
+    font-size: 16px;
+    padding: 10px 14px;
+    margin: 0;
+    color: @mars-base-border;
     user-select: text;
   }
   .ant-modal-confirm-btns {
-    margin-top: 20px;
+    margin: 0;
+    width: 100%;
+    text-align: center;
     .ant-btn {
-      background: @background-base;
-      background-color: @background-base;
+      background: @mars-primary-color;
+      background-color: @mars-primary-color;
+      color: @mars-base-color;
+      border: none;
     }
   }
   .ant-modal-content {
-    background: @background-base;
-    border: 1px solid @border-color-base;
+    background-color: transparent;
+    padding-bottom: 10px;
+    .mars-msg-bg();
   }
   .ant-modal-body {
-    padding: 15px;
+    padding: 0;
   }
   .anticon {
     * {

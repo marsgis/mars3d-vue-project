@@ -1,5 +1,6 @@
 import { message } from "ant-design-vue"
-import { App } from "vue"
+import MarsIcon from "../mars-icon/index.vue"
+import { App, h } from "vue"
 import "./message.less"
 
 /**
@@ -19,6 +20,7 @@ export const $message = (msg: string, type: keyof typeof message = "info") => {
     const func = message[type] as (a: any) => Promise<any>
     return func({
       class: "mars-message",
+      icon: h(MarsIcon, { icon: "remind", theme: "filled", size: "24", fill: "#008aff" }),
       content: msg
     })
   } else {

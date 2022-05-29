@@ -1,9 +1,9 @@
 <template>
-  <component class="mars-icon" :is="iconComponent" theme="outline" :fill="color" :size="width" v-bind="attrs" />
+  <span class="mars-icon" v-html="svgComponent"></span>
 </template>
 <script lang="ts">
 import { computed, useAttrs, defineComponent } from "vue"
-import * as iconModules from "@icon-park/vue-next"
+import * as svgModule from "@icon-park/svg"
 import _ from "lodash"
 export default defineComponent({
   name: "mars-icon",
@@ -24,10 +24,17 @@ export default defineComponent({
   setup(props) {
     const attrs = useAttrs()
     const iconName = computed(() => _.upperFirst(_.camelCase(props.icon)))
-    const iconComponent = iconModules[iconName.value] || iconModules.Logout
+
+    const svgComponent = svgModule[iconName.value]({
+      theme: "outline",
+      fill: props.color,
+      size: props.width,
+      ...attrs
+    })
+
     return {
       attrs,
-      iconComponent
+      svgComponent
     }
   }
 })

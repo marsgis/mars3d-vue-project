@@ -1,5 +1,5 @@
 import * as mars3d from "mars3d"
-import { Cesium } from "mars3d"
+const Cesium = mars3d.Cesium
 
 let map: mars3d.Map // 地图对象
 export const eventTarget = new mars3d.BaseClass()

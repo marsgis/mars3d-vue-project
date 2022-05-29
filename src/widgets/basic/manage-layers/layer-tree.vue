@@ -4,7 +4,7 @@
   </mars-dialog>
 </template>
 <script lang="ts" setup>
-import { onMounted, ref } from "vue"
+import { toRaw, onMounted, ref } from "vue"
 import * as mapWork from "./map"
 import axios from "axios"
 import { $message } from "@mars/components/mars-ui/index"
@@ -66,13 +66,13 @@ function isHaveChildren(arr: any) {
 
 // 点击节点 定位
 const flytoModelNode = (selectedKeys: any, selected: any) => {
-  const id = currentWidget.data.id
+  const id = toRaw(currentWidget.data.id)
   mapWork.flytoModelNode(id, selected.node.sphere)
 }
 
 // 选中节点 修改样式
 const onModelChecked = (keys: string[], e: any) => {
-  const id = currentWidget.data.id
+  const id = toRaw(currentWidget.data.id)
   // 判断
   if (keys.length > 2000) {
     $message(`勾选数据${keys.length}大于2000，请减少勾选数量。`)

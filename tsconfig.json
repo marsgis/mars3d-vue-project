@@ -17,31 +17,15 @@
     "experimentalDecorators": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "outDir": "./dist",
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost"
-    ],
     "isolatedModules": false,
-    "types": ["vite/client", "node"],
     "baseUrl": ".",
+    "outDir": "dist",
+    "types": ["vite/client", "node"],
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
     "paths": {
-      "@mars/*": [
-        "src/*"
-      ]
+      "@mars/*": ["src/*"]
     }
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue"
-  ],
-  "exclude": [
-    "node_modules",
-    "tests/server/**/*.ts",
-    "src/**/*.js",
-    "dist"
-  ]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "exclude": ["node_modules", "src/**/*.js", "dist"]
 }

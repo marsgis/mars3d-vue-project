@@ -7,9 +7,10 @@
  * @copyright 火星科技 mars3d.cn
  * @author 火星吴彦祖 2022-02-19
  */
-import { computed, onUnmounted, onMounted } from "vue"
+import { computed, onUnmounted, onMounted, h, ref } from "vue"
 import * as mars3d from "mars3d"
 import { getQueryString } from "@mars/utils/mars-util"
+import { getDefaultContextMenu } from "@mars/utils/getDefaultContextMenu"
 import { $alert, $message } from "@mars/components/mars-ui/index"
 
 const props = withDefaults(
@@ -47,7 +48,10 @@ const emit = defineEmits(["onload"])
 const initMars3d = (option: any) => {
   map = new mars3d.Map(withKeyId.value, option)
 
-  // //如果有xyz传参，进行定位
+  // 绑定当前项目的默认右键菜单
+  map.bindContextMenu(getDefaultContextMenu(map))
+
+  // 如果有xyz传参，进行定位
   const lat = getQueryString("lat")
   const lng = getQueryString("lng")
   if (lat && lng) {
@@ -158,11 +162,14 @@ onUnmounted(() => {
   text-align: center;
 }
 .cesium-button {
-  background-color: #3f4854;
+  background-color: @mars-bg-base;
   color: #e6e6e6;
   fill: #e6e6e6;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   line-height: 32px;
+}
+.cesium-button:hover {
+  background: @mars-hover-btn-bg;
 }
 
 /**cesium 底图切换面板*/
@@ -171,6 +178,7 @@ onUnmounted(() => {
   left: 40px;
   max-height: 700px;
   margin-bottom: 5px;
+  background-color: @mars-bg-base;
 }
 
 /**cesium 帮助面板*/
@@ -179,6 +187,18 @@ onUnmounted(() => {
   bottom: 0;
   left: 40px;
   transform-origin: left bottom;
+  background: none;
+  background-color: @mars-bg-base;
+  .cesium-navigation-help-instructions {
+    background: none;
+  }
+  .cesium-navigation-button {
+    background: none;
+  }
+  .cesium-navigation-button-selected,
+  .cesium-navigation-button-unselected:hover {
+    background: @mars-select-bg;
+  }
 }
 
 /**cesium 二维三维切换*/
@@ -198,7 +218,7 @@ onUnmounted(() => {
   z-index: 9999;
 }
 .cesium-geocoder-searchButton {
-  background-color: #3f4854;
+  background-color: @mars-bg-base;
 }
 .cesium-viewer-geocoderContainer .cesium-geocoder-input {
   background-color: rgba(63, 72, 84, 0.7);
@@ -207,16 +227,16 @@ onUnmounted(() => {
   background-color: rgba(63, 72, 84, 0.9);
 }
 .cesium-viewer-geocoderContainer .search-results {
-  background-color: #3f4854;
+  background-color: @mars-bg-base;
 }
 
 /**cesium info信息框*/
 .cesium-infoBox {
   top: 50px;
-  background: rgba(63, 72, 84, 0.9);
+  background-color: @mars-bg-base;
 }
 .cesium-infoBox-title {
-  background-color: #3f4854;
+  background-color: @mars-bg-base;
 }
 
 /**cesium 任务栏的FPS信息*/
@@ -235,6 +255,52 @@ onUnmounted(() => {
   top: 10px;
   left: 10px;
   right: auto;
-  background-color: #3f4854;
+}
+.cesium-cesiumInspector {
+  background-color: @mars-bg-base;
+}
+
+/**覆盖mars3d内部控件的颜色等样式*/
+.mars3d-compass .mars3d-compass-outer {
+  fill: @mars-bg-base;
+}
+.mars3d-contextmenu-ul,
+.mars3d-sub-menu {
+  background-color: @mars-bg-base;
+
+  > li > a:hover,
+  > li > a:focus,
+  > li > .active {
+    background-color: @mars-hover-btn-bg;
+  }
+
+  > .active > a,
+  > .active > a:hover,
+  > .active > a:focus {
+    background-color: @mars-hover-btn-bg;
+  }
+}
+
+/* Popup样式*/
+.mars3d-popup-color {
+  color: @mars-base-color;
+}
+.mars3d-popup-background {
+  background: @mars-bg-base;
+}
+.mars3d-template-content label {
+  padding-right: 6px;
+}
+.mars3d-template-titile {
+  border-bottom: 1px solid @mars-hover-btn-bg;
+}
+.mars3d-template-titile a {
+  font-size: 16px;
+}
+
+.mars3d-popup-btn-custom {
+  padding: 3px 10px;
+  border: 1px solid #209ffd;
+  background: #209ffd1c;
 }
 </style>

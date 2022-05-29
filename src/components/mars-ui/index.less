@@ -23,16 +23,17 @@ body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, /* structural elements 结构�
   list-style: none;
 }
 
+#root,
 #app {
   height: 100%;
 }
 
-/*滚动条*/
 body,
 html {
-  background-color: @background-base;
-  color: @mars-basecolor;
+  background-color: @mars-bg-base;
+  color: @mars-base-color;
   font-size: 14px;
+  min-width: 900px;
   overflow: hidden;
   * {
     scrollbar-base-color: #f4f7fc;
@@ -43,119 +44,25 @@ html {
     scrollbar-3dlight-color: #f4f7fc;
     scrollbar-highlight-color: #f4f7fc;
     scrollbar-darkshadow-color: #f4f7fc;
-    font-size: @font-size-base;
+    font-size: 14px;
     scrollbar-width: thin;
   }
-}
-
-.layout-right__header {
-  background-color: @mars-background-active;
-  h3 {
-    color: @mars-basecolor !important;
-  }
-}
-.editor-container .editor-header {
-  background-color: @mars-background-active;
-  .fileTip {
-    color: @mars-basecolor !important;
-  }
-}
-
-.mars-link-btn-primary {
-  * {
-    color: @primary-color !important;
-  }
-}
-
-::-webkit-scrollbar-button {
-  height: 0;
-  width: 0;
-  display: none;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-track,
-::-webkit-scrollbar-thumb {
-  border: 0;
-}
-
-::-webkit-scrollbar {
-  height: 10px;
-  width: 4px;
-  background: transparent;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb {
-  padding-top: 100px;
-  -webkit-box-shadow: inset 1px 1px 0 rgba(0, 0, 0, 0.1), inset -1px -1px 0 rgba(0, 0, 0, 0.07);
-  background-color: rgba(79, 79, 79, 0.8);
-  min-height: 28px;
-  border-radius: 4px;
-  background-clip: padding-box;
-}
-
-::-webkit-scrollbar-track,
-::-webkit-scrollbar-thumb {
-  border: 0;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  -webkit-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.25);
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
-::-webkit-scrollbar-thumb:active {
-  -webkit-box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.35);
-  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .base-overlay {
   .ant-dropdown-menu {
     background-color: rgba(63, 72, 84, 0.7) !important;
-    .i-icon {
+    .mars-icon {
       vertical-align: middle;
       margin-right: 4px;
     }
   }
 }
 
-/* Popup样式*/
-.mars3d-popup-btn-custom {
-  padding: 3px 10px;
-  border: 1px solid #209ffd;
-  background: #209ffd1c;
-}
-
-.mars3d-template-content label {
-  padding-right: 6px;
-}
-
-.mars3d-template-titile a {
-  font-size: 16px;
-}
-
 .icon-vertical-a {
   width: 20px;
   height: 20px;
   vertical-align: -0.3em !important;
-}
-
-.ant-popover {
-  .ant-popover-title {
-    color: @mars-basecolor;
-  }
-}
-.ant-popover-inner-content {
-  a {
-    color: @primary-color !important;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
 }
 
 .mars-primary-table {

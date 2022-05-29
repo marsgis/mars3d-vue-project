@@ -1,14 +1,15 @@
 /*提示*/
 .mars-message {
   .ant-message-notice-content {
-    background: @background-base !important;
-    color: @mars-basecolor;
-    border: 1px solid @border-color-base;
-  }
-
-  .ant-message-info .anticon {
-    * {
-      color: #4db3ff !important;
+    background: none;
+    color: @mars-base-color;
+    padding: 15px 20px;
+    .mars-msg-bg();
+    .ant-message-info span{
+      font-size: 16px;
+    }
+    .mars-icon {
+      margin-right: 10px;
     }
   }
 }

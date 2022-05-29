@@ -1,5 +1,5 @@
 <template>
-  <a-switch v-model:checked="switchValue" @change="valueChange" />
+  <a-switch class="mars-switch" v-model:checked="switchValue" @change="valueChange" />
 </template>
 
 <script lang="ts" setup>
@@ -38,3 +38,12 @@ export default {
   name: "mars-switch"
 }
 </script>
+<style lang="less" scoped>
+// 开关
+.mars-switch {
+  background-color: @mars-disable-btn-bg;
+  &.ant-switch-checked {
+    background-color: @mars-primary-color !important;
+  }
+}
+</style>

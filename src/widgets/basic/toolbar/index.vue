@@ -1,16 +1,16 @@
 <template>
   <mars-pannel customClass="base-pannel" right="10" top="10">
     <template v-for="(item, i) in data" :key="i">
-      <mars-button v-if="item.widget && !item.children" type="link" @click="showWidget(item.widget)">
+      <div v-if="item.widget && !item.children" class="toolbar-item" @click="showWidget(item.widget)">
         <mars-icon :icon="item.icon" width="18"></mars-icon>
-        <span>{{ item.name }}</span>
-      </mars-button>
-      <mars-dropdown v-if="item.children && !item.widget" trigger="click" placement="bottomRight">
-        <mars-button type="link">
+        <span class="title">{{ item.name }}</span>
+      </div>
+      <mars-dropdown-menu v-if="item.children && !item.widget" trigger="click" placement="bottomRight">
+        <div class="toolbar-item">
           <mars-icon :icon="item.icon" width="18"></mars-icon>
-          <span>{{ item.name }}</span>
+          <span class="title">{{ item.name }}</span>
           <mars-icon icon="down" width="18"></mars-icon>
-        </mars-button>
+        </div>
         <template #overlay>
           <a-menu @click="clickMenu">
             <a-menu-item v-for="child in item.children" :key="child.widget">
@@ -19,8 +19,7 @@
             </a-menu-item>
           </a-menu>
         </template>
-      </mars-dropdown>
-      <a-divider v-if="i < data.length - 1" type="vertical" />
+      </mars-dropdown-menu>
     </template>
   </mars-pannel>
 </template>
@@ -70,12 +69,23 @@ const clickMenu = ({ key }: any) => {
 
 <style lang="less">
 .base-pannel {
-  background: none !important;
   padding: 0 !important;
-  border: none !important;
+  background: rgba(23, 49, 71, 0.8);
+  border: 1px solid;
+  border-image: linear-gradient(180deg, #1081e1, #1081e1) 10 10;
+  border-radius: 0px;
   background-color: rgba(43, 44, 47, 0.8) !important;
-  .ant-btn {
-    padding: 5px 10px;
+  height: 40px;
+  .toolbar-item {
+    display: inline-block;
+    padding: 6px 12px;
+    height: 100%;
+    color: @mars-content-color;
+    font-size: 15px;
+    &:hover {
+      background-color: @mars-select-bg;
+      color: @mars-base-color;
+    }
   }
   .mars-icon {
     margin-right: 5px;

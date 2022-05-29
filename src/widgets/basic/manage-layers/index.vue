@@ -1,8 +1,8 @@
 <template>
-  <mars-dialog title="图层" width="280" :min-width="250" top="50" bottom="40" right="10">
+  <mars-dialog title="图层" width="280" :min-width="250" top="60" bottom="40" right="10">
     <mars-tree checkable :tree-data="treeData" v-model:expandedKeys="expandedKeys" v-model:checkedKeys="checkedKeys" @check="checkedChange">
       <template #title="node">
-        <mars-dropdown :trigger="['contextmenu']">
+        <mars-dropdown-menu :trigger="['contextmenu']">
           <span @dblclick="flyTo(node)">{{ node.title }}</span>
           <template #overlay v-if="node.hasZIndex">
             <a-menu @click="(menu: any) => onContextMenuClick(node, menu.key)">
@@ -12,7 +12,7 @@
               <a-menu-item key="4">图层置为底层</a-menu-item>
             </a-menu>
           </template>
-        </mars-dropdown>
+        </mars-dropdown-menu>
         <span v-if="node.hasOpacity" v-show="node.checked" class="tree-slider">
           <mars-slider v-model:value="opacityObj[node.id]" :min="0" :step="1" :max="100" @change="opcityChange(node)" />
         </span>
@@ -58,12 +58,12 @@ const checkedChange = (keys: string[], e: any) => {
   const layer = layersObj[e.node.id]
   // console.log("点击的矢量图层", layer)
   if (layer) {
-    if (!layer.isAdded) {
+    if (layer.isAdded === false) {
       mapWork.addLayer(layer)
     }
 
     // 特殊处理同目录下的单选的互斥的节点，可在config对应图层节点中配置"radio":true即可
-    if (layer.options.radio && e.checked) {
+    if (layer.options && layer.options.radio && e.checked) {
       // 循环所有的图层
       for (const i in layersObj) {
         const item = layersObj[i]
@@ -82,7 +82,7 @@ const checkedChange = (keys: string[], e: any) => {
     }
 
     // 处理图层的关联事件
-    if (layer.options.onWidget) {
+    if (layer.options && layer.options.onWidget) {
       if (e.checked) {
         if (lastWidget) {
           disable(lastWidget)
@@ -102,15 +102,16 @@ const checkedChange = (keys: string[], e: any) => {
     }
     if (keys.indexOf(e.node.id) !== -1) {
       layer.show = true
-      layer.readyPromise.then(function (layer) {
-        layer.flyTo()
-      })
+      layer.readyPromise &&
+        layer.readyPromise.then(function (layer) {
+          layer.flyTo()
+        })
     } else {
       layer.show = false
     }
 
     // 处理图层构件树控件
-    if (layer.options.scenetree) {
+    if (layer.options && layer.options.scenetree) {
       initLayerTree(layer)
     }
   }
@@ -192,6 +193,8 @@ function initTree() {
     if (!layer._hasMapInit && layer.pid === -1 && layer.id !== 99) {
       layer.pid = 99 // 示例中创建的图层都放到99分组下面
     }
+
+    layersObj[layer.id] = layers
 
     if (layer && layer.pid === -1) {
       const node: any = reactive({

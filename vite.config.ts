@@ -37,7 +37,7 @@ export default ({ mode }: ConfigEnv) => {
       extensions: [".js", ".ts", ".jsx", ".tsx", ".json"]
     },
     optimizeDeps: {
-      include: ["mars3d", "kml-geojson", "@mars/common/store/widget"]
+      include: ["kml-geojson", "@mars/common/store/widget"]
     },
     json: {
       // 支持从 .json 文件中进行按名导入
@@ -63,18 +63,13 @@ export default ({ mode }: ConfigEnv) => {
       sourcemap: false,
       // 自定义rollup-commonjs插件选项
       commonjsOptions: {
-        include: /node_modules|src\/common/
+        include: /node_modules|packages|src\/common\/store/
       },
       // 自定义底层的 Rollup 打包配置
       rollupOptions: {
         input: {
           index: path.resolve(__dirname, "index.html"),
           demo: path.resolve(__dirname, "demo.html")
-        },
-        output: {
-          manualChunks: {
-            "mars3d-cesium": ["mars3d-cesium"]
-          }
         }
       },
       // 当设置为 true, 构建后将会生成 manifest.json 文件

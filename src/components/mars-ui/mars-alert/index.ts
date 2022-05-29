@@ -17,6 +17,7 @@ export const $alert = (content: any, title = "提示", type: keyof typeof Modal 
       func({
         title,
         content,
+        icon: null,
         okType: "default",
         okText: "确定",
         class: "mars-global-alert",

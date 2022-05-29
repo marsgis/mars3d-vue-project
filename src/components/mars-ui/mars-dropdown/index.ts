@@ -10,10 +10,10 @@ import "./dropdown.less"
  */
 
 const MarsDropdown = defineComponent({
-  name: "mars-dropdown",
+  name: "mars-dropdown-menu",
   inheritAttrs: false,
   setup(props, context) {
-    return () => h(Dropdown, { ...context.attrs, ...props, overlayClassName: "mars-dropdown" }, context.slots)
+    return () => h(Dropdown, { ...context.attrs, ...props, overlayClassName: "mars-dropdown-menu" }, context.slots)
   }
 })
 

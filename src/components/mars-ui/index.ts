@@ -45,6 +45,7 @@ import {
   PageHeader,
   Popover,
   Progress,
+  Pagination,
   Radio,
   Row,
   Slider,
@@ -58,7 +59,8 @@ import {
   Typography,
   Upload,
   Card,
-  Image
+  Image,
+  Empty
 } from "ant-design-vue"
 
 import "./mars-echarts"
@@ -133,6 +135,8 @@ export default function (app: App, config: Record<string, any> = {}): App {
   app.use(Divider)
   app.use(Card)
   app.use(Image)
+  app.use(Pagination)
+  app.use(Empty)
 
   components.forEach((comp) => {
     app.component(comp.name, comp)

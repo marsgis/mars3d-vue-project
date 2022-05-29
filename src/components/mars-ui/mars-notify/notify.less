@@ -1,42 +1,22 @@
 // 功能提示和已知问题提示框
 .mars-notify-message {
-  * {
-    color: @mars-basecolor;
-  }
-  right: 30px !important;
-  padding: 15px 10px;
-  border: 1px solid @border-color-base;
-  background: @background-base !important;
-
-  .ant-notification-notice-icon {
-    margin: 0;
-    font-size: 22px;
-    line-height: 22px;
-  }
+  padding: 0;
+  background: none;
+  .mars-msg-bg();
   .ant-notification-notice-message {
-    height: 30px;
-    margin-left: 30px;
-    color: @mars-basecolor;
     font-size: 16px;
-    border-color: @border-color-base;
+    margin: 0;
+    .mars-msg-title();
   }
   .ant-notification-notice-description {
-    color: @mars-basecolor;
-    margin-left: 5px;
-    line-height: 21px;
-    text-indent: 25px;
+    color: @mars-base-color;
+    margin: 0;
+    padding: 20px;
     user-select: text;
   }
   .ant-notification-notice-close {
-    color: @mars-basecolor;
+    color: @mars-primary-color;
     top: 10px;
     right: 10px;
-  }
-
-  .anticon {
-    * {
-      color: @primary-color !important;
-      font-size: 20px;
-    }
   }
 }

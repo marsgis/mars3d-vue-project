@@ -22,8 +22,10 @@
 <script setup lang="ts">
 import { computed, ref, watchEffect } from "vue"
 import { components, GuiItem } from "./index"
+
 const props = defineProps<{
   options: GuiItem[]
+  labelCol: number
 }>()
 
 const emits = defineEmits(["change"])
@@ -39,8 +41,8 @@ const attrForm = computed(() => {
   return modelValues
 })
 
-const labelCol = { span: 6 }
-const wrapperCol = { span: 18 }
+const labelCol = { span: props.labelCol || 6 }
+const wrapperCol = { span: 24 - labelCol.span }
 
 watchEffect(() => {
   renderOptions.value = props.options.map((item) => mergeItemOption(item))
@@ -81,6 +83,13 @@ defineExpose({
     renderOptions.value.forEach((item) => {
       if (item.field === field) {
         item.extra = mergeExtra(value)
+      }
+    })
+  },
+  updateFields(fieldObj:any) {
+    renderOptions.value.forEach((item) => {
+      if (fieldObj[item.field]) {
+        item.value = fieldObj[item.field]
       }
     })
   },

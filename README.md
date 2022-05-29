@@ -27,10 +27,10 @@ Mars3D 基础项目 是基于[Mars3D 平台](http://mars3d.cn)做的一个应用
 - **适用于地图场景的widget模块化**: 继续沿用了原生 JS 版本 widget 架构的一些思想，使用 vue 方式实现了各 widget 功能
  
 
+ > 如果您不熟悉Vue，也可以阅读：[基础项目原生JS版](http://mars3d.cn/dev/guide/project/jcxm-es5.html)  、[基础项目React版](http://mars3d.cn/dev/guide/project/jcxm-react.html)
+
  
-## 文档
-- [官网教程地址](http://mars3d.cn/dev/guide/project/vue.html) 
-  
+
 
 ## 视频讲解
 
@@ -178,7 +178,7 @@ mars3d-vue-project
 
 项目所有功能主要在 `src/widgets/*/*`目录下，每一个功能对应了叶子目录下的一个`index.vue`和 `map.ts` 文件，复杂的 widget 目录下也会有相关子组建 `xxx.vue`。
 
-vue 下的 widget 设计，沿用了我们 [原生 JS 版基础项目](http://mars3d.cn/dev/guide/project/widget.html)的设计理念：
+vue 下的 widget 设计，沿用了我们 [原生 JS 版基础项目](http://mars3d.cn/dev/guide/project/jcxm-es5.html)的设计理念：
 
 - 所有的 widget 都是按需加载
 - 只需要通过简单的配置，即可控制不同业务面板间的互斥关系
@@ -612,7 +612,7 @@ const show = (name: string) => {
   "vue-color-kit": "^1.0.5",
   "axios": "^0.23.0",
   "core-js": "^3.6.5",
-  "ant-design-vue": "3.0.0-alpha.13",
+  "ant-design-vue": "^3.2.5",
   "@icon-park/vue-next": "^1.3.5",
   "nprogress": "^0.2.0",
   "echarts": "^5.2.2",
@@ -678,29 +678,17 @@ app.use(injectState(widgetStore), key)
 ## 开发中常见问题
 
 
-### 1. 如果切换mars3d到授权版
+### 1. 如何切换mars3d到授权版
 
  参考 [获取Mars3D](http://mars3d.cn/dev/guide/start/download.html)中“从 Mars3D官网 下载获取”章节介绍。
 
- 流程大概是：
-- 将npm安装后的`node_modules/mars3d/`下的所有文件拷贝一份放在`src\common\mars3d-sdk\`目录。
-- 将离线包内文件 覆盖至`src\common\mars3d-sdk\dist\`目录下。
-- 修改webpack或vue.config等相关配置文件中，增加下面配置
-```js 
-//已忽略其他配置
-chainWebpack: (config) => {
-    config.resolve.alias.set("mars3d", resolve("src/common/mars3d-sdk"))
-},
-```
-- 修改`package.json`删除mars3d包，增加@turf/turf mars3d-cesium包
-```json
-//已忽略其他配置
-"dependencies": {
-  "@turf/turf": "^6.5.0",
-  "mars3d-cesium": "^1.93.0",
-},
-```
- ![image](http://mars3d.cn/dev/img/guide/start-download-import.jpg) 
+流程大概是：
+- 配置后，无需改动源码，在项目代码中使用时与使用npm包是一样的方式，如 `import * as mars3d from "mars3d";`
+- 将 npm 安装后的`node_modules/mars3d/`下的所有文件拷贝一份放在`packages/mars3d/`目录。
+- 将`mars3d-sdk.rar`离线包内文件 覆盖至`packages/mars3d/dist/`目录下。
+- 修改`package.json`中mars3d包配置为：` "mars3d": "file:packages/mars3d",`
+ 
+![image](http://mars3d.cn/dev/img/guide/basics-download-import.jpg)
 
 
 ### 2. 局域网离线使用时注意事项

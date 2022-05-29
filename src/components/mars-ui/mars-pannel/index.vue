@@ -199,13 +199,9 @@ export default {
   border-radius: 4px;
   z-index: 1000;
 
-  border: 1px solid #4db3ff70;
-  background: linear-gradient(to left, #4db3ff, #4db3ff) left top no-repeat, linear-gradient(to bottom, #4db3ff, #4db3ff) left top no-repeat,
-    linear-gradient(to left, #4db3ff, #4db3ff) right top no-repeat, linear-gradient(to bottom, #4db3ff, #4db3ff) right top no-repeat,
-    linear-gradient(to left, #4db3ff, #4db3ff) left bottom no-repeat, linear-gradient(to bottom, #4db3ff, #4db3ff) left bottom no-repeat,
-    linear-gradient(to left, #4db3ff, #4db3ff) right bottom no-repeat, linear-gradient(to left, #4db3ff, #4db3ff) right bottom no-repeat;
-  background-size: 1px 20px, 20px 1px, 1px 20px, 20px 1px;
-  background-color: @background-base;
+  background-image: url(../assets/images/pannel-bg.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 
   .pannel-content {
     overflow-y: auto;

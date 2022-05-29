@@ -22,17 +22,17 @@ export default defineComponent({
 </script>
 <style lang="less" scoped>
 .mars-textarea {
-  color: @mars-basecolor;
-  background-color: @form-input-background !important;
+  color: @mars-base-color;
+  background-color: @mars-bg-base !important;
   :deep(.ant-input) {
-    background-color: @form-input-background !important;
-    color: @mars-basecolor;
+    background-color: @mars-bg-base !important;
+    color: @mars-base-color;
   }
   :deep(.ant-input-suffix .anticon) {
-    color: @mars-basecolor;
+    color: @mars-base-color;
   }
 }
 .mars-textarea[disabled]{
-  color: @mars-disable-color;
+  color: @mars-disable-btn-bg;
 }
 </style>

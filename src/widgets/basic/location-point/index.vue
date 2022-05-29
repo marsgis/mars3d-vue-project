@@ -1,5 +1,5 @@
 <template>
-  <mars-dialog title="坐标拾取" :handles="false" width="298" height="330" top="50" right="10" :min-width="340">
+  <mars-dialog title="坐标拾取" :handles="false" width="298" height="330" top="60" right="10" :min-width="340">
     <template #icon>
       <mars-icon icon="local" width="18" />
     </template>

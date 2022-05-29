@@ -68,7 +68,7 @@ interface Props {
   customClass?: string // 自定义class
 }
 const props = withDefaults(defineProps<Props>(), {
-  warpper: "app",
+  warpper: "mars-main-view",
   title: "",
   visible: false,
   width: 200,
@@ -194,11 +194,15 @@ function initSize() {
 function resize() {
   const pb = pannelBox.value
   const warpper = document.getElementById(mergeProps.value.warpper)
-  if (pb.offsetTop + pb.offsetHeight > warpper!.offsetHeight) {
-    pb.style.height = antoUnit(Math.max(warpper!.offsetHeight - pb.offsetTop, mergeProps.value.minHeight))
+  if (!warpper) {
+    return
   }
-  if (pb.offsetLeft + pb.offsetWidth > warpper!.offsetWidth) {
-    pb.style.width = antoUnit(Math.max(warpper!.offsetWidth - pb.offsetLeft, mergeProps.value.minWidth))
+
+  if (pb.offsetTop + pb.offsetHeight > warpper.offsetHeight) {
+    pb.style.height = antoUnit(Math.max(warpper.offsetHeight - pb.offsetTop, mergeProps.value.minHeight))
+  }
+  if (pb.offsetLeft + pb.offsetWidth > warpper.offsetWidth) {
+    pb.style.width = antoUnit(Math.max(warpper.offsetWidth - pb.offsetLeft, mergeProps.value.minWidth))
   }
 }
 
@@ -214,13 +218,17 @@ function antoUnit(value: number | string) {
 // 移动窗口
 function mousedown(event: any) {
   const warpper = document.getElementById(mergeProps.value.warpper)
+  if (!warpper) {
+    return
+  }
+
   const pb = pannelBox.value
   const x = event.clientX
   const y = event.clientY
   const bl = pb.offsetLeft
   const bt = pb.offsetTop
-  const maxLeft = warpper!.offsetWidth - pb.offsetWidth
-  const maxTop = warpper!.offsetHeight - pb.offsetHeight
+  const maxLeft = warpper.offsetWidth - pb.offsetWidth
+  const maxTop = warpper.offsetHeight - pb.offsetHeight
 
   pb.style.height = antoUnit(pb.offsetHeight) // 处理没有height的情况
 
@@ -337,24 +345,28 @@ export default {
   position: absolute;
   padding: 0;
   border-radius: 4px;
-  border: 1px solid #4db3ff70;
   z-index: 100;
-  background: linear-gradient(to left, #4db3ff, #4db3ff) left top no-repeat, linear-gradient(to bottom, #4db3ff, #4db3ff) left top no-repeat,
-    linear-gradient(to left, #4db3ff, #4db3ff) right top no-repeat, linear-gradient(to bottom, #4db3ff, #4db3ff) right top no-repeat,
-    linear-gradient(to left, #4db3ff, #4db3ff) left bottom no-repeat, linear-gradient(to bottom, #4db3ff, #4db3ff) left bottom no-repeat,
-    linear-gradient(to left, #4db3ff, #4db3ff) right bottom no-repeat, linear-gradient(to left, #4db3ff, #4db3ff) right bottom no-repeat;
-  background-size: 1px 20px, 20px 1px, 1px 20px, 20px 1px;
-  background-color: rgba(20, 20, 20, 0.5);
+  border-bottom: 1px solid #008aff70;
+  border-left: 1px solid #008aff70;
+  border-right: 1px solid #008aff70;
+  z-index: 100;
+  background: linear-gradient(to left, @mars-content-color, @mars-content-color) left bottom no-repeat,
+    linear-gradient(to bottom, @mars-content-color, @mars-content-color) left bottom no-repeat,
+    linear-gradient(to left, @mars-content-color, @mars-content-color) right bottom no-repeat,
+    linear-gradient(to left, @mars-content-color, @mars-content-color) right bottom no-repeat;
+  background-size: 1px 10px, 10px 1px, 1px 10px, 10px 1px;
+  background-color: @mars-bg-base;
 }
 .pannel-model__header {
-  height: 40px;
-  line-height: 40px;
+  height: 44px;
+  line-height: 44px;
   cursor: move;
   overflow: hidden;
   padding: 0 5px 0px 15px;
-  border-bottom: 1px solid @border-color-ordinary;
-  background-color: @collapse-header-color;
-  color: @mars-basecolor;
+  background-image: url(../assets/images/dialog-title.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  color: @mars-base-color;
   .icon {
     vertical-align: middle;
     margin-right: 5px;
@@ -373,7 +385,7 @@ export default {
 .pannel-model__body {
   width: 100%;
   height: calc(100% - 40px);
-  padding: 0 5px 10px 10px;
+  padding: 10px;
   overflow: hidden;
 }
 .content {
@@ -395,7 +407,7 @@ export default {
     bottom: 0;
     display: flex;
     align-items: center;
-    background: @background-base;
+    background: @mars-bg-base;
   }
 }
 

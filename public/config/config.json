@@ -44,7 +44,7 @@
       "geocoder": false,
       "selectionIndicator": false,
 
-      "defaultContextMenu": true,
+      "contextmenu": { "hasDefault": true },
       "mouseDownView": true,
       "zoom": { "insertIndex": 1 },
       "compass": { "bottom": "toolbar", "left": "5px" },
@@ -125,7 +125,7 @@
       {
         "pid": 10,
         "name": "腾讯影像",
-        "icon": "img/basemaps/gaode_img.png",
+        "icon": "img/basemaps/tencent_img.png",
         "type": "group",
         "layers": [
           { "name": "底图", "type": "tencent", "layer": "img_d" },
