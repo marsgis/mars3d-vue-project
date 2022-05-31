@@ -16,7 +16,6 @@
   },
   "dependencies": {
     "@icon-park/svg": "^1.4.0",
-    "@turf/turf": "^6.5.0",
     "ant-design-vue": "^3.2.5",
     "axios": "^0.25.0",
     "core-js": "^3.20.3",
@@ -25,7 +24,7 @@
     "kml-geojson": "^1.2.0",
     "localforage": "^1.10.0",
     "mapv": "^2.0.62",
-    "mars3d": "^3.3.9",
+    "mars3d": "^3.3.10",
     "mars3d-echarts": "^3.3.0",
     "mars3d-heatmap": "^3.3.0",
     "mars3d-mapv": "^3.3.0",
