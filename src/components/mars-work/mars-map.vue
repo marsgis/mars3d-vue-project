@@ -288,6 +288,9 @@ onUnmounted(() => {
 .mars3d-popup-background {
   background: @mars-bg-base;
 }
+.mars3d-popup-content {
+  margin: 15px;
+}
 .mars3d-template-content label {
   padding-right: 6px;
 }
@@ -296,6 +299,10 @@ onUnmounted(() => {
 }
 .mars3d-template-titile a {
   font-size: 16px;
+}
+.mars3d-tooltip {
+  background: @mars-bg-base;
+  border: 1px solid @mars-bg-base;
 }
 
 .mars3d-popup-btn-custom {

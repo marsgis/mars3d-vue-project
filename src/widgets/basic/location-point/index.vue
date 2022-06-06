@@ -1,11 +1,11 @@
 <template>
-  <mars-dialog title="坐标拾取" :handles="false" width="298" height="330" top="60" right="10" :min-width="340">
+  <mars-dialog title="坐标拾取" :handles="false" width="356" height="340" top="60" right="10" :min-width="340">
     <template #icon>
       <mars-icon icon="local" width="18" />
     </template>
     <div class="position-container">
       <a-form>
-        <mars-gui ref="marsGuiRef" :options="options"></mars-gui>
+        <mars-gui ref="marsGuiRef" :options="options" labelCol="4"></mars-gui>
       </a-form>
       <div class="f-pt f-tac">
         <a-space>
@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, UnwrapRef, ref } from "vue"
+import { onMounted, reactive, ref } from "vue"
 import useLifecycle from "@mars/common/uses/use-lifecycle"
 import * as mapWork from "./map"
 import type { GuiItem } from "@mars/components/mars-ui/mars-gui"
@@ -297,9 +297,10 @@ const submitCenter = () => {
 </script>
 <style lang="less" scoped>
 .position-container {
-  padding: 10px;
+  padding-top: 10px;
+  margin-right: 5px;
 }
-.lnglat-input {
-  width: 200px;
+:deep(.mars-input) {
+  max-width: 192px;
 }
 </style>

@@ -25,6 +25,7 @@ export default defineComponent({
   color: @mars-base-color;
   background-color: transparent !important;
   border-color: @mars-base-border-color;
+  width: 100%;
   * {
     color: @mars-base-color;
   }

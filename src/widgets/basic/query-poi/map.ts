@@ -73,30 +73,26 @@ export function onUnmounted(): void {
 }
 
 // 查询数据
-export function queryData(val: string): Promise<any> {
-  return new Promise((resolve) => {
-    queryPoi.autoTip({
-      text: val,
-      city: address?.city,
-      location: map.getCenter(),
-      success: (result: any) => {
-        resolve(result)
-      }
-    })
+export function queryData(val: string) {
+  return queryPoi.autoTip({
+    text: val,
+    city: address?.city,
+    location: map.getCenter(),
+    success: (result: any) => {
+      return result
+    }
   })
 }
 
-export function querySiteList(text: string, page: number): Promise<any> {
-  return new Promise((resolve) => {
-    queryPoi.queryText({
-      text,
-      count: 6,
-      page: page - 1,
-      city: address?.city,
-      success: (result: any) => {
-        resolve(result)
-      }
-    })
+export function querySiteList(text: string, page: number) {
+  return queryPoi.queryText({
+    text,
+    count: 6,
+    page: page - 1,
+    city: address?.city,
+    success: (result: any) => {
+      return result
+    }
   })
 }
 

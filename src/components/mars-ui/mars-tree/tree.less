@@ -1,4 +1,5 @@
 .mars-main-view {
+
   // 树控件
   .ant-tree {
     background: none;
@@ -35,6 +36,10 @@
     width: 20px;
   }
 
+  .ant-tree-node-selected {
+    background: none !important;
+  }
+
   .ant-tree-switcher-noop::before {
     content: "";
     display: inline-block;
@@ -63,6 +68,8 @@
   }
 
   .ant-tree-node-content-wrapper {
+    color: @mars-base-color !important;
+
     .ant-tree-iconEle {
       line-height: 2.2;
     }

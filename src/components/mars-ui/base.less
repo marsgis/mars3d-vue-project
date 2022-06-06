@@ -34,7 +34,7 @@
 
 // 下拉样式
 .mars-drop-bg {
-  background-color: @mars-bg-base  !important;
+  background-color: @mars-bg-base !important;
   background: #173147;
   box-shadow: 0px 4px 15px 1px rgba(2, 33, 59, 0.7);
   border-radius: 0px;
@@ -69,7 +69,7 @@
   }
 
   .ant-collapse-content {
-    color: @mars-base-color  !important;
+    color: @mars-base-color !important;
   }
 
   .ant-collapse-extra {
@@ -105,7 +105,7 @@
     margin-bottom: 10px !important;
     color: @mars-base-color;
 
-    .ant-form-item-label>label {
+    .ant-form-item-label > label {
       color: @mars-base-color;
     }
   }
@@ -185,9 +185,13 @@
 
   // 表格
   .ant-table,
-  .ant-table-thead>tr>th {
+  .ant-table-thead > tr > th {
     color: @mars-base-color;
     background: none !important;
+  }
+
+  .ant-table-sticky-holder {
+    background: none;
   }
 
   .ant-table-row:nth-of-type(even) {
@@ -198,12 +202,12 @@
     background-color: @mars-select-bg;
   }
 
-  .ant-table-tbody>tr.ant-table-placeholder>td {
+  .ant-table-tbody > tr.ant-table-placeholder > td {
     background: #141414;
   }
 
-  .ant-table-row:hover>td,
-  .ant-table-row-selected>td {
+  .ant-table-row:hover > td,
+  .ant-table-row-selected > td {
     background-color: transparent !important;
   }
 
@@ -213,22 +217,46 @@
   }
 
   .ant-table-container {
-    border: 1px solid @mars-primary-color  !important;
+    border: 1px solid @mars-primary-color !important;
     background: transparent !important;
   }
 
-  .ant-table-placeholder>td {
-    background: @mars-bg-base  !important;
+  .ant-table-placeholder > td {
+    background: @mars-bg-base !important;
   }
 
   .ant-table-row:nth-last-child(1) .ant-table-cell {
     border-bottom: none;
   }
 
+  .ant-cascader-dropdown {
+    padding: 0 !important;
+    .mars-drop-bg();
+
+    .ant-cascader-menu-item {
+      &:hover {
+        background: @mars-list-active;
+      }
+    }
+
+    .ant-cascader-menu-item-active:not(.ant-cascader-menu-item-disabled) {
+      background: @mars-list-active;
+    }
+
+    .ant-cascader-menu-item-expand-icon {
+      color: @mars-base-color;
+    }
+  }
+
+  // 标签页的标签文字颜色
+  .ant-tabs-tab {
+    color: @mars-base-color;
+  }
+
   // 分页
   .ant-pagination {
     * {
-      color: @mars-base-color  !important;
+      color: @mars-base-color !important;
     }
 
     .ant-pagination-item,
@@ -251,7 +279,7 @@
       background: none;
 
       .ant-select-selector {
-        border-color: @mars-base-border-color  !important;
+        border-color: @mars-base-border-color !important;
         background: none;
         background-color: transparent !important;
 
@@ -262,11 +290,12 @@
       }
 
       .ant-select-arrow {
-        color: @mars-base-color  !important;
+        color: @mars-base-color !important;
       }
     }
 
     .ant-select-dropdown {
+      background-color: red;
       padding: 0 !important;
       .mars-drop-bg();
 
@@ -281,7 +310,7 @@
 
       .ant-select-item {
         transition: none;
-        color: @mars-base-color  !important;
+        color: @mars-base-color !important;
         text-align: center;
       }
     }
@@ -315,50 +344,70 @@
       width: 0;
     }
   }
+}
 
-  // 滚动条
-  ::-webkit-scrollbar-button {
-    height: 0;
-    width: 0;
-    display: none;
+.mars-cascader-dropdown {
+  padding: 0 !important;
+  background-color: @mars-select-bg !important;
+  .mars-drop-bg();
+
+  .ant-cascader-menu-item {
+    &:hover {
+      background: @mars-list-active;
+    }
   }
 
-  ::-webkit-scrollbar-track {
-    background: #173147;
+  .ant-cascader-menu-item-active:not(.ant-cascader-menu-item-disabled) {
+    background: @mars-list-active;
   }
 
-  ::-webkit-scrollbar-track,
-  ::-webkit-scrollbar-thumb {
-    border: 0;
+  .ant-cascader-menu-item-expand-icon {
+    color: @mars-base-color;
   }
+}
 
-  ::-webkit-scrollbar {
-    height: 10px;
-    width: 4px;
-    background: #134875;
-    border-radius: 4px;
-  }
+// 滚动条
+::-webkit-scrollbar-button {
+  height: 0;
+  width: 0;
+  display: none;
+}
 
-  ::-webkit-scrollbar-thumb {
-    padding-top: 100px;
-    background-color: #134875;
-    min-height: 28px;
-    border-radius: 4px;
-    background-clip: padding-box;
-  }
+::-webkit-scrollbar-track {
+  background: #173147;
+}
 
-  ::-webkit-scrollbar-track,
-  ::-webkit-scrollbar-thumb {
-    border: 0;
-  }
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-thumb {
+  border: 0;
+}
 
-  ::-webkit-scrollbar-thumb:hover {
-    -webkit-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.25);
-    background-color: rgba(0, 0, 0, 0.4);
-  }
+::-webkit-scrollbar {
+  height: 10px;
+  width: 4px;
+  background: #134875;
+  border-radius: 4px;
+}
 
-  ::-webkit-scrollbar-thumb:active {
-    -webkit-box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.35);
-    background-color: rgba(0, 0, 0, 0.5);
-  }
+::-webkit-scrollbar-thumb {
+  padding-top: 100px;
+  background-color: #134875;
+  min-height: 28px;
+  border-radius: 4px;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-thumb {
+  border: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  -webkit-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.25);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+::-webkit-scrollbar-thumb:active {
+  -webkit-box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.35);
+  background-color: rgba(0, 0, 0, 0.5);
 }

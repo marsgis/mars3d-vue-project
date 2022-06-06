@@ -7,7 +7,7 @@
       </li>
     </ul>
     <template #footer>
-      <a-switch v-model:checked="chkHasTerrain" @change="changeTerrain" />
+      <mars-switch v-model:checked="chkHasTerrain" @change="changeTerrain" />
       <span class="f-ml">显示地形</span>
     </template>
   </mars-dialog>

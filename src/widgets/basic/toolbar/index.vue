@@ -5,7 +5,7 @@
         <mars-icon :icon="item.icon" width="18"></mars-icon>
         <span class="title">{{ item.name }}</span>
       </div>
-      <mars-dropdown-menu v-if="item.children && !item.widget" trigger="click" placement="bottomRight">
+      <mars-dropdown-menu v-if="item.children && !item.widget" trigger="hover" placement="bottomRight">
         <div class="toolbar-item">
           <mars-icon :icon="item.icon" width="18"></mars-icon>
           <span class="title">{{ item.name }}</span>

@@ -1,18 +1,70 @@
-
 import * as mars3d from "mars3d"
 import { $alert as globalAlert } from "@mars/components/mars-ui/index"
-import { Home } from "@icon-park/svg"
+import {
+  Home,
+  Local,
+  PreviewOpen,
+  AppSwitch,
+  Forbid,
+  Cube,
+  MultiTriangular,
+  Shovel,
+  Close,
+  MapDistance,
+  Ruler,
+  Texture,
+  AutoHeightOne,
+  Compass,
+  DeleteKey,
+  Mark,
+  Label,
+  Change,
+  BringToFrontOne,
+  Asterisk,
+  Rectangle,
+  Editor,
+  Export,
+  ClearFormat,
+  Effects,
+  LightRain,
+  Snow,
+  Fog,
+  Halo,
+  Brightness,
+  DarkMode,
+  Blackboard,
+  HighLight,
+  Config,
+  LandSurveying,
+  TwoTriangles,
+  Sun,
+  FlightAirflow,
+  AddPicture,
+  SwitchThemes,
+  Agreement,
+  TakeOff,
+  KeyboardOne,
+  RecentViewsSort,
+  MoveInOne,
+  ExclusiveGateway,
+  CloseOne,
+  LockOne,
+  Box,
+  MonitorOff,
+  MapTwo,
+  International,
+  DatabaseForbid
+} from "@icon-park/svg"
 
 const Cesium = mars3d.Cesium
 
 // 获取平台内置的右键菜单
 export function getDefaultContextMenu(map) {
   const that = map.contextmenu
-
   return [
     {
       text: "查看此处坐标",
-      icon: Home({ theme: "outline", fill: "#fff", size: "18" }),
+      icon: Local({ theme: "outline", fill: "#fff", size: "18" }),
       show: function (e) {
         return Cesium.defined(e.cartesian)
       },
@@ -29,10 +81,9 @@ export function getDefaultContextMenu(map) {
         globalAlert(inhtml, "位置信息")
       }
     },
-
     {
       text: "查看当前视角",
-      icon: Home({ theme: "outline", fill: "#fff", size: "18" }),
+      icon: PreviewOpen({ theme: "outline", fill: "#fff", size: "18" }),
       callback: function (e) {
         const mpt = JSON.stringify(map.getCameraView())
         globalAlert(mpt, "当前视角信息")
@@ -40,11 +91,11 @@ export function getDefaultContextMenu(map) {
     },
     {
       text: "视角切换",
-      icon: Home({ theme: "outline", fill: "#fff", size: "18" }),
+      icon: SwitchThemes({ theme: "outline", fill: "#fff", size: "18" }),
       children: [
         {
           text: "允许进入地下",
-          icon: Home({ theme: "outline", fill: "#fff", size: "18" }),
+          icon: Agreement({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return map.scene.screenSpaceCameraController.enableCollisionDetection
           },
@@ -54,7 +105,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "禁止进入地下",
-          icon: Home({ theme: "outline", fill: "#fff", size: "18" }),
+          icon: Forbid({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return !map.scene.screenSpaceCameraController.enableCollisionDetection
           },
@@ -64,7 +115,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "绕此处环绕飞行",
-          icon: mars3d.Icon.RotatePointStart,
+          icon: TakeOff({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return e.cartesian && (!that.rotatePoint || !that.rotatePoint?.isStart)
           },
@@ -78,7 +129,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "关闭环绕飞行",
-          icon: mars3d.Icon.RotatePointStop,
+          icon: CloseOne({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return that.rotatePoint?.isStart
           },
@@ -91,7 +142,7 @@ export function getDefaultContextMenu(map) {
 
         {
           text: "移动到此处",
-          icon: mars3d.Icon.FlyToPoint,
+          icon: MoveInOne({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return Cesium.defined(e.cartesian)
           },
@@ -106,7 +157,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "第一视角站到此处",
-          icon: mars3d.Icon.FirstPerspective,
+          icon: RecentViewsSort({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return Cesium.defined(e.cartesian)
           },
@@ -124,7 +175,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "开启键盘漫游",
-          icon: mars3d.Icon.KeyboardRoamYes,
+          icon: KeyboardOne({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return !map.keyboardRoam.enabled
           },
@@ -134,7 +185,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "关闭键盘漫游",
-          icon: mars3d.Icon.KeyboardRoamNo,
+          icon: CloseOne({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return map.keyboardRoam.enabled
           },
@@ -144,7 +195,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "取消锁定",
-          icon: mars3d.Icon.TrackedEntityNo,
+          icon: LockOne({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return map.trackedEntity !== undefined
           },
@@ -156,7 +207,7 @@ export function getDefaultContextMenu(map) {
     },
     {
       text: "三维模型",
-      icon: mars3d.Icon.Tileset,
+      icon: Cube({ theme: "outline", fill: "#fff", size: "18" }),
       show: function (e) {
         const model = map.pick3DTileset(e.cartesian) // 拾取绘制返回的模型
         return Cesium.defined(model)
@@ -164,7 +215,7 @@ export function getDefaultContextMenu(map) {
       children: [
         {
           text: "显示三角网",
-          icon: mars3d.Icon.TilesetWireframeYes,
+          icon: MultiTriangular({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             const model = map.pick3DTileset(e.cartesian) // 拾取绘制返回的模型
             return !model.debugWireframe
@@ -176,7 +227,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "关闭三角网",
-          icon: mars3d.Icon.TilesetWireframeNo,
+          icon: CloseOne({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             const model = map.pick3DTileset(e.cartesian) // 拾取绘制返回的模型
             return model.debugWireframe
@@ -188,7 +239,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "显示包围盒",
-          icon: mars3d.Icon.TilesetBoundingVolumeYes,
+          icon: Box({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             const model = map.pick3DTileset(e.cartesian) // 拾取绘制返回的模型
             return !model.debugShowBoundingVolume
@@ -200,7 +251,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "关闭包围盒",
-          icon: mars3d.Icon.TilesetBoundingVolumeNo,
+          icon: MonitorOff({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             const model = map.pick3DTileset(e.cartesian) // 拾取绘制返回的模型
             return model.debugShowBoundingVolume
@@ -212,17 +263,16 @@ export function getDefaultContextMenu(map) {
         }
       ]
     },
-
     {
       text: "地形服务",
-      icon: mars3d.Icon.Terrain,
+      icon: International({ theme: "outline", fill: "#fff", size: "18" }),
       show: function (e) {
         return Cesium.defined(e.cartesian)
       },
       children: [
         {
           text: "开启地形",
-          icon: mars3d.Icon.TerrainYes,
+          icon: MapTwo({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return !map.hasTerrain
           },
@@ -232,7 +282,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "关闭地形",
-          icon: mars3d.Icon.TerrainNo,
+          icon: CloseOne({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return map.hasTerrain
           },
@@ -242,7 +292,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "显示三角网",
-          icon: mars3d.Icon.TerrainWireframeYes,
+          icon: MultiTriangular({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return !map.scene.globe._surface.tileProvider._debug.wireframe
           },
@@ -252,7 +302,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "关闭三角网",
-          icon: mars3d.Icon.TerrainWireframeNo,
+          icon: CloseOne({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return map.scene.globe._surface.tileProvider._debug.wireframe
           },
@@ -264,11 +314,11 @@ export function getDefaultContextMenu(map) {
     },
     {
       text: "图上量算",
-      icon: mars3d.Icon.Measure,
+      icon: Ruler({ theme: "outline", fill: "#fff", size: "18" }),
       children: [
         {
           text: "距离",
-          icon: mars3d.Icon.MeasureDistance,
+          icon: MapDistance({ theme: "outline", fill: "#fff", size: "18" }),
           callback: function (e) {
             if (!that.measure) {
               that.measure = new mars3d.thing.Measure()
@@ -279,7 +329,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "面积",
-          icon: mars3d.Icon.MeasureArea,
+          icon: Texture({ theme: "outline", fill: "#fff", size: "18" }),
           callback: function (e) {
             if (!that.measure) {
               that.measure = new mars3d.thing.Measure()
@@ -290,7 +340,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "高度差",
-          icon: mars3d.Icon.MeasureHeight,
+          icon: AutoHeightOne({ theme: "outline", fill: "#fff", size: "18" }),
           callback: function (e) {
             if (!that.measure) {
               that.measure = new mars3d.thing.Measure()
@@ -301,7 +351,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "角度",
-          icon: mars3d.Icon.MeasureAngle,
+          icon: Compass({ theme: "outline", fill: "#fff", size: "18" }),
           callback: function (e) {
             if (!that.measure) {
               that.measure = new mars3d.thing.Measure()
@@ -312,7 +362,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "删除测量",
-          icon: mars3d.Icon.Delete,
+          icon: DeleteKey({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return that.measure && that.measure.hasMeasure
           },
@@ -327,11 +377,11 @@ export function getDefaultContextMenu(map) {
 
     {
       text: "图上标记",
-      icon: mars3d.Icon.Draw,
+      icon: Mark({ theme: "outline", fill: "#fff", size: "18" }),
       children: [
         {
           text: "标记点",
-          icon: mars3d.Icon.DrawPoint,
+          icon: Label({ theme: "outline", fill: "#fff", size: "18" }),
           callback: function (e) {
             map.graphicLayer.startDraw({
               type: "point",
@@ -348,7 +398,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "标记线",
-          icon: mars3d.Icon.DrawPolyline,
+          icon: Change({ theme: "outline", fill: "#fff", size: "18" }),
           callback: function (e) {
             map.graphicLayer.startDraw({
               type: "polyline",
@@ -365,7 +415,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "标记面",
-          icon: mars3d.Icon.DrawPolygon,
+          icon: BringToFrontOne({ theme: "outline", fill: "#fff", size: "18" }),
           callback: function (e) {
             map.graphicLayer.startDraw({
               type: "polygon",
@@ -384,7 +434,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "标记圆",
-          icon: mars3d.Icon.DrawCircle,
+          icon: Asterisk({ theme: "outline", fill: "#fff", size: "18" }),
           callback: function (e) {
             map.graphicLayer.startDraw({
               type: "circle",
@@ -401,7 +451,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "标记矩形",
-          icon: mars3d.Icon.DrawRectangle,
+          icon: Rectangle({ theme: "outline", fill: "#fff", size: "18" }),
           callback: function (e) {
             map.graphicLayer.startDraw({
               type: "rectangle",
@@ -418,7 +468,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "允许编辑",
-          icon: mars3d.Icon.DrawEditYes,
+          icon: Editor({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return !map.graphicLayer.hasEdit
           },
@@ -428,7 +478,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "禁止编辑",
-          icon: mars3d.Icon.DrawEditNo,
+          icon: DatabaseForbid({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return map.graphicLayer.hasEdit
           },
@@ -438,7 +488,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "导出GeoJSON",
-          icon: mars3d.Icon.DrawDownJson,
+          icon: Export({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return map.graphicLayer.length > 0
           },
@@ -448,7 +498,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "清除所有标记",
-          icon: mars3d.Icon.Delete,
+          icon: ClearFormat({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return map.graphicLayer.length > 0
           },
@@ -460,11 +510,11 @@ export function getDefaultContextMenu(map) {
     },
     {
       text: "特效效果",
-      icon: mars3d.Icon.Effect,
+      icon: Effects({ theme: "outline", fill: "#fff", size: "18" }),
       children: [
         {
           text: "开启下雨",
-          icon: mars3d.Icon.RainEffectYes,
+          icon: LightRain({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return !that.rainEffect
           },
@@ -477,7 +527,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "关闭下雨",
-          icon: mars3d.Icon.RainEffectNo,
+          icon: Close({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return that.rainEffect
           },
@@ -490,7 +540,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "开启下雪",
-          icon: mars3d.Icon.SnowEffectYes,
+          icon: Snow({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return !that.snowEffect
           },
@@ -503,7 +553,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "关闭下雪",
-          icon: mars3d.Icon.SnowEffectNo,
+          icon: CloseOne({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return that.snowEffect
           },
@@ -517,7 +567,7 @@ export function getDefaultContextMenu(map) {
 
         {
           text: "开启雾天气",
-          icon: mars3d.Icon.FogEffectYes,
+          icon: Fog({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return !that.fogEffect
           },
@@ -533,7 +583,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "关闭雾天气",
-          icon: mars3d.Icon.FogEffectNo,
+          icon: CloseOne({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return that.fogEffect
           },
@@ -547,7 +597,7 @@ export function getDefaultContextMenu(map) {
 
         {
           text: "开启泛光",
-          icon: mars3d.Icon.BloomEffectYes,
+          icon: Halo({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return !that.bloomEffect
           },
@@ -560,7 +610,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "关闭泛光",
-          icon: mars3d.Icon.BloomEffectNo,
+          icon: CloseOne({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return that.bloomEffect
           },
@@ -574,7 +624,7 @@ export function getDefaultContextMenu(map) {
 
         {
           text: "开启亮度",
-          icon: mars3d.Icon.BrightnessEffectYes,
+          icon: Brightness({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return !that.brightnessEffect
           },
@@ -587,7 +637,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "关闭亮度",
-          icon: mars3d.Icon.BrightnessEffectNo,
+          icon: CloseOne({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return that.brightnessEffect
           },
@@ -601,7 +651,7 @@ export function getDefaultContextMenu(map) {
 
         {
           text: "开启夜视",
-          icon: mars3d.Icon.NightVisionEffectYes,
+          icon: DarkMode({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return !that.nightVisionEffect
           },
@@ -614,7 +664,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "关闭夜视",
-          icon: mars3d.Icon.NightVisionEffectNo,
+          icon: CloseOne({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return that.nightVisionEffect
           },
@@ -628,7 +678,7 @@ export function getDefaultContextMenu(map) {
 
         {
           text: "开启黑白",
-          icon: mars3d.Icon.BlackAndWhiteEffectYes,
+          icon: Blackboard({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return !that.blackAndWhiteEffect
           },
@@ -641,7 +691,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "关闭黑白",
-          icon: mars3d.Icon.BlackAndWhiteEffectNo,
+          icon: CloseOne({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return that.blackAndWhiteEffect
           },
@@ -655,7 +705,7 @@ export function getDefaultContextMenu(map) {
 
         {
           text: "开启拾取高亮",
-          icon: mars3d.Icon.OutlineEffectYes,
+          icon: HighLight({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return !that.outlineEffect
           },
@@ -668,7 +718,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "关闭拾取高亮",
-          icon: mars3d.Icon.OutlineEffectNo,
+          icon: CloseOne({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return that.outlineEffect
           },
@@ -683,11 +733,11 @@ export function getDefaultContextMenu(map) {
     },
     {
       text: "场景设置",
-      icon: mars3d.Icon.Scene,
+      icon: Config({ theme: "outline", fill: "#fff", size: "18" }),
       children: [
         {
           text: "开启深度监测",
-          icon: mars3d.Icon.DepthTestYes,
+          icon: LandSurveying({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return !map.scene.globe.depthTestAgainstTerrain
           },
@@ -697,7 +747,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "关闭深度监测",
-          icon: mars3d.Icon.DepthTestNo,
+          icon: CloseOne({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return map.scene.globe.depthTestAgainstTerrain
           },
@@ -708,7 +758,7 @@ export function getDefaultContextMenu(map) {
 
         {
           text: "显示星空背景",
-          icon: mars3d.Icon.SkyBoxYes,
+          icon: TwoTriangles({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return !map.scene.skyBox.show
           },
@@ -720,7 +770,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "关闭星空背景",
-          icon: mars3d.Icon.SkyBoxNo,
+          icon: ExclusiveGateway({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return map.scene.skyBox.show
           },
@@ -732,7 +782,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "开启日照阴影",
-          icon: mars3d.Icon.ShadowYes,
+          icon: Sun({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return !map.viewer.shadows
           },
@@ -744,7 +794,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "关闭日照阴影",
-          icon: mars3d.Icon.ShadowNo,
+          icon: CloseOne({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return map.viewer.shadows
           },
@@ -756,7 +806,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "开启大气渲染",
-          icon: mars3d.Icon.SkyAtmosphereYes,
+          icon: FlightAirflow({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return !map.scene.skyAtmosphere.show
           },
@@ -767,7 +817,7 @@ export function getDefaultContextMenu(map) {
         },
         {
           text: "关闭大气渲染",
-          icon: mars3d.Icon.SkyAtmosphereNo,
+          icon: CloseOne({ theme: "outline", fill: "#fff", size: "18" }),
           show: function (e) {
             return map.scene.skyAtmosphere.show
           },
@@ -779,7 +829,7 @@ export function getDefaultContextMenu(map) {
 
         {
           text: "场景出图",
-          icon: mars3d.Icon.ExpImage,
+          icon: AddPicture({ theme: "outline", fill: "#fff", size: "18" }),
           callback: function (e) {
             map.expImage()
           }

@@ -20,6 +20,8 @@ import MarsSlider from "./mars-slider/index.vue"
 import MarsPannel from "./mars-pannel/index.vue"
 import MarsDropDown from "./mars-dropdown"
 import MarsGui from "./mars-gui/index.vue"
+import MarsTable from "./mars-table/index.vue"
+
 import MarsMessage, { $message as marsMessage } from "./mars-message"
 import MarsAlert, { $alert as marsAlert } from "./mars-alert/"
 import MarsNotify, { $notify as marsNotify } from "./mars-notify"
@@ -91,7 +93,8 @@ const components = [
   MarsTextarea,
   MarsSwitch,
   MarsSlider,
-  MarsGui
+  MarsGui,
+  MarsTable
 ]
 
 let marsUIConfig: Record<string, any>
@@ -135,7 +138,8 @@ export default function (app: App, config: Record<string, any> = {}): App {
   app.use(Divider)
   app.use(Card)
   app.use(Image)
-  app.use(Pagination)
+  app.use(Pagination)  
+  app.use(Table)
   app.use(Empty)
 
   components.forEach((comp) => {

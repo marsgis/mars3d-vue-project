@@ -2,19 +2,24 @@
   <a-form :label-col="labelCol" :wrapper-col="wrapperCol">
     <template v-for="(item, i) in renderOptions" :key="i">
       <a-form-item v-if="(item.show as any)(attrForm)" :label="item.label">
-        <component
-          :is="getComponent(item.type)"
-          v-model:value="item.value"
-          :min="item.min || item.min === 0 ? item.min : -Infinity"
-          :max="item.max || item.max === 0 ? item.max : Infinity"
-          :step="item.step || 0.1"
-          :range="item.range || false"
-          :options="item.data || []"
-          :units="item.units"
-          @change="itemChange(item)"
-        >
-        </component>
-        <template v-if="item.extra" #extra>{{ item.extra(attrForm) }}</template>
+        <div :style="getItemStyle(item)">
+          <component
+            :is="getComponent(item.type)"
+            v-model:value="item.value"
+            :min="item.min || item.min === 0 ? item.min : -Infinity"
+            :max="item.max || item.max === 0 ? item.max : Infinity"
+            :step="item.step || 0.1"
+            :range="item.range || false"
+            :options="item.data || []"
+            :units="item.units"
+            @change="itemChange(item)"
+          >
+          </component>
+        </div>
+        <template v-if="item.extra !== undefined">
+          <template v-if="item.extraType === 'string'">{{ item.extra(attrForm) }}</template>
+          <component v-else :is="item.extra(attrForm)"></component
+        ></template>
       </a-form-item>
     </template>
   </a-form>
@@ -25,7 +30,7 @@ import { components, GuiItem } from "./index"
 
 const props = defineProps<{
   options: GuiItem[]
-  labelCol: number
+  labelCol?: number
 }>()
 
 const emits = defineEmits(["change"])
@@ -86,7 +91,7 @@ defineExpose({
       }
     })
   },
-  updateFields(fieldObj:any) {
+  updateFields(fieldObj: any) {
     renderOptions.value.forEach((item) => {
       if (fieldObj[item.field]) {
         item.value = fieldObj[item.field]
@@ -107,6 +112,22 @@ defineExpose({
   }
 })
 
+const getItemStyle = ({ extraWidth, extra, label }: GuiItem) => {
+  if (!extraWidth && extraWidth !== 0) {
+    extraWidth = 100
+  }
+  return extra !== undefined
+    ? {
+        width: `calc(100% - ${extraWidth || extraWidth === 0 ? extraWidth : 100}px)`,
+        display: "inline-block",
+        marginRight: "10px"
+      }
+    : {
+        display: "inline-block",
+        width: "100%"
+      }
+}
+
 function getComponent(type: keyof typeof components) {
   return components[type]
 }
@@ -119,11 +140,16 @@ function mergeItemOption(item) {
 
   // extra 字段转为function
   item.extra = mergeExtra(item.extra)
+  item.extraType = item.extraType || "string"
   return item
 }
 
 function mergeExtra(extra) {
   let extraNew = extra
+  if (extraNew === undefined || extraNew === null) {
+    return undefined
+  }
+
   if (typeof extraNew !== "function" && extraNew) {
     extraNew = () => {
       if (typeof extra === "string") {
@@ -139,6 +165,7 @@ function mergeExtra(extra) {
       }
     }
   }
+
   return extraNew
 }
 

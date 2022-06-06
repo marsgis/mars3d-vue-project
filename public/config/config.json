@@ -135,7 +135,7 @@
       {
         "pid": 10,
         "name": "腾讯电子",
-        "icon": "img/basemaps/gaode_vec.png",
+        "icon": "img/basemaps/tencent_vec.png",
         "type": "tencent",
         "layer": "vec"
       },

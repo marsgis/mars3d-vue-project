@@ -58,12 +58,12 @@ const checkedChange = (keys: string[], e: any) => {
   const layer = layersObj[e.node.id]
   // console.log("点击的矢量图层", layer)
   if (layer) {
-    if (layer.isAdded === false) {
+    if (!layer.isAdded) {
       mapWork.addLayer(layer)
     }
 
     // 特殊处理同目录下的单选的互斥的节点，可在config对应图层节点中配置"radio":true即可
-    if (layer.options && layer.options.radio && e.checked) {
+    if (layer.options?.radio && e.checked) {
       // 循环所有的图层
       for (const i in layersObj) {
         const item = layersObj[i]
@@ -82,7 +82,7 @@ const checkedChange = (keys: string[], e: any) => {
     }
 
     // 处理图层的关联事件
-    if (layer.options && layer.options.onWidget) {
+    if (layer.options?.onWidget) {
       if (e.checked) {
         if (lastWidget) {
           disable(lastWidget)
@@ -102,16 +102,15 @@ const checkedChange = (keys: string[], e: any) => {
     }
     if (keys.indexOf(e.node.id) !== -1) {
       layer.show = true
-      layer.readyPromise &&
-        layer.readyPromise.then(function (layer) {
-          layer.flyTo()
-        })
+      layer.readyPromise.then(function (layer) {
+        layer.flyTo()
+      })
     } else {
       layer.show = false
     }
 
     // 处理图层构件树控件
-    if (layer.options && layer.options.scenetree) {
+    if (layer.options?.scenetree) {
       initLayerTree(layer)
     }
   }

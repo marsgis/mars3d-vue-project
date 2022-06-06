@@ -6,11 +6,34 @@
  */
 
 /* 清除内外边距 */
-body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, /* structural elements 结构元素 */
- dl, dt, dd, ul, ol, li, /* list elements 列表元素 */
- pre, /* text formatting elements 文本格式元素 */
- fieldset, lengend, button, input, textarea, /* form elements 表单元素 */
- th, td {
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+blockquote,
+/* structural elements 结构元素 */
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+/* list elements 列表元素 */
+pre,
+/* text formatting elements 文本格式元素 */
+fieldset,
+lengend,
+button,
+input,
+textarea,
+/* form elements 表单元素 */
+th,
+td {
   /* table elements 表格元素 */
   margin: 0;
   padding: 0;
@@ -30,11 +53,12 @@ body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, /* structural elements 结构�
 
 body,
 html {
-  background-color: @mars-bg-base;
-  color: @mars-base-color;
+  background-color: @mars-bg-base !important;
+  color: @mars-base-color !important;
   font-size: 14px;
   min-width: 900px;
   overflow: hidden;
+
   * {
     scrollbar-base-color: #f4f7fc;
     scrollbar-track-color: #f4f7fc;
@@ -67,9 +91,12 @@ html {
 
 .mars-primary-table {
   width: 100%;
+  border-color: @mars-base-border-color;
+
   tr td:nth-of-type(1) {
     width: 100px;
   }
+
   td {
     padding: 5px;
   }

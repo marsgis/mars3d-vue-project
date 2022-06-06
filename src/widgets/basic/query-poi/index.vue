@@ -47,6 +47,7 @@ import { isLonLat } from "@mars/utils/mars-util"
 import useLifecycle from "@mars/common/uses/use-lifecycle"
 import * as mapWork from "./map"
 import { $message, $alert } from "@mars/components/mars-ui/index"
+import { $hideLoading, $showLoading } from "@mars/components/mars-ui/mars-loading"
 
 // 启用map.ts生命周期
 useLifecycle(mapWork)
@@ -74,7 +75,7 @@ const startCloseSearch = () => {
 }
 
 // 搜寻输入框数据之前的提示数据 以及搜寻过的历史数据  通过列表展现
-const handleSearch = (val: string) => {
+const handleSearch = async (val: string) => {
   if (val === "") {
     showHistoryList()
     mapWork.clearLayers()
@@ -87,18 +88,19 @@ const handleSearch = (val: string) => {
   }
 
   siteListShow.value = false
-  mapWork.queryData(val).then((result: any) => {
-    const list: { value: string }[] = []
-    result.list.forEach((item: any) => {
-      if (list.every((l) => l.value !== item.name)) {
-        list.push({
-          value: item.name
-        })
-      }
-    })
-    dataSource.value = list
-    searchListShow.value = true
+
+  const result = await mapWork.queryData(val)
+  const list: { value: string }[] = []
+  result.list.forEach((item: any) => {
+    if (list.every((l) => l.value !== item.name)) {
+      list.push({
+        value: item.name
+      })
+    }
   })
+
+  dataSource.value = list
+  searchListShow.value = true
 }
 
 // 展示搜寻过的历史数据
@@ -119,11 +121,12 @@ const showHistoryList = () => {
 
 // 开始查询并加载数据
 const selectPoint = async (value: any) => {
-  if (!searchTxt.value) {
-    searchTxt.value = value
-  }
+  searchTxt.value = value
+
+  $showLoading()
   addHistory(value)
   await querySiteList(value, 1)
+  $hideLoading()
   siteListShow.value = true
   searchListShow.value = false
 }
