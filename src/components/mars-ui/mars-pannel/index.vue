@@ -88,7 +88,7 @@ const animationClass = computed(() => {
     return "fadein-left"
   }
   const top = getCssNumber(mergeProps.value.top)
-  if (left || (top >= 0 && top < 100)) {
+  if (top || (top >= 0 && top < 100)) {
     return "fadein-down"
   }
   const bottom = getCssNumber(mergeProps.value.bottom)
@@ -199,7 +199,7 @@ export default {
   border-radius: 4px;
   z-index: 1000;
 
-  background-image: url(../assets/images/pannel-bg.png);
+  background-image: url(../themes/assets/images/pannel-bg.png);
   background-size: 100% 100%;
   background-repeat: no-repeat;
 

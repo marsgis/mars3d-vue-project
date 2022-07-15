@@ -16,11 +16,10 @@ const MarsTree = defineComponent({
       if (isLeaf && !group) {
         return [
           h(Icon, {
-            icon: "split",
+            icon: "notes",
             width: "14",
             color: "#79C1F8",
-            theme: "multi-color",
-            fill: ["#FFF", "#43CCF8", "#43CCF8", "#43CCF8"],
+            theme: "outline",
             key: new Date().getTime()
           })
         ]

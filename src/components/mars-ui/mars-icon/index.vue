@@ -13,8 +13,7 @@ export default defineComponent({
       type: String
     },
     color: {
-      type: String,
-      default: "#fff"
+      type: String
     },
     width: {
       type: [String, Number],

@@ -11,6 +11,7 @@ import { store as testStore, key as testKey } from "@mars/common/store/test"
 import store from "./widget-store"
 import MarsUI from "@mars/components/mars-ui"
 import { router } from "./routes"
+import "@mars/common/common"
 
 const app = createApp(Application)
 

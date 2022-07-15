@@ -4,14 +4,7 @@
     border-bottom: 1px solid #008aff70;
     border-left: 1px solid #008aff70;
     border-right: 1px solid #008aff70;
-    box-shadow: 0px 4px 15px 1px rgba(2, 33, 59, 0.7);
-    border-radius: 0px;
-    background: linear-gradient(to left, @mars-content-color, @mars-content-color) left bottom no-repeat,
-      linear-gradient(to bottom, @mars-content-color, @mars-content-color) left bottom no-repeat,
-      linear-gradient(to left, @mars-content-color, @mars-content-color) right bottom no-repeat,
-      linear-gradient(to left, @mars-content-color, @mars-content-color) right bottom no-repeat;
-    background-size: 1px 10px, 10px 1px, 1px 10px, 10px 1px;
-    background-color: @mars-bg-base !important;
+    .mars-drop-bg();
     .mars-icon {
       vertical-align: middle;
       margin-right: 4px;
@@ -19,13 +12,13 @@
   }
 
   .ant-dropdown-menu-title-content {
-    color: @mars-base-color;
+    color: var(--mars-text-color);
   }
 
   .ant-dropdown-menu-item,
   .ant-dropdown-menu-submenu-title {
     &:hover {
-      background: @mars-list-active;
+      background: var(--mars-list-active);
     }
   }
   .ant-dropdown-menu-submenu-title {

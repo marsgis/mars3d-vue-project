@@ -16,7 +16,7 @@ const MarsColorPicker = defineComponent({
   props: {
     value: {
       type: String,
-      default: "#FFFFFF"
+      default: "rgba(255,255,255,1)"
     }
   },
   emits: ["update:value", "change"],
@@ -26,7 +26,7 @@ const MarsColorPicker = defineComponent({
     let colorObject: any = null
 
     const changeColor = (color: any) => {
-      pointColor = color.hex
+      pointColor = `rgba(${color.rgba.r},${color.rgba.g},${color.rgba.b},${color.rgba.a})`// color.hex
       colorObject = color
     }
     const cancel = () => {

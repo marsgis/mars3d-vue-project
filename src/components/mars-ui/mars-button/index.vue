@@ -24,11 +24,11 @@ export default defineComponent({
 // 按钮
 .mars-button {
   font-size: 14px;
-  background: @mars-primary-color-half;
+  background: var(--mars-primary-half-color);
   border: none;
   padding-left: 10px;
   padding-right: 10px;
-  color: @mars-base-color;
+  color: var(--mars-text-color);
   :deep(.mars-icon) {
     font-size: 18px !important;
     line-height: 18px;
@@ -39,22 +39,22 @@ export default defineComponent({
 }
 .mars-button:not([disabled]) {
   &:hover {
-    color: @mars-base-color;
+    color: var(--mars-text-color);
     border-color: #89bceb;
-    background: @mars-hover-btn-bg;
+    background: var(--mars-hover-btn-bg);
   }
   &:focus {
-    color: @mars-base-color;
+    color: var(--mars-text-color);
     border-color: #89bceb;
-    background: @mars-click-btn-bg;
+    background: var(--mars-click-btn-bg);
   }
 }
 .ant-btn:disabled {
-  color: @mars-base-color;
-  background: @mars-disable-btn-bg;
+  color: var(--mars-text-color);
+  background: var(--mars-disable-btn-bg);
   &:hover {
-    background: @mars-disable-btn-bg;
-    color: @mars-base-color;
+    background: var(--mars-disable-btn-bg);
+    color: var(--mars-text-color);
   }
 }
 </style>

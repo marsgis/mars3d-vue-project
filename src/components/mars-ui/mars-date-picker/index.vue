@@ -27,24 +27,24 @@ export default defineComponent({
 </script>
 <style lang="less" scoped>
 .mars-date-picker {
-  color: @mars-base-color;
-  border-color: @mars-base-border-color !important;
+  color: var(--mars-text-color);
+  border-color: var(--mars-base-border-color) !important;
   background-color: transparent !important;
   &:hover {
-    border-color: @mars-primary-color !important;
+    border-color: var(--mars-primary-color) !important;
   }
 
   :deep(.ant-picker-input) {
     input {
-      color: @mars-base-color !important;
+      color: var(--mars-base-color) !important;
     }
   }
   :deep(.ant-picker-clear) {
-    background: @mars-bg-base;
-    color: @mars-base-color !important;
+    background: var(--mars-bg-base);
+    color: var(--mars-base-color) !important;
   }
   :deep(.ant-picker-suffix *) {
-    color: @mars-base-color;
+    color: var(--mars-text-color);
   }
 }
 </style>
@@ -55,7 +55,7 @@ export default defineComponent({
   }
   *,
   .ant-picker-content th {
-    color: @mars-base-color;
+    color: var(--mars-text-color);
   }
   .ant-picker-footer {
     border: none;
@@ -64,7 +64,7 @@ export default defineComponent({
     &:hover,
     &.ant-picker-cell-selected {
       .ant-picker-cell-inner {
-        background-color: @mars-primary-color !important;
+        background-color: var(--mars-primary-color) !important;
       }
     }
   }

@@ -1,5 +1,5 @@
 <template>
-  <mars-dialog title="模型构件" width="320" :min-width="320" top="70" bottom="50" left="10">
+  <mars-dialog :draggable="true" title="模型构件" width="320" :min-width="320" top="70" bottom="50" left="10">
     <mars-tree checkable :tree-data="LayerTreeData" @select="flytoModelNode" @check="onModelChecked" />
   </mars-dialog>
 </template>

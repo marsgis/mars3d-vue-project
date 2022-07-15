@@ -1,6 +1,6 @@
 {
   "name": "mars3d-vue-project",
-  "version": "3.3.0",
+  "version": "3.4.0",
   "description": "在Vue3技术栈下的Mars3D平台 基础项目",
   "scripts": {
     "dev": "vite",
@@ -11,10 +11,12 @@
     "build": "vite build",
     "serve:dist": "http-server ./dist",
     "lint": "vue-tsc --noEmit --skipLibCheck && npm run eslint",
-    "eslint": "eslint ./src/**/*.{js,jsx,vue,ts,tsx} --fix"
+    "eslint": "eslint ./src/**/*.{js,jsx,vue,ts,tsx} --fix",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@icon-park/svg": "^1.4.0",
+    "@turf/turf": "^6.5.0",
     "ant-design-vue": "^3.2.5",
     "axios": "^0.25.0",
     "core-js": "^3.20.3",
@@ -23,13 +25,14 @@
     "kml-geojson": "^1.2.0",
     "localforage": "^1.10.0",
     "mapv": "^2.0.62",
-    "mars3d": "^3.3.10",
-    "mars3d-echarts": "^3.3.0",
-    "mars3d-heatmap": "^3.3.0",
-    "mars3d-mapv": "^3.3.0",
+    "mars3d": "^3.4.0",
+    "mars3d-cesium": "^1.95.1",
+    "mars3d-echarts": "^3.4.0",
+    "mars3d-heatmap": "^3.4.0",
+    "mars3d-mapv": "^3.4.0",
     "nprogress": "^0.2.0",
     "uuid": "^8.3.2",
-    "vue": "^3.2.31",
+    "vue": "^3.2.37",
     "vue-color-kit": "^1.0.5",
     "vue-router": "^4.0.14",
     "vuex": "^4.0.2"
@@ -48,6 +51,7 @@
     "eslint-plugin-vue": "^8.3.0",
     "fs-extra": "^10.0.0",
     "http-server": "^14.1.0",
+    "husky": "^7.0.4",
     "less": "^4.1.2",
     "lint-staged": "^12.4.1",
     "prettier": "^2.6.2",
@@ -56,7 +60,7 @@
     "standard": "^16.0.4",
     "typescript": "^4.5.5",
     "unplugin-vue-components": "^0.17.13",
-    "vite": "^2.8.6",
+    "vite": "^2.9.14",
     "vite-plugin-eslint": "^1.3.0",
     "vite-plugin-mars3d": "^1.1.4",
     "vite-plugin-style-import": "^2.0.0",
@@ -85,5 +89,10 @@
   ],
   "author": "火星科技",
   "license": "Apache-2.0",
-  "homepage": "http://mars3d.cn"
+  "homepage": "http://mars3d.cn",
+  "lint-staged": {
+    "*.{js,jsx,vue,ts,tsx}": [
+      "npm run eslint"
+    ]
+  }
 }

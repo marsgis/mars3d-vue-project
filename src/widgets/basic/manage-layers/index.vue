@@ -1,11 +1,11 @@
 <template>
-  <mars-dialog title="图层" width="280" :min-width="250" top="60" bottom="40" right="10">
+  <mars-dialog :draggable="true" title="图层" width="300" :min-width="250" top="60" right="10">
     <mars-tree checkable :tree-data="treeData" v-model:expandedKeys="expandedKeys" v-model:checkedKeys="checkedKeys" @check="checkedChange">
       <template #title="node">
         <mars-dropdown-menu :trigger="['contextmenu']">
           <span @dblclick="flyTo(node)">{{ node.title }}</span>
           <template #overlay v-if="node.hasZIndex">
-            <a-menu @click="(menu: any) => onContextMenuClick(node, menu.key)">
+            <a-menu @click="(menu) => onContextMenuClick(node, menu.key)">
               <a-menu-item key="1">图层置为顶层</a-menu-item>
               <a-menu-item key="2">图层上移一层</a-menu-item>
               <a-menu-item key="3">图层下移一层</a-menu-item>
@@ -102,9 +102,10 @@ const checkedChange = (keys: string[], e: any) => {
     }
     if (keys.indexOf(e.node.id) !== -1) {
       layer.show = true
-      layer.readyPromise.then(function (layer) {
-        layer.flyTo()
-      })
+      layer.readyPromise &&
+        layer.readyPromise.then(function (layer) {
+          layer.flyTo()
+        })
     } else {
       layer.show = false
     }
@@ -193,7 +194,7 @@ function initTree() {
       layer.pid = 99 // 示例中创建的图层都放到99分组下面
     }
 
-    layersObj[layer.id] = layers
+    layersObj[layer.id] = layer
 
     if (layer && layer.pid === -1) {
       const node: any = reactive({
@@ -202,7 +203,6 @@ function initTree() {
         key: layer.id,
         id: layer.id,
         pId: layer.pid,
-        uuid: layer.uuid,
         hasZIndex: layer.hasZIndex,
         hasOpacity: layer.hasOpacity,
         opacity: 100 * (layer.opacity || 0)
@@ -215,6 +215,12 @@ function initTree() {
 
       if (layer.options.open !== false) {
         expandedKeys.value.push(node.key)
+      }
+
+      if (layer.isAdded && layer.show) {
+        nextTick(() => {
+          checkedKeys.value.push(node.key)
+        })
       }
     }
   }
@@ -242,7 +248,6 @@ function findChild(parent: any, list: any[]) {
         key: item.id,
         id: item.id,
         pId: item.pid,
-        uuid: item.uuid,
         hasZIndex: item.hasZIndex,
         hasOpacity: item.hasOpacity,
         opacity: 100 * (item.opacity || 0),
@@ -303,5 +308,8 @@ function onClickBimLayer(event: any) {
   width: 70px;
   margin-left: 5px;
   vertical-align: middle;
+}
+.ant-slider {
+  width: 80px !important;
 }
 </style>

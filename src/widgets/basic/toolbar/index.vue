@@ -70,21 +70,20 @@ const clickMenu = ({ key }: any) => {
 <style lang="less">
 .base-pannel {
   padding: 0 !important;
-  background: rgba(23, 49, 71, 0.8);
+  background-image: none !important;
   border: 1px solid;
-  border-image: linear-gradient(180deg, #1081e1, #1081e1) 10 10;
-  border-radius: 0px;
-  background-color: rgba(43, 44, 47, 0.8) !important;
+  border: none;
+  border-radius: 2px !important;
+  background-color: var(--mars-bg-base);
   height: 40px;
   .toolbar-item {
     display: inline-block;
     padding: 6px 12px;
     height: 100%;
-    color: @mars-content-color;
+    color: var(--mars-text-color);
     font-size: 15px;
     &:hover {
-      background-color: @mars-select-bg;
-      color: @mars-base-color;
+      background-color: var(--mars-select-bg);
     }
   }
   .mars-icon {

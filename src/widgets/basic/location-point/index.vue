@@ -1,5 +1,5 @@
 <template>
-  <mars-dialog title="坐标拾取" :handles="false" width="356" height="340" top="60" right="10" :min-width="340">
+  <mars-dialog title="坐标拾取" width="356" top="60" right="10" :min-width="357">
     <template #icon>
       <mars-icon icon="local" width="18" />
     </template>
@@ -32,9 +32,7 @@ onMounted(() => {
   const defaultPoitn = mapWork.defultPoint()
 
   marsUpdataPosition(defaultPoitn)
-
   marsPointTrans(defaultPoitn)
-
   marsProj4Trans(defaultPoitn)
 })
 const options: GuiItem[] = [
@@ -250,7 +248,7 @@ mapWork.eventTarget.on("clickMap", (event: any) => {
   marsPointTrans(data)
   marsProj4Trans(data)
   // 更新面板
-  // mapWork.updateMarker(false, data.lng, data.lat, data.alt)
+  mapWork.updateMarker(false, data.lng, data.lat, data.alt)
 })
 
 // 更新度分秒

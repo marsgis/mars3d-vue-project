@@ -4,12 +4,12 @@
       <a-collapse v-model:activeKey="activeKey">
         <!-- 自定义切换图标 -->
         <template #expandIcon>
-          <mars-icon icon="down-c" class="icon-vertical-a" />
+          <mars-icon icon="down-c" />
         </template>
         <a-collapse-panel key="1" header="表单控件1">
           <!-- 自定义面板右侧图标 -->
           <template #extra>
-            <mars-icon icon="config" class="icon-vertical-a" />
+            <mars-icon icon="config" />
           </template>
           <a-form-item label="简单文本" name="url">
             <mars-input v-model:value="formState.url" :allowClear="true" @change="onTextChange" />
@@ -76,15 +76,15 @@
           <div class="f-tac">
             <a-space>
               <mars-button size="middle" @click="onClickMessage">
-                <template #icon><mars-icon icon="alarm" class="icon-vertical-a" /></template>
+                <template #icon><mars-icon icon="alarm" /></template>
                 消息
               </mars-button>
               <mars-button size="middle" @click="onClickNotify">
-                <template #icon><mars-icon icon="download-one" class="icon-vertical-a" /></template>
+                <template #icon><mars-icon icon="download-one" /></template>
                 提示
               </mars-button>
               <mars-button size="middle" @click="onClickAlert">
-                <template #icon><mars-icon icon="download-one" class="icon-vertical-a" /></template>
+                <template #icon><mars-icon icon="download-one" /></template>
                 弹窗
               </mars-button>
             </a-space>
@@ -121,11 +121,11 @@
       <div class="f-tac">
         <a-space>
           <mars-button size="middle" @click="onClickLoading">
-            <template #icon><mars-icon icon="find" class="icon-vertical-a" /></template>
+            <template #icon><mars-icon icon="find" /></template>
             进度条1
           </mars-button>
           <mars-button size="middle" @click="onClickTopLoading">
-            <template #icon><mars-icon icon="planet" class="icon-vertical-a" /></template>
+            <template #icon><mars-icon icon="planet" /></template>
             进度条2
           </mars-button>
         </a-space>
@@ -377,8 +377,7 @@ onMounted(() => {
           title: layer.name,
           key: layer.id,
           id: layer.id,
-          pId: layer.pid,
-          uuid: layer.uuid
+          pId: layer.pid
         }
         node.children = findChild(node, layers)
         treeData.value.push(node)
@@ -396,8 +395,7 @@ function findChild(parent: any, list: any[]) {
         title: item.name,
         key: item.id,
         id: item.id,
-        pId: item.pid,
-        uuid: item.uuid
+        pId: item.pid
       }
       const nodeLayer = mapWork.createLayer(item) //  创建图层
       layersObj[item.id] = nodeLayer

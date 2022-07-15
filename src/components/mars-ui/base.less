@@ -1,22 +1,3 @@
-// 颜色
-@mars-primary-color: rgba(0, 138, 255, 0.9);
-@mars-primary-color-half: rgba(0, 138, 255, 0.5);
-@mars-sub-color: #26ddff;
-@mars-danger-color: #f75165;
-@mars-warning-color: #ff8041;
-@mars-success-color: #18af92;
-@mars-base-color: #ffffff;
-@mars-content-color: #cdcdcd;
-@mars-hover-btn-bg: #3ea6ff;
-@mars-click-btn-bg: #015dab;
-@mars-disable-btn-bg: #cdcdcd;
-@mars-base-border: #ffffff;
-@mars-select-bg: rgba(0, 138, 255, 0.2);
-@mars-bg-base: rgba(23, 49, 71, 0.8);
-@mars-base-border-color: #d9d9d9;
-@mars-list-active: linear-gradient(90deg, rgba(0, 138, 255, 0) 0%, rgba(0, 138, 255, 0.58) 53%, rgba(0, 138, 255, 0.02) 100%);
-// 字体
-
 // 提示组件背景
 .mars-msg-bg {
   background-image: url(./assets/images/border-image-base.png);
@@ -25,26 +6,55 @@
 
 // 提示组件标题样式
 .mars-msg-title {
-  background-image: url(./assets/images/msg-title-bg.png);
-  padding: 9px 14px;
-  background-size: 100% 100%;
-  font-size: 18px;
+  box-shadow: 1px 1px 0 0 var(--mars-primary-color);
   color: #0089fe;
+  background: var(--mars-msg-title-bg);
+  background-size: 10px 44px;
+  &::before {
+    content: "";
+    display: block;
+    width: 50px;
+    height: 35px;
+    position: absolute;
+    left: 0px;
+    top: 0;
+    border-top: 1px solid var(--mars-primary-color);
+    border-left: 1px solid var(--mars-primary-color);
+  }
+  &::after {
+    content: "";
+    display: block;
+    width: 70px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-top: 1px solid var(--mars-primary-color);
+  }
 }
 
 // 下拉样式
 .mars-drop-bg {
-  background-color: @mars-bg-base !important;
-  background: #173147;
+  border-bottom: 1px solid #008aff70;
+  border-left: 1px solid #008aff70;
+  border-right: 1px solid #008aff70;
   box-shadow: 0px 4px 15px 1px rgba(2, 33, 59, 0.7);
   border-radius: 0px;
-  background-image: url(./assets/images/selet-dropdown-border.png);
+  background: linear-gradient(to left, var(--mars-base-color), var(--mars-base-color)) left bottom no-repeat,
+    linear-gradient(to bottom, var(--mars-base-color), var(--mars-base-color)) left bottom no-repeat,
+    linear-gradient(to left, var(--mars-base-color), var(--mars-base-color)) right bottom no-repeat,
+    linear-gradient(to left, var(--mars-base-color), var(--mars-base-color)) right bottom no-repeat;
+  background-size: 1px 10px, 10px 1px, 1px 10px, 10px 1px;
+  background-color: var(--mars-bg-base) !important;
+}
+
+.mars-hover-bg {
+  background: var(--mars-title-active);
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
 
 .mars-main-view {
-  color: @mars-base-color;
+  color: var(--mars-text-color);
 
   // collapse 折叠面板相关样式
   .ant-collapse,
@@ -69,7 +79,7 @@
   }
 
   .ant-collapse-content {
-    color: @mars-base-color !important;
+    color: var(--mars-base-color) !important;
   }
 
   .ant-collapse-extra {
@@ -83,7 +93,7 @@
   // 切换按钮
   .ant-radio-button-wrapper {
     background: rgba(32, 160, 255, 0.2);
-    color: @mars-base-color;
+    color: var(--mars-text-color);
     box-shadow: none !important;
   }
 
@@ -97,16 +107,16 @@
     color: rgba(255, 255, 255, 0.925);
 
     .ant-form-item-extra {
-      color: @mars-base-color;
+      color: var(--mars-text-color);
     }
   }
 
   .ant-form-item {
     margin-bottom: 10px !important;
-    color: @mars-base-color;
+    color: var(--mars-text-color);
 
     .ant-form-item-label > label {
-      color: @mars-base-color;
+      color: var(--mars-text-color);
     }
   }
 
@@ -117,11 +127,11 @@
   /* 卡片 */
   .mars-ant-card {
     background: none;
-    border: 1px solid @mars-base-color;
-    color: @mars-base-color;
+    border: 1px solid var(--mars-base-color);
+    color: var(--mars-text-color);
 
     .ant-card-head {
-      border-color: @mars-base-color;
+      border-color: var(--mars-text-color);
       min-height: auto;
       padding: 0 10px;
       color: white;
@@ -138,42 +148,42 @@
 
   // 文件选择
   .ant-upload {
-    color: @mars-base-color;
+    color: var(--mars-text-color);
   }
 
   // 多选
   .ant-checkbox-wrapper {
-    color: @mars-base-color;
+    color: var(--mars-text-color);
 
     .ant-checkbox-inner {
-      background-color: @mars-bg-base;
-      border-color: @mars-base-border-color;
+      background-color: var(--mars-bg-base);
+      border-color: var(--mars-base-border-color);
     }
 
     .ant-checkbox-checked {
-      background: @mars-primary-color;
+      background: var(--mars-primary-color);
 
       .ant-checkbox-inner {
-        background-color: @mars-primary-color;
-        border-color: @mars-primary-color;
+        background-color: var(--mars-primary-color);
+        border-color: var(--mars-primary-color);
       }
     }
   }
 
   // 单选
   .ant-radio-wrapper {
-    color: @mars-base-color;
+    color: var(--mars-text-color);
 
     .ant-radio-inner {
-      background-color: @mars-bg-base;
-      border-color: @mars-base-border-color;
+      background-color: var(--mars-bg-base);
+      border-color: var(--mars-base-border-color);
       box-shadow: none !important;
       outline: none !important;
     }
 
     .ant-radio-checked {
       .ant-radio-inner {
-        border-color: @mars-primary-color;
+        border-color: var(--mars-primary-color);
       }
     }
 
@@ -186,7 +196,7 @@
   // 表格
   .ant-table,
   .ant-table-thead > tr > th {
-    color: @mars-base-color;
+    color: var(--mars-text-color);
     background: none !important;
   }
 
@@ -195,11 +205,11 @@
   }
 
   .ant-table-row:nth-of-type(even) {
-    background-color: @mars-bg-base;
+    background-color: var(--mars-bg-base);
   }
 
   .ant-table .ant-table-thead {
-    background-color: @mars-select-bg;
+    background-color: var(--mars-select-bg);
   }
 
   .ant-table-tbody > tr.ant-table-placeholder > td {
@@ -217,12 +227,12 @@
   }
 
   .ant-table-container {
-    border: 1px solid @mars-primary-color !important;
+    border: 1px solid var(--mars-primary-color) !important;
     background: transparent !important;
   }
 
   .ant-table-placeholder > td {
-    background: @mars-bg-base !important;
+    background: var(--mars-bg-base) !important;
   }
 
   .ant-table-row:nth-last-child(1) .ant-table-cell {
@@ -235,28 +245,28 @@
 
     .ant-cascader-menu-item {
       &:hover {
-        background: @mars-list-active;
+        background: var(--mars-list-active);
       }
     }
 
     .ant-cascader-menu-item-active:not(.ant-cascader-menu-item-disabled) {
-      background: @mars-list-active;
+      background: var(--mars-list-active);
     }
 
     .ant-cascader-menu-item-expand-icon {
-      color: @mars-base-color;
+      color: var(--mars-text-color);
     }
   }
 
   // 标签页的标签文字颜色
   .ant-tabs-tab {
-    color: @mars-base-color;
+    color: var(--mars-text-color);
   }
 
   // 分页
   .ant-pagination {
     * {
-      color: @mars-base-color !important;
+      color: var(--mars-text-color) !important;
     }
 
     .ant-pagination-item,
@@ -274,12 +284,12 @@
     }
 
     .ant-select {
-      color: @mars-base-color;
+      color: var(--mars-text-color);
       background-color: transparent !important;
       background: none;
 
       .ant-select-selector {
-        border-color: @mars-base-border-color !important;
+        border-color: var(--mars-base-border-color) !important;
         background: none;
         background-color: transparent !important;
 
@@ -290,27 +300,26 @@
       }
 
       .ant-select-arrow {
-        color: @mars-base-color !important;
+        color: var(--mars-base-color) !important;
       }
     }
 
     .ant-select-dropdown {
-      background-color: red;
       padding: 0 !important;
       .mars-drop-bg();
 
       .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
-        background: @mars-list-active;
+        background: var(--mars-list-active);
       }
 
       .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
         font-weight: 700;
-        background: @mars-list-active;
+        background: var(--mars-list-active);
       }
 
       .ant-select-item {
         transition: none;
-        color: @mars-base-color !important;
+        color: var(--mars-base-color) !important;
         text-align: center;
       }
     }
@@ -319,7 +328,7 @@
   // 列表
   .ant-list-items {
     * {
-      color: @mars-base-color;
+      color: var(--mars-text-color);
     }
 
     .ant-list-item {
@@ -333,7 +342,7 @@
 
   // 分割线
   .ant-divider-vertical {
-    border-color: @mars-base-color;
+    border-color: var(--mars-text-color);
   }
 
   //table表格滚动条
@@ -344,25 +353,54 @@
       width: 0;
     }
   }
+
+  .ant-tabs {
+    width: 100%;
+    .ant-tabs-nav {
+      margin-top: 0;
+      &::before {
+        border-color: var(--mars-base-border-color);
+      }
+    }
+    .ant-tabs-tab {
+      color: var(--mars-base-color) !important;
+    }
+
+    .ant-tabs-nav-wrap {
+      line-height: 1;
+    }
+    &.ant-tabs-card {
+      .ant-tabs-nav .ant-tabs-tab-active {
+        background: #20a0ff33 !important;
+      }
+      .ant-tabs-tab {
+        background: #20a0ff33 !important;
+        border-color: var(--mars-base-border-color);
+      }
+    }
+    .ant-tabs-tab-active {
+      border-top: none !important;
+    }
+  }
 }
 
 .mars-cascader-dropdown {
   padding: 0 !important;
-  background-color: @mars-select-bg !important;
+  background-color: var(--mars-select-bg) !important;
   .mars-drop-bg();
 
   .ant-cascader-menu-item {
     &:hover {
-      background: @mars-list-active;
+      background: var(--mars-list-active);
     }
   }
 
   .ant-cascader-menu-item-active:not(.ant-cascader-menu-item-disabled) {
-    background: @mars-list-active;
+    background: var(--mars-list-active);
   }
 
   .ant-cascader-menu-item-expand-icon {
-    color: @mars-base-color;
+    color: var(--mars-text-color);
   }
 }
 
@@ -374,7 +412,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #173147;
+  background: var(--mars-scrollbar-track);
 }
 
 ::-webkit-scrollbar-track,
@@ -385,13 +423,13 @@
 ::-webkit-scrollbar {
   height: 10px;
   width: 4px;
-  background: #134875;
+  background: var(--mars-scrollbar-thumb);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
   padding-top: 100px;
-  background-color: #134875;
+  background-color: var(--mars-scrollbar-thumb);
   min-height: 28px;
   border-radius: 4px;
   background-clip: padding-box;
@@ -400,14 +438,4 @@
 ::-webkit-scrollbar-track,
 ::-webkit-scrollbar-thumb {
   border: 0;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  -webkit-box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.25);
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
-::-webkit-scrollbar-thumb:active {
-  -webkit-box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.35);
-  background-color: rgba(0, 0, 0, 0.5);
 }

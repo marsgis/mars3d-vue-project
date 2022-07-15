@@ -22,11 +22,11 @@ export default defineComponent({
 </script>
 <style lang="less" scoped>
 .mars-select {
-  color: @mars-base-color;
+  color: var(--mars-text-color);
   background-color: transparent !important;
   background: none;
   :deep(.ant-select-selector) {
-    border-color: @mars-base-border-color !important;
+    border-color: var(--mars-base-border-color) !important;
     background: none;
     background-color: transparent !important;
     &:hover,
@@ -36,7 +36,7 @@ export default defineComponent({
   }
 
   :deep(.ant-select-arrow) {
-    color: @mars-base-color !important;
+    color: var(--mars-base-color) !important;
   }
 }
 </style>
@@ -46,15 +46,15 @@ export default defineComponent({
   padding: 0 !important;
   .mars-drop-bg();
   .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
-    background: @mars-list-active;
+    background: var(--mars-list-active);
   }
   .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
     font-weight: 700;
-    background: @mars-list-active;
+    background: var(--mars-list-active);
   }
   .ant-select-item {
     transition: none;
-    color: @mars-base-color !important;
+    color: var(--mars-base-color) !important;
     text-align: center;
   }
 }

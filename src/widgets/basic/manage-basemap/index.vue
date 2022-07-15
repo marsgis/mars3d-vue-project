@@ -1,7 +1,7 @@
 <template>
-  <mars-dialog title="底图" :width="380" :position="{ top: 60, right: 10 }">
+  <mars-dialog :draggable="true" title="底图" :width="380" :position="{ top: 60, right: 10 }">
     <ul class="basemap">
-      <li v-for="(item, i) in baseMaps" :key="i" class="basemap-card" :class="{ 'active-card': active === item.uuid }" @click="changeBaseMaps(item)">
+      <li v-for="(item, i) in baseMaps" :key="i" class="basemap-card" :class="{ 'active-card': active === item.id }" @click="changeBaseMaps(item)">
         <div><img class="icon" :src="`${item.options.icon || 'img/basemaps/bingAerial.png'}`" /></div>
         <div>{{ item.name }}</div>
       </li>
@@ -33,11 +33,11 @@ onMounted(() => {
 function initData(e: any) {
   baseMaps.value = e.baseMaps.map((m: any) => {
     if (m.isAdded && m.show) {
-      active.value = m.uuid
+      active.value = m.id
     }
     return {
       name: m.name,
-      uuid: m.uuid,
+      id: m.id,
       options: markRaw(m.options)
     }
   })
@@ -46,7 +46,7 @@ function initData(e: any) {
 }
 
 function changeBaseMaps(item: any) {
-  mapWork.changeBaseMaps((active.value = item.uuid))
+  mapWork.changeBaseMaps((active.value = item.id))
 }
 
 function changeTerrain() {
@@ -63,7 +63,7 @@ function changeTerrain() {
   list-style-type: none;
   margin-top: 10px;
   margin-left: 10px;
-  float: left;
+  vertical-align: top;
   text-align: center;
   cursor: pointer;
   font-size: 12px;

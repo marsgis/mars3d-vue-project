@@ -20,7 +20,7 @@ export function onMounted(mapInstance: mars3d.Map): void {
   })
 
   graphicLayer = new mars3d.layer.GraphicLayer({
-    name: "PIO查询",
+    name: "POI查询",
     pid: 99 // 图层管理 中使用，父节点id
   })
 
@@ -77,10 +77,7 @@ export function queryData(val: string) {
   return queryPoi.autoTip({
     text: val,
     city: address?.city,
-    location: map.getCenter(),
-    success: (result: any) => {
-      return result
-    }
+    location: map.getCenter()
   })
 }
 
@@ -89,10 +86,7 @@ export function querySiteList(text: string, page: number) {
     text,
     count: 6,
     page: page - 1,
-    city: address?.city,
-    success: (result: any) => {
-      return result
-    }
+    city: address?.city
   })
 }
 

@@ -19,9 +19,8 @@ chrome-profiler-events*.json
 speed-measure-plugin*.json
 
 # IDEs and editors
-.vscode
-.history/*
-.idea
+/.vscode
+/.idea
 .project
 .classpath
 .c9/
@@ -29,6 +28,13 @@ speed-measure-plugin*.json
 .settings/
 *.sublime-workspace
 
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
 
 # misc
 /.sass-cache
@@ -45,4 +51,5 @@ testem.log
 Thumbs.db
 package-lock.json
 
-# 测试
+# 本地测试
+src/example/a-test

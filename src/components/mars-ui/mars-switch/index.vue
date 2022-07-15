@@ -41,9 +41,9 @@ export default {
 <style lang="less" scoped>
 // 开关
 .mars-switch {
-  background-color: @mars-disable-btn-bg;
+  background-color: var(--mars-disable-btn-bg);
   &.ant-switch-checked {
-    background-color: @mars-primary-color !important;
+    background-color: var(--mars-primary-color) !important;
   }
 }
 </style>
