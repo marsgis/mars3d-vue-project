@@ -102,10 +102,12 @@ const checkedChange = (keys: string[], e: any) => {
     }
     if (keys.indexOf(e.node.id) !== -1) {
       layer.show = true
-      layer.readyPromise &&
+      if (!layer.options.noCenter) {
+        // 在对应config.json图层节点配置 noCenter:true 可以不定位
         layer.readyPromise.then(function (layer) {
           layer.flyTo()
         })
+      }
     } else {
       layer.show = false
     }
