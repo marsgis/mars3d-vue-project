@@ -13,7 +13,7 @@
         </div>
         <template #overlay>
           <a-menu @click="clickMenu">
-            <a-menu-item v-for="child in item.children" :key="child.widget">
+            <a-menu-item v-for="child in item.children" :key="child.widget" :title="child.title||child.name">
               <mars-icon :icon="child.icon" width="18"></mars-icon>
               <span>{{ child.name }}</span>
             </a-menu-item>

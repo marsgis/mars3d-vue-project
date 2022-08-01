@@ -17,7 +17,9 @@
       </div>
 
       <ul class="search-list" v-if="searchListShow">
-        <li v-for="(item, i) in dataSource" :key="i" class="search-list__item" @click="selectPoint(item.value)">{{ item.value }}</li>
+        <li v-for="(item, i) in dataSource" :key="i" class="search-list__item" @click="selectPoint(item.value)">
+          {{ item.value }}
+        </li>
       </ul>
       <div class="query-site" v-if="siteListShow">
         <template v-if="siteSource && siteSource.length">
@@ -71,7 +73,7 @@ const startCloseSearch = () => {
     searchListShow.value = false
     clearTimeout(timer)
     timer = null
-  }, 100)
+  }, 500) // 时间太短会导致点击失败
 }
 
 // 搜寻输入框数据之前的提示数据 以及搜寻过的历史数据  通过列表展现
