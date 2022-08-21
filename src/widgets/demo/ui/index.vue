@@ -92,7 +92,7 @@
         </a-collapse-panel>
 
         <a-collapse-panel key="2" header="表格控件">
-          <a-table
+          <mars-table
             size="small"
             :customRow="customTableRow"
             :row-selection="rowSelection"
@@ -107,7 +107,7 @@
                 <a>{{ text }}</a>
               </template>
             </template>
-          </a-table>
+          </mars-table>
         </a-collapse-panel>
         <a-collapse-panel key="3" header="树控件">
           <mars-tree checkable :tree-data="treeData" v-model:expandedKeys="expandedKeys" v-model:checkedKeys="checkedKeys" @check="onCheckTreeItem">

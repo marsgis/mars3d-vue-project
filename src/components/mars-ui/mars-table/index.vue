@@ -1,7 +1,7 @@
 <template>
   <a-table class="mars-table" v-bind="attrs">
-    <template v-for="(comp, name) in slots" :key="name" v-slot:[name]>
-      <component :is="comp" />
+    <template v-for="(comp, name) in slots" #[name]="data" :key="name">
+      <slot :name="name" v-bind="data"></slot>
     </template>
   </a-table>
 </template>
@@ -13,6 +13,7 @@ export default defineComponent({
   setup() {
     const attrs = useAttrs()
     const slots = useSlots()
+
     return {
       attrs,
       slots
