@@ -10,20 +10,13 @@
       ref="dialogRef"
       v-show="visible && !isFold"
     >
-      <mars-icon
-        v-if="mergeProps.closeable && !mergeProps.draggable"
-        icon="close-one"
-        :width="18"
-        color="#FFFFFF"
-        class="close-btn__flot"
-        @click="close"
-      ></mars-icon>
       <div v-if="showHeader" class="mars-dialog__header" :style="{ cursor: mergeProps.draggable ? 'move' : 'auto' }" @mousedown="dragStart">
         <mars-icon v-if="mergeProps.icon" :icon="mergeProps.icon" :width="18" color="#41A8FF" class="icon"></mars-icon>
         <slot v-if="slots.title" name="title"></slot>
         <span v-else class="title">{{ mergeProps.title }}</span>
-        <mars-icon v-if="mergeProps.closeable" icon="close" :width="18" color="#41A8FF" class="close-btn" @click="close"></mars-icon>
+        <mars-icon v-if="mergeProps.closeable" icon="close" :width="18" class="close-btn" @click="close"></mars-icon>
       </div>
+      <mars-icon v-else-if="mergeProps.closeable" icon="close-one" :width="18" class="close-btn__flot" @click="close"></mars-icon>
 
       <div class="mars-dialog__content">
         <slot></slot>
@@ -112,7 +105,7 @@ const props = withDefaults(defineProps<Props>(), {
   defaultFold: false,
   minWidth: 100,
   minHeight: 100,
-  maxWidth: 1000,
+  maxWidth: 100000,
   maxHeight: 1000,
   zIndex: 900
 })
@@ -160,8 +153,11 @@ const mergeProps = computed(() => {
     newProps.top = 10
   }
 
-  if (newProps.draggable) {
+  if (isAllowValue(newProps.closeable) && (slots.title || isAllowValue(newProps.icon) || isAllowValue(newProps.title) || newProps.draggable)) {
     newProps.closeable = true
+  }
+
+  if (newProps.draggable) {
     newProps.handles = true
   }
 
@@ -583,12 +579,13 @@ export default {
     overflow: hidden;
     .mars-msg-title();
     padding: 0 5px 0px 10px;
-    color: var(--mars-text-color);
+    color: var(--mars-base-color);
     position: absolute;
     top: 0;
     left: 0;
     .icon {
       margin-right: 5px;
+      color: #ffffff;
     }
     .title {
       font-size: 16px;
@@ -596,7 +593,8 @@ export default {
     .close-btn {
       float: right;
       cursor: pointer;
-      margin-top: 4px;
+      margin-top: 12px;
+      color: #ffffff;
     }
   }
 

@@ -1,5 +1,5 @@
 <template>
-  <mars-pannel customClass="base-pannel" right="10" top="10">
+  <mars-dialog :draggable="false" customClass="base-pannel" right="10" top="10">
     <template v-for="(item, i) in data" :key="i">
       <div v-if="item.widget && !item.children" class="toolbar-item" @click="showWidget(item.widget)">
         <mars-icon :icon="item.icon" width="18"></mars-icon>
@@ -13,7 +13,7 @@
         </div>
         <template #overlay>
           <a-menu @click="clickMenu">
-            <a-menu-item v-for="child in item.children" :key="child.widget" :title="child.name">
+            <a-menu-item v-for="child in item.children" :key="child.widget" :title="child.title||child.name">
               <mars-icon :icon="child.icon" width="18"></mars-icon>
               <span>{{ child.name }}</span>
             </a-menu-item>
@@ -21,7 +21,7 @@
         </template>
       </mars-dropdown-menu>
     </template>
-  </mars-pannel>
+  </mars-dialog>
 </template>
 
 <script setup lang="ts">
@@ -88,6 +88,7 @@ const clickMenu = ({ key }: any) => {
   }
   .mars-icon {
     margin-right: 5px;
+    color: var(--mars-text-color);
   }
 }
 </style>

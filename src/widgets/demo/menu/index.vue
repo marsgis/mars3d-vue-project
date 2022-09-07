@@ -1,5 +1,5 @@
 <template>
-  <mars-pannel left="10" top="10">
+  <mars-dialog :draggable="false" left="10" top="10">
     <a-space>
       <mars-button @click="back">返回</mars-button>
       <mars-button @click="show('my-widget')">弹窗示例</mars-button>
@@ -7,7 +7,7 @@
       <mars-button @click="update()">测试ui交互</mars-button>
       <mars-button @click="show('test')">test</mars-button>
     </a-space>
-  </mars-pannel>
+  </mars-dialog>
 </template>
 
 <script setup lang="ts">

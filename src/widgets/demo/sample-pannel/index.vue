@@ -1,5 +1,5 @@
 <template>
-  <mars-pannel top="100" left="10" :width="400" :right="10">
+  <mars-dialog :draggable="false" top="100" left="10" :width="400" :right="10">
     <a-form :model="formState" :label-col="{ span: 6 }" :wrapper-col="{ span: 18 }">
       <a-form-item label="面板测试" name="extent">
         <a-row :gutter="5">
@@ -14,7 +14,7 @@
         </a-row>
       </a-form-item>
     </a-form>
-  </mars-pannel>
+  </mars-dialog>
 </template>
 
 <script setup lang="ts">

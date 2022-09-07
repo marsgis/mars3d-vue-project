@@ -311,7 +311,4 @@ function onClickBimLayer(event: any) {
   margin-left: 5px;
   vertical-align: middle;
 }
-.ant-slider {
-  width: 80px !important;
-}
 </style>

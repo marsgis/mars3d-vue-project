@@ -18,7 +18,6 @@ import MarsIcon from "./mars-icon/index.vue"
 import MarsSwitch from "./mars-switch/index.vue"
 import MarsDialog from "./mars-dialog/index.vue"
 import MarsSlider from "./mars-slider/index.vue"
-import MarsPannel from "./mars-pannel/index.vue"
 import MarsDropDown from "./mars-dropdown"
 import MarsGui from "./mars-gui/index.vue"
 import MarsTable from "./mars-table/index.vue"
@@ -28,6 +27,8 @@ import MarsAlert, { $alert as marsAlert } from "./mars-alert/"
 import MarsNotify, { $notify as marsNotify } from "./mars-notify"
 import MarsLoading, { $hideLoading as marsHideLoading, $showLoading as marsShowLoading } from "./mars-loading"
 import MarsTree from "./mars-tree"
+import MarsMenu from "./mars-menu"
+import MarsSteps from "./mars-steps"
 import {
   AutoComplete,
   Button,
@@ -90,7 +91,6 @@ const components = [
   MarsDropDown,
   MarsIcon,
   MarsDialog,
-  MarsPannel,
   MarsTextarea,
   MarsSwitch,
   MarsSlider,
@@ -143,6 +143,9 @@ export default function (app: App, config: Record<string, any> = {}): App {
   app.use(Pagination)
   app.use(Table)
   app.use(Empty)
+
+  app.use(MarsMenu)
+  app.use(MarsSteps)
 
   components.forEach((comp) => {
     app.component(comp.name, comp)

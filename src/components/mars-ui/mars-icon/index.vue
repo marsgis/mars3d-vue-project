@@ -41,5 +41,6 @@ export default defineComponent({
 <style lang="less" scoped>
 .mars-icon {
   vertical-align: middle;
+  line-height: 1;
 }
 </style>

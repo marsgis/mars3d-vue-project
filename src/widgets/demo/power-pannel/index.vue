@@ -1,5 +1,5 @@
 <template>
-  <mars-pannel top="100" left="10" :width="400" :right="10">
+  <mars-dialog :draggable="false" top="100" left="10" :width="400" :right="10">
     <!-- 方式一： 通过组件api 删除或添加显示的元素， option不需要是响应式数据 -->
     <h3 class="f-push-10-t">表单一</h3>
     <mars-gui ref="marsGuiRef" :options="options" @change="gui1Change"></mars-gui>
@@ -18,7 +18,7 @@
     <a-space>
       <mars-button @click="updateAll">完全替换</mars-button>
     </a-space>
-  </mars-pannel>
+  </mars-dialog>
 </template>
 
 <script setup lang="ts">

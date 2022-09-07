@@ -34,6 +34,9 @@ export default defineComponent({
     color: var(--mars-text-color);
   }
 }
+.ant-input-affix-wrapper-focused {
+  box-shadow: none;
+}
 .mars-input[disabled] {
   color: var(--mars-disable-btn-bg);
 }

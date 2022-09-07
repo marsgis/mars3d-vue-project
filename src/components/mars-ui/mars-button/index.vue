@@ -28,7 +28,7 @@ export default defineComponent({
   border: none;
   padding-left: 10px;
   padding-right: 10px;
-  color: var(--mars-text-color);
+  color: #ffffff;
   :deep(.mars-icon) {
     font-size: 18px !important;
     line-height: 18px;
@@ -39,12 +39,12 @@ export default defineComponent({
 }
 .mars-button:not([disabled]) {
   &:hover {
-    color: var(--mars-text-color);
+  color: #ffffff;
     border-color: #89bceb;
     background: var(--mars-hover-btn-bg);
   }
   &:focus {
-    color: var(--mars-text-color);
+  color: #ffffff;
     border-color: #89bceb;
     background: var(--mars-click-btn-bg);
   }

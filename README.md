@@ -292,8 +292,7 @@ onUnmounted(() => {
 
 mars-dialog 是弹窗组件，我们 widget 内可以按需选择下面 2 个使用：
 
-- mars-dialog 弹框 组件: `src/components/mars-work/mars-dialog.vue`
-- mars-pannel 普通面板组件: `src/components/mars-work/mars-pannel.vue`
+- mars-dialog 弹框 组件: `src/components/mars-work/mars-dialog.vue` 
 
 mars-dialog 支持的配置参数包括：
 
@@ -540,17 +539,17 @@ activate 和 disable 函数支持 string（直接传递 name） 和 Widget（传
 
 ```vue
 <template>
-  <mars-pannel>
+  <mars-dialog :draggable="false">
     <a-space>
       <mars-button @click="show('sample-pannel')">面板示例</mars-button>
       <mars-button @click="show('sample-dialog')">弹窗示例</mars-button>
       <mars-button @click="show('ui')">UI面板</mars-button>
     </a-space>
-  </mars-pannel>
+  </mars-dialog>
 </template>
 
 <script setup lang="ts">
-import MarsPannel from "@mars/components/mars-work/mars-pannel.vue"
+import MarsDialog from "@mars/components/mars-work/mars-dialog.vue"
 import { useWidget } from "@mars/common/store/widget"
 
 const { activate } = useWidget()

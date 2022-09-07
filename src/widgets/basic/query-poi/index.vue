@@ -1,11 +1,12 @@
 <template>
-  <mars-pannel customClass="query-poi-pannel" top="10" left="10">
-    <div class="query-poi">
+  <mars-dialog :draggable="false" customClass="query-poi-pannel" top="10" left="10">
+    <div class="query-poi" @mousedown="clickVoid">
       <div class="query-poi__search">
         <mars-input
           placeholder="搜索 地点"
           v-model:value="searchTxt"
           class="input"
+          data-event="prevent"
           @blur="startCloseSearch"
           @focus="showHistoryList"
           allowClear
@@ -34,13 +35,13 @@
           </ul>
           <div class="query-site__page">
             <p class="query-site-allcount">共{{ allCount }}条结果</p>
-            <a-pagination @change="(page: number) => querySiteList(searchTxt, page)" size="small" :total="allCount" :pageSize="6" :simple="true" />
+            <a-pagination @change="(page: number) => querySiteList(searchTxt, page)" size="small" :total="allCount" pageSize="6" :simple="true" />
           </div>
         </template>
         <a-empty class="f-push-10-t" v-else />
       </div>
     </div>
-  </mars-pannel>
+  </mars-dialog>
 </template>
 
 <script lang="ts" setup>
@@ -145,6 +146,12 @@ const pagination = {
   simple: true
 }
 
+function clickVoid(e) {
+  if (e.target.dataset?.event !== "prevent") {
+    e.preventDefault()
+  }
+}
+
 async function querySiteList(text: string, page: number) {
   const result = await mapWork.querySiteList(text, page)
 
@@ -195,6 +202,9 @@ function addHistory(data: any) {
   border: none !important;
   padding: 0 !important;
   overflow: visible !important;
+}
+.query-poi-pannel .mars-dialog__content {
+  padding: 0 !important;
 }
 </style>
 <style lang="less" scoped>

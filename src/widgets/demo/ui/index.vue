@@ -1,5 +1,5 @@
 <template>
-  <mars-pannel top="10" bottom="10" right="10" width="400" :before-close="beforeClose" closeable>
+  <mars-dialog :draggable="false" top="10" bottom="10" right="10" width="400" :before-close="beforeClose" closeable>
     <a-form :model="formState" :rules="rules" :label-col="{ span: 6 }" :wrapper-col="{ span: 18 }">
       <a-collapse v-model:activeKey="activeKey">
         <!-- 自定义切换图标 -->
@@ -131,7 +131,7 @@
         </a-space>
       </div>
     </a-form>
-  </mars-pannel>
+  </mars-dialog>
 </template>
 
 <script setup lang="ts">

@@ -40,22 +40,4 @@ export default defineComponent({
   }
 }
 </style>
-<style lang="less">
-// 下拉选择
-.mars-select-dropdown {
-  padding: 0 !important;
-  .mars-drop-bg();
-  .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
-    background: var(--mars-list-active);
-  }
-  .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
-    font-weight: 700;
-    background: var(--mars-list-active);
-  }
-  .ant-select-item {
-    transition: none;
-    color: var(--mars-base-color) !important;
-    text-align: center;
-  }
-}
-</style>
+<style lang="less"></style>

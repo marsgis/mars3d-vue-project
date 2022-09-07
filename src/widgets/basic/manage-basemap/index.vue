@@ -67,7 +67,7 @@ function changeTerrain() {
   text-align: center;
   cursor: pointer;
   font-size: 12px;
-  color: #fff;
+  color: var(--mars-text-color);
   &:hover {
     .active-card();
   }

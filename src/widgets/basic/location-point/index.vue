@@ -1,11 +1,11 @@
 <template>
-  <mars-dialog title="坐标拾取" width="356" top="60" right="10" :min-width="357">
+  <mars-dialog title="坐标拾取" width="366" top="60" right="10" :min-width="357">
     <template #icon>
       <mars-icon icon="local" width="18" />
     </template>
     <div class="position-container">
       <a-form>
-        <mars-gui ref="marsGuiRef" :options="options" labelCol="4"></mars-gui>
+        <mars-gui ref="marsGuiRef" :options="options" labelCol="5"></mars-gui>
       </a-form>
       <div class="f-pt f-tac">
         <a-space>
