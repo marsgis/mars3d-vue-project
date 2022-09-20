@@ -27,8 +27,6 @@ import MarsAlert, { $alert as marsAlert } from "./mars-alert/"
 import MarsNotify, { $notify as marsNotify } from "./mars-notify"
 import MarsLoading, { $hideLoading as marsHideLoading, $showLoading as marsShowLoading } from "./mars-loading"
 import MarsTree from "./mars-tree"
-import MarsMenu from "./mars-menu"
-import MarsSteps from "./mars-steps"
 import {
   AutoComplete,
   Button,
@@ -143,9 +141,6 @@ export default function (app: App, config: Record<string, any> = {}): App {
   app.use(Pagination)
   app.use(Table)
   app.use(Empty)
-
-  app.use(MarsMenu)
-  app.use(MarsSteps)
 
   components.forEach((comp) => {
     app.component(comp.name, comp)
