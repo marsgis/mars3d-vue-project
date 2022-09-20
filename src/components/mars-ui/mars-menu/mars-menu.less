@@ -1,0 +1,116 @@
+.mars-menu {
+  display: inline-block;
+  height: 100%;
+  vertical-align: top;
+
+  & > div > .mars-menu-text span {
+    font-size: 18px;
+  }
+
+  .mars-menu-item {
+    cursor: pointer;
+  }
+
+  .mars-menu-item,
+  .mars-sub-menu {
+    display: inline-block;
+    height: 70px;
+    line-height: 70px;
+    padding: 0 20px;
+    position: relative;
+    text-align: center;
+    z-index: 1000;
+  }
+
+  & > .mars-menu-item:hover,
+  & > .mars-sub-menu:hover {
+    .mars-hover-bg();
+    & > .mars-menu-icon,
+    & > .mars-menu-text {
+      color: var(--mars-title-text-active);
+    }
+  }
+
+  .sub-menu-content {
+    position: absolute;
+    top: 70px;
+    min-width: 100%;
+    padding: 0;
+    left: 0;
+    z-index: 2000;
+    width: max-content;
+    display: none;
+    z-index: 100;
+    .mars-drop-bg();
+
+    &.placement-left {
+      left: 0;
+    }
+
+    &.placement-middle {
+      transform: translate(-32%, 0);
+    }
+
+    &.placement-right {
+      transform: translate(-60%, 0);
+    }
+  }
+
+  .mars-sub-menu:hover {
+    .sub-menu-content {
+      display: block;
+    }
+  }
+
+  .mars-sub-menu {
+    .mars-menu-item {
+      display: block;
+      height: 40px;
+      min-width: 100px;
+      line-height: 40px;
+      padding: 0 10px;
+      color: var(--mars-text-color);
+    }
+
+    .mars-menu-item:hover {
+      background-color: var(--mars-select-bg);
+    }
+  }
+
+  .mars-menu-group {
+    display: inline-block;
+    vertical-align: top;
+
+    .menu-group-title {
+      height: 40px;
+      line-height: 40px;
+      padding: 0 40px;
+      background: var(--mars-menu-emb);
+      background-repeat: no-repeat;
+      background-size: 20px 60px;
+      background-position: 0 -10px;
+      background-color: var(--mars-bg-title);
+
+      span {
+        font-size: 16px;
+      }
+    }
+  }
+
+  .mars-menu-group:nth-of-type(1) {
+    .menu-group-title {
+      background-image: none;
+    }
+  }
+
+  .mars-menu-icon {
+    display: inline-block;
+    margin-right: 2px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .mars-menu > div > .mars-menu-text {
+    display: none;
+  }
+}
