@@ -10,9 +10,15 @@ let map: mars3d.Map // 地图对象
 let graphicLayer: mars3d.layer.GraphicLayer
 let queryPoi: mars3d.query.GaodePOI // GaodePOI查询
 let address: any = null
+const imgArr = []
 
 // 初始化当前业务
-export function onMounted(mapInstance: mars3d.Map): void {
+export async function onMounted(mapInstance: mars3d.Map): Promise<void> {
+  for (let i = 0; i < 6; i++) {
+    const img = await getCanvas(i + 1)
+    imgArr.push(img)
+  }
+
   map = mapInstance // 记录map
 
   queryPoi = new mars3d.query.GaodePOI({
@@ -98,7 +104,7 @@ export function querySiteList(text: string, page: number) {
 export function showPOIArr(arr: any): void {
   clearLayers()
 
-  arr.forEach((item: any) => {
+  arr.forEach(async (item: any, index: number) => {
     const jd = Number(item.lng)
     const wd = Number(item.lat)
     if (isNaN(jd) || isNaN(wd)) {
@@ -109,11 +115,11 @@ export function showPOIArr(arr: any): void {
     item.lat = wd
 
     // 添加实体
-    const graphic = new mars3d.graphic.PointEntity({
+    const graphic = new mars3d.graphic.BillboardEntity({
       position: Cesium.Cartesian3.fromDegrees(jd, wd),
       style: {
         pixelSize: 10,
-        color: "#3388ff",
+        color: "#ffffff",
         outline: true,
         outlineColor: "#ffffff",
         outlineWidth: 2,
@@ -123,7 +129,7 @@ export function showPOIArr(arr: any): void {
         label: {
           text: item.name,
           font_size: 20,
-          color: "rgb(240,255,255)",
+          color: "#ffffff",
           outline: true,
           outlineWidth: 2,
           outlineColor: Cesium.Color.BLACK,
@@ -133,7 +139,8 @@ export function showPOIArr(arr: any): void {
           distanceDisplayCondition: new Cesium.DistanceDisplayCondition(0.0, 200000),
           clampToGround: true, // 贴地
           visibleDepth: false // 是否被遮挡
-        }
+        },
+        image: imgArr[index]
       },
       attr: item
     })
@@ -145,6 +152,31 @@ export function showPOIArr(arr: any): void {
   if (arr.length > 1) {
     graphicLayer.flyTo()
   }
+}
+
+// 获取Canvas对象
+async function getCanvas(text) {
+  return new Promise((resolve) => {
+    const img = new Image(19, 25)
+    img.crossOrigin = "Anonymous"
+    img.src = "img/poi/indexMark.png"
+    img.onload = () => {
+      const canvas = document.createElement("canvas")
+      canvas.width = 19
+      canvas.height = 25
+      const ctx = canvas.getContext("2d")
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      // 绘制图片
+      ctx.drawImage(img, 0, 0)
+      // 绘制文字
+      ctx.fillStyle = "#ffffff"
+      ctx.font = "22px 楷体"
+      ctx.textBaseline = "middle"
+      ctx.fillText(text, 4, 10)
+      // 将图片赋予给矢量对象进行显示，this.image是父类的属性
+      resolve(canvas.toDataURL("image/png"))
+    }
+  })
 }
 
 /**
