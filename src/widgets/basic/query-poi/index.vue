@@ -28,7 +28,7 @@
             <li v-for="(item, i) in siteSource" :key="i" class="query-site__item" @click.stop="flyTo(item)">
               <div class="query-site__context">
                 <p class="query-site-text f-toe" :title="item.name">
-                  <apan class="query-site-text_num">{{ i + 1 }}</apan>
+                  <span class="query-site-text_num">{{ i + 1 }}</span>
                   {{ item.name }}
                 </p>
                 <p class="query-site-sub f-toe">{{ item.type }}</p>
