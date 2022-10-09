@@ -150,7 +150,7 @@ export function showPOIArr(arr: any): void {
   })
 
   if (arr.length > 1) {
-    graphicLayer.flyTo()
+    graphicLayer.flyTo({ radius: 5000, pitch: -90 })
   }
 }
 
