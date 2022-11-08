@@ -850,13 +850,13 @@
       {
         "pid": 2010,
         "type": "graphic",
-        "name": "起重车",
+        "name": "警车",
         "data": [
           {
             "type": "modelP",
             "position": [117.217458, 31.815349, 35.03],
             "style": {
-              "url": "//data.mars3d.cn/gltf/mars/qzcar/GKZY_anim.gltf",
+              "url": "//data.mars3d.cn/gltf/mars/jingche/jingche.gltf",
               "scale": 2,
               "heading": -95,
               "clampToGround": true
