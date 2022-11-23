@@ -3,7 +3,7 @@ import type { ConfigEnv } from "vite"
 import { defineConfig, loadEnv } from "vite"
 import vue from "@vitejs/plugin-vue"
 import eslintPlugin from "vite-plugin-eslint"
-import mars3dCesium from "vite-plugin-mars3d"
+import { vitePluginMars3d } from "vite-plugin-mars3d"
 
 import { createStyleImportPlugin, AndDesignVueResolve } from "vite-plugin-style-import"
 
@@ -86,7 +86,7 @@ export default ({ mode }: ConfigEnv) => {
     plugins: [
       vue(),
       eslintPlugin({ cache: false }),
-      mars3dCesium(),
+      vitePluginMars3d(),
       createStyleImportPlugin({
         resolves: [AndDesignVueResolve()],
         libs: [
