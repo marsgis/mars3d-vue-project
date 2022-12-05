@@ -105,7 +105,7 @@ const checkedChange = (keys: string[], e: any) => {
       if (!layer.options.noCenter) {
         // 在对应config.json图层节点配置 noCenter:true 可以不定位
         layer.readyPromise.then(function (layer) {
-          layer.flyTo()
+          layer.flyTo({ scale: 2 })
         })
       }
     } else {
