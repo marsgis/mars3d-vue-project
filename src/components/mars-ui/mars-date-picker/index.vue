@@ -68,5 +68,18 @@ export default defineComponent({
       }
     }
   }
+
+  .ant-picker-time-panel-cell {
+    .ant-picker-time-panel-cell-inner {
+      color: var(--mars-base-color) !important;
+    }
+    &:hover,
+    &.ant-picker-time-panel-cell-selected {
+      background-color: var(--mars-primary-color) !important;
+      .ant-picker-time-panel-cell-inner {
+        background-color: var(--mars-primary-color) !important;
+      }
+    }
+  }
 }
 </style>

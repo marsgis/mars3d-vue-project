@@ -12,41 +12,52 @@
   box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.16);
   z-index: 1;
 }
+
 .hu-color-picker {
   width: 220px !important;
   background-color: var(--mars-bg-base) !important;
   box-shadow: none;
 }
+
 .hu-color-picker.light {
   background: #f7f8f9;
 }
+
 .hu-color-picker.light .color-show .sucker {
   background: #eceef0;
 }
+
 .hu-color-picker.light .color-type .name {
   background: #e7e8e9;
 }
+
 .hu-color-picker.light .color-type .value {
   color: #666;
   background: #eceef0;
 }
+
 .hu-color-picker.light .colors.history {
   border-top: 1px solid #eee;
 }
+
 .hu-color-picker canvas {
   vertical-align: top;
 }
+
 .hu-color-picker .color-set {
   display: flex;
 }
+
 .hu-color-picker .color-show {
   margin-top: 8px;
   display: flex;
 }
+
 .saturation {
   position: relative;
   cursor: pointer;
 }
+
 .saturation .slide {
   position: absolute;
   left: 100px;
@@ -58,11 +69,13 @@
   box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.3);
   pointer-events: none;
 }
+
 .color-alpha {
   position: relative;
   margin-left: 8px;
   cursor: pointer;
 }
+
 .color-alpha .slide {
   position: absolute;
   left: 0;
@@ -73,6 +86,7 @@
   box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.3);
   pointer-events: none;
 }
+
 .sucker {
   width: 30px;
   fill: #9099a4;
@@ -80,15 +94,18 @@
   cursor: pointer;
   transition: all 0.3s;
 }
+
 .sucker.active,
 .sucker:hover {
   fill: #1593ff;
 }
+
 .hue {
   position: relative;
   margin-left: 8px;
   cursor: pointer;
 }
+
 .hue .slide {
   position: absolute;
   left: 0;
@@ -99,14 +116,17 @@
   box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.3);
   pointer-events: none;
 }
+
 .colors {
   padding: 0;
   margin: 0;
 }
+
 .colors.history {
   margin-top: 10px;
   border-top: 1px solid #2e333a;
 }
+
 .colors .item {
   position: relative;
   width: 16px;
@@ -119,16 +139,20 @@
   transition: all 0.1s;
   cursor: pointer;
 }
+
 .colors .item:nth-child(8n + 1) {
   margin-left: 0;
 }
+
 .colors .item:hover {
   transform: scale(1.4);
 }
+
 .colors .item .alpha {
   height: 100%;
   border-radius: 4px;
 }
+
 .colors .item .color {
   position: absolute;
   left: 0;
@@ -137,11 +161,13 @@
   height: 100%;
   border-radius: 3px;
 }
+
 .color-type {
   display: flex;
   margin-top: 8px;
   font-size: 12px;
 }
+
 .color-type .name {
   width: 60px;
   height: 30px;
@@ -152,6 +178,7 @@
   color: #999;
   background: #252930;
 }
+
 .color-type .value {
   flex: 1;
   height: 30px;
@@ -172,4 +199,26 @@
 
 .ml5 {
   margin-left: 5px;
+}
+
+.overlayClassName {
+  .color-alpha {
+    display: none;
+  }
+
+  .hue {
+    margin-left: 18px;
+  }
+
+  .hu-color-picker {
+    .color-type {
+      &:nth-last-child(2) {
+        display: none;
+      }
+    }
+
+    // .color-show {
+    //   display: none;
+    // }
+  }
 }
