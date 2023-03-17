@@ -4,7 +4,7 @@ import { InjectionKey, ComputedRef } from "vue"
 /**
  * store 状态管理
  * @copyright 火星科技 mars3d.cn
- * @author 火星吴彦祖 2022-2-19
+ * @author 木遥 2022-2-19
  */
 declare module "@mars/common/store/widget" {
   // 为 store state 声明类型

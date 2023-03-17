@@ -156,7 +156,7 @@
       },
       {
         "pid": 10,
-        "name": "OSM地图",
+        "name": "OSM地图(暂不可用)",
         "type": "xyz",
         "icon": "img/basemaps/osm.png",
         "url": "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -475,7 +475,8 @@
         "symbol": { "styleOptions": { "color": "#0d3685", "outlineColor": "#0d3685", "opacity": 0.8 } },
         "buildings": { "cloumn": "floors", "height": "flo_height" },
         "popup": "all",
-        "flyTo": true
+        "flyTo": true,
+        "flyToOptions": { "minHeight": 2000 }
       },
       {
         "pid": 3030,
@@ -793,19 +794,8 @@
         "id": 306011,
         "pid": 3060,
         "type": "czml",
-        "name": "飞行编队",
-        "url": "{dataServer}/file/czml/flight.czml",
-        "popup": "all",
-        "onWidget": "control-clock",
-        "radio": true,
-        "flyTo": true
-      },
-      {
-        "id": 306012,
-        "pid": 3060,
-        "type": "czml",
-        "name": "船舶编队",
-        "url": "{dataServer}/file/czml/ship.czml",
+        "name": "卫星轨道",
+        "url": "{dataServer}/file/czml/satellite-simple.czml",
         "popup": "all",
         "onWidget": "control-clock",
         "radio": true,
@@ -1089,7 +1079,10 @@
         "maximumScreenSpaceError": 1,
         "maximumMemoryUsage": 1024,
         "center": { "lat": 34.215516, "lng": 108.960251, "alt": 834, "heading": 4, "pitch": -48 },
-        "flat":{},
+        "flat": {
+          "enabled":true,
+          "flatHeight": 420
+        },
         "flyTo": false,
         "show": false
       },

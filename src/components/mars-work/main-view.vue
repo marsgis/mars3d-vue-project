@@ -17,7 +17,7 @@
 /**
  * 渲染主入口
  * @copyright 火星科技 mars3d.cn
- * @author 火星吴彦祖 2022-02-19
+ * @author 火星渣渣灰 2022-02-19
  */
 import zhCN from "ant-design-vue/es/locale/zh_CN"
 import { computed, provide, ref } from "vue"
