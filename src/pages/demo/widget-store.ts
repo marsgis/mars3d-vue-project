@@ -40,7 +40,7 @@ const store: StoreOptions<WidgetState> = {
         name: "my-dialog"
       }
     ],
-    openAtStart: ["my-dialog"]
+    openAtStart: ["menu"]
   }
 }
 
