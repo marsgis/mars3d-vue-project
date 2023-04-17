@@ -1,6 +1,6 @@
 import * as mars3d from "mars3d"
-import { createApp } from "vue"
 import PopupDemo from "./popup-demo.vue"
+import { initVue3Popup } from "@mars/utils/file-util"
 
 export let map: mars3d.Map // 地图对象
 export let graphicLayer: mars3d.layer.GraphicLayer // 地图对象
@@ -15,7 +15,7 @@ export function onMounted(mapInstance: mars3d.Map): void {
 
   graphicLayer.bindPopup((event: any) => {
     const attr = event.graphic.attr || {}
-    const dom = initPopup(PopupDemo, attr)
+    const dom = initVue3Popup(PopupDemo, attr)
     return dom
   })
 
@@ -33,14 +33,14 @@ export function onMounted(mapInstance: mars3d.Map): void {
 
   const graphic2 = new mars3d.graphic.DivGraphic({
     position: [117.229619, 31.8, 1521],
-    pointerEvents: true, 
+    pointerEvents: true,
     style: {
       html: `<div class="marsGreenGradientPnl" >安徽欢迎您</div>`
     },
     attr: { remark: "示例2" }
   })
   graphicLayer.addGraphic(graphic2)
- 
+
 }
 
 // 释放当前业务
@@ -48,12 +48,3 @@ export function onUnmounted(): void {
   map = null
 }
 
-
-function initPopup(comp, para) {
-  const vNodeDom = document.createElement("div")
-  map.container.appendChild(vNodeDom)
-
-  const vNode = createApp(comp, { ...para }) // vue2中可使用extend
-  vNode.mount(vNodeDom)
-  return vNode._container
-}

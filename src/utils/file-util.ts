@@ -6,6 +6,7 @@
  */
 import { toKml } from "kml-geojson"
 import _ from "lodash"
+import { createApp } from "vue"
 
 export function saveJSON(data: any[]) {
   if (data == null || !data) {
@@ -61,3 +62,20 @@ export function saveGeoJSON2Kml(geojson: string, options: any): any {
   })
   return kml
 }
+
+/**
+ * Vue3组件示例化为Popup的DOM
+ *
+ * @param {*} comp 传入的vue组件
+ * @param {*} para 传入的vue组件的参数
+ * @return {*}  HTMLElement
+ */
+export function initVue3Popup(comp, para) {
+  const vNodeDom = document.createElement("div")
+  document.body.appendChild(vNodeDom)
+
+  const vNode = createApp(comp, { ...para }) // vue2中可使用extend
+  vNode.mount(vNodeDom)
+  return vNode._container
+}
+
