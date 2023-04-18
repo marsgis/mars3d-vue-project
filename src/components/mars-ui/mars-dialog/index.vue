@@ -14,9 +14,15 @@
         <mars-icon v-if="mergeProps.icon" :icon="mergeProps.icon" :width="18" color="#41A8FF" class="icon"></mars-icon>
         <slot v-if="slots.title" name="title"></slot>
         <span v-else class="title">{{ mergeProps.title }}</span>
-        <mars-icon v-if="mergeProps.closeable" icon="close" :width="18" class="close-btn" @click="close"></mars-icon>
+        <mars-icon v-if="mergeProps.closeable && mergeProps.closeButton" icon="close" :width="18" class="close-btn" @click="close"></mars-icon>
       </div>
-      <mars-icon v-else-if="mergeProps.closeable" icon="close-one" :width="18" class="close-btn__flot" @click="close"></mars-icon>
+      <mars-icon
+        v-else-if="mergeProps.closeable && mergeProps.closeButton"
+        icon="close-one"
+        :width="18"
+        class="close-btn__flot"
+        @click="close"
+      ></mars-icon>
 
       <div class="mars-dialog__content">
         <slot></slot>
@@ -61,6 +67,7 @@ interface Props {
   draggable?: boolean // 是否可拖拽
 
   closeable?: boolean // 是否可关闭
+  closeButton?: boolean // 是否显示关闭按钮
 
   animation?: string | boolean // 是否开启开场动画，或开场动画的class名
 
@@ -99,6 +106,7 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   visible: false,
   closeable: false,
+  closeButton: true,
   draggable: true,
   animation: true,
   handles: false,
@@ -153,7 +161,7 @@ const mergeProps = computed(() => {
     newProps.top = 10
   }
 
-  if (isAllowValue(newProps.closeable) && (slots.title || isAllowValue(newProps.icon) || isAllowValue(newProps.title) || newProps.draggable)) {
+  if (isAllowValue(newProps.closeable) && (slots.title || isAllowValue(newProps.title) || isAllowValue(newProps.icon) || newProps.draggable)) {
     newProps.closeable = true
   }
 
@@ -560,6 +568,7 @@ export default {
   border-radius: 5px;
   cursor: pointer;
 }
+
 .mars-dialog {
   position: absolute;
   box-sizing: border-box;
@@ -583,13 +592,16 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
+
     .icon {
       margin-right: 5px;
       color: #ffffff;
     }
+
     .title {
       font-size: 16px;
     }
+
     .close-btn {
       float: right;
       cursor: pointer;
@@ -632,6 +644,7 @@ export default {
     height: 10px;
     opacity: 0;
   }
+
   .handle-t {
     width: auto;
     top: 0;
@@ -639,6 +652,7 @@ export default {
     right: 10px;
     cursor: row-resize;
   }
+
   .handle-b {
     width: auto;
     bottom: 0;
@@ -646,6 +660,7 @@ export default {
     right: 10px;
     cursor: row-resize;
   }
+
   .handle-l {
     height: auto;
     top: 10px;
@@ -653,6 +668,7 @@ export default {
     bottom: 10px;
     cursor: col-resize;
   }
+
   .handle-r {
     height: auto;
     top: 10px;
@@ -660,11 +676,13 @@ export default {
     bottom: 10px;
     cursor: col-resize;
   }
+
   .handle-rb {
     bottom: 0;
     right: 0;
     cursor: nwse-resize;
   }
+
   .handle-lb {
     bottom: 0;
     left: 0;
@@ -684,6 +702,7 @@ export default {
     transform: none;
   }
 }
+
 .fadein-right {
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
@@ -704,6 +723,7 @@ export default {
     transform: none;
   }
 }
+
 .fadein-left {
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
@@ -749,6 +769,7 @@ export default {
     transform: none;
   }
 }
+
 .fadein-down {
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
@@ -769,6 +790,7 @@ export default {
     transform: none;
   }
 }
+
 .fadein-center {
   -webkit-animation-duration: 1s;
   animation-duration: 1s;

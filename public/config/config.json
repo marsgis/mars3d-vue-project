@@ -242,7 +242,7 @@
         "pid": 50,
         "name": "行政区划界线",
         "type": "tdt",
-        "url": "https://t{s}.tianditu.gov.cn/DataServer?T=ibo_w&x={x}&y={y}&l={z}",
+        "url": "https://t{s}.tianditu.gov.cn/mapservice/swdx?T=ibo_w&x={x}&y={y}&l={z}",
         "maximumLevel": 10,
         "mapSplit": false
       },
