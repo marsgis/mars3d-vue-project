@@ -155,14 +155,6 @@
         "layer": "Aerial"
       },
       {
-        "pid": 10,
-        "name": "OSM地图(暂不可用)",
-        "type": "xyz",
-        "icon": "img/basemaps/osm.png",
-        "url": "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-        "subdomains": "abc"
-      },
-      {
         "id": 2017,
         "pid": 10,
         "name": "暗色底图",
@@ -233,6 +225,16 @@
         "icon": "img/basemaps/offline.png",
         "type": "image",
         "url": "//data.mars3d.cn/file/img/world/world.jpg"
+      },
+      {
+        "id": 2023,
+        "pid": 10,
+        "name": "无底图",
+        "icon": "/img/basemaps/null.png",
+        "type": "grid",
+        "color": "#ffffff",
+        "alpha": 0.03,
+        "cells": 2
       }
     ],
     "layers": [
@@ -1081,7 +1083,7 @@
         "center": { "lat": 34.215516, "lng": 108.960251, "alt": 834, "heading": 4, "pitch": -48 },
         "flat": {
           "enabled":true,
-          "flatHeight": 420
+          "editHeight": 420
         },
         "flyTo": false,
         "show": false
