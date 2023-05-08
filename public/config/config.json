@@ -69,6 +69,14 @@
       {
         "id": 2021,
         "pid": 10,
+        "name": "谷歌影像",
+        "icon": "/img/basemaps/google_img.png",
+        "type": "google",
+        "layer": "img_d",
+        "show": true
+      },
+      {
+        "pid": 10,
         "name": "天地图影像",
         "icon": "img/basemaps/tdt_img.png",
         "type": "group",
@@ -76,7 +84,7 @@
           { "name": "底图", "type": "tdt", "layer": "img_d" },
           { "name": "注记", "type": "tdt", "layer": "img_z" }
         ],
-        "show": true
+        "show": false
       },
       {
         "pid": 10,
@@ -1082,7 +1090,7 @@
         "maximumMemoryUsage": 1024,
         "center": { "lat": 34.215516, "lng": 108.960251, "alt": 834, "heading": 4, "pitch": -48 },
         "flat": {
-          "enabled":true,
+          "enabled": true,
           "editHeight": 420
         },
         "flyTo": false,
