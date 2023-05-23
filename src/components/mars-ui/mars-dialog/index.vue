@@ -1,6 +1,6 @@
 <template>
   <teleport :to="mergeProps.warpper">
-    <div class="mars-dialog-thumb" v-show="isFold" ref="thumbnailRef" @click="toogleFold(false)">
+    <div class="mars-dialog-thumb" v-show="isFold && show" ref="thumbnailRef" @click="toogleFold(false)">
       <mars-icon :icon="mergeProps.thumbnail.icon" :width="20" color="#FFFFFF"></mars-icon>
     </div>
     <div
@@ -8,7 +8,7 @@
       :class="[customClass, animationClass]"
       :style="{ 'padding-top': showHeader ? '44px' : '10px', 'padding-bottom': slots.footer ? '44px' : '10px' }"
       ref="dialogRef"
-      v-show="visible && !isFold"
+      v-show="visible && !isFold && show"
     >
       <div v-if="showHeader" class="mars-dialog__header" :style="{ cursor: mergeProps.draggable ? 'move' : 'auto' }" @mousedown="dragStart">
         <mars-icon v-if="mergeProps.icon" :icon="mergeProps.icon" :width="18" color="#41A8FF" class="icon"></mars-icon>
@@ -62,7 +62,8 @@ interface Position {
 interface Props {
   warpper?: string // 容器id 默认是app，将作为定位的参照元素，一般不需要修改
   title?: string // 弹框标题
-  visible?: boolean // 是否显示
+  visible?: boolean // 是否启用
+  show?: boolean // 弹窗是否默认显示
 
   draggable?: boolean // 是否可拖拽
 
@@ -105,6 +106,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   visible: false,
+  show: true,
   closeable: false,
   closeButton: true,
   draggable: true,
