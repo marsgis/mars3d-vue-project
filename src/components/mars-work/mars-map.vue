@@ -34,8 +34,15 @@ const withKeyId = computed(() => `mars3d-container-${props.mapKey}`)
 
 onMounted(() => {
   // 获取配置
+
   mars3d.Util.fetchJson({ url: props.url }).then((data: any) => {
-    initMars3d(data.map3d)
+    console.log("这是场景url", data)
+
+    if (data.map3d) {
+      initMars3d(data.map3d)
+    } else {
+      initMars3d(data)
+    }
   })
 })
 
@@ -194,7 +201,7 @@ onUnmounted(() => {
   }
   .cesium-navigation-button-selected,
   .cesium-navigation-button-unselected:hover {
-  background-color: rgba(23, 49, 71, 1);
+    background-color: rgba(23, 49, 71, 1);
   }
 }
 
@@ -268,13 +275,13 @@ onUnmounted(() => {
   > li > a:hover,
   > li > a:focus,
   > li > .active {
-    background-color: var(--mars-hover-btn-bg,#3ea6ff);
+    background-color: var(--mars-hover-btn-bg, #3ea6ff);
   }
 
   > .active > a,
   > .active > a:hover,
   > .active > a:focus {
-    background-color: var(--mars-hover-btn-bg,#3ea6ff);
+    background-color: var(--mars-hover-btn-bg, #3ea6ff);
   }
 }
 
