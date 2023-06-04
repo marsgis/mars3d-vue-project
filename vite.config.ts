@@ -3,7 +3,7 @@ import type { ConfigEnv } from "vite"
 import { defineConfig, loadEnv } from "vite" // 帮手函数，这样不用 jsdoc 注解也可以获取类型提示
 import vue from "@vitejs/plugin-vue"
 import eslintPlugin from "vite-plugin-eslint"
-import { vitePluginMars3d } from "vite-plugin-mars3d"
+import { mars3dPlugin } from "vite-plugin-mars3d"
 
 import { createStyleImportPlugin, AndDesignVueResolve } from "vite-plugin-style-import"
 
@@ -86,7 +86,7 @@ export default ({ mode }: ConfigEnv) => {
     plugins: [
       vue(),
       eslintPlugin({ cache: false }),
-      vitePluginMars3d(),
+      mars3dPlugin(),
       createStyleImportPlugin({
         resolves: [AndDesignVueResolve()],
         libs: [
