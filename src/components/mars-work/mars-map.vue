@@ -36,8 +36,6 @@ onMounted(() => {
   // 获取配置
 
   mars3d.Util.fetchJson({ url: props.url }).then((data: any) => {
-    console.log("这是场景url", data)
-
     if (data.map3d) {
       initMars3d(data.map3d)
     } else {
