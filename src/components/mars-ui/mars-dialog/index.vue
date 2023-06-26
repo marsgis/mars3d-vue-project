@@ -156,7 +156,7 @@ const mergeProps = computed(() => {
 
   if (!isAllowValue(newProps.left) && !isAllowValue(newProps.right)) {
     // left right 都不存在时默认出现在左侧
-    newProps.left = 10
+    newProps.right = 10
   }
   if (!isAllowValue(newProps.top) && !isAllowValue(newProps.bottom)) {
     // top bottom 都不存在时默认出现在顶部
