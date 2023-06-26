@@ -25,7 +25,7 @@ Mars3D 基础项目 是基于[Mars3D 平台](http://mars3d.cn)做的一个应用
  
  
 ## 项目特性 
-- **最新技术栈**：使用 Vue3/vite2 等前端前沿技术开发
+- **最新技术栈**：使用 Vue3/Vite 等前端前沿技术开发
 - **TypeScript**: 应用程序级 JavaScript 的语言
 - **适用于地图场景的widget模块化**: 继续沿用了原生 JS 版本 widget 架构的一些思想，使用 vue 方式实现了各 widget 功能
  
