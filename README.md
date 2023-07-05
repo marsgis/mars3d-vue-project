@@ -88,7 +88,7 @@ git clone git@gitee.com:marsgis/mars3d-vue-project.git
 ```
 
 ### 运行命令
-请将机器Node版本升级到v14及以上版本
+请将机器Node版本升级到v16及以上版本
 
 #### 首次运行前安装依赖
 
