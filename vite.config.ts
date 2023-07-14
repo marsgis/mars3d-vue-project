@@ -37,7 +37,7 @@ export default ({ mode }: ConfigEnv) => {
       extensions: [".js", ".ts", ".jsx", ".tsx", ".json"]
     },
     optimizeDeps: {
-      include: ["kml-geojson", "@mars/common/store/widget"]
+      include: ["kml-geojson"]
     },
     json: {
       // 支持从 .json 文件中进行按名导入
@@ -63,7 +63,7 @@ export default ({ mode }: ConfigEnv) => {
       sourcemap: false,
       // 自定义rollup-commonjs插件选项
       commonjsOptions: {
-        include: /node_modules|packages|src\/common\/store/
+        include: /node_modules|packages/
       },
       // 自定义底层的 Rollup 打包配置
       rollupOptions: {
