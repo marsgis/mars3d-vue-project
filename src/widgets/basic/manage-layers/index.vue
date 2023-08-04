@@ -21,10 +21,11 @@
   </mars-dialog>
 </template>
 <script lang="ts" setup>
-import { onUnmounted, nextTick, reactive, ref, onMounted } from "vue"
+import { onUnmounted, nextTick, reactive, ref, onMounted, toRaw } from "vue"
 import useLifecycle from "@mars/common/uses/use-lifecycle"
 import * as mapWork from "./map"
 import { useWidget } from "@mars/common/store/widget"
+import { cloneDeep } from "lodash-es"
 
 const { activate, disable, currentWidget } = useWidget()
 onMounted(() => {
@@ -154,25 +155,38 @@ const onContextMenuClick = (node: any, type: string) => {
   const index = node.index
   switch (type) {
     case "1": {
-      if (index !== 0) {
-        parent.children[0].index = index
-        parent.children[index].index = 0
+      let layerIndex = index
+      parent.children[0].index = index
+      parent.children[index].index = 0
+      while (layerIndex > 0) {
+        mapWork.exchangeLayer(parent.children[index].id, parent.children[layerIndex - 1].id)
+        layerIndex--
       }
+
       break
     }
     case "2": {
       parent.children[index - 1].index = index
       parent.children[index].index = index - 1
+      mapWork.exchangeLayer(parent.children[index].id, parent.children[index - 1].id)
+
       break
     }
     case "3": {
       parent.children[index + 1].index = index
       parent.children[index].index = index + 1
+      mapWork.exchangeLayer(parent.children[index].id, parent.children[index + 1].id)
+
       break
     }
     case "4": {
+      let layerIndex = index
       parent.children[parent.children.length - 1].index = index
       parent.children[index].index = parent.children.length - 1
+      while (layerIndex < parent.children.length - 1) {
+        mapWork.exchangeLayer(parent.children[index].id, parent.children[layerIndex + 1].id)
+        layerIndex++
+      }
       break
     }
   }
@@ -187,12 +201,35 @@ function flyTo(item: any) {
   }
 }
 
+const fatherLayer = []
 function initTree() {
   const layers = mapWork.getLayers()
+
+  layers.forEach((item) => {
+    if (item.pid === "" || !item.pid) {
+      item.pid = -1
+    }
+    if (item.pid === -1 && item.type !== "group") {
+      fatherLayer.push(item)
+    }
+  })
+
+  for (let index = 0; index < fatherLayer.length; index++) {
+    const ele = fatherLayer[index]
+    const nextEle = fatherLayer[index + 1]
+
+    layers.some((p) => {
+      if (nextEle && ele.id !== p.pid && nextEle.id !== p.pid && p.pid !== -1) {
+        p.pid = -1
+      }
+      return null
+    })
+  }
+
   for (let i = layers.length - 1; i >= 0; i--) {
     const layer = layers[i] // 创建图层
 
-    if (layer == null || !layer.options || layer.isPrivate) {
+    if (layer == null || !layer.options || layer.isPrivate || layer.parent) {
       continue
     }
     const item = layer.options
@@ -201,9 +238,9 @@ function initTree() {
       continue
     }
 
-    if (!layer._hasMapInit && layer.pid === -1 && layer.id !== 99) {
-      layer.pid = 99 // 示例中创建的图层都放到99分组下面
-    }
+    // if (!layer._hasMapInit && layer.pid === -1 && layer.id !== 99) {
+    //   layer.pid = 99 // 示例中创建的图层都放到99分组下面
+    // }
 
     layersObj[layer.id] = layer
 
@@ -247,11 +284,17 @@ function initTree() {
       }
     })
   })
+
+  // 以下是为了调整顺序
+  const list = cloneDeep(toRaw(treeData.value))
+  const baseMapLayer = list[list.length - 1]
+  const newLayer = list.splice(0, list.length - 1).reverse()
+  treeData.value = [...newLayer, toRaw(baseMapLayer)]
 }
 function findChild(parent: any, list: any[]) {
   return list
     .filter((layer: any) => {
-      if (layer == null || !layer.options || layer.isPrivate) {
+      if (layer == null || !layer.options || layer.isPrivate || layer.parent) {
         return false
       }
       const item = layer.options

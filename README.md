@@ -88,7 +88,7 @@ git clone git@gitee.com:marsgis/mars3d-vue-project.git
 ```
 
 ### 运行命令
-请将机器Node版本升级到v16及以上版本
+请将机器Node版本升级到v14及以上版本
 
 #### 首次运行前安装依赖
 
@@ -606,8 +606,8 @@ const show = (name: string) => {
 ```json
 // dependencies中添加
 {
-  "mars3d": "~3.5.0",
-  "mars3d-cesium": "~1.105.0",
+  "mars3d": "~3.6.0",
+  "mars3d-cesium": "~1.108.0",
   "@turf/turf": "^6.5.0",
   "kml-geojson": "^1.2.0",
   "vue": "^3.2.26",

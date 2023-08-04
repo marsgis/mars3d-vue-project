@@ -1,6 +1,6 @@
 {
   "name": "mars3d-vue-project",
-  "version": "3.5.0",
+  "version": "3.6.0",
   "description": "在Vue3技术栈下的Mars3D平台 基础项目",
   "scripts": {
     "dev": "vite",
@@ -26,11 +26,12 @@
     "kml-geojson": "^1.2.0",
     "localforage": "^1.10.0",
     "mapv": "^2.0.62",
-    "mars3d": "~3.5.12",
-    "mars3d-cesium": "~1.107.0",
-    "mars3d-echarts": "~3.5.12",
-    "mars3d-heatmap": "~3.5.12",
-    "mars3d-mapv": "~3.5.12",
+    "mars3d": "~3.6.0",
+    "mars3d-cesium": "~1.108.0",
+    "mars3d-echarts": "~3.6.0",
+    "mars3d-heatmap": "~3.6.0",
+    "mars3d-mapv": "~3.6.0",
+    "mars3d-space": "~3.6.0",
     "nprogress": "^0.2.0",
     "uuid": "^8.3.2",
     "vue": "^3.2.45",
@@ -69,7 +70,7 @@
     "vue-tsc": "^0.40.5"
   },
   "engines": {
-    "node": ">=14.18.0",
+   "node": ">=16.0.0",
     "npm": "^7.23.0"
   },
   "repository": {

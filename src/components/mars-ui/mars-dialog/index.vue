@@ -366,13 +366,17 @@ function setSize(attr: "width" | "height", v) {
     let value = v
     switch (attr) {
       case "width": {
-        value = Math.max(mergeProps.value.minWidth, value)
-        value = Math.min(mergeProps.value.maxWidth, value, warpperEle.offsetWidth)
+        if (!isPercentage(value)) {
+          value = Math.max(mergeProps.value.minWidth, value)
+          value = Math.min(mergeProps.value.maxWidth, value, warpperEle.offsetWidth)
+        }
         break
       }
       case "height": {
-        value = Math.max(mergeProps.value.minHeight, value)
-        value = Math.min(mergeProps.value.maxHeight, value, warpperEle.offsetHeight)
+        if (!isPercentage(value)) {
+          value = Math.max(mergeProps.value.minHeight, value)
+          value = Math.min(mergeProps.value.maxHeight, value, warpperEle.offsetHeight)
+        }
         break
       }
     }
@@ -444,6 +448,15 @@ function resize() {
   }
   if (pb.offsetLeft + pb.offsetWidth > warpperEle.offsetWidth) {
     setSize("width", warpperEle.offsetWidth - pb.offsetLeft)
+  }
+}
+
+// 处理百分比
+function isPercentage(value) {
+  if (typeof value === "string") {
+    return value.search("%") !== -1
+  } else {
+    return false
   }
 }
 

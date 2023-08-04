@@ -78,4 +78,3 @@ export function initVue3Popup(comp, para) {
   vNode.mount(vNodeDom)
   return vNode._container
 }
-

@@ -123,7 +123,6 @@ export default function (app: App, config: Record<string, any> = {}): App {
   app.use(Switch)
   app.use(Space)
   app.use(Slider)
-  app.use(Table)
   app.use(Tree)
   app.use(Upload)
   app.use(Progress)

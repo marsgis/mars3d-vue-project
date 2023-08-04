@@ -61,7 +61,6 @@ function cameraChanged() {
 export function onUnmounted(): void {
   map.removeLayer(graphicLayer)
   map.off(mars3d.EventType.cameraChanged, cameraChanged)
-  graphicLayer.remove()
   queryPoi = null
   address = null
   map = null

@@ -2,7 +2,7 @@
   <ConfigProvider :locale="locale">
     <div class="mars-main-view" id="mars-main-view">
       <div id="centerDiv" class="centerDiv-container">
-        <mars-map :url="configUrl" :options="mapOptions" @onload="marsOnload"  />
+        <mars-map :url="configUrl" :options="mapOptions"  @onload="marsOnload"  />
       </div>
       <template v-if="loaded">
         <template v-for="comp in widgets" :key="comp.key">
@@ -33,16 +33,18 @@ const widgetStore = useWidgetStore()
 const widgets = computed(() => widgetStore.state.widgets)
 const openAtStart = computed(() => widgetStore.state.openAtStart)
 
-const configUrl = `${process.env.BASE_URL}config/config.json?time=${new Date().getTime()}`
 
 const props = withDefaults(
   defineProps<{
     mapOptions?: any
+    url?:string
   }>(),
   {
-    mapOptions: () => ({})
+    mapOptions: () => ({}),
+    url: ""
   }
 )
+const configUrl = (props.url === "" || !props.url) ? `${process.env.BASE_URL}config/config.json?time=${new Date().getTime()}` : props.url
 
 
 let mapInstance: any = null

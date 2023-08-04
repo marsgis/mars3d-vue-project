@@ -85,3 +85,20 @@ export function checkModelStyle(layerid: number, arrIds: any) {
     }
   })
 }
+
+export function exchangeLayer(thisLayerId, moveLayerId) {
+  const thisLayer = map.getLayerById(thisLayerId)
+  const moveLayer = map.getLayerById(moveLayerId)
+
+  if (thisLayer == null || moveLayer == null) {
+    return
+
+  }
+  const or = thisLayer.zIndex
+  thisLayer.zIndex = moveLayer.zIndex // 向上移动
+  moveLayer.zIndex = or // 向下移动
+  console.log(`${thisLayer.name}:${thisLayer.zIndex},  ${moveLayer.name}:${moveLayer.zIndex}`)
+}
+
+
+
