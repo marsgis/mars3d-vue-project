@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@icon-park/svg": "^1.4.0",
+    "@mars3d/heatmap.js": "^2.0.7",
     "@turf/turf": "^6.5.0",
     "ant-design-vue": "3.2.14",
     "axios": "^0.25.0",
@@ -70,7 +71,7 @@
     "vue-tsc": "^0.40.5"
   },
   "engines": {
-   "node": ">=16.0.0",
+    "node": ">=16.0.0",
     "npm": "^7.23.0"
   },
   "repository": {
