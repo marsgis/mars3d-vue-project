@@ -28,7 +28,7 @@
     "localforage": "^1.10.0",
     "mapv": "^2.0.62",
     "mars3d": "~3.6.0",
-    "mars3d-cesium": "~1.108.0",
+    "mars3d-cesium": "~1.109.0",
     "mars3d-echarts": "~3.6.0",
     "mars3d-heatmap": "~3.6.0",
     "mars3d-mapv": "~3.6.0",
