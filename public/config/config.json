@@ -871,11 +871,31 @@
         "name": "合肥市区",
         "url": "{dataServer}/3dtiles/jzw-hefei/tileset.json",
         "maximumScreenSpaceError": 1,
+        "style": {
+          "color": {
+            "conditions": [["true", "color('rgba(42, 160, 224, 1)')"]]
+          }
+        },
         "marsJzwStyle": true,
         "highlight": { "type": "click", "color": "#FFFF00" },
         "popup": [
           { "field": "objectid", "name": "编号" },
           { "field": "name", "name": "名称" },
+          { "field": "height", "name": "楼高", "unit": "米" }
+        ],
+        "center": { "lat": 31.786281, "lng": 117.223716, "alt": 3718, "heading": 2, "pitch": -45 }
+      },
+      {
+        "pid": 2040,
+        "type": "3dtiles",
+        "name": "合肥市区-带贴图",
+        "url": "{dataServer}/3dtiles/jzw-hefei-cz/tileset.json",
+        "maximumScreenSpaceError": 1,
+        "marsJzwStyle": true,
+        "highlight": { "type": "click", "color": "#FFFF00" },
+        "popup": [
+          { "field": "objectid", "name": "编号" },
+          { "field": "remark", "name": "名称" },
           { "field": "height", "name": "楼高", "unit": "米" }
         ],
         "center": { "lat": 31.786281, "lng": 117.223716, "alt": 3718, "heading": 2, "pitch": -45 }
@@ -914,7 +934,7 @@
         "pid": 2050,
         "type": "3dtiles",
         "name": "高压线塔杆",
-        "url": "//data.mars3d.cn/3dtiles/pnts-ganta/tileset.json",
+        "url": "{dataServer}/3dtiles/pnts-ganta/tileset.json",
         "maximumScreenSpaceError": 1,
         "position": { "alt": 31 },
         "style": {
@@ -1001,7 +1021,7 @@
         "type": "3dtiles",
         "name": "石化工厂",
         "url": "{dataServer}/3dtiles/max-shihua/tileset.json",
-        "position": { "lng": 117.077158, "lat": 31.659116, "alt": 24.6 },
+        "position": { "lng": 117.077158, "lat": 31.659116, "alt": -2.0 },
         "maximumScreenSpaceError": 1,
         "highlight": { "type": "click", "color": "#00FF00" },
         "popup": "all",
@@ -1043,12 +1063,66 @@
       },
       { "id": 2030, "pid": 20, "name": "倾斜摄影", "type": "group" },
       {
+        "pid": 2030,
+        "type": "3dtiles",
+        "name": "大雁塔",
+        "url": "{dataServer}/3dtiles/qx-dyt/tileset.json",
+        "position": { "alt": -27 },
+        "maximumScreenSpaceError": 1,
+        "center": { "lat": 34.215516, "lng": 108.960251, "alt": 834, "heading": 4, "pitch": -48 },
+        "flat": {
+          "enabled": true,
+          "editHeight": 420
+        },
+        "flyTo": false,
+        "show": false
+      },
+      {
+        "pid": 2030,
+        "name": "校园(含单体)",
+        "type": "group",
+        "center": { "lat": 43.821193, "lng": 125.143124, "alt": 990, "heading": 342, "pitch": -50 },
+        "layers": [
+          {
+            "type": "geojson",
+            "name": "校园-单体化",
+            "url": "{dataServer}/file/geojson/dth-xuexiao-fd.json",
+            "symbol": {
+              "type": "polygonP",
+              "styleOptions": {
+                "color": "rgba(255, 255, 255, 0.01)",
+                "clampToGround": true,
+                "classification": true,
+                "buffer": 1,
+                "highlight": {
+                  "type": "click",
+                  "color": "rgba(255,255,0,0.4)"
+                }
+              }
+            },
+            "popup": [
+              { "field": "name", "name": "学校场所" },
+              { "field": "sfkf", "name": "是否开放" },
+              { "field": "remark", "name": "备注信息" }
+            ]
+          },
+          {
+            "pid": 2030,
+            "type": "3dtiles",
+            "name": "校园",
+            "url": "{dataServer}/3dtiles/qx-xuexiao/tileset.json",
+            "position": { "alt": 282.0 },
+            "maximumScreenSpaceError": 1
+          }
+        ]
+      },
+      {
         "id": 203014,
         "pid": 2030,
         "type": "3dtiles",
         "name": "县城社区",
         "url": "{dataServer}/3dtiles/qx-shequ/tileset.json",
-        "position": { "alt": 11.5 },
+        "position": { "alt": 148.2 },
         "maximumScreenSpaceError": 2,
         "dynamicScreenSpaceError": true,
         "cullWithChildrenBounds": false,
@@ -1071,21 +1145,6 @@
         "center": { "lat": 31.795308, "lng": 117.21948, "alt": 1820, "heading": 0, "pitch": -39 }
       },
       {
-        "pid": 2030,
-        "type": "3dtiles",
-        "name": "大雁塔",
-        "url": "{dataServer}/3dtiles/qx-dyt/tileset.json",
-        "position": { "alt": -27 },
-        "maximumScreenSpaceError": 1,
-        "center": { "lat": 34.215516, "lng": 108.960251, "alt": 834, "heading": 4, "pitch": -48 },
-        "flat": {
-          "enabled": true,
-          "editHeight": 420
-        },
-        "flyTo": false,
-        "show": false
-      },
-      {
         "id": 203013,
         "pid": 2030,
         "type": "geojson",
@@ -1099,7 +1158,7 @@
             "classification": true,
             "buffer": 1,
             "highlight": {
-              "color": "rgba(255,255,0,0.5)"
+              "color": "rgba(255,255,0,0.4)"
             }
           }
         },
@@ -1116,7 +1175,7 @@
         "type": "3dtiles",
         "name": "文庙",
         "url": "{dataServer}/3dtiles/qx-simiao/tileset.json",
-        "position": { "alt": 80.6 },
+        "position": { "alt": 38.8 },
         "maximumScreenSpaceError": 2,
         "dynamicScreenSpaceError": true,
         "cullWithChildrenBounds": false,

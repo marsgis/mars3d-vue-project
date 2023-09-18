@@ -29,7 +29,7 @@ const MarsColorPicker = defineComponent({
     const visible = ref(false)
     let colorObject: any = null
 
-    console.log("传递过来的", props.hiddenAlpha)
+    // console.log("传递过来的", props.hiddenAlpha)
 
 
     const changeColor = (color: any) => {

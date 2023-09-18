@@ -170,9 +170,10 @@ function mergeExtra(extra) {
 }
 
 function itemChange(item: GuiItem) {
-  emits("change", attrForm.value)
   if (item.change) {
     item.change(item.value, attrForm.value)
+  } else {
+    emits("change", attrForm.value)
   }
 }
 </script>

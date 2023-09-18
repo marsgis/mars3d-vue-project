@@ -1,5 +1,5 @@
 <template>
-  <a-input-number class="mars-input-number" v-bind="attrs">
+  <a-input-number class="mars-input-number" v-bind="attrs" :precision="attrs.tofixed">
     <template v-for="(comp, name) in slots" :key="name" v-slot:[name]>
       <component :is="comp" />
     </template>
@@ -13,9 +13,11 @@ export default defineComponent({
   setup() {
     const attrs = useAttrs()
     const slots = useSlots()
+
+    // 在style.js中配置toFixed用于控制保留小数位数
     return {
-      attrs,
-      slots
+      slots,
+      attrs
     }
   }
 })
