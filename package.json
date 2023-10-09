@@ -31,7 +31,7 @@
     "lodash-es": "^4.17.21",
     "mapv": "^2.0.62",
     "mars3d": "~3.6.0",
-    "mars3d-cesium": "~1.109.0",
+    "mars3d-cesium": "~1.110.0",
     "mars3d-echarts": "~3.6.0",
     "mars3d-heatmap": "~3.6.0",
     "mars3d-mapv": "~3.6.0",
