@@ -61,7 +61,8 @@
     },
     "terrain": {
       "url": "//data.mars3d.cn/terrain",
-      "show": true
+      "show": true,
+      "clip": true
     },
     "basemaps": [
       { "id": 10, "name": "地图底图", "type": "group" },
