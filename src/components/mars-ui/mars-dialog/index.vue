@@ -598,7 +598,7 @@ export default {
 
   .mars-dialog__header {
     height: 44px;
-    width: 100%;
+    width: calc(100% - 15px);
     line-height: 44px;
     overflow: hidden;
     .mars-msg-title();
@@ -634,6 +634,7 @@ export default {
 
   .mars-dialog__content {
     height: 100%;
+    width: 100%;
     overflow: auto;
     padding: 5px;
   }

@@ -24,21 +24,25 @@ export default defineComponent({
 /*滑动条 输入面板内时修改高度等*/
 .mars-slider {
   margin: 0px 6px 6px 6px;
+
   :deep(.ant-slider-mark-text) {
     color: var(--mars-base-color) !important;
     top: 5px;
   }
+
   /*滑动条 未选择、已选择部分 高度*/
   :deep(.ant-slider-rail) {
     height: 10px;
     border-radius: 5px;
     background-color: #284660 !important;
   }
+
   :deep(.ant-slider-track) {
     height: 10px;
     border-radius: 5px;
     background-color: var(--mars-primary-color) !important;
   }
+
   /*滑动条 刻度点*/
   :deep(.ant-slider-dot) {
     background-color: #16212c7d;
@@ -49,6 +53,7 @@ export default defineComponent({
     border: none;
     background-color: #fff;
   }
+
   :deep(.ant-slider-dot:first-child) {
     margin-left: 2px;
   }
@@ -58,9 +63,10 @@ export default defineComponent({
     position: absolute;
     width: 16px;
     height: 16px;
-    margin-top: -3px;
     border: 4px solid var(--mars-primary-color);
+    border-radius: 50%;
   }
+
   :deep(.ant-slider-dot-active, .ant-slider-handle) {
     border-color: var(--mars-primary-color) !important;
   }

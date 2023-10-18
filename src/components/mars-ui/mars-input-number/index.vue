@@ -31,6 +31,11 @@ export default defineComponent({
   * {
     color: var(--mars-text-color);
   }
+  :deep(.ant-input-number-input-wrap) {
+    .ant-input-number-input {
+      color: var(--mars-text-color);
+    }
+  }
 }
 :deep(.ant-input-number-handler-wrap) {
   background: none;

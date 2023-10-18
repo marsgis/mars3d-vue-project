@@ -25,10 +25,16 @@ export default defineComponent({
   color: var(--mars-text-color);
   background-color: transparent !important;
   font-size: 12px !important;
+  &::placeholder {
+    color: var(--mars-text-color);
+  }
   :deep(.ant-input) {
     background-color: transparent !important;
     border-color: var(--mars-base-border-color);
     color: var(--mars-text-color);
+    &::placeholder {
+      color: var(--mars-text-color);
+    }
   }
   :deep(.ant-input-suffix .anticon) {
     color: var(--mars-text-color);

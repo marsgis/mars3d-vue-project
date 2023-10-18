@@ -241,6 +241,7 @@ function addHistory(data: any) {
     .button {
       height: 44px;
       width: 55px;
+      border-radius: 0;
     }
   }
 }

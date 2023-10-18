@@ -8,10 +8,10 @@
 // 提示组件标题样式
 .mars-msg-title {
   height: 41px;
-  line-height: 41px;
+  line-height: 41px !important;
   font-size: 18px;
   padding-left: 13px;
-  color: var(--mars-alert-title-color);
+  color: var(--mars-alert-title-color) !important;
   background: var(--mars-msg-title-bg);
   background-size: 10px 44px;
   &::before {
@@ -43,11 +43,16 @@
   border-right: 1px solid #008aff70;
   box-shadow: 0px 4px 15px 1px rgba(2, 33, 59, 0.7);
   border-radius: 0px;
-  background: linear-gradient(to left, var(--mars-base-color), var(--mars-base-color)) left bottom no-repeat,
+  background:
+    linear-gradient(to left, var(--mars-base-color), var(--mars-base-color)) left bottom no-repeat,
     linear-gradient(to bottom, var(--mars-base-color), var(--mars-base-color)) left bottom no-repeat,
     linear-gradient(to left, var(--mars-base-color), var(--mars-base-color)) right bottom no-repeat,
     linear-gradient(to left, var(--mars-base-color), var(--mars-base-color)) right bottom no-repeat;
-  background-size: 1px 10px, 10px 1px, 1px 10px, 10px 1px;
+  background-size:
+    1px 10px,
+    10px 1px,
+    1px 10px,
+    10px 1px;
   background-color: var(--mars-bg-base);
 }
 
@@ -304,6 +309,7 @@
         border-color: var(--mars-base-border-color) !important;
         background: none;
         background-color: transparent !important;
+        color: var(--mars-base-color) !important;
 
         &:hover,
         &:focus {
@@ -383,7 +389,7 @@
     }
     &.ant-tabs-card {
       .ant-tabs-nav .ant-tabs-tab-active {
-        background: #20a0ff33 ;
+        background: #20a0ff33;
       }
       .ant-tabs-tab {
         background: #20a0ff33 !important;

@@ -19,6 +19,11 @@
         "showGroundAtmosphere": true,
         "enableLighting": false
       },
+      "contextOptions": {
+        "webgl": {
+          "preserveDrawingBuffer": true
+        }
+      },
       "cameraController": {
         "zoomFactor": 3.0,
         "minimumZoomDistance": 1,

@@ -68,7 +68,7 @@ export function onMounted(mapInstance) {
         weather = "normal"
       }
 
-      eventTarget.fire("weather", { weather: weather })
+      eventTarget.fire("weather", { weather })
     })
 
 }

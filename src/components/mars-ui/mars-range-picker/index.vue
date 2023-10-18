@@ -33,6 +33,9 @@ export default defineComponent({
   }
   :deep(.ant-picker-input > input) {
     color: var(--mars-base-color) !important;
+    &::placeholder {
+      color: var(--mars-base-color) !important;
+    }
   }
   :deep(.ant-picker-clear) {
     background: var(--mars-bg-base);
@@ -44,9 +47,8 @@ export default defineComponent({
   :deep(.ant-picker-range-separator *) {
     color: var(--mars-text-color);
   }
-
 }
-:deep(.ant-picker-panel-container ) {
-    background: var(--mars-bg-base) !important;
-  }
+:deep(.ant-picker-panel-container) {
+  background: var(--mars-bg-base) !important;
+}
 </style>

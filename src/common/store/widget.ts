@@ -226,7 +226,7 @@ export function useWidget() {
     }
   }
   return {
-    currentWidget: currentWidget,
+    currentWidget,
     // 获取指定的widget
     getWidget: (name: string) => {
       const widget = store.state.widgets.find((item: any) => item.name === name)

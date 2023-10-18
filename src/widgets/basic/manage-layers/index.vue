@@ -314,7 +314,7 @@ function findChild(parent: any, list: any[]) {
         hasZIndex: item.hasZIndex,
         hasOpacity: item.hasOpacity,
         opacity: 100 * (item.opacity || 0),
-        parent: parent
+        parent
       }
 
       if (item.hasOpacity) {

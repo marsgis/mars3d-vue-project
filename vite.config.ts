@@ -24,7 +24,7 @@ export default ({ mode }: ConfigEnv) => {
     },
     define: {
       "process.env": {
-        mode: mode,
+        mode,
         BASE_URL: ENV.VITE_BASE_URL,
         API_BASE: ENV.VITE_API_BASE
       },
@@ -94,6 +94,9 @@ export default ({ mode }: ConfigEnv) => {
             libraryName: "ant-design-vue",
             esModule: true,
             resolveStyle: (name) => {
+              if (name === "auto-complete") {
+                return `ant-design-vue/es/${name}/index`
+              }
               return `ant-design-vue/es/${name}/style/index`
             }
           }
