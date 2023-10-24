@@ -82,6 +82,7 @@ const clickMenu = ({ key }: any) => {
     height: 100%;
     color: var(--mars-text-color);
     font-size: 15px;
+    cursor: pointer;
     &:hover {
       background-color: var(--mars-select-bg);
     }

@@ -37,7 +37,12 @@ td {
   /* table elements 表格元素 */
   margin: 0;
   padding: 0;
-  list-style-type: none;
+  -moz-user-select: none; /*火狐*/
+  -webkit-user-select: none; /*webkit浏览器*/
+  -ms-user-select: none; /*IE10*/
+  -khtml-user-select: none; /*早期浏览器*/
+  user-select: none;
+  list-style: none;
 }
 
 #root,
@@ -66,6 +71,7 @@ html {
     scrollbar-darkshadow-color: #f4f7fc;
     font-size: 14px;
     scrollbar-width: thin;
+    box-sizing: border-box; // 使padding 不影响盒子的宽高；
   }
 }
 

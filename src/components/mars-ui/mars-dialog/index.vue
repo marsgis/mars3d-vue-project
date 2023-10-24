@@ -115,8 +115,8 @@ const props = withDefaults(defineProps<Props>(), {
   defaultFold: false,
   minWidth: 100,
   minHeight: 100,
-  maxWidth: 100000,
-  maxHeight: 1000,
+  maxWidth: window.innerWidth,
+  maxHeight: window.innerHeight,
   zIndex: 900
 })
 
@@ -428,9 +428,9 @@ onUnmounted(() => {
 // 处理高度超出的情况
 function autoNiceHeight() {
   if (observeDialog) {
-    const isExceed = warpperEle.offsetHeight < dialogRef.value.offsetHeight + dialogRef.value.offsetTop
+    const niceHeight = warpperEle.offsetHeight - dialogRef.value.offsetTop - 30
+    const isExceed = niceHeight < dialogRef.value.offsetHeight
     if (isExceed) {
-      const niceHeight = warpperEle.offsetHeight - dialogRef.value.offsetTop
       dialogRef.value.style.height = autoUnit(niceHeight)
     }
   }
@@ -443,8 +443,9 @@ function resize() {
     return
   }
 
-  if (pb.offsetTop + pb.offsetHeight > warpperEle.offsetHeight) {
-    setSize("height", warpperEle.offsetHeight - pb.offsetTop)
+  const niceHeight = warpperEle.offsetHeight - pb.offsetTop - 30
+  if (pb.offsetHeight > niceHeight) {
+    setSize("height", niceHeight)
   }
   if (pb.offsetLeft + pb.offsetWidth > warpperEle.offsetWidth) {
     setSize("width", warpperEle.offsetWidth - pb.offsetLeft)
@@ -598,7 +599,7 @@ export default {
 
   .mars-dialog__header {
     height: 44px;
-    width: calc(100% - 15px);
+    width: 100%;
     line-height: 44px;
     overflow: hidden;
     .mars-msg-title();

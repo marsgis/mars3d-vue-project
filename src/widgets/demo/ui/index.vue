@@ -263,13 +263,16 @@ const onClickMessage = () => {
 
 //  显示提示窗，不影响地图操作，会出现在页面右下角
 const onClickNotify = async () => {
-  $notify("Notify提示窗", `该窗口会出现在页面右下角，不影响地图交互操作。`)
+  $notify("Notify提示窗", `该窗口会出现在页面右下角，不影响地图交互操作。`, { duration: null })
 }
 
 //  显示遮罩提示窗，需要手动关闭
 const onClickAlert = async () => {
   await $alert(`该窗口会出现在后需要单击按钮进行关闭，会遮罩影响地图交互操作。`, "Alert提示窗")
-  $message("点击了确定按钮") //  异步单击确定后提示
+  // 两者不能同时创建和销毁，稍微错开下
+  setTimeout(() => {
+    $message("点击了确定按钮") // 异步单击确定后提示
+  }, 500)
 }
 
 //  按钮点击事件，演示loading持续三秒

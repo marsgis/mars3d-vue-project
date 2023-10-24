@@ -25,7 +25,7 @@ import { onUnmounted, nextTick, reactive, ref, onMounted, toRaw } from "vue"
 import useLifecycle from "@mars/common/uses/use-lifecycle"
 import * as mapWork from "./map"
 import { useWidget } from "@mars/common/store/widget"
-import { cloneDeep } from "lodash-es"
+import { cloneDeep } from "lodash"
 
 const { activate, disable, currentWidget } = useWidget()
 onMounted(() => {
