@@ -30,7 +30,7 @@
     "lodash": "^4.17.21",
     "mapv": "^2.0.62",
     "mars3d": "~3.6.0",
-    "mars3d-cesium": "~1.110.0",
+    "mars3d-cesium": "~1.111.1",
     "mars3d-echarts": "~3.6.0",
     "mars3d-heatmap": "~3.6.0",
     "mars3d-mapv": "~3.6.0",
@@ -67,7 +67,7 @@
     "typescript": "5.2.2",
     "vite": "^4.5.0",
     "vite-plugin-eslint": "^1.8.1",
-    "vite-plugin-mars3d": "^3.0.3",
+    "vite-plugin-mars3d": "^3.1.1",
     "vite-plugin-style-import": "^2.0.0",
     "vue-tsc": "^1.8.19"
   },

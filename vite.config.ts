@@ -26,7 +26,7 @@ export default ({ mode }: ConfigEnv) => {
       "process.env": {
         mode,
         BASE_URL: ENV.VITE_BASE_URL,
-        API_BASE: ENV.VITE_API_BASE
+        API_BASE: ENV.VITE_API_URL
       },
       buildTime: new Date()
     },
@@ -86,7 +86,7 @@ export default ({ mode }: ConfigEnv) => {
     plugins: [
       vue(),
       eslintPlugin({ cache: false }),
-      mars3dPlugin(),
+      mars3dPlugin({ useStatic: false }),
       createStyleImportPlugin({
         resolves: [AndDesignVueResolve()],
         libs: [
