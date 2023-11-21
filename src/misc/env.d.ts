@@ -1,4 +1,6 @@
 /// <reference types="vite/client" />
+/// <reference types="vite-svg-loader" />
+
 /**
  * 统一定义ts模块类型
  * @copyright 火星科技 mars3d.cn
@@ -29,16 +31,7 @@ declare module "mapv" {
 }
 
 declare module "kml-geojson" {
-  export const toKml: (geojson:any, options:any) => any
-  export const toGeoJSON: (doc:any) => any
+  export const toKml: (geojson: any, options: any) => any
+  export const toGeoJSON: (doc: any) => any
 }
 
-// declare module "*.svg" {
-//   const svg: any
-//   export default svg
-// }
-
-// declare module "*.png" {
-//   const png: string
-//   export default png
-// }

@@ -153,7 +153,7 @@ const pagination = {
 }
 
 function clickVoid(e) {
-  if (e.target.dataset?.event !== "prevent") {
+  if (e.target.dataset?.event !== "prevent" && e.target.tagName !== "INPUT") {
     e.preventDefault()
   }
 }
