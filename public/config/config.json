@@ -1078,7 +1078,7 @@
         "center": { "lat": 34.215516, "lng": 108.960251, "alt": 834, "heading": 4, "pitch": -48 },
         "flat": {
           "enabled": true,
-          "editHeight": 420
+          "editHeight": -24
         },
         "flyTo": false,
         "show": false
