@@ -1,3 +1,14 @@
-> 1%
-last 2 versions
+# 全球使用率超过 5%的浏览器
+> 5%
+
+# 最近两个主要版本的浏览器 (including Chrome, Firefox, Safari, and Edge)
+last 2 major versions
+
+# 对谷歌浏览器的要求
+chrome >80
+
+# 排除官方不在维护已过两年的浏览器
 not dead
+
+# 排除 Internet Explorer 11
+not IE 11
