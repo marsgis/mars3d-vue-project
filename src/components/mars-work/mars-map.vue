@@ -298,6 +298,8 @@ onUnmounted(() => {
   padding: 3px 10px;
   border: 1px solid #209ffd;
   background: #209ffd1c;
+  color: var(--mars-text-color);
+
 }
 
 .mars3d-tooltip {

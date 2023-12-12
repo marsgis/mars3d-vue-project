@@ -1087,6 +1087,7 @@
         "pid": 2030,
         "name": "校园(含单体)",
         "type": "group",
+        "hasOpacity":true,
         "center": { "lat": 43.821193, "lng": 125.143124, "alt": 990, "heading": 342, "pitch": -50 },
         "layers": [
           {
