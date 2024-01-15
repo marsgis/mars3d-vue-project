@@ -1,6 +1,9 @@
 import "mars3d-cesium/Build/Cesium/Widgets/widgets.css"
 import "mars3d/dist/mars3d.css"
 
+import "font-awesome/css/font-awesome.css"
+
+
 import { createApp } from "vue"
 import Application from "./App.vue"
 import { injectState, key } from "@mars/common/store/widget"

@@ -30,8 +30,12 @@ const closePopup = () => {
 }
 </script>
 
-<style>
+<style lang="less">
 .mars3d-template-content {
   padding-bottom: 20px;
+
+  div {
+    padding-right: 10px;
+  }
 }
 </style>

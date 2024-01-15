@@ -616,6 +616,7 @@ export default {
 
     .title {
       font-size: 16px;
+      color: #ffffff !important;
     }
 
     .close-btn {

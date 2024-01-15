@@ -1,6 +1,6 @@
 {
   "name": "mars3d",
-  "version": "3.6.0",
+  "version": "3.7.0",
   "description": "Mars3D平台",
   "main": "dist/mars3d.js",
   "types": "dist/mars3d.d.ts",

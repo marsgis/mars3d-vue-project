@@ -116,7 +116,7 @@ export function showPOIArr(arr: any): void {
         visibleDepth: false, // 是否被遮挡
         label: {
           text: item.name,
-          font_size: 20,
+          font_size: 16,
           color: "#ffffff",
           outline: true,
           outlineWidth: 2,
@@ -158,7 +158,7 @@ async function getCanvas(text) {
       ctx.drawImage(img, 0, 0)
       // 绘制文字
       ctx.fillStyle = "#ffffff"
-      ctx.font = "22px 楷体"
+      ctx.font = "16px 楷体"
       ctx.textBaseline = "middle"
       ctx.fillText(text, 4, 10)
       // 将图片赋予给矢量对象进行显示，this.image是父类的属性

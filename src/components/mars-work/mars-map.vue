@@ -330,7 +330,7 @@ onUnmounted(() => {
   border-bottom: 1px solid var(--mars-hover-btn-bg);
   a {
     font-size: 16px;
-    color: var(--mars-msg-title-color);
+    color: var(--mars-text-color);
   }
 }
 .mars3d-template-content {
