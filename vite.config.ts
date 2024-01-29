@@ -2,7 +2,7 @@ import path from "path"
 import type { ConfigEnv } from "vite"
 import { defineConfig, loadEnv } from "vite" // 帮手函数，这样不用 jsdoc 注解也可以获取类型提示
 import vue from "@vitejs/plugin-vue"
-import legacy from "@vitejs/plugin-legacy"
+// import legacy from "@vitejs/plugin-legacy"
 import eslintPlugin from "vite-plugin-eslint"
 import { mars3dPlugin } from "vite-plugin-mars3d"
 import { createStyleImportPlugin, AndDesignVueResolve } from "vite-plugin-style-import"
