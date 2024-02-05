@@ -17,7 +17,6 @@
   },
   "dependencies": {
     "@icon-park/svg": "^1.4.2",
-    "@mars3d/heatmap.js": "^2.0.7",
     "@turf/turf": "^6.5.0",
     "ant-design-vue": "^4.1.0",
     "axios": "^1.6.5",
@@ -31,7 +30,7 @@
     "lodash": "^4.17.21",
     "mapv": "^2.0.62",
     "mars3d": "~3.7.0",
-    "mars3d-cesium": "~1.113.0",
+    "mars3d-cesium": "~1.114.0",
     "mars3d-echarts": "~3.7.0",
     "mars3d-heatmap": "~3.7.0",
     "mars3d-mapv": "~3.7.0",
