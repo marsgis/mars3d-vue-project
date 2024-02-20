@@ -86,7 +86,7 @@ export default ({ mode }: ConfigEnv) => {
       // 传递给 Terser 的更多 minify 选项
       terserOptions: {
         compress: {
-          drop_console: true, // 在生产环境移除console.log
+          drop_console: false, // 在生产环境移除console.log
           drop_debugger: true // 在生产环境移除debugger
         }
       },
@@ -121,7 +121,7 @@ export default ({ mode }: ConfigEnv) => {
       //     "esnext.string.match-all"
       //   ]
       // }),
-      eslintPlugin({ cache: false }),
+      eslintPlugin(),
       mars3dPlugin({ useStatic: false }),
       createStyleImportPlugin({
         resolves: [AndDesignVueResolve()],

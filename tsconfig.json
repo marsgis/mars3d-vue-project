@@ -26,6 +26,6 @@
       "@mars/*": ["src/*"]
     }
   },
-  "include": ["packages/**/*.ts", "src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "include": ["src/**/*.ts", "packages/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
   "exclude": ["node_modules", "src/**/*.js", "dist"]
 }
