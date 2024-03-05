@@ -45,7 +45,7 @@ MarsUIInstall(app);
     "consola": "^3.2.3",
     "echarts": "^5.4.3",
     "mars3d": "~3.6.0",
-    "mars3d-cesium": "~1.114.0",
+    "mars3d-cesium": "~1.115.0",
     "nprogress": "^0.2.0",
     "vite-plugin-style-import": "^2.0.0",
     "vue": "^3.2.27",
