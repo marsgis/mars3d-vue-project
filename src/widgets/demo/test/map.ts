@@ -46,9 +46,11 @@ export function onMounted(mapInstance) {
   map.addEffect(snowEffect)
   map.addEffect(snowCover)
 
+  // 天气接口，若失效请自行替换
   Cesium.Resource.fetchJson({ url: "http://wthrcdn.etouch.cn/weather_mini?city=青岛" })
     .then((msg) => {
       const data = JSON.parse(msg)
+      console.log("data", data)
       const tianqiForcat = data.data.forecast[0].type
       if (tianqiForcat.search("雪") !== -1) {
         snowEffect.enabled = true

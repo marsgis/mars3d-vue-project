@@ -25,30 +25,30 @@ export default defineComponent({
 </script>
 <style lang="less" scoped>
 .mars-range-picker {
-  color: var(--mars-text-color);
-  border-color: var(--mars-base-border-color) !important;
+  color: var(--mars-control-text);
+  border-color: var(--mars-control-border) !important;
   background-color: transparent !important;
   &:hover {
     border-color: var(--mars-primary-color) !important;
   }
   :deep(.ant-picker-input > input) {
-    color: var(--mars-base-color) !important;
+    color: var(--mars-control-text) !important;
     &::placeholder {
-      color: var(--mars-base-color) !important;
+      color: var(--mars-control-text) !important;
     }
   }
   :deep(.ant-picker-clear) {
-    background: var(--mars-bg-base);
-    color: var(--mars-base-color) !important;
+    background: var(--mars-base-bg);
+    color: var(--mars-control-text) !important;
   }
   :deep(.ant-picker-suffix *) {
-    color: var(--mars-text-color);
+    color: var(--mars-control-text);
   }
   :deep(.ant-picker-range-separator *) {
-    color: var(--mars-text-color);
+    color: var(--mars-control-text);
   }
 }
 :deep(.ant-picker-panel-container) {
-  background: var(--mars-bg-base) !important;
+  background: var(--mars-dropdown-bg) !important;
 }
 </style>

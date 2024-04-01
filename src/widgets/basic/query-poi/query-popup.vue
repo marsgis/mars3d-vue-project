@@ -12,6 +12,7 @@
         <div v-if="props.type"><label>类别:</label> {{ props.type }}</div>
       </div>
     </div>
+    <div class="mars3d-template-tri"></div>
   </div>
 </template>
 
@@ -33,9 +34,27 @@ const closePopup = () => {
 <style lang="less">
 .mars3d-template-content {
   padding-bottom: 20px;
+}
 
-  div {
-    padding-right: 10px;
-  }
+.mars3d-template-tri {
+  margin: 0 auto;
+  width: 0px;
+  height: 0px;
+  border: 10px solid rgba(39, 44, 54, 0.8);
+  border-bottom: none;
+  border-left-color: transparent;
+  border-right-color: transparent;
+}
+</style>
+<style lang="less" scoped>
+.mars3d-popup-background {
+  background: none !important;
+}
+
+.mars3d-popup-content-wrapper {
+  box-shadow: none !important;
+  padding: 0 !important;
+  background: var(--mars-base-border) !important;
+  border-radius: 4px;
 }
 </style>

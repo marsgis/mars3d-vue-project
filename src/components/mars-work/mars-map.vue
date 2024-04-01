@@ -46,8 +46,6 @@ onMounted(() => {
 // onload事件将在地图渲染后触发
 const emit = defineEmits(["onload"])
 const initMars3d = (option: any) => {
-
-
   option = mars3d.Util.merge(option, toRaw(props.options)) // 合并配置
   map = new mars3d.Map(withKeyId.value, option)
 
@@ -153,9 +151,11 @@ onUnmounted(() => {
   left: 12px !important;
   right: auto !important;
 }
+
 .cesium-toolbar-button img {
   height: 100%;
 }
+
 .cesium-viewer-toolbar > .cesium-toolbar-button,
 .cesium-navigationHelpButton-wrapper,
 .cesium-viewer-geocoderContainer {
@@ -164,6 +164,7 @@ onUnmounted(() => {
   clear: both;
   text-align: center;
 }
+
 .cesium-button {
   background-color: rgba(23, 49, 71, 0.7);
   color: #e6e6e6;
@@ -171,6 +172,7 @@ onUnmounted(() => {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   line-height: 32px;
 }
+
 .cesium-button:hover {
   background-color: rgba(0, 138, 255, 0.7);
 }
@@ -192,12 +194,15 @@ onUnmounted(() => {
   transform-origin: left bottom;
   background: none;
   background-color: rgba(23, 49, 71, 0.8);
+
   .cesium-navigation-help-instructions {
     background: none;
   }
+
   .cesium-navigation-button {
     background: none;
   }
+
   .cesium-navigation-button-selected,
   .cesium-navigation-button-unselected:hover {
     background-color: rgba(23, 49, 71, 1);
@@ -208,6 +213,7 @@ onUnmounted(() => {
 .cesium-sceneModePicker-wrapper {
   width: auto;
 }
+
 .cesium-sceneModePicker-wrapper .cesium-sceneModePicker-dropDown-icon {
   float: right;
   margin: 0 3px;
@@ -220,15 +226,19 @@ onUnmounted(() => {
   width: auto;
   z-index: 9999;
 }
+
 .cesium-geocoder-searchButton {
   background-color: rgba(23, 49, 71, 0.8);
 }
+
 .cesium-viewer-geocoderContainer .cesium-geocoder-input {
   background-color: rgba(63, 72, 84, 0.7);
 }
+
 .cesium-viewer-geocoderContainer .cesium-geocoder-input:focus {
   background-color: var(--mars-bg-base, rgba(63, 72, 84, 0.9));
 }
+
 .cesium-viewer-geocoderContainer .search-results {
   background-color: rgba(23, 49, 71, 0.8);
 }
@@ -238,6 +248,7 @@ onUnmounted(() => {
   top: 50px;
   background: var(--mars-bg-base, rgba(63, 72, 84, 0.9));
 }
+
 .cesium-infoBox-title {
   background-color: rgba(23, 49, 71, 0.8);
 }
@@ -248,6 +259,7 @@ onUnmounted(() => {
   bottom: 35px;
   right: 50px;
 }
+
 .cesium-performanceDisplay-ms,
 .cesium-performanceDisplay-fps {
   color: #fff;
@@ -259,6 +271,7 @@ onUnmounted(() => {
   left: 10px;
   right: auto;
 }
+
 .cesium-cesiumInspector {
   background-color: rgba(23, 49, 71, 0.8);
 }
@@ -267,6 +280,7 @@ onUnmounted(() => {
 .mars3d-compass .mars3d-compass-outer {
   fill: rgba(23, 49, 71, 0.8);
 }
+
 .mars3d-contextmenu-ul,
 .mars3d-sub-menu {
   background-color: rgba(23, 49, 71, 0.8);
@@ -288,9 +302,19 @@ onUnmounted(() => {
 .mars3d-popup-color {
   color: var(--mars-text-color, #ffffff);
 }
+
 .mars3d-popup-background {
-  background: var(--mars-bg-base, rgba(63, 72, 84, 0.9));
+  // background: none会导致剖面的popup没有颜色
+  background: var(--mars-bg-base, rgba(63, 72, 84, 1));
 }
+
+// .mars3d-popup-content-wrapper {
+//   box-shadow: none !important;
+//   padding: 0 !important;
+//   background: var(--mars-base-border) !important;
+//   border-radius: 4px;
+// }
+
 .mars3d-popup-content {
   margin: 15px;
 }
@@ -299,7 +323,6 @@ onUnmounted(() => {
   border: 1px solid #209ffd;
   background: #209ffd1c;
   color: var(--mars-text-color);
-
 }
 
 .mars3d-tooltip {
@@ -326,14 +349,30 @@ onUnmounted(() => {
 
 /* all 中的html样式 */
 .mars3d-template-titile {
-  color: var(--mars-base-color);
-  border-bottom: 1px solid var(--mars-hover-btn-bg);
+  height: 33px;
+  line-height: 33px;
+  padding-left: 10px;
+  border-radius: 4px 4px 0px 0px;
+  box-shadow:
+    0px 6px 12px -2px rgba(50, 50, 93, 0.15),
+    0px 3px 7px -3px rgba(0, 0, 0, 0.2);
+  color: var(--mars-control-text) !important;
+  background: var(--mars-msg-title-bg);
+  font-family: var(--mars-font-family);
+
   a {
     font-size: 16px;
-    color: var(--mars-text-color);
+    color: #eaf2ff;
+    text-decoration: none;
   }
 }
+
 .mars3d-template-content {
+  margin-top: 0 !important;
+  background-color: var(--mars-dropdown-bg);
+  padding: 10px;
+  color: #eaf2ff;
+
   label {
     padding-right: 6px;
   }
@@ -343,6 +382,7 @@ onUnmounted(() => {
     background-color: transparent !important;
     padding: 4px 5px;
   }
+
   input::placeholder {
     color: #cdcdcd !important;
   }
@@ -352,6 +392,7 @@ onUnmounted(() => {
     background-color: transparent !important;
     padding: 4px 5px;
   }
+
   textarea::placeholder {
     color: #cdcdcd !important;
   }

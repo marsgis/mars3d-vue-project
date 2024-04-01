@@ -41,9 +41,26 @@ export default {
 <style lang="less" scoped>
 // 开关
 .mars-switch {
-  background-color: var(--mars-disable-btn-bg);
+  width: 30px;
+  min-width: 30px;
+  height: 16px;
+  border-radius: 2px;
+  background-color: var(--mars-close-color);
+  border: 1px solid var(--mars-control-border);
   &.ant-switch-checked {
     background-color: var(--mars-primary-color) !important;
+    border: 1px solid var(--mars-primary-color);
+    :deep(.ant-switch-handle) {
+      inset-inline-start: calc(100% - 14px);
+    }
+  }
+  :deep(.ant-switch-handle) {
+    width: 12px;
+    height: 12px;
+    top: 1px;
+    &::before {
+      border-radius: 2px;
+    }
   }
 }
 </style>

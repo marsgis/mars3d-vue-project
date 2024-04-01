@@ -23,12 +23,16 @@ export default defineComponent({
 <style lang="less" scoped>
 // 按钮
 .mars-button {
+  height: 32px;
+  font-family: var(--mars-font-family);
   font-size: 14px;
-  background: var(--mars-primary-half-color);
+  background: var(--mars-primary-color);
   border: none;
   padding-left: 10px;
   padding-right: 10px;
   color: #ffffff;
+  border-radius: 2px;
+
   :deep(.mars-icon) {
     font-size: 18px !important;
     line-height: 18px;
@@ -37,24 +41,36 @@ export default defineComponent({
     padding-right: 2px;
   }
 }
+
 .mars-button:not([disabled]) {
   &:hover {
-  color: #ffffff;
+    color: #ffffff;
     border-color: #89bceb;
-    background: var(--mars-hover-btn-bg);
+    background: var(--mars-hover-color);
   }
-  &:focus {
-  color: #ffffff;
-    border-color: #89bceb;
-    background: var(--mars-click-btn-bg);
-  }
+
+  // &:focus {
+  //   color: #ffffff;
+  //   border-color: #89bceb;
+  //   background: var(--mars-hover-color);
+  // }
 }
+
 .ant-btn:disabled {
   color: var(--mars-text-color);
-  background: var(--mars-disable-btn-bg);
+  background: var(--mars-disable-color);
+
   &:hover {
-    background: var(--mars-disable-btn-bg);
+    background: var(--mars-disable-color);
     color: var(--mars-text-color);
+  }
+}
+
+.ant-btn-dangerous {
+  background-color: var(--mars-dangerous-color) !important;
+
+  &:hover {
+    background-color: #ff7875 !important;
   }
 }
 </style>
@@ -65,6 +81,7 @@ export default defineComponent({
   padding: 0;
   height: initial;
 }
+
 /* 小型 单击按钮 */
 .small-btn {
   padding: 4px 5px;

@@ -1,66 +1,39 @@
 // 提示组件背景
 .mars-msg-bg {
-  color: var(--mars-msg-title-color);
-  background: var(--mars-msg-content-bg);
-  background-size: 100% 100%;
+  color: var(--mars-control-text);
+  background-color: var(--mars-control-bg);
+
+  // border-image 与 border-radius 无法共存
+  border-radius: 4px;
+  // border: 1px solid;
+  // border-image: var(--mars-base-border) 1;
 }
 
 // 提示组件标题样式
 .mars-msg-title {
   height: 41px;
   line-height: 41px !important;
-  font-size: 18px;
   padding-left: 13px;
-  color: var(--mars-alert-title-color) !important;
+  color: var(--mars-control-text) !important;
   background: var(--mars-msg-title-bg);
-  background-size: 10px 44px;
-
-  &::before {
-    content: "";
-    display: block;
-    width: 50px;
-    height: 35px;
-    position: absolute;
-    left: 0px;
-    top: 0;
-    border-top: 1px solid var(--mars-primary-color);
-    border-left: 1px solid var(--mars-primary-color);
-  }
-
-  &::after {
-    content: "";
-    display: block;
-    width: 70px;
-    position: absolute;
-    right: 0;
-    top: 0;
-    border-top: 1px solid var(--mars-primary-color);
-  }
+  font-family: var(--mars-font-family);
+  font-size: 16px !important;
+  font-weight: normal !important;
+  border-radius: 4px 4px 0 0 !important;
+  box-shadow: var(--mars-base-shadow);
 }
 
 // 下拉样式
 .mars-drop-bg {
-  border-bottom: 1px solid #008aff70;
-  border-left: 1px solid #008aff70;
-  border-right: 1px solid #008aff70;
-  box-shadow: 0px 4px 15px 1px rgba(2, 33, 59, 0.7);
-  border-radius: 0px;
-  background:
-    linear-gradient(to left, var(--mars-base-color), var(--mars-base-color)) left bottom no-repeat,
-    linear-gradient(to bottom, var(--mars-base-color), var(--mars-base-color)) left bottom no-repeat,
-    linear-gradient(to left, var(--mars-base-color), var(--mars-base-color)) right bottom no-repeat,
-    linear-gradient(to left, var(--mars-base-color), var(--mars-base-color)) right bottom no-repeat;
-  background-size:
-    1px 10px,
-    10px 1px,
-    1px 10px,
-    10px 1px;
-  background-color: var(--mars-bg-base) !important;
+  box-shadow:
+    0px 6px 12px -2px rgba(50, 50, 93, 0.05),
+    0px 3px 7px -3px rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  background-color: var(--mars-dropdown-bg);
 }
 
 .mars-hover-bg {
-  // background: var(--mars-title-active);
-  background-color: var(--mars-select-bg);
+  background-color: var(--mars-list-select);
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
@@ -77,21 +50,40 @@
   }
 
   .ant-collapse-content-box {
-    padding: 5px 5px 10px 5px !important;
+    padding: 15px 13px 20px 13px !important;
   }
 
   .ant-collapse-header {
     background: var(--mars-collapse-title-bg);
-    margin-bottom: 10px;
+    box-shadow: var(--mars-collapse-title-shadow);
+    margin-bottom: 1px;
     background-size: 100% 100%;
     background-repeat: no-repeat;
     font-size: 18px;
-    padding: 5px 15px !important;
-    color: #fff !important;
+    padding: 10px 15px !important;
+    color: var(--mars-control-text) !important;
+    border-radius: 4px 4px 0px 0px;
+
+    .ant-collapse-header-text {
+      font-family: 思源黑体;
+      font-size: 16px;
+      font-weight: normal;
+      line-height: normal;
+    }
+
+    .ant-collapse-expand-icon{
+      color: var(--mars-collapse-icon);
+    }
+  }
+
+  .ant-collapse-item:last-child {
+    .ant-collapse-header {
+      border-radius: 4px 4px 0px 0px;
+    }
   }
 
   .ant-collapse-content {
-    color: var(--mars-base-color) !important;
+    color: var(--mars-control-text) !important;
   }
 
   .ant-collapse-extra {
@@ -117,18 +109,21 @@
   // 表单元素
   .ant-form {
     color: rgba(255, 255, 255, 0.925);
+    // 如单个页面不需要，在单页面中设置,给个class pad-none
+    padding: 14px 7px;
 
     .ant-form-item-extra {
-      color: var(--mars-text-color);
+      color: var(--mars-control-text);
     }
   }
 
   .ant-form-item {
     margin-bottom: 10px !important;
-    color: var(--mars-text-color);
+    color: var(--mars-control-text);
 
-    .ant-form-item-label>label {
-      font-size: 16px;
+    .ant-form-item-label > label {
+      font-size: 14px;
+      font-family: var(--mars-font-family);
       color: var(--mars-sub-title-color);
     }
   }
@@ -140,14 +135,14 @@
   /* 卡片 */
   .mars-ant-card {
     background: none;
-    border: 1px solid var(--mars-base-border-color);
-    color: var(--mars-text-color);
+    border: 1px solid var(--mars-control-border);
+    color: var(--mars-control-text);
 
     .ant-card-head {
-      border-color: var(--mars-base-border-color);
+      border-color: var(--mars-control-border);
       min-height: auto;
       padding: 0 10px;
-      color: var(--mars-text-color);
+      color: var(--mars-control-text);
 
       .ant-card-head-title {
         padding: 8px 0;
@@ -161,23 +156,51 @@
 
   // 文件选择
   .ant-upload {
-    color: var(--mars-text-color);
+    color: var(--mars-control-text);
   }
 
   // 多选
   .ant-checkbox-wrapper {
-    color: var(--mars-text-color);
+    color: var(--mars-control-text);
+    font-family: var(--mars-font-family);
 
-    .ant-checkbox-inner {
-      background-color: var(--mars-bg-base);
-      border-color: var(--mars-base-border-color);
+    // 默认复选框
+    .ant-checkbox {
+      background-color: var(--mars-control-bg);
+      border: 1px solid;
+      border-color: var(--mars-control-border);
+      border-radius: 2px;
+
+      .ant-checkbox-inner {
+        background-color: var(--mars-control-bg);
+        border-color: var(--mars-control-border);
+        border-radius: 0;
+      }
     }
 
+    // 选中的复选框
     .ant-checkbox-checked {
-      background: var(--mars-primary-color);
+      background: var(--mars-control-bg);
+      // border: none;
+      box-shadow: 0px 0px 0px 2px rgba(5, 145, 255, 0.1);
+      border-radius: 2px;
+      border-color: var(--mars-primary-color);
 
       .ant-checkbox-inner {
         background-color: var(--mars-primary-color);
+        border-color: var(--mars-primary-color);
+        border-radius: 0;
+      }
+    }
+
+    &:hover {
+      // 默认复选框
+      .ant-checkbox {
+        box-shadow: 0px 0px 0px 2px rgba(5, 145, 255, 0.1);
+      }
+
+      // 选中的复选框
+      .ant-checkbox-checked {
         border-color: var(--mars-primary-color);
       }
     }
@@ -185,32 +208,53 @@
 
   // 单选
   .ant-radio-wrapper {
-    color: var(--mars-text-color);
+    color: var(--mars-control-text);
+    font-family: var(--mars-font-family);
 
     .ant-radio-inner {
-      background-color: var(--mars-bg-base);
-      border-color: var(--mars-base-border-color);
-      box-shadow: none !important;
-      outline: none !important;
+      background-color: var(--mars-control-bg);
+      border-color: var(--mars-control-border);
     }
 
     .ant-radio-checked {
       .ant-radio-inner {
-        border-color: var(--mars-primary-color);
+        border-color: #1677ff;
+        box-shadow: 0px 0px 0px 2px rgba(5, 145, 255, 0.1);
+
+        &::after {
+          background-color: #1677ff;
+        }
       }
     }
 
-    .ant-radio-input {
-      box-shadow: none !important;
-      outline: none !important;
+    &:hover {
+      .ant-radio-inner {
+        box-shadow: 0px 0px 0px 2px rgba(5, 145, 255, 0.1);
+      }
+
+      .ant-radio-checked {
+        .ant-radio-inner {
+          border-color: #1677ff;
+
+          &::after {
+            background-color: #4096ff;
+          }
+        }
+      }
     }
   }
 
   // 表格
   .ant-table,
-  .ant-table-thead>tr>th {
-    color: var(--mars-sub-title-color);
+  .ant-table-thead > tr > th {
+    color: var(--mars-control-text);
     background: none !important;
+    font-family: var(--mars-font-family);
+    font-size: 12px;
+    font-weight: 500;
+
+    border-start-end-radius: 0 !important;
+    border-start-start-radius: 0 !important;
   }
 
   .ant-table-sticky-holder {
@@ -218,52 +262,108 @@
   }
 
   .ant-table-row:nth-of-type(even) {
-    background-color: var(--mars-bg-base);
+    background-color: var(--mars-table-odd-bg);
   }
 
   .ant-table-row:nth-of-type(odd) {
-    background-color: var(--mars-odd-table-bg);
+    background-color: transparent;
   }
 
-  .ant-table .ant-table-thead {
-    background-color: var(--mars-select-bg);
+  .ant-table {
+    .ant-table-header {
+      border-radius: 0;
+      .ant-table-thead {
+        background-color: var(--mars-table-header-bg);
+      }
+    }
   }
 
-  .ant-table-tbody>tr.ant-table-placeholder>td {
+  .ant-table-tbody > tr.ant-table-placeholder > td {
     background: #141414;
   }
 
-  .ant-table-row:hover>td,
-  .ant-table-row-selected>td {
+  .ant-table-row:hover > td,
+  .ant-table-row-selected > td {
     background-color: transparent !important;
   }
 
   .ant-table-cell {
-    font-size: 16px;
-    color: var(--mars-text-color);
-    border: none !important;
+    font-family: var(--mars-font-family);
+    font-size: 14px;
+    font-weight: normal;
+    color: var(--mars-control-text);
+    border: 0.5px solid var(--mars-control-border) !important;
     background: transparent !important;
   }
 
+  // 表格主体
   .ant-table-container {
-    border: 1px solid var(--mars-primary-color) !important;
+    border: 0.5px solid var(--mars-control-border) !important;
     background: transparent !important;
+    border-start-start-radius: 0;
+    border-start-end-radius: 0;
+
+    .ant-table-content {
+      > table {
+        border-top: none !important;
+        border-radius: 0;
+
+        > thead > tr:first-child > *:first-child {
+          border-start-start-radius: 0;
+        }
+
+        > thead > tr:first-child > *:last-child {
+          border-start-end-radius: 0;
+        }
+      }
+    }
   }
 
   .ant-table-container .ant-table-cell .ant-table-column-sorter {
-    color: var(--mars-text-color);
+    color: var(--mars-control-text);
   }
 
-  .ant-table-placeholder>td {
-    background: var(--mars-bg-base) !important;
-  }
+  .ant-table-placeholder > td {
+    background: var(--mars-base-bg) !important;
 
-  .ant-empty-description {
-    color: var(--mars-text-color);
+    .ant-empty {
+      .ant-empty-description {
+        color: var(--mars-control-text);
+      }
+    }
   }
 
   .ant-table-row:nth-last-child(1) .ant-table-cell {
     border-bottom: none;
+  }
+
+  .ant-table-wrapper {
+    .ant-table-pagination {
+      margin: 16px 0 0;
+    }
+  }
+
+  // 级联选择
+  .ant-cascader {
+    .ant-select-selector {
+      height: 32px;
+      color: var(--mars-control-text);
+      background-color: var(--mars-control-bg);
+      font-size: 12px !important;
+      border-radius: 0;
+      border: 1px solid;
+      border-color: var(--mars-control-border);
+      border-radius: 2px;
+      font-family: var(--mars-font-family);
+    }
+
+    .ant-select-selection-item {
+      color: var(--mars-control-text) !important;
+    }
+
+    .ant-select-arrow {
+      color: var(--mars-control-text) !important;
+    }
   }
 
   .ant-cascader-dropdown {
@@ -271,7 +371,7 @@
     .mars-drop-bg();
 
     .ant-cascader-menu-item {
-      color: var(--mars-text-color);
+      color: var(--mars-control-text);
 
       &:hover {
         background: var(--mars-list-active);
@@ -283,45 +383,62 @@
     }
 
     .ant-cascader-menu-item-expand-icon {
-      color: var(--mars-text-color) !important;
+      color: var(--mars-control-text) !important;
     }
   }
 
   // 标签页的标签文字颜色
   .ant-tabs-tab {
-    color: var(--mars-text-color);
+    color: var(--mars-control-text);
   }
 
   // 分页
   .ant-pagination {
-    * {
-      color: var(--mars-text-color) !important;
-    }
-
     .ant-pagination-item,
     .ant-pagination-prev,
     .ant-pagination-next {
       background: none;
-      background-color: transparent !important;
+      background-color: transparent;
+      color: var(--mars-sub-title-color);
+
+      > a,
+      .ant-pagination-item-link {
+        color: var(--mars-sub-title-color);
+        font-family: var(--mars-font-family);
+        font-size: 12px;
+        font-weight: normal;
+      }
+    }
+
+    // 不可用状态
+    .ant-pagination-disabled {
+      .ant-pagination-item-link {
+        color: var(--mars-disable-color);
+      }
     }
 
     .ant-pagination-simple-pager {
+      color: var(--mars-sub-title-color);
+
       input {
         background: none;
-        background-color: transparent !important;
+        background-color: var(--mars-control-bg);
+        border: 1px solid;
+        border-color: var(--mars-control-border);
+        color: var(--mars-sub-title-color) !important;
       }
     }
 
     .ant-select {
-      color: var(--mars-text-color);
+      color: var(--mars-control-text);
       background-color: transparent !important;
       background: none;
 
       .ant-select-selector {
-        border-color: var(--mars-base-border-color) !important;
+        border-color: var(--mars-control-border) !important;
         background: none;
         background-color: transparent !important;
-        color: var(--mars-base-color) !important;
+        color: var(--mars-control-text) !important;
 
         &:hover,
         &:focus {
@@ -329,8 +446,12 @@
         }
       }
 
+      .ant-select-selection-item {
+        color: var(--mars-control-text);
+      }
+
       .ant-select-arrow {
-        color: var(--mars-base-color) !important;
+        color: var(--mars-control-text) !important;
       }
     }
 
@@ -343,22 +464,52 @@
       }
 
       .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
-        font-weight: 700;
+        // font-weight: 700;
         background: var(--mars-list-active);
       }
 
       .ant-select-item {
         transition: none;
-        color: var(--mars-base-color) !important;
+        color: var(--mars-control-text) !important;
         text-align: center;
       }
+    }
+
+    .ant-pagination-item-active {
+      border-color: var(--mars-primary-color);
+      border-radius: 2px;
+
+      > a {
+        color: var(--mars-primary-color);
+      }
+    }
+  }
+
+  .ant-pagination-simple {
+    .ant-pagination-simple-pager {
+      color: rgba(234, 242, 255, 0.5);
+
+      input {
+        color: #ffffff;
+      }
+    }
+
+    .ant-pagination-next {
+      .ant-pagination-item-link {
+        .anticon-right,
+        .anticon-left {
+          color: var(--mars-text-color) !important;
+        }
+      }
+
+      color: var(--mars-text-color) !important;
     }
   }
 
   // 列表
   .ant-list-items {
     * {
-      color: var(--mars-text-color);
+      color: var(--mars-control-text);
     }
 
     .ant-list-item {
@@ -372,7 +523,7 @@
 
   // 分割线
   .ant-divider-vertical {
-    border-color: var(--mars-text-color);
+    border-color: var(--mars-control-text);
   }
 
   //table表格滚动条
@@ -391,12 +542,12 @@
       margin-top: 0;
 
       &::before {
-        border-color: var(--mars-base-border-color);
+        border-color: var(--mars-control-border);
       }
     }
 
     .ant-tabs-tab {
-      color: var(--mars-base-color) !important;
+      color: var(--mars-control-text) !important;
     }
 
     .ant-tabs-nav-wrap {
@@ -410,7 +561,7 @@
 
       .ant-tabs-tab {
         background: #20a0ff33 !important;
-        border-color: var(--mars-base-border-color);
+        border-color: var(--mars-control-border);
       }
     }
 
@@ -422,61 +573,119 @@
 
 .mars-cascader-dropdown {
   padding: 0 !important;
-  background-color: var(--mars-select-bg) !important;
   .mars-drop-bg();
 
   .ant-cascader-menu-item {
-    color: var(--mars-text-color);
+    color: var(--mars-control-text);
 
     &:hover {
-      background: var(--mars-list-active);
+      background: var(--mars-list-select);
     }
   }
 
   .ant-cascader-menu-item-active:not(.ant-cascader-menu-item-disabled) {
-    background: var(--mars-list-active);
+    background: var(--mars-list-active) !important;
   }
 
   .ant-cascader-menu-item-expand-icon {
-    color: var(--mars-text-color) !important;
+    color: var(--mars-control-text) !important;
   }
 }
 
 // 下拉选择
 .mars-select-dropdown {
-  padding: 0 !important;
-  color: var(--mars-text-color) !important;
+  padding: 4px !important;
+  color: var(--mars-control-text) !important;
+  font-family: var(--mars-font-family);
   .mars-drop-bg();
 
   .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
     background: var(--mars-list-active);
+    border-radius: 2px;
   }
 
   .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
-    font-weight: 700;
+    // font-weight: 700;
     background: var(--mars-list-active);
+    border-radius: 2px;
   }
 
   .ant-select-item {
     transition: none;
-    color: var(--mars-text-color) !important;
-    text-align: center;
+    color: var(--mars-control-text) !important;
+    text-align: left;
   }
 
   .ant-cascader-menu-item {
-    color: var(--mars-text-color);
+    color: var(--mars-control-text);
+
+    &:hover {
+      background: var(--mars-list-active);
+      border-radius: 2px;
+    }
+  }
+
+  .ant-cascader-menu-item-active:not(.ant-cascader-menu-item-disabled) {
+    background: var(--mars-list-active);
+    border-radius: 2px;
 
     &:hover {
       background: var(--mars-list-active);
     }
   }
 
-  .ant-cascader-menu-item-active:not(.ant-cascader-menu-item-disabled) {
-    background: var(--mars-list-active);
-  }
-
   .ant-cascader-menu-item-expand-icon {
-    color: var(--mars-text-color) !important;
+    color: var(--mars-control-placeholder) !important;
+  }
+}
+
+// 无头部自定义 table 样式
+.mars-noHeader-table {
+  :deep(.ant-table) {
+    margin-top: 10px;
+
+    .ant-table-tbody {
+      .ant-table-row {
+        display: flex;
+        width: 300px;
+        border-radius: 2px;
+        border: 1px solid rgba(234, 242, 255, 0.1);
+        background: rgba(234, 242, 255, 0.2);
+        margin-bottom: 10px;
+        cursor: pointer;
+
+        &:hover {
+          background: rgba(234, 242, 255, 0.4);
+        }
+      }
+
+      .ant-table-row-selected {
+        background: rgba(234, 242, 255, 0.4);
+      }
+
+      .ant-table-placeholder {
+        td {
+          position: relative !important;
+        }
+      }
+
+      .ant-table-cell {
+        border: none !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 216px;
+
+        &:last-child {
+          position: absolute;
+          right: 0;
+        }
+      }
+    }
+
+    .ant-table-container {
+      border: none !important;
+    }
   }
 }
 
@@ -499,7 +708,7 @@
 ::-webkit-scrollbar {
   height: 10px;
   width: 4px;
-  background: var(--mars-scrollbar-thumb);
+  background: var(--mars-scrollbar-track);
   border-radius: 4px;
 }
 

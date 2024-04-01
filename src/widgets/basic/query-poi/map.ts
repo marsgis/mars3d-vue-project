@@ -41,7 +41,7 @@ export async function onMounted(mapInstance: mars3d.Map): Promise<void> {
 
     const dom = initVue3Popup(QueryPopup, attr)
     return dom
-  })
+  }, { offsetY: -20 })
 
   map.addLayer(graphicLayer)
 

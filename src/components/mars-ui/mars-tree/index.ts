@@ -14,19 +14,18 @@ const MarsTree = defineComponent({
   setup(props, context) {
     const icon = (isLeaf: boolean, expanded: boolean, group: boolean) => {
       if (isLeaf && !group) {
-        return [
+        return [  
           h(Icon, {
-            icon: "notes",
+            icon: "bring-to-front",
             width: "14",
-            color: "#79C1F8",
             theme: "outline",
             key: new Date().getTime()
           })
         ]
-      } else if (!expanded) {
-        return [h(Icon, { icon: "folder-close", width: "14", color: "#db9829", theme: "filled", key: new Date().getTime() })]
-      } else if (expanded) {
-        return [h(Icon, { icon: "folder-open", width: "14", color: "#db9829", theme: "filled", key: new Date().getTime() })]
+      } else if (!expanded) { 
+        return [h(Icon, { icon: "folder-close", width: "14", theme: "outline", key: new Date().getTime() })]
+      } else if (expanded) { 
+        return [h(Icon, { icon: "folder-open", width: "14", theme: "outline", key: new Date().getTime() })]
       }
     }
     return () =>
@@ -34,7 +33,7 @@ const MarsTree = defineComponent({
         Tree,
         {
           showIcon: true,
-          showLine: true,
+          showLine: false, // 连接线
           ...context.attrs,
           ...props
         },

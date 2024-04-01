@@ -1,5 +1,5 @@
 <template>
-  <mars-dialog title="弹窗标题" width="300" height="400" top="400" bottom="10" :right="10">
+  <mars-dialog :nopadding="true" title="弹窗标题" width="300" height="400" top="400" bottom="10" :right="10">
     <a-row :gutter="5">
       <a-col :span="19">
         <mars-input v-model:value="extent" :allowClear="true"></mars-input>

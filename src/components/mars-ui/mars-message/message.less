@@ -1,13 +1,24 @@
 /*提示*/
 .mars-message {
   .ant-message-notice-content {
-    background: none;
-    color: var(--mars-text-color);
-    padding: 15px 20px;
-    .mars-msg-bg();
-    .ant-message-info span{
-      font-size: 16px;
+    color: var(--mars-control-text);
+
+    // border-image 与 border-radius 无法共存
+    padding: 1px !important;
+    background: var(--mars-base-border);
+    border-radius: 4px !important;
+    backdrop-filter: blur(10px);
+
+    .ant-message-custom-content  {
+      padding: 10px 15px;
+      .mars-msg-bg();
+      > span {
+        font-size: 14px !important;
+        font-family: var(--mars-font-family);
+        font-weight: normal;
+      }
     }
+
     .mars-icon {
       margin-right: 10px;
     }

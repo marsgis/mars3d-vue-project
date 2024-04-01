@@ -1,10 +1,41 @@
 .mars-main-view {
-
   // 树控件
   .ant-tree {
     background: none;
-    color: var(--mars-text-color);
+    color: var(--mars-tree-hover-text);
     padding-bottom: 2px;
+    .ant-tree-treenode {
+      width: 100%;
+
+      .ant-tree-node-content-wrapper {
+        color: var(--mars-tree-text);
+        .ant-tree-title {
+          font-family: var(--mars-font-family);
+          font-size: 14px;
+          font-weight: normal;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+      }
+
+      &:hover {
+        background: var(--mars-list-active) !important;
+        border-radius: 2px;
+
+        .ant-tree-node-content-wrapper {
+          color: var(--mars-tree-hover-text);
+          background: transparent;
+        }
+      }
+    }
+    .ant-tree-treenode-checkbox-checked {
+      background: var(--mars-list-active) !important;
+      border-radius: 2px;
+      .ant-tree-node-content-wrapper {
+        color: var(--mars-tree-hover-text);
+      }
+    }
   }
 
   .ant-tree-checkbox {
@@ -14,10 +45,12 @@
   .ant-tree-show-line .ant-tree-switcher,
   .ant-tree-checkbox-inner {
     background: none !important;
+    border-radius: 2px !important;
   }
 
   .ant-tree-checkbox-checked {
     background: var(--mars-primary-color);
+    border-radius: 2px;
 
     .ant-tree-checkbox-inner {
       border-color: var(--mars-primary-color);
@@ -29,7 +62,7 @@
   }
 
   .ant-tree-show-line .ant-tree-indent-unit::before {
-    border-right: 1px dotted var(--mars-text-color);
+    border-right: 1px dotted var(--mars-text-tree);
   }
 
   .ant-tree-switcher-noop {
@@ -65,17 +98,5 @@
     position: absolute;
     top: 10px;
     border-bottom: 1px dotted var(--mars-text-color);
-  }
-
-  .ant-tree-node-content-wrapper {
-    color: var(--mars-text-color) !important;
-
-    // .ant-tree-iconEle {
-    //   line-height: 2.2;
-    // }
-
-    &:hover {
-      background: hsla(0, 0%, 100%, 0.08) !important;
-    }
   }
 }

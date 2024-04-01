@@ -6,7 +6,7 @@
  */
 
 .w-full {
-  width: 100%;
+  width: 100% !important;
 }
 
 .h-full {
@@ -82,15 +82,19 @@
 }
 
 .f-ff0 {
-  font-family: arial, \5b8b\4f53;
+  font-family: var(--mars-font-family);
 }
 
 .f-ff1 {
   font-family: "Microsoft YaHei", \5fae\8f6f\96c5\9ed1, arial, \5b8b\4f53;
 }
 
+.f-ff2 {
+  font-family: arial, \5b8b\4f53;
+}
+
 .f-fs12 {
-  font-size: 12px;
+  font-size: 12px !important;
 }
 
 .f-fs14 {
@@ -441,6 +445,10 @@
   padding: 4px !important;
 }
 
+.p-10 {
+  padding: 10px !important;
+}
+
 .p-14 {
   padding: 14px !important;
 }
@@ -450,7 +458,34 @@
 }
 
 .mars-pannel-item-label {
+  font-family: var(--mars-font-family);
   display: block;
   text-align: right;
   min-width: 60px;
+  color: var(--mars-sub-title-color);
+}
+
+.zhyq-dialog {
+  background: rgba(23, 49, 71, 0.8) !important;
+  padding: 0 !important;
+  backdrop-filter: none !important;
+  border-bottom: 1px solid #008aff70;
+  border-left: 1px solid #008aff70;
+  border-right: 1px solid #008aff70;
+
+  .mars-dialog__content {
+    background-color: transparent !important;
+  }
+
+  .mars-dialog__header {
+    background: url("@mars/components/mars-ui/assets/images/msg-title-bg.png") !important;
+    background-repeat: no-repeat !important;
+  }
+}
+
+// 渐变边框，可用于其他需要渐变边框的div
+.mars-base-border_gradient {
+  background: var(--mars-base-border);
+  padding: 1px;
+  border-radius: 4px;
 }

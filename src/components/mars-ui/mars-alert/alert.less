@@ -4,31 +4,48 @@
     .mars-msg-title();
   }
   .ant-modal-confirm-content {
-    font-size: 16px;
-    padding: 10px 14px;
+    padding: 15px 14px 17px;
     margin: 0;
-    color: var(--mars-msg-title-color) !important;
+    color: var(--mars-control-text) !important;
     user-select: text;
+    font-size: 14px !important;
+    font-family: var(--mars-font-family);
+    font-weight: normal;
+    max-width: 100% !important;
+    margin-block-start: 0 !important;
   }
   .ant-modal-confirm-btns {
     margin: 0;
     width: 100%;
     text-align: center;
+    margin-bottom: 13px;
     .ant-btn {
       background: var(--mars-primary-color);
       background-color: var(--mars-primary-color);
       color: #ffffff;
       border: none;
+      border-radius: 2px;
+      &:hover {
+        color: #ffffff;
+        border-color: #89bceb;
+        background: var(--mars-hover-color);
+      }
     }
   }
   .ant-modal-content {
     background-color: transparent;
     padding: 0;
-    padding-bottom: 10px;
-    .mars-msg-bg();
-  }
-  .ant-modal-body {
-    padding: 0;
+    padding-bottom: 14px;
+
+    // border-image 与 border-radius 无法共存
+    padding: 1px !important;
+    background: var(--mars-base-border);
+    border-radius: 4px !important;
+    backdrop-filter: blur(10px);
+    .ant-modal-body {
+      padding: 0;
+      .mars-msg-bg();
+    }
   }
   .anticon {
     * {

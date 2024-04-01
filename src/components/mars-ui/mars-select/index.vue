@@ -22,24 +22,29 @@ export default defineComponent({
 </script>
 <style lang="less" scoped>
 .mars-select {
-  color: var(--mars-text-color);
-  background-color: transparent !important;
-  background: none;
+  width: 100%;
+  height: 32px;
+  background-color: var(--mars-control-bg);
+  border-radius: 2px;
+  box-shadow: none;
   :deep(.ant-select-selector) {
-    border-color: var(--mars-base-border-color) !important;
+    height: 100% !important;
+    border-color: var(--mars-control-border);
+    border-radius: 2px;
     background: none;
-    background-color: transparent !important;
+    color: var(--mars-text-color);
     &:hover,
     &:focus {
-      border-color: #4db3ff !important;
+      border-color: var(--mars-hover-color);
     }
     .ant-select-selection-item {
-      color: var(--mars-base-color) !important;
+      color: var(--mars-control-text) !important;
+      line-height: 32px !important;
     }
   }
 
   :deep(.ant-select-arrow) {
-    color: var(--mars-base-color) !important;
+    color: var(--mars-control-placeholder);
   }
 }
 </style>

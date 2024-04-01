@@ -1,40 +1,55 @@
 @import url("./zhts.less");
 
 :root[data-theme="light"] {
-  --mars-primary-color: rgb(0, 138, 255);
-  --mars-primary-half-color: rgb(0, 138, 255);
-  --mars-sub-color: #26ddff;
-  --mars-danger-color: #f75165;
-  --mars-warning-color: #ff8041;
-  --mars-success-color: #18af92;
-  --mars-base-color: #ffffff;
-  --mars-content-color: #cdcdcd;
-  --mars-text-color: #19212f;
-  --mars-hover-btn-bg: #3ea6ff;
-  --mars-click-btn-bg: #015dab;
-  --mars-disable-btn-bg: #cdcdcd;
-  --mars-base-border: #e9ecf3;
-  --mars-select-bg: rgba(0, 138, 255, 0.2);
-  --mars-bg-base: #ffffff;
-  --mars-odd-table-bg: #f4faff; // 奇数表格背景
-  --mars-bg-title: rgb(0, 138, 255); // 普通的头部背景色
-  --mars-base-border-color: #b9b9b9;
-  --mars-list-active: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 98%, rgb(0, 138, 255) 100%);
+  --mars-base-bg: #ffffff; // 整个面板整体背景色
+  --mars-base-shadow: 0px 12px 28px 0px rgba(0, 0, 0, 0.2), 0px 2px 4px 0px rgba(0, 0, 0, 0.1), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.05); // 整个面板整体阴影
+  --mars-base-border: #ffffff; // 边框色
+  --mars-collapse-title-bg: #ffffff; // 折叠面板大标题背景色
+  --mars-collapse-title-shadow: 0px 8px 24px 0px rgba(149, 157, 165, 0.2); // 折叠面板大标题阴影
+  --mars-sub-title-color: rgba(0, 0, 0, 0.88); // 小标题的颜色
+  --mars-extra-text-color: #9e9e9e; // 额外字段颜色
+  // 文本
+  // --mars-text-color: rgba(3, 26, 61, 1); // 文本颜色
+  --mars-text-color: rgba(0, 0, 0, 0.88); // 文本颜色
+  --mars-font-family: HarmonyOS Sans SC;
 
-  --mars-title-active: rgba(255, 255, 255, 0.8);
-  --mars-title-text-active: #ffffff;
+  // 控件基本样式
+  --mars-control-bg: #ffffff; // 框的背景色
+  --mars-control-border: rgba(0, 0, 0, 0.15); // 框的边框色
 
-  --mars-menu-emb: url(../assets/images/sub-menu-emb-light.png);
+  --mars-poi-border: #ffffff;
+  --mars-collapse-icon: #3385ff;
 
-  --mars-msg-title-bg: #008aff;
-  --mars-msg-title-color: #1995ff;
-  --mars-msg-content-bg: #ffffff;
+  --mars-control-text: rgba(3, 26, 61, 1); // 框中文本颜色
+  --mars-control-placeholder: rgba(3, 26, 61, 0.25); // 框中默认文本颜色
+  --mars-control-icon: rgba(3, 26, 61, 0.5); // 框后面的小图标颜色
 
-  --mars-alert-title-color: #ffffff;
-  --mars-sub-title-color: #707782; // 小标题的颜色
+  --mars-table-odd-bg: transparent; // 奇数表格背景
+  --mars-table-header-bg: rgba(0, 0, 0, 0.02); // 表格表头背景
 
-  --mars-scrollbar-thumb: rgba(0, 138, 255, 0.4);
+  // 下拉菜单背景色
+  --mars-dropdown-bg: #ffffff; // 整个面板整体背景色
+
+  // 树控件
+  --mars-tree-text: rgba(3, 26, 61, 0.7); // 文本颜色
+  --mars-tree-hover-text: #031a3d; // 文本颜色
+
+  // --mars-menu-emb: url(../assets/images/sub-menu-emb.png);
+  --mars-menu-emb: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
+
+  // 状态
+  --mars-primary-color: #1677ff;
+  --mars-dangerous-color: #f96868;
+  --mars-close-color: rgba(0, 0, 0, 0.25); // 关闭状态
+  --mars-disable-color: rgba(3, 26, 61, 0.2); // 不可用状态
+  --mars-hover-color: rgba(64, 150, 255, 1); // 移入状态
+  --mars-list-active: rgba(242, 243, 255, 1); // 选中激活列
+  --mars-list-select: rgba(51, 133, 255, 0.15); // 选中菜单
+
+  // 组件
+  --mars-msg-title-bg: #ffffff;
+  --mars-msg-title-color: #ffffff;
+
+  --mars-scrollbar-thumb: rgb(173, 173, 173, 0.4);
   --mars-scrollbar-track: rgb(236, 236, 236);
-
-  --mars-collapse-title-bg: #008aff;
 }

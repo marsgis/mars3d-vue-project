@@ -3,19 +3,15 @@
     <div class="mars-dialog-thumb" v-show="isFold && show" ref="thumbnailRef" @click="toogleFold(false)">
       <mars-icon :icon="mergeProps.thumbnail.icon" :width="20" color="#FFFFFF"></mars-icon>
     </div>
-    <div
-      class="mars-dialog"
-      :class="[customClass, animationClass]"
-      :style="{ 'padding-top': showHeader ? '44px' : '10px', 'padding-bottom': slots.footer ? '44px' : '10px' }"
-      ref="dialogRef"
-      v-show="visible && !isFold && show"
-    >
+    <div class="mars-dialog" :class="[customClass, animationClass]" ref="dialogRef" v-show="visible && !isFold && show">
       <div v-if="showHeader" class="mars-dialog__header" :style="{ cursor: mergeProps.draggable ? 'move' : 'auto' }" @mousedown="dragStart">
         <mars-icon v-if="mergeProps.icon" :icon="mergeProps.icon" :width="18" color="#41A8FF" class="icon"></mars-icon>
+        <slot v-else-if="slots.icon" name="icon"></slot>
         <slot v-if="slots.title" name="title"></slot>
         <span v-else class="title">{{ mergeProps.title }}</span>
         <mars-icon v-if="mergeProps.closeable && mergeProps.closeButton" icon="close" :width="18" class="close-btn" @click="close"></mars-icon>
       </div>
+
       <mars-icon
         v-else-if="mergeProps.closeable && mergeProps.closeButton"
         icon="close-one"
@@ -24,8 +20,12 @@
         @click="close"
       ></mars-icon>
 
-      <div class="mars-dialog__content">
+      <div class="mars-dialog__content" :style="getContentStyle()">
         <slot></slot>
+      </div>
+
+      <div v-if="slots.leftBar" class="mars-dialog_leftbar">
+        <slot name="leftBar"></slot>
       </div>
 
       <div v-if="slots.footer" class="mars-dialog__footer">
@@ -42,6 +42,7 @@
     </div>
   </teleport>
 </template>
+
 <script lang="ts" setup>
 /**
  * dialog弹框
@@ -79,6 +80,7 @@ interface Props {
   right?: number | string // 定位right值
   top?: number | string // 定位top值
   bottom?: number | string // 定位bottom值
+  nopadding?: boolean // 是否存在 padding 值
   position?: Position // 统一设置位置属性，优先级高于 left right top bottom
 
   handles?: boolean | string // 缩放控制器
@@ -107,6 +109,7 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   visible: false,
   show: true,
+  nopadding: false,
   closeable: false,
   closeButton: true,
   draggable: true,
@@ -163,7 +166,7 @@ const mergeProps = computed(() => {
     newProps.top = 10
   }
 
-  if (isAllowValue(newProps.closeable) && (slots.title || isAllowValue(newProps.title) || isAllowValue(newProps.icon) || newProps.draggable)) {
+  if (isAllowValue(newProps.closeable) && (slots.title || isAllowValue(newProps.title) || isAllowValue(newProps.icon))) {
     newProps.closeable = true
   }
 
@@ -174,9 +177,34 @@ const mergeProps = computed(() => {
   return newProps
 })
 
-const showHeader = computed(
-  () => slots.title || isAllowValue(mergeProps.value.icon) || isAllowValue(mergeProps.value.title) || mergeProps.value.draggable
-)
+const showHeader = computed(() => slots.title || isAllowValue(mergeProps.value.icon) || isAllowValue(mergeProps.value.title))
+const getContentStyle = () => {
+  const style: any = {}
+  style.height = "100%"
+  // 头部和脚部各有一个时
+  if (showHeader.value) {
+    style.height = "calc(100% - 40px)"
+    style.borderTopLeftRadius = "0 !important"
+    style.borderTopRightRadius = "0 !important"
+  }
+  if (slots.footer) {
+    style.height = "calc(100% - 40px)"
+    style.borderBottomLeftRadius = "0 !important"
+    style.borderBottomRightRadius = "0 !important"
+  }
+
+  // 头部和脚部都有时
+  if (showHeader.value && slots.footer) {
+    style.height = "calc(100% - 80px)"
+    style.paddingBottom = 0
+  }
+
+  // 无内边距
+  if (mergeProps.value.nopadding) {
+    style.padding = "0 !important"
+  }
+  return style
+}
 
 const dialogRef = ref()
 const thumbnailRef = ref()
@@ -428,9 +456,9 @@ onUnmounted(() => {
 // 处理高度超出的情况
 function autoNiceHeight() {
   if (observeDialog) {
-    const niceHeight = warpperEle.offsetHeight - dialogRef.value.offsetTop - 30
-    const isExceed = niceHeight < dialogRef.value.offsetHeight
+    const isExceed = warpperEle.offsetHeight < dialogRef.value.offsetHeight + dialogRef.value.offsetTop
     if (isExceed) {
+      const niceHeight = warpperEle.offsetHeight - dialogRef.value.offsetTop
       dialogRef.value.style.height = autoUnit(niceHeight)
     }
   }
@@ -443,9 +471,8 @@ function resize() {
     return
   }
 
-  const niceHeight = warpperEle.offsetHeight - pb.offsetTop - 30
-  if (pb.offsetHeight > niceHeight) {
-    setSize("height", niceHeight)
+  if (pb.offsetTop + pb.offsetHeight > warpperEle.offsetHeight) {
+    setSize("height", warpperEle.offsetHeight - pb.offsetTop)
   }
   if (pb.offsetLeft + pb.offsetWidth > warpperEle.offsetWidth) {
     setSize("width", warpperEle.offsetWidth - pb.offsetLeft)
@@ -578,7 +605,8 @@ export default {
 
 <style lang="less" scoped>
 .mars-dialog-thumb {
-  background-color: var(--mars-bg-base);
+  background-color: var(--mars-base-bg);
+  backdrop-filter: blur(10px);
   position: absolute;
   padding: 5px;
   border-radius: 5px;
@@ -588,14 +616,17 @@ export default {
 .mars-dialog {
   position: absolute;
   box-sizing: border-box;
-  padding: 10px 10px 10px 10px;
-  border-radius: 4px;
   z-index: 999 !important;
-  border-bottom: 1px solid #008aff70;
-  border-left: 1px solid #008aff70;
-  border-right: 1px solid #008aff70;
-  z-index: 100;
+
   .mars-drop-bg();
+  box-shadow: var(--mars-base-shadow);
+  border-radius: 4px;
+  // border-image 与 border-radius 无法共存
+  // padding 作为边框，与 mars-dialog__content 背景
+  padding: 1px;
+  background: var(--mars-base-border);
+  border-radius: 4px;
+  backdrop-filter: blur(10px);
 
   .mars-dialog__header {
     height: 44px;
@@ -603,27 +634,28 @@ export default {
     line-height: 44px;
     overflow: hidden;
     .mars-msg-title();
+    box-shadow: var(--mars-collapse-title-shadow);
+    border-radius: 4px 4px 0 0;
     padding: 0 5px 0px 10px;
-    color: var(--mars-base-color);
-    position: absolute;
+    color: var(--mars-text-color);
+    position: relative;
     top: 0;
     left: 0;
 
     .icon {
-      margin-right: 5px;
-      color: #ffffff;
+      margin-right: 11px;
+      color: #41a8ff;
     }
 
     .title {
       font-size: 16px;
-      color: #ffffff !important;
     }
 
     .close-btn {
       float: right;
       cursor: pointer;
       margin-top: 12px;
-      color: #ffffff;
+      color: var(--mars-text-color);
     }
   }
 
@@ -636,22 +668,33 @@ export default {
 
   .mars-dialog__content {
     height: 100%;
-    width: 100%;
+    padding: 14px;
     overflow: auto;
-    padding: 5px;
+    border-radius: 4px;
+    background-color: var(--mars-dropdown-bg);
+
+    :deep(.ant-form) {
+      padding: 0;
+    }
+  }
+
+  .mars-dialog_leftbar {
+    position: absolute;
+    top: 42px;
   }
 
   .mars-dialog__footer {
-    height: 44px;
-    width: 100%;
+    height: 39px;
+    width: calc(100% - 2px);
     color: var(--mars-text-color);
+    background-color: var(--mars-dropdown-bg);
     position: absolute;
-    left: 0;
-    bottom: 0;
+    left: 1px;
+    bottom: 1px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding-left: 10px;
+    // padding-left: 14px;  会导致图上标绘弹出框底部tab栏错位
   }
 
   .mars-dialog__handle {

@@ -27,27 +27,30 @@ export default defineComponent({
 </script>
 <style lang="less" scoped>
 .mars-date-picker {
-  color: var(--mars-text-color);
-  border-color: var(--mars-base-border-color) !important;
-  background-color: transparent !important;
+  width: 100%;
+  height: 32px;
+  color: var(--mars-control-text);
+  border-color: var(--mars-control-border) !important;
+  background-color: var(--mars-control-bg) !important;
+  border-radius: 2px;
   &:hover {
     border-color: var(--mars-primary-color) !important;
   }
 
   :deep(.ant-picker-input) {
     > input {
-      color: var(--mars-base-color) !important;
+      color: var(--mars-control-text) !important;
       &::placeholder {
-        color: var(--mars-base-color) !important;
+        color: var(--mars-control-placeholder);
       }
     }
   }
   :deep(.ant-picker-clear) {
-    background: var(--mars-bg-base);
-    color: var(--mars-base-color) !important;
+    background: var(--mars-base-bg);
+    color: var(--mars-control-text) !important;
   }
   :deep(.ant-picker-suffix *) {
-    color: var(--mars-text-color);
+    color: var(--mars-control-placeholder);
   }
 }
 </style>
@@ -58,7 +61,7 @@ export default defineComponent({
   }
   *,
   .ant-picker-content th {
-    color: var(--mars-text-color);
+    color: var(--mars-control-text);
   }
   .ant-picker-footer {
     border: none;
@@ -67,18 +70,20 @@ export default defineComponent({
     &:hover,
     &.ant-picker-cell-selected {
       .ant-picker-cell-inner {
-        background-color: var(--mars-primary-color) !important;
+        // background-color: var(--mars-primary-color) !important; 基础项目中日期选中的是透明的
+        background-color: transparent !important;
+        color:#fff
       }
     }
   }
 
   .ant-picker-cell-disabled {
-    background-color: var(--mars-disable-btn-bg);
+    background-color: var(--mars-disable-color);
   }
 
   .ant-picker-time-panel-cell {
     .ant-picker-time-panel-cell-inner {
-      color: var(--mars-base-color) !important;
+      color: var(--mars-control-text) !important;
     }
     &:hover,
     &.ant-picker-time-panel-cell-selected {

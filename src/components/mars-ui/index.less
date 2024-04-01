@@ -52,8 +52,9 @@ td {
 
 body,
 html {
-  background-color: var(--mars-bg-base) !important;
-  color: var(--mars-base-color) !important;
+  // 会影响整体字体颜色，挪到 .centerDiv-container 样式中
+  // background-color: var(--mars-base-bg) !important;
+  // color: var(--mars-text-color) !important;
   font-size: 14px;
   // min-width: 900px;
   overflow: hidden;
@@ -70,14 +71,13 @@ html {
     scrollbar-highlight-color: #f4f7fc;
     scrollbar-darkshadow-color: #f4f7fc;
     font-size: 14px;
-    scrollbar-width: thin;
     box-sizing: border-box; // 使padding 不影响盒子的宽高；
   }
 }
 
 .mars-primary-table {
   width: 100%;
-  border-color: var(--mars-base-border-color);
+  border-color: var(--mars-control-border);
 
   tr td:nth-of-type(1) {
     width: 100px;
@@ -85,6 +85,6 @@ html {
 
   td {
     padding: 5px;
-    color: var(--mars-text-color);
+    color: var(--mars-control-text);
   }
 }

@@ -1,27 +1,37 @@
 // 下拉菜单
 .mars-dropdown-menu {
+  // border-image 与 border-radius 无法共存
+  padding: 1px !important;
+  background: var(--mars-base-border);
+  border-radius: 4px !important;
+  backdrop-filter: blur(10px);
   .ant-dropdown-menu {
-    border-bottom: 1px solid #008aff70;
-    border-left: 1px solid #008aff70;
-    border-right: 1px solid #008aff70;
     .mars-drop-bg();
+    border-radius: 4px;
     .mars-icon {
       vertical-align: middle;
-      margin-right: 4px;
+      margin-right: 11.5px;
     }
   }
 
   .ant-dropdown-menu-title-content {
-    color: var(--mars-text-color);
+    color: var(--mars-control-text);
+    .mars-icon {
+      color: var(--mars-collapse-icon);
+    }
   }
 
   .ant-dropdown-menu-item,
   .ant-dropdown-menu-submenu-title {
+    border-radius: 2px !important;
     &:hover {
-      background-color: var(--mars-select-bg) !important;
+      background-color: var(--mars-list-active) !important;
+      .ant-dropdown-menu-title-content{
+        color: var(--mars-collapse-icon);
+      }
     }
     .ant-upload {
-      color: var(--mars-text-color);
+      color: var(--mars-control-text);
     }
   }
   .ant-dropdown-menu-submenu-title {

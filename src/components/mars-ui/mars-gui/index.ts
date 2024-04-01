@@ -14,10 +14,11 @@ export const components = {
 export interface GuiItem {
   type: keyof typeof components
   field: string
-  label: string
+  label?: string
   extra?: any
   extraWidth?: number
   extraType?: "string" | "custom"
+  extraAfter?: string
   min?: number
   max?: number
   step?: number

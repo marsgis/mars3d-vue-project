@@ -70,6 +70,8 @@ const marsOnload = (map: any) => {
   position: relative;
 }
 .centerDiv-container {
+  background-color: var(--mars-base-bg) !important;
+  color: var(--mars-text-color) !important;
   height: 100%;
   width: 100%;
   overflow: hidden;

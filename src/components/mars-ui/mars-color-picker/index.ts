@@ -29,11 +29,8 @@ const MarsColorPicker = defineComponent({
     const visible = ref(false)
     let colorObject: any = null
 
-    // console.log("传递过来的", props.hiddenAlpha)
-
-
     const changeColor = (color: any) => {
-      pointColor = `rgba(${color.rgba.r},${color.rgba.g},${color.rgba.b},${color.rgba.a})`// color.hex
+      pointColor = `rgba(${color.rgba.r},${color.rgba.g},${color.rgba.b},${color.rgba.a})` // color.hex
       colorObject = color
     }
     const cancel = () => {
@@ -56,7 +53,7 @@ const MarsColorPicker = defineComponent({
       ),
       h(
         MarsButton,
-        { size: "small", class: "ml5", onClick: cancel },
+        { size: "small", class: "ml5", style: { backgroundColor: "var(--mars-disable-color)" }, onClick: cancel },
         {
           default: () => "取消"
         }
@@ -65,28 +62,29 @@ const MarsColorPicker = defineComponent({
 
     const content = [
       h(ColorPicker, { suckerHide: true, color: pointColor, onChangeColor: changeColor } as any /* TODO 强制给any类型 */),
-      h("div", { class: "f-tac" }, Buttons)
+      h("div", { class: "mars-color-btns" }, Buttons)
     ]
 
-    return () =>
-      h(
-        Popover,
-        {
-          trigger: "click",
-          placement: "right",
-          overlayClassName: props.hiddenAlpha ? "overlayClassName" : "", // 打开的面板样式,隐藏透明度面板
-          // overlayClassName: "overlayClassName", // 打开的面板样式,隐藏透明度面板
-          open: visible.value,
-          "onUpdate:visible": (v: boolean) => {
-            visible.value = v
-          },
-          color: "rgba(32, 42, 68, 0.9)"
+    return () => h("div", { class: "mars-color-view" }, [h(
+      Popover,
+      {
+        trigger: "click",
+        placement: "right",
+        overlayClassName: props.hiddenAlpha ? "overlay-className" : "", // 打开的面板样式,隐藏透明度面板
+        // overlayClassName: "overlayClassName", // 打开的面板样式,隐藏透明度面板
+        open: visible.value,
+        "onUpdate:visible": (v: boolean) => {
+          visible.value = v
         },
-        {
-          default: () => h("div", { class: "marsColorView", style: { backgroundColor: props.value } }),
-          content: () => h("div", null, content)
-        }
-      )
+        color: "var(--mars-control-bg)"
+      },
+      {
+        default: () => h("div", { class: "mars-color-picker", style: { backgroundColor: props.value } }),
+        content: () => h("div", null, content)
+      }
+    ),
+    h("div", { class: "mars-color-bg" }),
+    h("label", { class: "mars-color-label", innerText: props.value })])
   }
 })
 

@@ -1,24 +1,37 @@
 // 功能提示和已知问题提示框
 .mars-notify-message {
-  padding: 0;
-  background: none;
-  .mars-msg-bg();
+  // border-image 与 border-radius 无法共存
+  padding: 1px !important;
+  background: var(--mars-base-border);
+  border-radius: 4px !important;
+  backdrop-filter: blur(10px);
+
+  .ant-notification-notice-content {
+    .mars-msg-bg();
+  }
+
   .ant-notification-notice-message {
-    font-size: 16px;
     margin: 0;
     margin-inline-start: 0 !important;
     .mars-msg-title();
   }
+
   .ant-notification-notice-description {
-    color: var(--mars-text-color);
+    color: var(--mars-control-text);
     margin: 0;
     margin-inline-start: 0 !important;
     padding: 20px;
     user-select: text;
+    font-family: var(--mars-font-family);
+    font-size: 14px !important;
+    font-weight: normal;
   }
   .ant-notification-notice-close {
-    color: var(--mars-alert-title-color);
+    color: var(--mars-control-text);
     top: 10px;
     right: 10px;
+    &:hover {
+      color: var(--mars-hover-color);
+    }
   }
 }

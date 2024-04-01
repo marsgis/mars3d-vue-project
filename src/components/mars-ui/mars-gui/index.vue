@@ -1,5 +1,6 @@
 <template>
-  <a-form :label-col="labelCol" :wrapper-col="wrapperCol">
+  <a-form :class="{ 'mars-gui-form': true, 'pad-none': props.noPadding }" :label-col="labelCol"
+    :wrapper-col="wrapperCol">
     <template v-for="(item, i) in renderOptions" :key="i">
       <a-form-item v-if="(item.show as any)(attrForm)" :label="item.label">
         <div :style="getItemStyle(item)">
@@ -12,14 +13,14 @@
             :range="item.range || false"
             :options="item.data || []"
             :units="item.units"
-            @change="itemChange(item)"
-          >
+            @change="itemChange(item)">
           </component>
+          <span v-if="item.extraAfter" class="extra_follow_close">{{ item.extraAfter }}</span>
         </div>
-        <template v-if="item.extra !== undefined">
+        <div v-if="item.extra !== undefined" class="mars-gui-extra">
           <template v-if="item.extraType === 'string'">{{ item.extra(attrForm) }}</template>
-          <component v-else :is="item.extra(attrForm)"></component
-        ></template>
+          <component v-else :is="item.extra(attrForm)"></component>
+        </div>
       </a-form-item>
     </template>
   </a-form>
@@ -31,6 +32,7 @@ import { components, GuiItem } from "./index"
 const props = defineProps<{
   options: GuiItem[]
   labelCol?: number
+  noPadding?: boolean
 }>()
 
 const emits = defineEmits(["change"])
@@ -114,18 +116,18 @@ defineExpose({
 
 const getItemStyle = ({ extraWidth, extra, label }: GuiItem) => {
   if (!extraWidth && extraWidth !== 0) {
-    extraWidth = 100
+    extraWidth = 63
   }
   return extra !== undefined
     ? {
-        width: `calc(100% - ${extraWidth || extraWidth === 0 ? extraWidth : 100}px)`,
-        display: "inline-block",
-        marginRight: "10px"
-      }
+      width: `calc(100% - ${extraWidth || extraWidth === 0 ? extraWidth : 100}px)`,
+      display: "inline-block",
+      marginRight: "6px"
+    }
     : {
-        display: "inline-block",
-        width: "100%"
-      }
+      display: "inline-block",
+      width: "100%"
+    }
 }
 
 function getComponent(type: keyof typeof components) {
@@ -183,4 +185,37 @@ export default {
 }
 </script>
 
-<style lang="less"></style>
+<style lang="less">
+.mars-gui-form {
+  .ant-form-item-control-input-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .mars-gui-extra {
+      display: block;
+      font-family: var(--mars-font-family);
+      font-size: 12px;
+      font-weight: normal;
+      color: var(--mars-extra-text-color);
+    }
+
+    .extra_follow_close {
+      display: inline-block;
+      font-family: var(--mars-font-family);
+      font-size: 12px;
+      font-weight: normal;
+      color: var(--mars-extra-text-color);
+      margin-left: 10px;
+    }
+
+    .ant-input-affix-wrapper {
+      padding: 4px;
+
+      .ant-input {
+        text-align: center;
+      }
+    }
+  }
+}
+</style>

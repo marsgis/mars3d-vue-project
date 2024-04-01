@@ -75,7 +75,7 @@
         "id": 2021,
         "pid": 10,
         "name": "谷歌影像",
-        "icon": "/img/basemaps/google_img.png",
+        "icon": "img/basemaps/google_img.png",
         "type": "google",
         "layer": "img_d",
         "show": true
@@ -243,7 +243,7 @@
         "id": 2023,
         "pid": 10,
         "name": "无底图",
-        "icon": "/img/basemaps/null.png",
+        "icon": "img/basemaps/null.png",
         "type": "grid",
         "color": "#ffffff",
         "alpha": 0.03,

@@ -5,11 +5,9 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from "vue"
 import useLifecycle from "@mars/common/uses/use-lifecycle"
 import * as mapWork from "./map"
 
 // 启用map.ts生命周期
 useLifecycle(mapWork)
 </script>
-<style lang="less"></style>
