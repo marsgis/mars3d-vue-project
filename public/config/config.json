@@ -13,16 +13,17 @@
       "fog": true,
       "fxaa": true,
       "requestRenderMode": true,
+      "contextOptions": {
+        "requestWebgl1": false,
+        "webgl": {
+          "preserveDrawingBuffer": true
+        }
+      },
       "globe": {
         "depthTestAgainstTerrain": false,
         "baseColor": "#546a53",
         "showGroundAtmosphere": true,
         "enableLighting": false
-      },
-      "contextOptions": {
-        "webgl": {
-          "preserveDrawingBuffer": true
-        }
       },
       "cameraController": {
         "zoomFactor": 3.0,
@@ -60,9 +61,11 @@
         "template": "<div>经度:{lng}</div> <div>纬度:{lat}</div> <div class='hide1000'>横{crsx}  纵{crsy}</div> <div>海拔：{alt}米</div> <div class='hide700'>层级：{level}</div><div>方向：{heading}°</div> <div>俯仰角：{pitch}°</div><div class='hide700'>视高：{cameraHeight}米</div>"
       }
     },
-    "templateValues": {
-      "dataServer": "//data.mars3d.cn",
-      "gltfServerUrl": "//data.mars3d.cn/gltf"
+    "method": {
+      "templateValues": {
+        "dataServer": "//data.mars3d.cn",
+        "gltfServerUrl": "//data.mars3d.cn/gltf"
+      }
     },
     "terrain": {
       "url": "//data.mars3d.cn/terrain",
@@ -201,36 +204,12 @@
       },
       {
         "pid": 10,
-        "name": "离线地图 (供参考)",
-        "type": "group",
+        "name": "离线影像地图 (供参考)",
         "icon": "img/basemaps/google_img.png",
-        "layers": [
-          {
-            "name": "全球",
-            "type": "xyz",
-            "url": "{dataServer}/tile/googleImg/{z}/{x}/{y}.jpg",
-            "minimumLevel": 0,
-            "maximumLevel": 9
-          },
-          {
-            "name": "中国",
-            "type": "xyz",
-            "url": "{dataServer}/tile/googleImg/{z}/{x}/{y}.jpg",
-            "minimumTerrainLevel": 10,
-            "minimumLevel": 10,
-            "maximumLevel": 12,
-            "rectangle": { "xmin": 69.706929, "xmax": 136.560941, "ymin": 15.831038, "ymax": 52.558005 }
-          },
-          {
-            "name": "具体项目(如合肥)",
-            "type": "xyz",
-            "url": "{dataServer}/tile/googleImg/{z}/{x}/{y}.jpg",
-            "minimumTerrainLevel": 12,
-            "minimumLevel": 12,
-            "maximumLevel": 18,
-            "rectangle": { "xmin": 116.33236, "xmax": 118.183557, "ymin": 31.143784, "ymax": 32.565035 }
-          }
-        ]
+        "type": "xyz",
+        "url": "{dataServer}/tile/img/{z}/{x}/{y}.jpg",
+        "minimumLevel": 0,
+        "maximumLevel": 13
       },
       {
         "pid": 10,
