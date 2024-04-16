@@ -1,5 +1,6 @@
 <template>
-  <mars-dialog :draggable="true" :width="340" :height="600" :position="{ top: 60, right: 10 }">
+  <mars-dialog customClass="manage-basemap-pannel" :draggable="true" :width="340" :height="600"
+    :position="{ top: 60, right: 10 }">
     <template #title>
       <div class="title">
         <img src="/img/icon/basemap.png" alt="" />
@@ -69,6 +70,13 @@ function changeTerrain() {
 }
 </script>
 
+<style lang="less">
+.manage-basemap-pannel {
+  .mars-dialog__footer {
+    padding-left: 14px;
+  }
+}
+</style>
 <style lang="less" scoped>
 .title {
   width: 50%;

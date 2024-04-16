@@ -48,19 +48,20 @@ export async function onMounted(mapInstance: mars3d.Map): Promise<void> {
   map.on(mars3d.EventType.cameraChanged, cameraChanged)
 }
 
-function cameraChanged() {
-  queryPoi.getAddress({
-    location: map.getCenter(),
-    success: (result: any) => {
-      address = result
-    }
+async function cameraChanged() {
+  address = await queryPoi.getAddress({
+    location: map.getCenter()
   })
 }
 
 // 释放当前业务
 export function onUnmounted(): void {
+  if (!map) {
+    return
+  }
   map.removeLayer(graphicLayer)
   map.off(mars3d.EventType.cameraChanged, cameraChanged)
+  graphicLayer.remove()
   queryPoi = null
   address = null
   map = null
@@ -116,7 +117,7 @@ export function showPOIArr(arr: any): void {
         visibleDepth: false, // 是否被遮挡
         label: {
           text: item.name,
-          font_size: 16,
+          font_size: 20,
           color: "#ffffff",
           outline: true,
           outlineWidth: 2,
@@ -142,29 +143,28 @@ export function showPOIArr(arr: any): void {
   }
 }
 
+let indexMark
+
 // 获取Canvas对象
 async function getCanvas(text) {
-  return new Promise((resolve) => {
-    const img = new Image(19, 25)
-    img.crossOrigin = "Anonymous"
-    img.src = "img/poi/indexMark.png"
-    img.onload = () => {
-      const canvas = document.createElement("canvas")
-      canvas.width = 19
-      canvas.height = 25
-      const ctx = canvas.getContext("2d")
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-      // 绘制图片
-      ctx.drawImage(img, 0, 0)
-      // 绘制文字
-      ctx.fillStyle = "#ffffff"
-      ctx.font = "16px 楷体"
-      ctx.textBaseline = "middle"
-      ctx.fillText(text, 4, 10)
-      // 将图片赋予给矢量对象进行显示，this.image是父类的属性
-      resolve(canvas.toDataURL("image/png"))
-    }
-  })
+  if (!indexMark) {
+    indexMark = await Cesium.Resource.fetchImage({ url: "img/poi/indexMark.png" })
+  }
+
+  const canvas = document.createElement("canvas")
+  canvas.width = 19
+  canvas.height = 25
+  const ctx = canvas.getContext("2d")
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
+  ctx.drawImage(indexMark, 0, 0) // 绘制图片
+
+  // 绘制文字
+  ctx.fillStyle = "#ffffff"
+  ctx.font = "22px 楷体"
+  ctx.textBaseline = "middle"
+  ctx.fillText(text, 4, 10)
+
+  return canvas.toDataURL("image/png")
 }
 
 /**
