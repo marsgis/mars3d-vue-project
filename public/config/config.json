@@ -75,15 +75,6 @@
     "basemaps": [
       { "id": 10, "name": "地图底图", "type": "group" },
       {
-        "id": 2021,
-        "pid": 10,
-        "name": "谷歌影像",
-        "icon": "img/basemaps/google_img.png",
-        "type": "google",
-        "layer": "img_d",
-        "show": true
-      },
-      {
         "pid": 10,
         "name": "天地图影像",
         "icon": "img/basemaps/tdt_img.png",
@@ -105,6 +96,7 @@
         ]
       },
       {
+        "id": 2021,
         "pid": 10,
         "name": "高德影像",
         "type": "group",
@@ -112,7 +104,8 @@
         "layers": [
           { "name": "底图", "type": "gaode", "layer": "img_d" },
           { "name": "注记", "type": "gaode", "layer": "img_z" }
-        ]
+        ],
+        "show": true
       },
       {
         "pid": 10,
