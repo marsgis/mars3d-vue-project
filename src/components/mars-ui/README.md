@@ -40,7 +40,7 @@ MarsUIInstall(app);
 ```json
   "dependencies": {
     "@icon-park/svg": "^1.4.2",
-    "@turf/turf": "^6.5.0",
+    "@turf/turf": "^7.1.0",
     "ant-design-vue": "^4.0.7",
     "consola": "^3.2.3",
     "echarts": "^5.4.3",
