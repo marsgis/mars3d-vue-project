@@ -184,7 +184,7 @@ onUnmounted(() => {
 
 .cesium-viewer-geocoderContainer form .cesium-geocoder-input {
   border-width: 1px;
-  border-image: url("/img/svg/border.svg") 1 round stretch;
+  border-image: url("//data.mars3d.cn/img/control/border.svg") 1 round stretch;
 }
 
 .cesium-button {
@@ -192,7 +192,7 @@ onUnmounted(() => {
 
   border-radius: 2px;
   border-width: 1px;
-  border-image: url("/img/svg/border.svg") 1 round stretch;
+  border-image: url("//data.mars3d.cn/img/control/border.svg") 1 round stretch;
 
   color: #ffffff;
   fill: #e6e6e6;
@@ -258,7 +258,7 @@ onUnmounted(() => {
   background-color: rgba(39, 44, 54, 0.8);
   border-radius: 2px;
   border-width: 1px;
-  border-image: url("/img/svg/border.svg") 1 round stretch;
+  border-image: url("//data.mars3d.cn/img/control/border.svg") 1 round stretch;
   fill: #e6e6e6;
 }
 
@@ -325,7 +325,7 @@ onUnmounted(() => {
 .mars3d-contextmenu-ul {
   border-radius: 2px;
   border-width: 1px;
-  border-image: url("/img/svg/border.svg") 1 round stretch;
+  border-image: url("//data.mars3d.cn/img/control/border.svg") 1 round stretch;
 }
 
 .mars3d-contextmenu-ul>li>a:hover,

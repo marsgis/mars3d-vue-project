@@ -71,7 +71,7 @@
       line-height: normal;
     }
 
-    .ant-collapse-expand-icon{
+    .ant-collapse-expand-icon {
       color: var(--mars-collapse-icon);
     }
   }
@@ -121,7 +121,7 @@
     margin-bottom: 10px !important;
     color: var(--mars-control-text);
 
-    .ant-form-item-label > label {
+    .ant-form-item-label>label {
       font-size: 14px;
       font-family: var(--mars-font-family);
       color: var(--mars-sub-title-color);
@@ -194,6 +194,7 @@
     }
 
     &:hover {
+
       // 默认复选框
       .ant-checkbox {
         box-shadow: 0px 0px 0px 2px rgba(5, 145, 255, 0.1);
@@ -246,7 +247,7 @@
 
   // 表格
   .ant-table,
-  .ant-table-thead > tr > th {
+  .ant-table-thead>tr>th {
     color: var(--mars-control-text);
     background: none !important;
     font-family: var(--mars-font-family);
@@ -272,18 +273,25 @@
   .ant-table {
     .ant-table-header {
       border-radius: 0;
+
       .ant-table-thead {
         background-color: var(--mars-table-header-bg);
+      }
+
+      // 表头浮动标题样式
+      .ant-table-cell-fix-right,
+      .ant-table-cell-fix-left {
+        background: var(--mars-collapse-title-bg) !important;
       }
     }
   }
 
-  .ant-table-tbody > tr.ant-table-placeholder > td {
+  .ant-table-tbody>tr.ant-table-placeholder>td {
     background: #141414;
   }
 
-  .ant-table-row:hover > td,
-  .ant-table-row-selected > td {
+  .ant-table-row:hover>td,
+  .ant-table-row-selected>td {
     background-color: transparent !important;
   }
 
@@ -296,6 +304,14 @@
     background: transparent !important;
   }
 
+
+  // 浮动表格样式
+  .ant-table-cell-fix-right,
+  .ant-table-cell-fix-left {
+    background: var(--mars-collapse-title-bg);
+  }
+
+
   // 表格主体
   .ant-table-container {
     border: 0.5px solid var(--mars-control-border) !important;
@@ -304,15 +320,15 @@
     border-start-end-radius: 0;
 
     .ant-table-content {
-      > table {
+      >table {
         border-top: none !important;
         border-radius: 0;
 
-        > thead > tr:first-child > *:first-child {
+        >thead>tr:first-child>*:first-child {
           border-start-start-radius: 0;
         }
 
-        > thead > tr:first-child > *:last-child {
+        >thead>tr:first-child>*:last-child {
           border-start-end-radius: 0;
         }
       }
@@ -323,7 +339,7 @@
     color: var(--mars-control-text);
   }
 
-  .ant-table-placeholder > td {
+  .ant-table-placeholder>td {
     background: var(--mars-base-bg) !important;
 
     .ant-empty {
@@ -394,6 +410,7 @@
 
   // 分页
   .ant-pagination {
+
     .ant-pagination-item,
     .ant-pagination-prev,
     .ant-pagination-next {
@@ -401,7 +418,7 @@
       background-color: transparent;
       color: var(--mars-sub-title-color);
 
-      > a,
+      >a,
       .ant-pagination-item-link {
         color: var(--mars-sub-title-color);
         font-family: var(--mars-font-family);
@@ -479,7 +496,7 @@
       border-color: var(--mars-primary-color);
       border-radius: 2px;
 
-      > a {
+      >a {
         color: var(--mars-primary-color);
       }
     }
@@ -496,6 +513,7 @@
 
     .ant-pagination-next {
       .ant-pagination-item-link {
+
         .anticon-right,
         .anticon-left {
           color: var(--mars-text-color) !important;
@@ -687,6 +705,25 @@
       border: none !important;
     }
   }
+}
+
+// 动画字幕样式
+.caption-div {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 56%;
+  width: auto;
+  bottom: 80px;
+  word-break: break-all;
+  word-wrap: break-word;
+  color: #ffffff;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-align: center;
+  z-index: 999;
 }
 
 // 滚动条

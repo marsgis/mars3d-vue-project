@@ -1,5 +1,5 @@
 import "mars3d-cesium/Build/Cesium/Widgets/widgets.css"
-import "mars3d/dist/mars3d.css"
+import "mars3d/mars3d.css"
 
 import "font-awesome/css/font-awesome.css"
 

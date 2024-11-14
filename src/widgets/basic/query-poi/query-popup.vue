@@ -4,7 +4,8 @@
 
     <div class="mars3d-popup-content-wrapper mars3d-popup-background">
       <div class="mars3d-template-titile">
-        <a :href="'https://www.amap.com/detail/' + props.id" target="_black">{{ props.name }}</a>
+        <!-- <a :href="'https://www.amap.com/detail/' + props.id" target="_black">{{ props.name }}</a> -->
+        {{ props.name }}
       </div>
       <div class="mars3d-template-content">
         <div v-if="props.tel"><label>电话:</label> {{ props.tel }}</div>

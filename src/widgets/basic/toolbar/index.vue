@@ -127,7 +127,7 @@ const clickMenu = ({ key }: any, index: number) => {
   }
 
   .toolbar-item {
-    width: 110px;
+    width: 85px;
     text-align: center;
     display: inline-flex;
     align-items: center;
@@ -143,13 +143,11 @@ const clickMenu = ({ key }: any, index: number) => {
     // }
 
     .image {
-      position: absolute;
-      left: 20%;
+      padding-left: 10px;
     }
 
     .title {
-      position: absolute;
-      right: 20%;
+      padding-left: 10px;
     }
 
     &:first-child {

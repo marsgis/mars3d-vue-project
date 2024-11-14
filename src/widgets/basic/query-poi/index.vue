@@ -7,7 +7,7 @@
                       @blur="startCloseSearch" @focus="showHistoryList" allowClear
                       @input="handleSearch(searchTxt)"></mars-input>
           <mars-button class="button">
-            <img src="/img/poi/search.png" alt="" />
+            <img src="/img/icon/search.png" alt="" />
           </mars-button>
         </div>
       </div>
@@ -33,10 +33,10 @@
                 </p>
                 <p class="query-site-sub">{{ item.type }}</p>
               </div>
-              <a :href="url + item.id" target="_blank" class="query-site__more">
+              <!-- <a :href="url + item.id" target="_blank" class="query-site__more">
                 更多
                 <mars-icon icon="double-right" width="16"></mars-icon>
-              </a>
+              </a> -->
             </li>
           </ul>
           <div class="query-site__page">
@@ -104,7 +104,7 @@ const handleSearch = async (val: string) => {
   const result = await mapWork.queryData(val)
   const list: { value: string }[] = []
 
-  result.list.forEach((item: any) => {
+  result?.list.forEach((item: any) => {
     if (list.every((l) => l.value !== item.name)) {
       list.push({
         value: item.name
