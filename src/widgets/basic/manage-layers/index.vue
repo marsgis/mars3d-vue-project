@@ -7,8 +7,14 @@
       </div>
     </template>
 
-    <mars-tree class="layer-tree" checkable :tree-data="treeData" v-model:expandedKeys="expandedKeys"
-      v-model:checkedKeys="checkedKeys" @check="checkedChange">
+    <mars-tree
+      class="layer-tree"
+      checkable
+      :tree-data="treeData"
+      v-model:expandedKeys="expandedKeys"
+      v-model:checkedKeys="checkedKeys"
+      @check="checkedChange"
+    >
       <template #title="node">
         <mars-dropdown-menu :trigger="['contextmenu']">
           <span @dblclick="flyTo(node)">{{ node.title }}</span>
@@ -247,12 +253,6 @@ function initTree() {
     if (layer == null || !layer.options || layer.isPrivate || layer.parent) {
       continue
     }
-    const item = layer.options
-    if (!item.name || item.name === "未命名") {
-      console.log("未命名图层不加入图层管理", layer)
-      continue
-    }
-
     // if (!layer._hasMapInit && layer.pid === -1 && layer.id !== 99) {
     //   layer.pid = 99 // 示例中创建的图层都放到99分组下面
     // }
@@ -380,7 +380,6 @@ function onClickBimLayer(event: any) {
 }
 </script>
 
-
 <style lang="less">
 .manage-layer_pannel {
   .mars-dialog__content {
@@ -427,7 +426,7 @@ function onClickBimLayer(event: any) {
   width: 100%;
   text-align: center;
   margin-top: 10px;
-  color: #9E9E9E;
+  color: #9e9e9e;
   position: absolute;
   bottom: 10px;
   left: 50%;

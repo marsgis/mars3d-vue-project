@@ -9,6 +9,12 @@
  */
 import { computed, onUnmounted, onMounted, h, ref, toRaw } from "vue"
 import * as mars3d from "mars3d"
+import "mars3d-heatmap"
+import "mars3d-echarts"
+import "mars3d-mapv"
+import "mars3d-space"
+import "./expand/index"
+
 import { getQueryString } from "@mars/utils/mars-util"
 import { getDefaultContextMenu } from "@mars/utils/getDefaultContextMenu"
 import { $alert, $message } from "@mars/components/mars-ui/index"
@@ -32,22 +38,27 @@ let map: mars3d.Map // 地图对象
 // 使用用户传入的 mapKey 拼接生成 withKeyId 作为当前显示容器的id
 const withKeyId = computed(() => `mars3d-container-${props.mapKey}`)
 
-onMounted(() => {
-  // 获取配置
-  mars3d.Util.fetchJson({ url: props.url }).then((data: any) => {
-    if (data.map3d) {
-      initMars3d(data.map3d)
-    } else {
-      initMars3d(data)
-    }
-  })
-})
-
 // onload事件将在地图渲染后触发
 const emit = defineEmits(["onload"])
-const initMars3d = (option: any) => {
-  option = mars3d.Util.merge(option, toRaw(props.options)) // 合并配置
-  map = new mars3d.Map(withKeyId.value, option)
+
+const initMars3d = async () => {
+  // 获取配置
+  let mapOptions
+  if (props.url) {
+    // 存在url时才读取
+    mapOptions = await mars3d.Util.fetchJson({ url: props.url })
+    if (mapOptions.map3d) {
+      mapOptions = mapOptions.map3d
+    }
+    if (props.options) {
+      mapOptions = mars3d.Util.merge(mapOptions, toRaw(props.options)) // 合并配置
+    }
+  } else if (props.options) {
+    mapOptions = toRaw(props.options)
+  }
+  console.log("地图构造参数", mapOptions)
+
+  map = new mars3d.Map(withKeyId.value, mapOptions)
 
   // 绑定当前项目的默认右键菜单
   map.bindContextMenu(getDefaultContextMenu(map))
@@ -133,6 +144,9 @@ function onMapLoad() {
   }
 }
 
+onMounted(() => {
+  initMars3d()
+})
 // 组件卸载之前销毁mars3d实例
 onUnmounted(() => {
   if (map) {

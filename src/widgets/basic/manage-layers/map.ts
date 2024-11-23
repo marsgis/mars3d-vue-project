@@ -31,10 +31,19 @@ export function addLayer(layer: mars3d.layer.BaseLayer) {
 }
 
 export function getLayers() {
-  return map.getLayers({
+  const layers = map.getLayers({
     basemaps: true, // 是否取config.json中的basempas
-    layers: true // 是否取config.json中的layers
+    layers: true, // 是否取config.json中的layers
+    filter: function (layer) {
+      if (!layer.name) {
+        console.log("未命名图层不加入图层管理", layer)
+        return false // 未命名图层不在管理器展示
+      }
+      return true
+    }
   })
+
+  return layers
 }
 
 // **********************************  图层的结构树控件  ****************************** //

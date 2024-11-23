@@ -32,7 +32,7 @@ export async function onMounted(mapInstance: mars3d.Map): Promise<void> {
     queryAddressDOM = mars3d.DomUtil.create(
       "div",
       "mars3d-locationbar-content mars3d-locationbar-autohide",
-      map.control.ocationBar.container
+      map.control.locationBar.container
     )
     queryAddressDOM.style.marginRight = "50px"
   }

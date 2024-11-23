@@ -44,7 +44,7 @@ const props = withDefaults(
     url: ""
   }
 )
-const configUrl = (props.url === "" || !props.url) ? `${process.env.BASE_URL}config/config.json?time=${new Date().getTime()}` : props.url
+const configUrl = props.url ?? `${process.env.BASE_URL}config/config.json?time=${new Date().getTime()}`
 
 
 let mapInstance: any = null
@@ -58,6 +58,7 @@ const loaded = ref(false)
 const marsOnload = (map: any) => {
   console.log("map构造完成", map)
   mapInstance = map
+
   emit("mapLoaded", mapInstance)
   loaded.value = true
 }
