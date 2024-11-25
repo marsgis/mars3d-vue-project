@@ -41,7 +41,7 @@ const props = withDefaults(
   }>(),
   {
     mapOptions: () => ({}),
-    url: ""
+    url: null
   }
 )
 const configUrl = props.url ?? `${process.env.BASE_URL}config/config.json?time=${new Date().getTime()}`

@@ -16,6 +16,7 @@ let map: mars3d.Map // 地图对象
  */
 export function onMounted(mapInstance: mars3d.Map) {
   map = mapInstance // 记录首次创建的map
+
 }
 
 /**
@@ -26,25 +27,33 @@ export function onUnmounted() {
   map = null
 }
 
-export function addLayer(layer: mars3d.layer.BaseLayer) {
-  map.addLayer(layer)
+
+export function getLayrsTree(params) {
+  return map.getLayrsTree(params)
 }
 
-export function getLayers() {
-  const layers = map.getLayers({
-    basemaps: true, // 是否取config.json中的basempas
-    layers: true, // 是否取config.json中的layers
-    filter: function (layer) {
-      if (!layer.name) {
-        console.log("未命名图层不加入图层管理", layer)
-        return false // 未命名图层不在管理器展示
-      }
-      return true
+export function getLayerById(id) {
+  return map.getLayerById(id)
+}
+
+export function getLayerByAttr(attrValue: string | number, attrName?: string) {
+  return map.getLayerByAttr(attrValue, attrName)
+}
+
+// 更新图层勾选状态
+export function updateLayerShow(layer, show) {
+  if (show) {
+    if (!layer.isAdded) {
+      map.addLayer(layer)
     }
-  })
+    layer.show = true
 
-  return layers
+    layer.flyTo() // 如果不想勾选定位，注释该行
+  } else {
+    layer.show = false
+  }
 }
+
 
 // **********************************  图层的结构树控件  ****************************** //
 export function flytoModelNode(nodeid: number, nodesphere: any) {

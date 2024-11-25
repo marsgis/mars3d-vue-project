@@ -1,14 +1,11 @@
 import * as mars3d from "mars3d"
 import { $alert as globalAlert } from "@mars/components/mars-ui/index"
 import {
-  Home,
   Local,
   PreviewOpen,
-  AppSwitch,
   Forbid,
   Cube,
   MultiTriangular,
-  Shovel,
   Close,
   MapDistance,
   Ruler,
@@ -56,15 +53,20 @@ import {
   DatabaseForbid
 } from "@icon-park/svg"
 
+const iconStyle: any = { theme: "outline", fill: "#fff", size: "18" }
+
 const Cesium = mars3d.Cesium
 
 // 获取平台内置的右键菜单
 export function getDefaultContextMenu(map) {
   const that = map.contextmenu
+
   return [
     {
-      text: () => { return map.getLangText("_查看此处坐标") },
-      icon: Local({ theme: "outline", fill: "#fff", size: "18" }),
+      text: function () {
+        return map.getLangText("_查看此处坐标")
+      },
+      icon: Local(iconStyle),
       show: function (e) {
         return Cesium.defined(e.cartesian)
       },
@@ -82,24 +84,26 @@ export function getDefaultContextMenu(map) {
       }
     },
     {
-      text: () => {
+      text: function () {
         return map.getLangText("_查看当前视角")
       },
-      icon: PreviewOpen({ theme: "outline", fill: "#fff", size: "18" }),
+      icon: PreviewOpen(iconStyle),
       callback: function (e) {
         const mpt = JSON.stringify(map.getCameraView())
         globalAlert(mpt, map.getLangText("_当前视角信息"))
       }
     },
     {
-      text: () => {
+      text: function () {
         return map.getLangText("_视角切换")
       },
-      icon: SwitchThemes({ theme: "outline", fill: "#fff", size: "18" }),
+      icon: SwitchThemes(iconStyle),
       children: [
         {
-          text: () => { return map.getLangText("_允许进入地下") },
-          icon: Agreement({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_允许进入地下")
+          },
+          icon: Agreement(iconStyle),
           show: function (e) {
             return map.scene.screenSpaceCameraController.enableCollisionDetection
           },
@@ -108,8 +112,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_禁止进入地下") },
-          icon: Forbid({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_禁止进入地下")
+          },
+          icon: Forbid(iconStyle),
           show: function (e) {
             return !map.scene.screenSpaceCameraController.enableCollisionDetection
           },
@@ -118,8 +124,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_绕此处环绕飞行") },
-          icon: TakeOff({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_绕此处环绕飞行")
+          },
+          icon: TakeOff(iconStyle),
           show: function (e) {
             return e.cartesian && (!that.rotatePoint || !that.rotatePoint?.isStart)
           },
@@ -132,8 +140,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_关闭环绕飞行") },
-          icon: CloseOne({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_关闭环绕飞行")
+          },
+          icon: CloseOne(iconStyle),
           show: function (e) {
             return that.rotatePoint?.isStart
           },
@@ -145,8 +155,10 @@ export function getDefaultContextMenu(map) {
         },
 
         {
-          text: () => { return map.getLangText("_移动到此处") },
-          icon: MoveInOne({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_移动到此处")
+          },
+          icon: MoveInOne(iconStyle),
           show: function (e) {
             return Cesium.defined(e.cartesian)
           },
@@ -160,8 +172,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_第一视角站到此处") },
-          icon: RecentViewsSort({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_第一视角站到此处")
+          },
+          icon: RecentViewsSort(iconStyle),
           show: function (e) {
             return Cesium.defined(e.cartesian)
           },
@@ -178,8 +192,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_开启键盘漫游") },
-          icon: KeyboardOne({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_开启键盘漫游")
+          },
+          icon: KeyboardOne(iconStyle),
           show: function (e) {
             return !map.keyboardRoam.enabled
           },
@@ -188,8 +204,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_关闭键盘漫游") },
-          icon: CloseOne({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_关闭键盘漫游")
+          },
+          icon: CloseOne(iconStyle),
           show: function (e) {
             return map.keyboardRoam.enabled
           },
@@ -198,33 +216,62 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_取消锁定") },
-          icon: LockOne({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_跟踪锁定")
+          },
+          icon: LockOne(iconStyle),
           show: function (e) {
-            return map.trackedEntity !== undefined
+            const graphic = e.graphic
+            if (!graphic) {
+              return false
+            }
+
+            if (graphic.entity instanceof Cesium.Entity) {
+              return true
+            } else if (graphic.trackedEntity instanceof Cesium.Entity) {
+              return true
+            }
+
+            return false
+          },
+          callback: function (e) {
+            map.trackedEntity = e.graphic
+            that.trackedGraphic = e.graphic
+          }
+        },
+        {
+          text: function () {
+            return map.getLangText("_取消锁定")
+          },
+          icon: LockOne(iconStyle),
+          show: function (e) {
+            return that.trackedGraphic === e.graphic && map.trackedEntity !== undefined
           },
           callback: function (e) {
             map.trackedEntity = undefined
+            that.trackedGraphic = undefined
           }
         }
       ]
     },
     {
-      text: () => {
+      text: function () {
         return map.getLangText("_三维模型")
       },
-      icon: Cube({ theme: "outline", fill: "#fff", size: "18" }),
+      icon: Cube(iconStyle),
       show: function (e) {
         const model = map.pick3DTileset(e.cartesian) // 拾取绘制返回的模型
         return Cesium.defined(model)
       },
       children: [
         {
-          text: () => { return map.getLangText("_显示三角网") },
-          icon: MultiTriangular({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_显示三角网")
+          },
+          icon: MultiTriangular(iconStyle),
           show: function (e) {
             const model = map.pick3DTileset(e.cartesian) // 拾取绘制返回的模型
-            return !model.debugWireframe
+            return !model.debugWireframe && model._enableDebugWireframe
           },
           callback: function (e) {
             const model = map.pick3DTileset(e.cartesian) // 拾取绘制返回的模型
@@ -232,11 +279,13 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_关闭三角网") },
-          icon: CloseOne({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_关闭三角网")
+          },
+          icon: CloseOne(iconStyle),
           show: function (e) {
             const model = map.pick3DTileset(e.cartesian) // 拾取绘制返回的模型
-            return model.debugWireframe
+            return model.debugWireframe && model._enableDebugWireframe
           },
           callback: function (e) {
             const model = map.pick3DTileset(e.cartesian) // 拾取绘制返回的模型
@@ -244,8 +293,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_显示包围盒") },
-          icon: Box({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_显示包围盒")
+          },
+          icon: Box(iconStyle),
           show: function (e) {
             const model = map.pick3DTileset(e.cartesian) // 拾取绘制返回的模型
             return !model.debugShowBoundingVolume
@@ -256,8 +307,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_关闭包围盒") },
-          icon: MonitorOff({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_关闭包围盒")
+          },
+          icon: MonitorOff(iconStyle),
           show: function (e) {
             const model = map.pick3DTileset(e.cartesian) // 拾取绘制返回的模型
             return model.debugShowBoundingVolume
@@ -270,17 +323,19 @@ export function getDefaultContextMenu(map) {
       ]
     },
     {
-      text: () => {
+      text: function () {
         return map.getLangText("_地形服务")
       },
-      icon: International({ theme: "outline", fill: "#fff", size: "18" }),
+      icon: International(iconStyle),
       show: function (e) {
         return Cesium.defined(e.cartesian)
       },
       children: [
         {
-          text: () => { return map.getLangText("_开启地形") },
-          icon: MapTwo({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_开启地形")
+          },
+          icon: MapTwo(iconStyle),
           show: function (e) {
             return !map.hasTerrain
           },
@@ -289,8 +344,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_关闭地形") },
-          icon: CloseOne({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_关闭地形")
+          },
+          icon: CloseOne(iconStyle),
           show: function (e) {
             return map.hasTerrain
           },
@@ -299,8 +356,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_显示三角网") },
-          icon: MultiTriangular({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_显示三角网")
+          },
+          icon: MultiTriangular(iconStyle),
           show: function (e) {
             return !map.scene.globe._surface.tileProvider._debug.wireframe
           },
@@ -309,8 +368,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_关闭三角网") },
-          icon: CloseOne({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_关闭三角网")
+          },
+          icon: CloseOne(iconStyle),
           show: function (e) {
             return map.scene.globe._surface.tileProvider._debug.wireframe
           },
@@ -321,14 +382,16 @@ export function getDefaultContextMenu(map) {
       ]
     },
     {
-      text: () => {
+      text: function () {
         return map.getLangText("_图上量算")
       },
-      icon: Ruler({ theme: "outline", fill: "#fff", size: "18" }),
+      icon: Ruler(iconStyle),
       children: [
         {
-          text: () => { return map.getLangText("_距离") },
-          icon: MapDistance({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_距离")
+          },
+          icon: MapDistance(iconStyle),
           callback: function (e) {
             if (!that.measure) {
               that.measure = new mars3d.thing.Measure()
@@ -338,8 +401,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_面积") },
-          icon: Texture({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_面积")
+          },
+          icon: Texture(iconStyle),
           callback: function (e) {
             if (!that.measure) {
               that.measure = new mars3d.thing.Measure()
@@ -349,8 +414,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_高度差") },
-          icon: AutoHeightOne({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_高度差")
+          },
+          icon: AutoHeightOne(iconStyle),
           callback: function (e) {
             if (!that.measure) {
               that.measure = new mars3d.thing.Measure()
@@ -360,8 +427,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_角度") },
-          icon: Compass({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_角度")
+          },
+          icon: Compass(iconStyle),
           callback: function (e) {
             if (!that.measure) {
               that.measure = new mars3d.thing.Measure()
@@ -371,8 +440,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_删除测量") },
-          icon: DeleteKey({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_删除测量")
+          },
+          icon: DeleteKey(iconStyle),
           show: function (e) {
             return that.measure && that.measure.hasMeasure
           },
@@ -386,14 +457,16 @@ export function getDefaultContextMenu(map) {
     },
 
     {
-      text: () => {
+      text: function () {
         return map.getLangText("_图上标记")
       },
-      icon: Mark({ theme: "outline", fill: "#fff", size: "18" }),
+      icon: Mark(iconStyle),
       children: [
         {
-          text: () => { return map.getLangText("_标记点") },
-          icon: Label({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_标记点")
+          },
+          icon: Label(iconStyle),
           callback: function (e) {
             map.graphicLayer.startDraw({
               type: "point",
@@ -409,14 +482,17 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_标记线") },
-          icon: Change({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_标记线")
+          },
+          icon: Change(iconStyle),
           callback: function (e) {
             map.graphicLayer.startDraw({
               type: "polyline",
               style: {
                 color: "#55ff33",
                 width: 3
+                // arcType: Cesium.ArcType.NONE
               },
               success: function (graphic) {
                 // eslint-disable-next-line no-console
@@ -426,8 +502,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_标记面") },
-          icon: BringToFrontOne({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_标记面")
+          },
+          icon: BringToFrontOne(iconStyle),
           callback: function (e) {
             map.graphicLayer.startDraw({
               type: "polygon",
@@ -445,8 +523,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_标记圆") },
-          icon: Asterisk({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_标记圆")
+          },
+          icon: Asterisk(iconStyle),
           callback: function (e) {
             map.graphicLayer.startDraw({
               type: "circle",
@@ -454,6 +534,7 @@ export function getDefaultContextMenu(map) {
                 color: "#ffff00",
                 opacity: 0.6
               },
+              addHeight: 1,
               success: function (graphic) {
                 // eslint-disable-next-line no-console
                 console.log(JSON.stringify(graphic.coordinates))
@@ -462,8 +543,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_标记矩形") },
-          icon: Rectangle({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_标记矩形")
+          },
+          icon: Rectangle(iconStyle),
           callback: function (e) {
             map.graphicLayer.startDraw({
               type: "rectangle",
@@ -479,8 +562,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_允许编辑") },
-          icon: Editor({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_允许编辑")
+          },
+          icon: Editor(iconStyle),
           show: function (e) {
             return !map.graphicLayer.hasEdit
           },
@@ -489,8 +574,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_禁止编辑") },
-          icon: DatabaseForbid({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_禁止编辑")
+          },
+          icon: DatabaseForbid(iconStyle),
           show: function (e) {
             return map.graphicLayer.hasEdit
           },
@@ -499,8 +586,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_导出GeoJSON") },
-          icon: Export({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_导出文件")
+          },
+          icon: Export(iconStyle),
           show: function (e) {
             return map.graphicLayer.length > 0
           },
@@ -509,8 +598,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_清除所有标记") },
-          icon: ClearFormat({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_清除标记")
+          },
+          icon: ClearFormat(iconStyle),
           show: function (e) {
             return map.graphicLayer.length > 0
           },
@@ -521,14 +612,16 @@ export function getDefaultContextMenu(map) {
       ]
     },
     {
-      text: () => {
+      text: function () {
         return map.getLangText("_特效效果")
       },
-      icon: Effects({ theme: "outline", fill: "#fff", size: "18" }),
+      icon: Effects(iconStyle),
       children: [
         {
-          text: () => { return map.getLangText("_开启下雨") },
-          icon: LightRain({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_开启下雨")
+          },
+          icon: LightRain(iconStyle),
           show: function (e) {
             return !that.rainEffect
           },
@@ -540,8 +633,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_关闭下雨") },
-          icon: Close({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_关闭下雨")
+          },
+          icon: Close(iconStyle),
           show: function (e) {
             return that.rainEffect
           },
@@ -553,8 +648,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_开启下雪") },
-          icon: Snow({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_开启下雪")
+          },
+          icon: Snow(iconStyle),
           show: function (e) {
             return !that.snowEffect
           },
@@ -566,8 +663,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_关闭下雪") },
-          icon: CloseOne({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_关闭下雪")
+          },
+          icon: CloseOne(iconStyle),
           show: function (e) {
             return that.snowEffect
           },
@@ -580,8 +679,10 @@ export function getDefaultContextMenu(map) {
         },
 
         {
-          text: () => { return map.getLangText("_开启雾天气") },
-          icon: Fog({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_开启雾天气")
+          },
+          icon: Fog(iconStyle),
           show: function (e) {
             return !that.fogEffect
           },
@@ -596,8 +697,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_关闭雾天气") },
-          icon: CloseOne({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_关闭雾天气")
+          },
+          icon: CloseOne(iconStyle),
           show: function (e) {
             return that.fogEffect
           },
@@ -610,8 +713,10 @@ export function getDefaultContextMenu(map) {
         },
 
         {
-          text: () => { return map.getLangText("_开启泛光") },
-          icon: Halo({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_开启泛光")
+          },
+          icon: Halo(iconStyle),
           show: function (e) {
             return !that.bloomEffect
           },
@@ -623,8 +728,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_关闭泛光") },
-          icon: CloseOne({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_关闭泛光")
+          },
+          icon: CloseOne(iconStyle),
           show: function (e) {
             return that.bloomEffect
           },
@@ -637,8 +744,10 @@ export function getDefaultContextMenu(map) {
         },
 
         {
-          text: () => { return map.getLangText("_开启亮度") },
-          icon: Brightness({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_开启亮度")
+          },
+          icon: Brightness(iconStyle),
           show: function (e) {
             return !that.brightnessEffect
           },
@@ -650,8 +759,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_关闭亮度") },
-          icon: CloseOne({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_关闭亮度")
+          },
+          icon: CloseOne(iconStyle),
           show: function (e) {
             return that.brightnessEffect
           },
@@ -664,8 +775,10 @@ export function getDefaultContextMenu(map) {
         },
 
         {
-          text: () => { return map.getLangText("_开启夜视") },
-          icon: DarkMode({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_开启夜视")
+          },
+          icon: DarkMode(iconStyle),
           show: function (e) {
             return !that.nightVisionEffect
           },
@@ -677,8 +790,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_关闭夜视") },
-          icon: CloseOne({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_关闭夜视")
+          },
+          icon: CloseOne(iconStyle),
           show: function (e) {
             return that.nightVisionEffect
           },
@@ -691,8 +806,10 @@ export function getDefaultContextMenu(map) {
         },
 
         {
-          text: () => { return map.getLangText("_开启黑白") },
-          icon: Blackboard({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_开启黑白")
+          },
+          icon: Blackboard(iconStyle),
           show: function (e) {
             return !that.blackAndWhiteEffect
           },
@@ -704,8 +821,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_关闭黑白") },
-          icon: CloseOne({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_关闭黑白")
+          },
+          icon: CloseOne(iconStyle),
           show: function (e) {
             return that.blackAndWhiteEffect
           },
@@ -718,8 +837,10 @@ export function getDefaultContextMenu(map) {
         },
 
         {
-          text: () => { return map.getLangText("_开启拾取高亮") },
-          icon: HighLight({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_开启拾取高亮")
+          },
+          icon: HighLight(iconStyle),
           show: function (e) {
             return !that.outlineEffect
           },
@@ -731,8 +852,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_关闭拾取高亮") },
-          icon: CloseOne({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_关闭拾取高亮")
+          },
+          icon: CloseOne(iconStyle),
           show: function (e) {
             return that.outlineEffect
           },
@@ -746,14 +869,16 @@ export function getDefaultContextMenu(map) {
       ]
     },
     {
-      text: () => {
+      text: function () {
         return map.getLangText("_场景设置")
       },
-      icon: Config({ theme: "outline", fill: "#fff", size: "18" }),
+      icon: Config(iconStyle),
       children: [
         {
-          text: () => { return map.getLangText("_开启深度监测") },
-          icon: LandSurveying({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_开启深度监测")
+          },
+          icon: LandSurveying(iconStyle),
           show: function (e) {
             return !map.scene.globe.depthTestAgainstTerrain
           },
@@ -762,8 +887,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_关闭深度监测") },
-          icon: CloseOne({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_关闭深度监测")
+          },
+          icon: CloseOne(iconStyle),
           show: function (e) {
             return map.scene.globe.depthTestAgainstTerrain
           },
@@ -773,10 +900,12 @@ export function getDefaultContextMenu(map) {
         },
 
         {
-          text: () => { return map.getLangText("_显示星空背景") },
-          icon: TwoTriangles({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_显示星空背景")
+          },
+          icon: TwoTriangles(iconStyle),
           show: function (e) {
-            return !map.scene.skyBox.show
+            return !map.scene.skyBox?.show
           },
           callback: function (e) {
             map.scene.skyBox.show = true // 天空盒
@@ -785,10 +914,12 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_关闭星空背景") },
-          icon: ExclusiveGateway({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_关闭星空背景")
+          },
+          icon: ExclusiveGateway(iconStyle),
           show: function (e) {
-            return map.scene.skyBox.show
+            return map.scene.skyBox?.show
           },
           callback: function (e) {
             map.scene.skyBox.show = false // 天空盒
@@ -797,8 +928,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_开启日照阴影") },
-          icon: Sun({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_开启日照阴影")
+          },
+          icon: Sun(iconStyle),
           show: function (e) {
             return !map.viewer.shadows
           },
@@ -809,8 +942,10 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_关闭日照阴影") },
-          icon: CloseOne({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_关闭日照阴影")
+          },
+          icon: CloseOne(iconStyle),
           show: function (e) {
             return map.viewer.shadows
           },
@@ -821,10 +956,12 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_开启大气渲染") },
-          icon: FlightAirflow({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_开启大气渲染")
+          },
+          icon: FlightAirflow(iconStyle),
           show: function (e) {
-            return !map.scene.skyAtmosphere.show
+            return map.scene.skyAtmosphere && !map.scene.skyAtmosphere.show
           },
           callback: function (e) {
             map.scene.skyAtmosphere.show = true
@@ -832,10 +969,12 @@ export function getDefaultContextMenu(map) {
           }
         },
         {
-          text: () => { return map.getLangText("_关闭大气渲染") },
-          icon: CloseOne({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_关闭大气渲染")
+          },
+          icon: CloseOne(iconStyle),
           show: function (e) {
-            return map.scene.skyAtmosphere.show
+            return map.scene.skyAtmosphere?.show
           },
           callback: function (e) {
             map.scene.skyAtmosphere.show = false
@@ -844,8 +983,10 @@ export function getDefaultContextMenu(map) {
         },
 
         {
-          text: () => { return map.getLangText("_场景出图") },
-          icon: AddPicture({ theme: "outline", fill: "#fff", size: "18" }),
+          text: function () {
+            return map.getLangText("_场景出图")
+          },
+          icon: AddPicture(iconStyle),
           callback: function (e) {
             map.expImage()
           }

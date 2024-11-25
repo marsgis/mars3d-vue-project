@@ -9,15 +9,14 @@
  */
 import { computed, onUnmounted, onMounted, h, ref, toRaw } from "vue"
 import * as mars3d from "mars3d"
-import "mars3d-heatmap"
-import "mars3d-echarts"
-import "mars3d-mapv"
-import "mars3d-space"
 import "./expand/index"
 
-import { getQueryString } from "@mars/utils/mars-util"
 import { getDefaultContextMenu } from "@mars/utils/getDefaultContextMenu"
 import { $alert, $message } from "@mars/components/mars-ui/index"
+
+import { useWidget } from "@mars/common/store/widget"
+import { Close, HistoryQuery, LandSurveying, Layers, Local, Tool } from "@icon-park/svg"
+const { activate, disableAll, isActivate, disable } = useWidget()
 
 const props = withDefaults(
   defineProps<{
@@ -60,19 +59,6 @@ const initMars3d = async () => {
 
   map = new mars3d.Map(withKeyId.value, mapOptions)
 
-  // 绑定当前项目的默认右键菜单
-  map.bindContextMenu(getDefaultContextMenu(map))
-
-  // 如果有xyz传参，进行定位
-  const lat = getQueryString("lat")
-  const lng = getQueryString("lng")
-  if (lat && lng) {
-    map.flyToPoint(new mars3d.LngLatPoint(lng, lat), { duration: 0 })
-  }
-
-  // 开场动画
-  // map.openFlyAnimation();
-
   // 针对不同终端的优化配置
   if (mars3d.Util.isPCBroswer()) {
     map.zoomFactor = 2.0 // 鼠标滚轮放大的步长参数
@@ -92,10 +78,13 @@ const initMars3d = async () => {
     map.scene.globe.showGroundAtmosphere = false
   }
 
-  // //二三维切换不用动画
+  // 二三维切换不用动画
   if (map.viewer.sceneModePicker) {
     map.viewer.sceneModePicker.viewModel.duration = 0.0
   }
+
+  // 绑定当前项目的默认右键菜单
+  map.bindContextMenu(getContextMenu())
 
   // webgl渲染失败后，刷新页面
   map.on(mars3d.EventType.renderError, async () => {
@@ -123,7 +112,7 @@ function onMapLoad() {
     $alert(item.NAME)
   }
 
-  // 用于 config.json中配置的图层，绑定额外方法和参数
+  // 【测试】 用于 config.json中配置的图层，绑定额外方法和参数
   const tiles3dLayer = map.getLayerById(204012) // 上海市区
   if (tiles3dLayer) {
     tiles3dLayer.options.onSetOpacity = function (opacity: number) {
@@ -142,6 +131,64 @@ function onMapLoad() {
       }
     }
   }
+}
+
+function getContextMenu() {
+  const contextmenu: any = getDefaultContextMenu(map)
+
+  const children = []
+  const iconStyle: any = { theme: "outline", fill: "#fff", size: "18" }
+  const widgetList = [
+    { name: "底图切换", icon: LandSurveying(iconStyle), widget: "manage-basemap" },
+    { name: "图层管理", icon: Layers(iconStyle), widget: "manage-layers" },
+    // { name: "图上量算", icon: Ruler(iconStyle), widget: "measure" },
+    // { name: "空间分析", icon: Analysis(iconStyle), widget: "analysis" },
+    { name: "坐标定位", icon: Local(iconStyle), widget: "location-point" },
+    // { name: "地区导航", icon: Navigation(iconStyle), widget: "location-region" },
+    // { name: "我的标记", icon: Mark(iconStyle), widget: "addmarker" },
+    // { name: "视角书签", icon: Bookmark(iconStyle), widget: "bookmark" },
+    // { name: "地图打印", icon: Printer(iconStyle), widget: "print" },
+    // { name: "飞行漫游", icon: TakeOff(iconStyle), widget: "roamLine-list" },
+    // { name: "图上标绘", icon: HandPaintedPlate(iconStyle), widget: "plot" },
+    // { name: "卷帘对比", icon: SwitchContrast(iconStyle), widget: "map-split" },
+    // { name: "分屏对比", icon: FullScreenPlay(iconStyle), widget: "map-compare" },
+    { name: "兴趣点查询", icon: HistoryQuery(iconStyle), widget: "query-poi" }
+  ]
+  widgetList.forEach((item) => {
+    children.push({
+      name: item.name,
+      widget: item.widget,
+      text: function () {
+        if (isActivate(this.widget)) {
+          return "关闭" + this.name
+        } else {
+          return this.name
+        }
+      },
+      icon: item.icon,
+      callback: function (e) {
+        if (isActivate(this.widget)) {
+          disable(this.widget)
+        } else {
+          activate(this.widget)
+        }
+      }
+    })
+  })
+  children.push({
+    text: "关闭所有",
+    icon: Close(iconStyle),
+    callback: function (e) {
+      disableAll()
+    }
+  })
+
+  contextmenu.push({
+    text: "常用工具",
+    icon: Tool(iconStyle),
+    children
+  })
+  return contextmenu
 }
 
 onMounted(() => {
@@ -267,8 +314,8 @@ onUnmounted(() => {
 }
 
 .cesium-geocoder-searchButton {
-  width:38px;
-  height:38px;
+  width: 38px;
+  height: 38px;
   background-color: rgba(39, 44, 54, 0.8);
   border-radius: 2px;
   border-width: 1px;
@@ -277,8 +324,8 @@ onUnmounted(() => {
 }
 
 .cesium-viewer-geocoderContainer .cesium-geocoder-input {
-  height:40px;
-  width:40px;
+  height: 40px;
+  width: 40px;
   background-color: rgba(63, 72, 84, 0.7);
 }
 
@@ -342,21 +389,21 @@ onUnmounted(() => {
   border-image: url("//data.mars3d.cn/img/control/border.svg") 1 round stretch;
 }
 
-.mars3d-contextmenu-ul>li>a:hover,
-.mars3d-sub-menu>li>a:hover,
-.mars3d-contextmenu-ul>li>a:focus,
-.mars3d-sub-menu>li>a:focus,
-.mars3d-contextmenu-ul>li>.active,
-.mars3d-sub-menu>li>.active {
+.mars3d-contextmenu-ul > li > a:hover,
+.mars3d-sub-menu > li > a:hover,
+.mars3d-contextmenu-ul > li > a:focus,
+.mars3d-sub-menu > li > a:focus,
+.mars3d-contextmenu-ul > li > .active,
+.mars3d-sub-menu > li > .active {
   background-color: var(--mars-hover-color, #3ea6ff);
 }
 
-.mars3d-contextmenu-ul>.active>a,
-.mars3d-sub-menu>.active>a,
-.mars3d-contextmenu-ul>.active>a:hover,
-.mars3d-sub-menu>.active>a:hover,
-.mars3d-contextmenu-ul>.active>a:focus,
-.mars3d-sub-menu>.active>a:focus {
+.mars3d-contextmenu-ul > .active > a,
+.mars3d-sub-menu > .active > a,
+.mars3d-contextmenu-ul > .active > a:hover,
+.mars3d-sub-menu > .active > a:hover,
+.mars3d-contextmenu-ul > .active > a:focus,
+.mars3d-sub-menu > .active > a:focus {
   background-color: var(--mars-hover-color, #3ea6ff);
 }
 
@@ -387,7 +434,6 @@ onUnmounted(() => {
   color: var(--mars-text-color);
 }
 
-
 .mars3d-tooltip {
   color: var(--mars-text-color, #ffffff);
   background: var(--mars-base-bg, rgba(63, 72, 84, 0.9));
@@ -412,7 +458,6 @@ onUnmounted(() => {
 .mars3d-template-content label {
   padding-right: 6px;
 }
-
 
 /* all 中的html样式 */
 .mars3d-template-titile {

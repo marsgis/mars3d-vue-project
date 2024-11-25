@@ -32,15 +32,15 @@ const store: StoreOptions<WidgetState> = {
         disableOther: ["roamLine"]
       },
       {
-        component: markRaw(defineAsyncComponent(() => import("@mars/widgets/basic/manage-layers/layer-tree.vue"))),
-        name: "layer-tree"
+        component: markRaw(defineAsyncComponent(() => import("@mars/widgets/basic/manage-layers/scenetree.vue"))),
+        name: "layer-scenetree"
       },
       {
-        component: markRaw(defineAsyncComponent(() => import("@mars/widgets/basic/manage-layers/layer-picture-heatmap.vue"))),
+        component: markRaw(defineAsyncComponent(() => import("@mars/widgets/basic/manage-layers/picture-heatmap.vue"))),
         name: "layer-picture-heatmap"
       },
       {
-        component: markRaw(defineAsyncComponent(() => import("@mars/widgets/basic/manage-layers/layer-picture-guihua.vue"))),
+        component: markRaw(defineAsyncComponent(() => import("@mars/widgets/basic/manage-layers/picture-guihua.vue"))),
         name: "layer-picture-guihua"
       },
       {

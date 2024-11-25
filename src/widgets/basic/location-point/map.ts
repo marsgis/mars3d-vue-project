@@ -26,7 +26,7 @@ export function onUnmounted(): void {
 
 // 获取默认point点
 export function defultPoint() {
-  const point = map.getCenter()
+  const point: mars3d.LngLatPoint = map.getCenter()
   point.format()
   return {
     lng: point.lng,

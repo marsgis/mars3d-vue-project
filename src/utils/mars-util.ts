@@ -51,10 +51,11 @@ export function setAutoHeight(callback: (v: number) => void, lose = 0, container
  *
  * @export
  * @param {string} parameter url值
+ * @param {string} [defaultVal] 默认值
  * @return {string | null}  参数值
  */
-export function getQueryString(parameter: string): string | null {
-  return new URL(window.location.href).searchParams.get(parameter)
+export function getQueryString(parameter: string, defaultVal?:string): string | null {
+  return new URL(window.location.href).searchParams.get(parameter) ?? defaultVal
 }
 
 
