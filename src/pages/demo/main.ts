@@ -1,8 +1,9 @@
 import "mars3d-cesium/Build/Cesium/Widgets/widgets.css"
-import "mars3d-cesium"
-
 import "mars3d/mars3d.css"
+import "font-awesome/css/font-awesome.css"
+
 import "mars3d"
+import "@mars/components/mars-work/expand/index"
 
 import { createApp } from "vue"
 import Application from "./App.vue"

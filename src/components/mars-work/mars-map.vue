@@ -1,33 +1,32 @@
+<!--
+  地图渲染组件 (建议使用mars3d地图的地方都用该组件)
+  @copyright 火星科技 mars3d.cn
+  @author 木遥 2024-12-03
+-->
 <template>
   <div :id="withKeyId" class="mars3d-container"></div>
 </template>
 <script setup lang="ts">
-/**
- * 地图渲染组件
- * @copyright 火星科技 mars3d.cn
- * @author 火星渣渣灰 2022-02-19
- */
-import { computed, onUnmounted, onMounted, h, ref, toRaw } from "vue"
 import * as mars3d from "mars3d"
-import "./expand/index"
-
+import "./expand/index" // 引入插件或注册扩展js
 import { getDefaultContextMenu } from "@mars/utils/getDefaultContextMenu"
-import { $alert, $message } from "@mars/components/mars-ui/index"
 
+import { computed, onUnmounted, onMounted, toRaw } from "vue"
+import { $alert, $message } from "@mars/components/mars-ui/index"
 import { useWidget } from "@mars/common/store/widget"
 import { Close, HistoryQuery, LandSurveying, Layers, Local, Tool } from "@icon-park/svg"
 const { activate, disableAll, isActivate, disable } = useWidget()
 
 const props = withDefaults(
   defineProps<{
-    url: string
-    mapKey?: string
-    options?: any
+    mapKey?: string // 多个地图时,可传入key区分地图
+    url?: string // 传入的地图构造参数url，可为空，只传options
+    options?: any // 传入的地图构造参数options，可覆盖url内的参数
   }>(),
   {
-    url: "",
     mapKey: "default",
-    options: () => ({})
+    url: undefined,
+    options: undefined
   }
 )
 
@@ -55,7 +54,7 @@ const initMars3d = async () => {
   } else if (props.options) {
     mapOptions = toRaw(props.options)
   }
-  console.log("地图构造参数", mapOptions)
+  console.log("Map地图构造参数", mapOptions)
 
   map = new mars3d.Map(withKeyId.value, mapOptions)
 
@@ -92,13 +91,12 @@ const initMars3d = async () => {
     window.location.reload()
   })
 
-  // map构造完成后的一些处理
-  onMapLoad()
+  onMapLoad() // map构造完成后的一些处理
 
   emit("onload", map)
 }
 
-// map构造完成后的一些处理
+// map构造完成后的一些处理，可以按需注释和选用
 function onMapLoad() {
   // Mars3D地图内部使用，如右键菜单弹窗
   // @ts-ignore
