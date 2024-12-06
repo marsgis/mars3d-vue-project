@@ -97,7 +97,7 @@
       {
         "pid": 10,
         "name": "天地图影像",
-        "icon": "//data.mars3d.cn/img/control/basemap/tdt_img.png",
+        "icon": "//data.mars3d.cn/img/thumbnail/basemap/tdt_img.png",
         "type": "group",
         "layers": [
           {
@@ -116,7 +116,7 @@
       {
         "pid": 10,
         "name": "天地图电子",
-        "icon": "//data.mars3d.cn/img/control/basemap/tdt_vec.png",
+        "icon": "//data.mars3d.cn/img/thumbnail/basemap/tdt_vec.png",
         "type": "group",
         "layers": [
           {
@@ -136,7 +136,7 @@
         "pid": 10,
         "name": "高德影像",
         "type": "group",
-        "icon": "//data.mars3d.cn/img/control/basemap/gaode_img.png",
+        "icon": "//data.mars3d.cn/img/thumbnail/basemap/gaode_img.png",
         "layers": [
           {
             "name": "底图",
@@ -155,14 +155,14 @@
         "pid": 10,
         "name": "高德电子",
         "type": "gaode",
-        "icon": "//data.mars3d.cn/img/control/basemap/gaode_vec.png",
+        "icon": "//data.mars3d.cn/img/thumbnail/basemap/gaode_vec.png",
         "layer": "vec"
       },
       {
         "pid": 10,
         "name": "百度影像",
         "type": "group",
-        "icon": "//data.mars3d.cn/img/control/basemap/bd-img.png",
+        "icon": "//data.mars3d.cn/img/thumbnail/basemap/bd-img.png",
         "layers": [
           {
             "name": "底图",
@@ -179,14 +179,14 @@
       {
         "pid": 10,
         "name": "百度电子",
-        "icon": "//data.mars3d.cn/img/control/basemap/bd-vec.png",
+        "icon": "//data.mars3d.cn/img/thumbnail/basemap/bd-vec.png",
         "type": "baidu",
         "layer": "vec"
       },
       {
         "pid": 10,
         "name": "腾讯影像",
-        "icon": "//data.mars3d.cn/img/control/basemap/tencent_img.png",
+        "icon": "//data.mars3d.cn/img/thumbnail/basemap/tencent_img.png",
         "type": "group",
         "layers": [
           {
@@ -204,14 +204,14 @@
       {
         "pid": 10,
         "name": "腾讯电子",
-        "icon": "//data.mars3d.cn/img/control/basemap/tencent_vec.png",
+        "icon": "//data.mars3d.cn/img/thumbnail/basemap/tencent_vec.png",
         "type": "tencent",
         "layer": "vec"
       },
       {
         "pid": 10,
         "name": "ArcGIS影像",
-        "icon": "//data.mars3d.cn/img/control/basemap/esriWorldImagery.png",
+        "icon": "//data.mars3d.cn/img/thumbnail/basemap/esriWorldImagery.png",
         "type": "xyz",
         "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
         "enablePickFeatures": false
@@ -219,7 +219,7 @@
       {
         "pid": 10,
         "name": "微软影像",
-        "icon": "//data.mars3d.cn/img/control/basemap/bingAerial.png",
+        "icon": "//data.mars3d.cn/img/thumbnail/basemap/bingAerial.png",
         "type": "bing",
         "layer": "Aerial"
       },
@@ -227,7 +227,7 @@
         "id": 2017,
         "pid": 10,
         "name": "蓝色底图",
-        "icon": "//data.mars3d.cn/img/control/basemap/bd-c-midnight.png",
+        "icon": "//data.mars3d.cn/img/thumbnail/basemap/bd-c-midnight.png",
         "type": "gaode",
         "layer": "vec",
         "chinaCRS": "GCJ02",
@@ -242,7 +242,7 @@
       {
         "pid": 10,
         "name": "黑色底图",
-        "icon": "//data.mars3d.cn/img/control/basemap/bd-c-dark.png",
+        "icon": "//data.mars3d.cn/img/thumbnail/basemap/bd-c-dark.png",
         "type": "gaode",
         "layer": "vec",
         "chinaCRS": "GCJ02",
@@ -257,7 +257,7 @@
       {
         "pid": 10,
         "name": "离线影像地图 (供参考)",
-        "icon": "//data.mars3d.cn/img/control/basemap/google_img.png",
+        "icon": "//data.mars3d.cn/img/thumbnail/basemap/google_img.png",
         "type": "xyz",
         "url": "{dataServer}/tile/img/{z}/{x}/{y}.jpg",
         "chinaCRS": "GCJ02",
@@ -266,7 +266,7 @@
       {
         "pid": 10,
         "name": "单张图片 (本地离线)",
-        "icon": "//data.mars3d.cn/img/control/basemap/offline.png",
+        "icon": "//data.mars3d.cn/img/thumbnail/basemap/offline.png",
         "type": "image",
         "url": "//data.mars3d.cn/img/map/world/world.jpg"
       },
@@ -274,7 +274,7 @@
         "id": 2023,
         "pid": 10,
         "name": "无底图",
-        "icon": "//data.mars3d.cn/img/control/basemap/null.png",
+        "icon": "//data.mars3d.cn/img/thumbnail/basemap/null.png",
         "type": "grid",
         "color": "#ffffff",
         "alpha": 0.03,

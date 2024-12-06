@@ -5,12 +5,12 @@
  */
 import { inject, onBeforeMount, onBeforeUnmount } from "vue"
 
-export default function useLifecycle(mapWork: any): void {
+export default function useLifecycle(mapWork: any, params?:any): void {
   const getMapInstance = inject<any>("getMapInstance")
   onBeforeMount(() => {
     if (mapWork.onMounted) {
       const map = getMapInstance()
-      mapWork.onMounted(map)
+      mapWork.onMounted(map, params)
     }
   })
   onBeforeUnmount(() => {

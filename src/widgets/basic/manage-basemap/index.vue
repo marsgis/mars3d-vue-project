@@ -11,7 +11,7 @@
     <ul class="basemap">
       <li v-for="(item, i) in baseMaps" :key="i" class="basemap-card" :class="{ 'active-card': active === item.id }"
         @click="changeBaseMaps(item)">
-        <img class="icon" :src="`${item.options.icon || '//data.mars3d.cn/img/control/basemap/bingAerial.png'}`" />
+        <img class="icon" :src="`${item.options.icon || '//data.mars3d.cn/img/thumbnail/basemap/bingAerial.png'}`" />
         <div class="name">{{ item.name }}</div>
       </li>
     </ul>
