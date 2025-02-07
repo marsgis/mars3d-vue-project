@@ -56,10 +56,22 @@ import {
 const iconStyle: any = { theme: "outline", fill: "#fff", size: "18" }
 
 const Cesium = mars3d.Cesium
+const { LngLatPoint, Icon, CRS } = mars3d
+const { downloadFile, formatNum } = mars3d.Util
+const { addPositionsHeight } = mars3d.PointUtil
+const { proj4Trans } = mars3d.PointTrans
+const { logInfo } = mars3d.Log
+const { RotatePoint, Measure, KeyboardRoam } = mars3d.thing
+const { BloomEffect, BrightnessEffect, BlackAndWhiteEffect, NightVisionEffect, OutlineEffect, RainEffect, SnowEffect, FogEffect } = mars3d.effect
 
-// 获取平台内置的右键菜单
+
+
+// 给【Map】绑定默认右键菜单
 export function getDefaultContextMenu(map) {
   const that = map.contextmenu
+
+  const that_thing = map.thing
+  const that_effect = map.effect
 
   return [
     {
@@ -72,8 +84,9 @@ export function getDefaultContextMenu(map) {
       },
       callback: function (e) {
         // 经纬度
-        const mpt = mars3d.LngLatPoint.fromCartesian(e.cartesian)
-        const ptNew = mars3d.PointTrans.proj4Trans([mpt.lng, mpt.lat], "EPSG:4326", mars3d.CRS.CGCS2000_GK_Zone_3)
+        const mpt = LngLatPoint.fromCartesian(e.cartesian)
+
+        const ptNew = proj4Trans([mpt.lng, mpt.lat], "EPSG:4326", CRS.CGCS2000_GK_Zone_3)
 
         const inhtml = `
          经度:${mpt.lng}, 纬度:${mpt.lat}, 海拔:${mpt.alt},
@@ -81,6 +94,12 @@ export function getDefaultContextMenu(map) {
          横坐标:${ptNew[0].toFixed(1)}, 纵坐标:${ptNew[1].toFixed(1)} (CGCS2000)
         `
         globalAlert(inhtml, "位置信息")
+
+        // 打印方便测试
+        const ptX = formatNum(e.cartesian.x, 1) // 笛卡尔
+        const ptY = formatNum(e.cartesian.y, 1)
+        const ptZ = formatNum(e.cartesian.z, 1)
+        logInfo(`经纬度：${mpt.toString()} , 笛卡尔：${ptX},${ptY},${ptZ}`)
       }
     },
     {
@@ -90,9 +109,244 @@ export function getDefaultContextMenu(map) {
       icon: PreviewOpen(iconStyle),
       callback: function (e) {
         const mpt = JSON.stringify(map.getCameraView())
+        logInfo(mpt)
         globalAlert(mpt, map.getLangText("_当前视角信息"))
       }
     },
+    // 下面是工具类
+    {
+      text: function () {
+        return map.getLangText("_图上量算")
+      },
+      icon: Ruler(iconStyle),
+      children: [
+        {
+          text: function () {
+            return map.getLangText("_距离")
+          },
+          icon: MapDistance(iconStyle),
+          callback: function (e) {
+            if (!that_thing.measure) {
+              that_thing.measure = new Measure()
+              map.addThing(that_thing.measure)
+            }
+            that_thing.measure.distance()
+          }
+        },
+        {
+          text: function () {
+            return map.getLangText("_面积")
+          },
+          icon: Texture(iconStyle),
+          callback: function (e) {
+            if (!that_thing.measure) {
+              that_thing.measure = new Measure()
+              map.addThing(that_thing.measure)
+            }
+            that_thing.measure.area()
+          }
+        },
+        {
+          text: function () {
+            return map.getLangText("_高度差")
+          },
+          icon: AutoHeightOne(iconStyle),
+          callback: function (e) {
+            if (!that_thing.measure) {
+              that_thing.measure = new Measure()
+              map.addThing(that_thing.measure)
+            }
+            that_thing.measure.heightTriangle()
+          }
+        },
+        {
+          text: function () {
+            return map.getLangText("_角度")
+          },
+          icon: Compass(iconStyle),
+          callback: function (e) {
+            if (!that_thing.measure) {
+              that_thing.measure = new Measure()
+              map.addThing(that_thing.measure)
+            }
+            that_thing.measure.angle()
+          }
+        },
+        {
+          text: function () {
+            return map.getLangText("_删除测量")
+          },
+          icon: DeleteKey(iconStyle),
+          show: function (e) {
+            return that_thing.measure && that_thing.measure.hasMeasure
+          },
+          callback: function (e) {
+            if (that_thing.measure) {
+              that_thing.measure.clear()
+            }
+          }
+        }
+      ]
+    },
+    {
+      text: function () {
+        return map.getLangText("_图上标记")
+      },
+      icon: Mark(iconStyle),
+      children: [
+        {
+          text: function () {
+            return map.getLangText("_标记点")
+          },
+          icon: Label(iconStyle),
+          callback: function (e) {
+            map.graphicLayer.startDraw({
+              type: "point",
+              style: {
+                pixelSize: 12,
+                color: "#3388ff"
+              },
+              success: function (graphic) {
+                // eslint-disable-next-line no-console
+                logInfo(JSON.stringify(graphic.coord))
+              }
+            })
+          }
+        },
+        {
+          text: function () {
+            return map.getLangText("_标记线")
+          },
+          icon: Change(iconStyle),
+          callback: function (e) {
+            map.graphicLayer.startDraw({
+              type: "polyline",
+              style: {
+                color: "#55ff33",
+                width: 3
+                // arcType: Cesium.ArcType.NONE
+              },
+              success: function (graphic) {
+                // eslint-disable-next-line no-console
+                logInfo(JSON.stringify(graphic.coord))
+              }
+            })
+          }
+        },
+        {
+          text: function () {
+            return map.getLangText("_标记面")
+          },
+          icon: BringToFrontOne(iconStyle),
+          callback: function (e) {
+            map.graphicLayer.startDraw({
+              type: "polygon",
+              style: {
+                color: "#29cf34",
+                opacity: 0.5,
+                outline: true,
+                outlineWidth: 2.0
+              },
+              success: function (graphic) {
+                // eslint-disable-next-line no-console
+                logInfo(JSON.stringify(graphic.coord))
+              }
+            })
+          }
+        },
+        {
+          text: function () {
+            return map.getLangText("_标记圆")
+          },
+          icon: Asterisk(iconStyle),
+          callback: function (e) {
+            map.graphicLayer.startDraw({
+              type: "circle",
+              style: {
+                color: "#ffff00",
+                opacity: 0.6
+              },
+              addHeight: 1,
+              success: function (graphic) {
+                // eslint-disable-next-line no-console
+                logInfo(JSON.stringify(graphic.coord))
+              }
+            })
+          }
+        },
+        {
+          text: function () {
+            return map.getLangText("_标记矩形")
+          },
+          icon: Rectangle(iconStyle),
+          callback: function (e) {
+            map.graphicLayer.startDraw({
+              type: "rectangle",
+              style: {
+                color: "#ffff00",
+                opacity: 0.6
+              },
+              success: function (graphic) {
+                // eslint-disable-next-line no-console
+                logInfo(JSON.stringify(graphic.coord))
+              }
+            })
+          }
+        },
+        {
+          text: function () {
+            return map.getLangText("_允许编辑")
+          },
+          icon: Editor(iconStyle),
+          show: function (e) {
+            return !map.graphicLayer.isAutoEditing
+          },
+          callback: function (e) {
+            map.graphicLayer.isAutoEditing = true
+          }
+        },
+        {
+          text: function () {
+            return map.getLangText("_禁止编辑")
+          },
+          icon: DatabaseForbid(iconStyle),
+          show: function (e) {
+            return map.graphicLayer.isAutoEditing
+          },
+          callback: function (e) {
+            map.graphicLayer.isAutoEditing = false
+          }
+        },
+        {
+          text: function () {
+            return map.getLangText("_导出JSON")
+          },
+          icon: Export(iconStyle),
+          show: function (e) {
+            return map.graphicLayer.length > 0
+          },
+          callback: function (e) {
+            downloadFile("graphic标绘.json", JSON.stringify(map.graphicLayer.toGeoJSON()))
+          }
+        },
+        {
+          text: function () {
+            return map.getLangText("_清除标记")
+          },
+          icon: ClearFormat(iconStyle),
+          show: function (e) {
+            return map.graphicLayer.length > 0
+          },
+          callback: function (e) {
+            map.graphicLayer.clear()
+          }
+        }
+      ]
+    },
+
+    { type: "line" }, // 间隔线
+
+    // 视角
     {
       text: function () {
         return map.getLangText("_视角切换")
@@ -129,14 +383,14 @@ export function getDefaultContextMenu(map) {
           },
           icon: TakeOff(iconStyle),
           show: function (e) {
-            return e.cartesian && (!that.rotatePoint || !that.rotatePoint?.isStart)
+            return e.cartesian && (!that_thing.rotatePoint || !that_thing.rotatePoint?.isStart)
           },
           callback: function (e) {
-            if (!that.rotatePoint) {
-              that.rotatePoint = new mars3d.thing.RotatePoint()
-              map.addThing(that.rotatePoint)
+            if (!that_thing.rotatePoint) {
+              that_thing.rotatePoint = new RotatePoint()
+              map.addThing(that_thing.rotatePoint)
             }
-            that.rotatePoint.start(e.cartesian)
+            that_thing.rotatePoint.start(e.cartesian)
           }
         },
         {
@@ -145,11 +399,11 @@ export function getDefaultContextMenu(map) {
           },
           icon: CloseOne(iconStyle),
           show: function (e) {
-            return that.rotatePoint?.isStart
+            return that_thing.rotatePoint?.isStart
           },
           callback: function (e) {
-            if (that.rotatePoint) {
-              that.rotatePoint.stop()
+            if (that_thing.rotatePoint) {
+              that_thing.rotatePoint.stop()
             }
           }
         },
@@ -181,7 +435,7 @@ export function getDefaultContextMenu(map) {
           },
           callback: function (e) {
             map.camera.flyTo({
-              destination: mars3d.PointUtil.addPositionsHeight(e.cartesian, 10), // 升高10米
+              destination: addPositionsHeight(e.cartesian, 10), // 升高10米
               orientation: {
                 heading: map.camera.heading,
                 pitch: 0.0,
@@ -197,10 +451,14 @@ export function getDefaultContextMenu(map) {
           },
           icon: KeyboardOne(iconStyle),
           show: function (e) {
-            return !map.keyboardRoam.enabled
+            return !that_thing.keyboardRoam || !that_thing.keyboardRoam.enabled
           },
           callback: function (e) {
-            map.keyboardRoam.enabled = true
+            if (!that_thing.keyboardRoam) {
+              that_thing.keyboardRoam = new KeyboardRoam()
+              map.addThing(that_thing.keyboardRoam)
+            }
+            that_thing.keyboardRoam.enabled = true
           }
         },
         {
@@ -209,10 +467,10 @@ export function getDefaultContextMenu(map) {
           },
           icon: CloseOne(iconStyle),
           show: function (e) {
-            return map.keyboardRoam.enabled
+            return that_thing.keyboardRoam?.enabled
           },
           callback: function (e) {
-            map.keyboardRoam.enabled = false
+            that_thing.keyboardRoam.enabled = false
           }
         },
         {
@@ -254,77 +512,268 @@ export function getDefaultContextMenu(map) {
         }
       ]
     },
+    // 特效
     {
       text: function () {
-        return map.getLangText("_三维模型")
+        return map.getLangText("_特效效果")
       },
-      icon: Cube(iconStyle),
-      show: function (e) {
-        const model = map.pick3DTileset(e.cartesian) // 拾取绘制返回的模型
-        return Cesium.defined(model)
-      },
+      icon: Effects(iconStyle),
       children: [
         {
           text: function () {
-            return map.getLangText("_显示三角网")
+            return map.getLangText("_开启下雨")
           },
-          icon: MultiTriangular(iconStyle),
+          icon: LightRain(iconStyle),
           show: function (e) {
-            const model = map.pick3DTileset(e.cartesian) // 拾取绘制返回的模型
-            return !model.debugWireframe && model._enableDebugWireframe
+            return !that_effect.rainEffect
           },
           callback: function (e) {
-            const model = map.pick3DTileset(e.cartesian) // 拾取绘制返回的模型
-            model.debugWireframe = true
+            if (!that_effect.rainEffect) {
+              that_effect.rainEffect = new RainEffect()
+              map.addEffect(that_effect.rainEffect)
+            }
           }
         },
         {
           text: function () {
-            return map.getLangText("_关闭三角网")
+            return map.getLangText("_关闭下雨")
+          },
+          icon: Close(iconStyle),
+          show: function (e) {
+            return that_effect.rainEffect
+          },
+          callback: function (e) {
+            if (that_effect.rainEffect) {
+              map.removeEffect(that_effect.rainEffect, true)
+              delete that_effect.rainEffect
+            }
+          }
+        },
+        {
+          text: function () {
+            return map.getLangText("_开启下雪")
+          },
+          icon: Snow(iconStyle),
+          show: function (e) {
+            return !that_effect.snowEffect
+          },
+          callback: function (e) {
+            if (!that_effect.snowEffect) {
+              that_effect.snowEffect = new SnowEffect()
+              map.addEffect(that_effect.snowEffect)
+            }
+          }
+        },
+        {
+          text: function () {
+            return map.getLangText("_关闭下雪")
           },
           icon: CloseOne(iconStyle),
           show: function (e) {
-            const model = map.pick3DTileset(e.cartesian) // 拾取绘制返回的模型
-            return model.debugWireframe && model._enableDebugWireframe
+            return that_effect.snowEffect
           },
           callback: function (e) {
-            const model = map.pick3DTileset(e.cartesian) // 拾取绘制返回的模型
-            model.debugWireframe = false
+            if (that_effect.snowEffect) {
+              map.removeEffect(that_effect.snowEffect, true)
+              delete that_effect.snowEffect
+            }
+          }
+        },
+
+        {
+          text: function () {
+            return map.getLangText("_开启雾天气")
+          },
+          icon: Fog(iconStyle),
+          show: function (e) {
+            return !that_effect.fogEffect
+          },
+          callback: function (e) {
+            if (!that_effect.fogEffect) {
+              const height = map.camera.positionCartographic.height * 2
+              that_effect.fogEffect = new FogEffect({
+                fogByDistance: new Cesium.Cartesian4(0.1 * height, 0.1, height, 0.8)
+              })
+              map.addEffect(that_effect.fogEffect)
+            }
           }
         },
         {
           text: function () {
-            return map.getLangText("_显示包围盒")
+            return map.getLangText("_关闭雾天气")
           },
-          icon: Box(iconStyle),
+          icon: CloseOne(iconStyle),
           show: function (e) {
-            const model = map.pick3DTileset(e.cartesian) // 拾取绘制返回的模型
-            return !model.debugShowBoundingVolume
+            return that_effect.fogEffect
           },
           callback: function (e) {
-            const model = map.pick3DTileset(e.cartesian) // 拾取绘制返回的模型
-            model.debugShowBoundingVolume = true
+            if (that_effect.fogEffect) {
+              map.removeEffect(that_effect.fogEffect, true)
+              delete that_effect.fogEffect
+            }
+          }
+        },
+
+        {
+          text: function () {
+            return map.getLangText("_开启泛光")
+          },
+          icon: Halo(iconStyle),
+          show: function (e) {
+            return !that_effect.bloomEffect
+          },
+          callback: function (e) {
+            if (!that_effect.bloomEffect) {
+              that_effect.bloomEffect = new BloomEffect()
+              map.addEffect(that_effect.bloomEffect)
+            }
           }
         },
         {
           text: function () {
-            return map.getLangText("_关闭包围盒")
+            return map.getLangText("_关闭泛光")
           },
-          icon: MonitorOff(iconStyle),
+          icon: CloseOne(iconStyle),
           show: function (e) {
-            const model = map.pick3DTileset(e.cartesian) // 拾取绘制返回的模型
-            return model.debugShowBoundingVolume
+            return that_effect.bloomEffect
           },
           callback: function (e) {
-            const model = map.pick3DTileset(e.cartesian) // 拾取绘制返回的模型
-            model.debugShowBoundingVolume = false
+            if (that_effect.bloomEffect) {
+              map.removeEffect(that_effect.bloomEffect, true)
+              delete that_effect.bloomEffect
+            }
+          }
+        },
+
+        {
+          text: function () {
+            return map.getLangText("_开启亮度")
+          },
+          icon: Brightness(iconStyle),
+          show: function (e) {
+            return !that_effect.brightnessEffect
+          },
+          callback: function (e) {
+            if (!that_effect.brightnessEffect) {
+              that_effect.brightnessEffect = new BrightnessEffect()
+              map.addEffect(that_effect.brightnessEffect)
+            }
+          }
+        },
+        {
+          text: function () {
+            return map.getLangText("_关闭亮度")
+          },
+          icon: CloseOne(iconStyle),
+          show: function (e) {
+            return that_effect.brightnessEffect
+          },
+          callback: function (e) {
+            if (that_effect.brightnessEffect) {
+              map.removeEffect(that_effect.brightnessEffect, true)
+              delete that_effect.brightnessEffect
+            }
+          }
+        },
+
+        {
+          text: function () {
+            return map.getLangText("_开启夜视")
+          },
+          icon: DarkMode(iconStyle),
+          show: function (e) {
+            return !that_effect.nightVisionEffect
+          },
+          callback: function (e) {
+            if (!that_effect.nightVisionEffect) {
+              that_effect.nightVisionEffect = new NightVisionEffect()
+              map.addEffect(that_effect.nightVisionEffect)
+            }
+          }
+        },
+        {
+          text: function () {
+            return map.getLangText("_关闭夜视")
+          },
+          icon: CloseOne(iconStyle),
+          show: function (e) {
+            return that_effect.nightVisionEffect
+          },
+          callback: function (e) {
+            if (that_effect.nightVisionEffect) {
+              map.removeEffect(that_effect.nightVisionEffect, true)
+              delete that_effect.nightVisionEffect
+            }
+          }
+        },
+
+        {
+          text: function () {
+            return map.getLangText("_开启黑白")
+          },
+          icon: Blackboard(iconStyle),
+          show: function (e) {
+            return !that_effect.blackAndWhiteEffect
+          },
+          callback: function (e) {
+            if (!that_effect.blackAndWhiteEffect) {
+              that_effect.blackAndWhiteEffect = new BlackAndWhiteEffect()
+              map.addEffect(that_effect.blackAndWhiteEffect)
+            }
+          }
+        },
+        {
+          text: function () {
+            return map.getLangText("_关闭黑白")
+          },
+          icon: CloseOne(iconStyle),
+          show: function (e) {
+            return that_effect.blackAndWhiteEffect
+          },
+          callback: function (e) {
+            if (that_effect.blackAndWhiteEffect) {
+              map.removeEffect(that_effect.blackAndWhiteEffect, true)
+              delete that_effect.blackAndWhiteEffect
+            }
+          }
+        },
+
+        {
+          text: function () {
+            return map.getLangText("_开启拾取高亮")
+          },
+          icon: HighLight(iconStyle),
+          show: function (e) {
+            return !that_effect.outlineEffect
+          },
+          callback: function (e) {
+            if (!that_effect.outlineEffect) {
+              that_effect.outlineEffect = new OutlineEffect()
+              map.addEffect(that_effect.outlineEffect)
+            }
+          }
+        },
+        {
+          text: function () {
+            return map.getLangText("_关闭拾取高亮")
+          },
+          icon: CloseOne(iconStyle),
+          show: function (e) {
+            return that_effect.outlineEffect
+          },
+          callback: function (e) {
+            if (that_effect.outlineEffect) {
+              map.removeEffect(that_effect.outlineEffect, true)
+              delete that_effect.outlineEffect
+            }
           }
         }
       ]
     },
+    // 地形
     {
       text: function () {
-        return map.getLangText("_地形服务")
+        return map.getLangText("_地形")
       },
       icon: International(iconStyle),
       show: function (e) {
@@ -381,496 +830,102 @@ export function getDefaultContextMenu(map) {
         }
       ]
     },
+    // 图层
     {
       text: function () {
-        return map.getLangText("_图上量算")
+        return map.getLangText("_图层")
       },
-      icon: Ruler(iconStyle),
+      icon: Cube(iconStyle),
+      show: function (e) {
+        return Cesium.defined(e.layer)
+      },
       children: [
         {
           text: function () {
-            return map.getLangText("_距离")
+            return map.getLangText("_显示三角网")
           },
-          icon: MapDistance(iconStyle),
-          callback: function (e) {
-            if (!that.measure) {
-              that.measure = new mars3d.thing.Measure()
-              map.addThing(that.measure)
-            }
-            that.measure.distance()
-          }
-        },
-        {
-          text: function () {
-            return map.getLangText("_面积")
-          },
-          icon: Texture(iconStyle),
-          callback: function (e) {
-            if (!that.measure) {
-              that.measure = new mars3d.thing.Measure()
-              map.addThing(that.measure)
-            }
-            that.measure.area()
-          }
-        },
-        {
-          text: function () {
-            return map.getLangText("_高度差")
-          },
-          icon: AutoHeightOne(iconStyle),
-          callback: function (e) {
-            if (!that.measure) {
-              that.measure = new mars3d.thing.Measure()
-              map.addThing(that.measure)
-            }
-            that.measure.heightTriangle()
-          }
-        },
-        {
-          text: function () {
-            return map.getLangText("_角度")
-          },
-          icon: Compass(iconStyle),
-          callback: function (e) {
-            if (!that.measure) {
-              that.measure = new mars3d.thing.Measure()
-              map.addThing(that.measure)
-            }
-            that.measure.angle()
-          }
-        },
-        {
-          text: function () {
-            return map.getLangText("_删除测量")
-          },
-          icon: DeleteKey(iconStyle),
+          icon: MultiTriangular(iconStyle),
           show: function (e) {
-            return that.measure && that.measure.hasMeasure
-          },
-          callback: function (e) {
-            if (that.measure) {
-              that.measure.clear()
+            const model = map.pick3DTileset(e.cartesian) // 拾取绘制返回的模型
+            if (!model) {
+              return false
             }
-          }
-        }
-      ]
-    },
-
-    {
-      text: function () {
-        return map.getLangText("_图上标记")
-      },
-      icon: Mark(iconStyle),
-      children: [
-        {
-          text: function () {
-            return map.getLangText("_标记点")
+            return !model.debugWireframe && model._enableDebugWireframe
           },
-          icon: Label(iconStyle),
           callback: function (e) {
-            map.graphicLayer.startDraw({
-              type: "point",
-              style: {
-                pixelSize: 12,
-                color: "#3388ff"
-              },
-              success: function (graphic) {
-                // eslint-disable-next-line no-console
-                console.log(JSON.stringify(graphic.coordinates))
-              }
-            })
+            const model = map.pick3DTileset(e.cartesian) // 拾取绘制返回的模型
+            model.debugWireframe = true
           }
         },
         {
           text: function () {
-            return map.getLangText("_标记线")
+            return map.getLangText("_关闭三角网")
           },
-          icon: Change(iconStyle),
-          callback: function (e) {
-            map.graphicLayer.startDraw({
-              type: "polyline",
-              style: {
-                color: "#55ff33",
-                width: 3
-                // arcType: Cesium.ArcType.NONE
-              },
-              success: function (graphic) {
-                // eslint-disable-next-line no-console
-                console.log(JSON.stringify(graphic.coordinates))
-              }
-            })
-          }
-        },
-        {
-          text: function () {
-            return map.getLangText("_标记面")
-          },
-          icon: BringToFrontOne(iconStyle),
-          callback: function (e) {
-            map.graphicLayer.startDraw({
-              type: "polygon",
-              style: {
-                color: "#29cf34",
-                opacity: 0.5,
-                outline: true,
-                outlineWidth: 2.0
-              },
-              success: function (graphic) {
-                // eslint-disable-next-line no-console
-                console.log(JSON.stringify(graphic.coordinates))
-              }
-            })
-          }
-        },
-        {
-          text: function () {
-            return map.getLangText("_标记圆")
-          },
-          icon: Asterisk(iconStyle),
-          callback: function (e) {
-            map.graphicLayer.startDraw({
-              type: "circle",
-              style: {
-                color: "#ffff00",
-                opacity: 0.6
-              },
-              addHeight: 1,
-              success: function (graphic) {
-                // eslint-disable-next-line no-console
-                console.log(JSON.stringify(graphic.coordinates))
-              }
-            })
-          }
-        },
-        {
-          text: function () {
-            return map.getLangText("_标记矩形")
-          },
-          icon: Rectangle(iconStyle),
-          callback: function (e) {
-            map.graphicLayer.startDraw({
-              type: "rectangle",
-              style: {
-                color: "#ffff00",
-                opacity: 0.6
-              },
-              success: function (graphic) {
-                // eslint-disable-next-line no-console
-                console.log(JSON.stringify(graphic.coordinates))
-              }
-            })
-          }
-        },
-        {
-          text: function () {
-            return map.getLangText("_允许编辑")
-          },
-          icon: Editor(iconStyle),
+          icon: CloseOne(iconStyle),
           show: function (e) {
-            return !map.graphicLayer.hasEdit
+            const model = map.pick3DTileset(e.cartesian) // 拾取绘制返回的模型
+            if (!model) {
+              return false
+            }
+            return model.debugWireframe && model._enableDebugWireframe
           },
           callback: function (e) {
-            map.graphicLayer.hasEdit = true
+            const model = map.pick3DTileset(e.cartesian) // 拾取绘制返回的模型
+            model.debugWireframe = false
           }
         },
         {
           text: function () {
-            return map.getLangText("_禁止编辑")
+            return map.getLangText("_显示包围盒")
           },
-          icon: DatabaseForbid(iconStyle),
+          icon: Box(iconStyle),
           show: function (e) {
-            return map.graphicLayer.hasEdit
+            const model = map.pick3DTileset(e.cartesian) // 拾取绘制返回的模型
+            if (!model) {
+              return false
+            }
+            return !model.debugShowBoundingVolume
           },
           callback: function (e) {
-            map.graphicLayer.hasEdit = false
+            const model = map.pick3DTileset(e.cartesian) // 拾取绘制返回的模型
+            model.debugShowBoundingVolume = true
           }
         },
         {
           text: function () {
-            return map.getLangText("_导出文件")
+            return map.getLangText("_关闭包围盒")
+          },
+          icon: MonitorOff(iconStyle),
+          show: function (e) {
+            const model = map.pick3DTileset(e.cartesian) // 拾取绘制返回的模型
+            if (!model) {
+              return false
+            }
+            return model.debugShowBoundingVolume
+          },
+          callback: function (e) {
+            const model = map.pick3DTileset(e.cartesian) // 拾取绘制返回的模型
+            model.debugShowBoundingVolume = false
+          }
+        },
+        {
+          text: function () {
+            return map.getLangText("_导出JSON")
           },
           icon: Export(iconStyle),
           show: function (e) {
-            return map.graphicLayer.length > 0
+            return e.layer.toJSON
           },
           callback: function (e) {
-            mars3d.Util.downloadFile("图上标记.json", JSON.stringify(map.graphicLayer.toGeoJSON()))
-          }
-        },
-        {
-          text: function () {
-            return map.getLangText("_清除标记")
-          },
-          icon: ClearFormat(iconStyle),
-          show: function (e) {
-            return map.graphicLayer.length > 0
-          },
-          callback: function (e) {
-            map.graphicLayer.clear()
+            downloadFile("layer图层配置.json", JSON.stringify(e.layer.toJSON()))
           }
         }
       ]
     },
+    // 场景
     {
       text: function () {
-        return map.getLangText("_特效效果")
-      },
-      icon: Effects(iconStyle),
-      children: [
-        {
-          text: function () {
-            return map.getLangText("_开启下雨")
-          },
-          icon: LightRain(iconStyle),
-          show: function (e) {
-            return !that.rainEffect
-          },
-          callback: function (e) {
-            if (!that.rainEffect) {
-              that.rainEffect = new mars3d.effect.RainEffect()
-              map.addEffect(that.rainEffect)
-            }
-          }
-        },
-        {
-          text: function () {
-            return map.getLangText("_关闭下雨")
-          },
-          icon: Close(iconStyle),
-          show: function (e) {
-            return that.rainEffect
-          },
-          callback: function (e) {
-            if (that.rainEffect) {
-              map.removeEffect(that.rainEffect, true)
-              delete that.rainEffect
-            }
-          }
-        },
-        {
-          text: function () {
-            return map.getLangText("_开启下雪")
-          },
-          icon: Snow(iconStyle),
-          show: function (e) {
-            return !that.snowEffect
-          },
-          callback: function (e) {
-            if (!that.snowEffect) {
-              that.snowEffect = new mars3d.effect.SnowEffect()
-              map.addEffect(that.snowEffect)
-            }
-          }
-        },
-        {
-          text: function () {
-            return map.getLangText("_关闭下雪")
-          },
-          icon: CloseOne(iconStyle),
-          show: function (e) {
-            return that.snowEffect
-          },
-          callback: function (e) {
-            if (that.snowEffect) {
-              map.removeEffect(that.snowEffect, true)
-              delete that.snowEffect
-            }
-          }
-        },
-
-        {
-          text: function () {
-            return map.getLangText("_开启雾天气")
-          },
-          icon: Fog(iconStyle),
-          show: function (e) {
-            return !that.fogEffect
-          },
-          callback: function (e) {
-            if (!that.fogEffect) {
-              const height = map.camera.positionCartographic.height * 2
-              that.fogEffect = new mars3d.effect.FogEffect({
-                fogByDistance: new Cesium.Cartesian4(0.1 * height, 0.1, height, 0.8)
-              })
-              map.addEffect(that.fogEffect)
-            }
-          }
-        },
-        {
-          text: function () {
-            return map.getLangText("_关闭雾天气")
-          },
-          icon: CloseOne(iconStyle),
-          show: function (e) {
-            return that.fogEffect
-          },
-          callback: function (e) {
-            if (that.fogEffect) {
-              map.removeEffect(that.fogEffect, true)
-              delete that.fogEffect
-            }
-          }
-        },
-
-        {
-          text: function () {
-            return map.getLangText("_开启泛光")
-          },
-          icon: Halo(iconStyle),
-          show: function (e) {
-            return !that.bloomEffect
-          },
-          callback: function (e) {
-            if (!that.bloomEffect) {
-              that.bloomEffect = new mars3d.effect.BloomEffect()
-              map.addEffect(that.bloomEffect)
-            }
-          }
-        },
-        {
-          text: function () {
-            return map.getLangText("_关闭泛光")
-          },
-          icon: CloseOne(iconStyle),
-          show: function (e) {
-            return that.bloomEffect
-          },
-          callback: function (e) {
-            if (that.bloomEffect) {
-              map.removeEffect(that.bloomEffect, true)
-              delete that.bloomEffect
-            }
-          }
-        },
-
-        {
-          text: function () {
-            return map.getLangText("_开启亮度")
-          },
-          icon: Brightness(iconStyle),
-          show: function (e) {
-            return !that.brightnessEffect
-          },
-          callback: function (e) {
-            if (!that.brightnessEffect) {
-              that.brightnessEffect = new mars3d.effect.BrightnessEffect()
-              map.addEffect(that.brightnessEffect)
-            }
-          }
-        },
-        {
-          text: function () {
-            return map.getLangText("_关闭亮度")
-          },
-          icon: CloseOne(iconStyle),
-          show: function (e) {
-            return that.brightnessEffect
-          },
-          callback: function (e) {
-            if (that.brightnessEffect) {
-              map.removeEffect(that.brightnessEffect, true)
-              delete that.brightnessEffect
-            }
-          }
-        },
-
-        {
-          text: function () {
-            return map.getLangText("_开启夜视")
-          },
-          icon: DarkMode(iconStyle),
-          show: function (e) {
-            return !that.nightVisionEffect
-          },
-          callback: function (e) {
-            if (!that.nightVisionEffect) {
-              that.nightVisionEffect = new mars3d.effect.NightVisionEffect()
-              map.addEffect(that.nightVisionEffect)
-            }
-          }
-        },
-        {
-          text: function () {
-            return map.getLangText("_关闭夜视")
-          },
-          icon: CloseOne(iconStyle),
-          show: function (e) {
-            return that.nightVisionEffect
-          },
-          callback: function (e) {
-            if (that.nightVisionEffect) {
-              map.removeEffect(that.nightVisionEffect, true)
-              delete that.nightVisionEffect
-            }
-          }
-        },
-
-        {
-          text: function () {
-            return map.getLangText("_开启黑白")
-          },
-          icon: Blackboard(iconStyle),
-          show: function (e) {
-            return !that.blackAndWhiteEffect
-          },
-          callback: function (e) {
-            if (!that.blackAndWhiteEffect) {
-              that.blackAndWhiteEffect = new mars3d.effect.BlackAndWhiteEffect()
-              map.addEffect(that.blackAndWhiteEffect)
-            }
-          }
-        },
-        {
-          text: function () {
-            return map.getLangText("_关闭黑白")
-          },
-          icon: CloseOne(iconStyle),
-          show: function (e) {
-            return that.blackAndWhiteEffect
-          },
-          callback: function (e) {
-            if (that.blackAndWhiteEffect) {
-              map.removeEffect(that.blackAndWhiteEffect, true)
-              delete that.blackAndWhiteEffect
-            }
-          }
-        },
-
-        {
-          text: function () {
-            return map.getLangText("_开启拾取高亮")
-          },
-          icon: HighLight(iconStyle),
-          show: function (e) {
-            return !that.outlineEffect
-          },
-          callback: function (e) {
-            if (!that.outlineEffect) {
-              that.outlineEffect = new mars3d.effect.OutlineEffect()
-              map.addEffect(that.outlineEffect)
-            }
-          }
-        },
-        {
-          text: function () {
-            return map.getLangText("_关闭拾取高亮")
-          },
-          icon: CloseOne(iconStyle),
-          show: function (e) {
-            return that.outlineEffect
-          },
-          callback: function (e) {
-            if (that.outlineEffect) {
-              map.removeEffect(that.outlineEffect, true)
-              delete that.outlineEffect
-            }
-          }
-        }
-      ]
-    },
-    {
-      text: function () {
-        return map.getLangText("_场景设置")
+        return map.getLangText("_场景")
       },
       icon: Config(iconStyle),
       children: [
@@ -982,6 +1037,15 @@ export function getDefaultContextMenu(map) {
           }
         },
 
+        {
+          text: function () {
+            return map.getLangText("_导出JSON")
+          },
+          icon: Export(iconStyle),
+          callback: function (e) {
+            downloadFile("Map场景配置.json", JSON.stringify(map.toJSON()))
+          }
+        },
         {
           text: function () {
             return map.getLangText("_场景出图")

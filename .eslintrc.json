@@ -3,6 +3,10 @@
   "env": {
     "node": true
   },
+  "parserOptions": {
+    "ecmaVersion": 2021,
+    "sourceType": "module"
+  },
   "extends": ["plugin:vue/vue3-essential", "standard", "@vue/typescript/recommended"],
   "globals": {
     "defineProps": "readonly",

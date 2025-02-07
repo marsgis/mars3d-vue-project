@@ -115,7 +115,6 @@ export function exchangeLayer(thisLayerId, moveLayerId) {
   const or = thisLayer.zIndex
   thisLayer.zIndex = moveLayer.zIndex // 向上移动
   moveLayer.zIndex = or // 向下移动
-  console.log(`${thisLayer.name}:${thisLayer.zIndex},  ${moveLayer.name}:${moveLayer.zIndex}`)
 }
 
 

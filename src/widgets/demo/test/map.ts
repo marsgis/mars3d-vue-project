@@ -1,3 +1,4 @@
+import { logInfo } from "@mars/utils/mars-util"
 import * as mars3d from "mars3d"
 const Cesium = mars3d.Cesium
 
@@ -47,32 +48,30 @@ export function onMounted(mapInstance) {
   map.addEffect(snowCover)
 
   // 天气接口，若失效请自行替换
-  Cesium.Resource.fetchJson({ url: "http://wthrcdn.etouch.cn/weather_mini?city=青岛" })
-    .then((msg) => {
-      const data = JSON.parse(msg)
-      console.log("data", data)
-      const tianqiForcat = data.data.forecast[0].type
-      if (tianqiForcat.search("雪") !== -1) {
-        snowEffect.enabled = true
-        snowCover.enabled = true
-        currEffect = snowEffect
-        weather = "snow"
-      } else if (tianqiForcat.search("雨") !== -1) {
-        rainEffect.enabled = true
-        currEffect = rainEffect
-        weather = "rain"
-      } else if (tianqiForcat.search("雾") !== -1) {
-        fogEffect.enabled = true
-        currEffect = fogEffect
-        weather = "fog"
-      } else {
-        currEffect = null
-        weather = "normal"
-      }
+  Cesium.Resource.fetchJson({ url: "http://wthrcdn.etouch.cn/weather_mini?city=青岛" }).then((msg) => {
+    const data = JSON.parse(msg)
+    logInfo("天气接口的数据data", data)
+    const tianqiForcat = data.data.forecast[0].type
+    if (tianqiForcat.search("雪") !== -1) {
+      snowEffect.enabled = true
+      snowCover.enabled = true
+      currEffect = snowEffect
+      weather = "snow"
+    } else if (tianqiForcat.search("雨") !== -1) {
+      rainEffect.enabled = true
+      currEffect = rainEffect
+      weather = "rain"
+    } else if (tianqiForcat.search("雾") !== -1) {
+      fogEffect.enabled = true
+      currEffect = fogEffect
+      weather = "fog"
+    } else {
+      currEffect = null
+      weather = "normal"
+    }
 
-      eventTarget.fire("weather", { weather })
-    })
-
+    eventTarget.fire("weather", { weather })
+  })
 }
 
 /**
@@ -111,7 +110,6 @@ export function rain() {
     rainEffect.enabled = true
     currEffect = rainEffect
   }
-
 }
 
 export function fog() {

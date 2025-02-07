@@ -13,12 +13,13 @@ import * as mars3d from "mars3d"
 export class CameraList extends mars3d.TaskItem {
   // 进入，激活开始处理事务
   _activateWork() {
-    this._map.setCameraViewList(this.options.list)
+    if (this.options && this.options.list) {
+      this._map.setCameraViewList(this.options.list)
+    }
   }
 
-  // 暂停(非必须)
-  _pauseWork() {
-    this._disableWork()
+  _disableWork() {
+    this._map.pauseCameraViewList()
   }
 }
 mars3d.thing.Task.register("cameraList", CameraList)

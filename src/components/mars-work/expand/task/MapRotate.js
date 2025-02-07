@@ -17,17 +17,25 @@ export class MapRotate extends mars3d.TaskItem {
     super(options)
 
     this._speed = this.options.speed || 0.01
-    this._center = this.options.center || { lat: 29.093038, lng: 108.804459, alt: 23321232.7, heading: 0, pitch: -90 }
   }
 
   // 进入，激活开始处理事务
   _activateWork() {
-    this._map.setCameraView(this._center, {
-      duration: 1,
-      complete: () => {
-        this._map.on(mars3d.EventType.clockTick, this._map_onClockTick, this)
-      }
-    })
+    this._center = this.options.center
+    if (!this._center && this._map.camera.positionCartographic.height < 23321232) {
+      this._center = { lat: 29.093038, lng: 108.804459, alt: 23321232.7, heading: 0, pitch: -90 }
+    }
+
+    if (this._center) {
+      this._map.setCameraView(this._center, {
+        duration: 1,
+        complete: () => {
+          this._map.on(mars3d.EventType.clockTick, this._map_onClockTick, this)
+        }
+      })
+    } else {
+      this._map.on(mars3d.EventType.clockTick, this._map_onClockTick, this)
+    }
   }
 
   // 离开，释放相关对象

@@ -5,7 +5,7 @@
  * @author 木遥 2022-01-01
  */
 import { toKml } from "kml-geojson"
-import _ from "lodash"
+// import _ from "lodash"
 import { createApp } from "vue"
 
 export function saveJSON(data: any[]) {
@@ -50,10 +50,8 @@ export function readJSON<T>(file: any): Promise<T> {
   })
 }
 
-export function saveGeoJSON2Kml(geojson: string, options: any): any {
-  const geojsonObject = _.cloneDeep(geojson)
-
-  const kml = toKml(geojsonObject, {
+export function saveGeoJSON2Kml(geojson: object, options: any): any {
+  const kml = toKml(geojson, {
     name: "Mars3D标绘数据",
     documentName: "Mars3D标绘数据文件",
     documentDescription: "标绘数据 by mars3d.cn",

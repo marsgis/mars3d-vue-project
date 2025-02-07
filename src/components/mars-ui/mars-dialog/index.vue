@@ -49,6 +49,7 @@
  * @copyright 火星科技 mars3d.cn
  * @author 火星渣渣灰 2022-02-19
  */
+import { logWarn } from "@mars/utils/mars-util"
 import { computed, onMounted, onUnmounted, ref, useSlots, nextTick } from "vue"
 
 const globalConfig: Record<string, any> = {}
@@ -499,7 +500,7 @@ async function close() {
         await result
         emitClose()
       } catch (err) {
-        console.log("取消关闭")
+       logWarn("取消关闭")
       }
     } else if (result !== false) {
       emitClose()

@@ -6,9 +6,9 @@
 <script lang="ts" setup>
 import { toRaw, onMounted, ref } from "vue"
 import * as mapWork from "./map"
-import axios from "axios"
 import { $message } from "@mars/components/mars-ui/index"
 import { useWidget } from "@mars/common/store/widget"
+import { fetchJson } from "@mars/utils/mars-util"
 
 const { currentWidget } = useWidget()
 
@@ -21,13 +21,11 @@ onMounted(async () => {
   const url = currentWidget.data.url
 
   const scenetree = url.substring(0, url.lastIndexOf("/") + 1) + "scenetree.json"
+  let item: any = await fetchJson({ url: scenetree })
 
-  const scene: any = await axios.get(scenetree)
-
-  if (scene.data) {
-    let item = scene.data
-    if (scene.data.scenes) {
-      item = scene.data.scenes[0]
+  if (item) {
+    if (item.scenes) {
+      item = item.scenes[0]
     }
     const childeren = isHaveChildren(item.children)
     LayerTreeData.value.push({

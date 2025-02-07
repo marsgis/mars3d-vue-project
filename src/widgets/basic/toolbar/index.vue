@@ -6,10 +6,11 @@
         :class="['toolbar-item', activeTools.includes(item.widget) ? 'active' : '']"
         @mouseenter="enterWidget(item.widget ?? i)"
         @mouseleave="leaveWidget(item.widget ?? i)"
-        @click="showWidget(item.widget)">
+        @click="showWidget(item.widget)"
+      >
         <mars-icon v-if="item.icon" :icon="item.icon" width="18"></mars-icon>
-        <img v-if="item.img && !activeTools.includes(item.widget)" :src="item.img" class="image" />
-        <img v-if="item.activeImg && activeTools.includes(item.widget)" :src="item.activeImg" class="image" />
+        <!-- <img v-if="item.img && !activeTools.includes(item.widget)" :src="item.img" class="image" />
+        <img v-if="item.activeImg && activeTools.includes(item.widget)" :src="item.activeImg" class="image" /> -->
 
         <span class="title">{{ item.name }}</span>
       </div>
@@ -18,18 +19,18 @@
         <div
           :class="['toolbar-item', isIncludesMenu(item.children, i) ? 'active' : '']"
           @mouseenter="enterWidget(item.widget ?? i)"
-          @mouseleave="leaveWidget(item.widget ?? i)">
+          @mouseleave="leaveWidget(item.widget ?? i)"
+        >
           <mars-icon v-if="item.icon" :icon="item.icon" width="18"></mars-icon>
-          <img v-if="item.img && !isIncludesMenu(item.children, i)" :src="item.img" class="image" />
-          <img v-if="item.activeImg && isIncludesMenu(item.children, i)" :src="item.activeImg" class="image" />
+          <!-- <img v-if="item.img && !isIncludesMenu(item.children, i)" :src="item.img" class="image" />
+          <img v-if="item.activeImg && isIncludesMenu(item.children, i)" :src="item.activeImg" class="image" /> -->
 
           <span class="title">
             {{ item.name }}
           </span>
         </div>
         <template #overlay>
-          <a-menu @click="(data) => clickMenu(data, i)" @mouseenter="enterWidget(item.widget ?? i)"
-            @mouseleave="leaveWidget(item.widget ?? i)">
+          <a-menu @click="(data) => clickMenu(data, i)" @mouseenter="enterWidget(item.widget ?? i)" @mouseleave="leaveWidget(item.widget ?? i)">
             <a-menu-item v-for="child in item.children" :key="child.widget" :title="child.name">
               <mars-icon :icon="child.icon" width="18"></mars-icon>
               <span>{{ child.name }}</span>
@@ -62,7 +63,29 @@ currentWidget.onUpdate((widget: string | any) => {
   }, 5)
 })
 
-const data = window.toolBarMenuData || []
+const data: any = [
+  { name: "底图", icon: "international", widget: "manage-basemap" },
+  { name: "图层", icon: "layers", widget: "manage-layers" },
+  {
+    name: "工具",
+    icon: "tool",
+    children: [
+      // { name: "图上量算", icon: "ruler", widget: "measure" },
+      // { name: "空间分析", icon: "analysis", widget: "analysis" },
+      { name: "坐标定位", icon: "local", widget: "location-point" }
+      // { name: "地区导航", icon: "navigation", widget: "location-region" },
+      // { name: "我的标记", icon: "mark", widget: "addmarker" },
+      // { name: "视角书签", icon: "bookmark", widget: "bookmark" },
+      // { name: "地图打印", icon: "printer", widget: "print" },
+      // { name: "飞行漫游", icon: "take-off", widget: "roamLine-list" },
+      // { name: "图上标绘", icon: "hand-painted-plate", widget: "graphic-plot" },
+      // { name: "路线导航", icon: "connection", widget: "query-route" },
+      // { name: "卷帘对比", icon: "switch-contrast", widget: "map-split" },
+      // { name: "分屏对比", icon: "full-screen-play", widget: "map-compare" },
+      // { name: "四屏对比", icon: "full-screen-play", widget: "four-compare" }
+    ]
+  }
+]
 
 const activeTools = ref<any[]>([])
 
@@ -130,6 +153,7 @@ const clickMenu = ({ key }: any, index: number) => {
     width: 85px;
     text-align: center;
     display: inline-flex;
+    justify-content: center;
     align-items: center;
     height: 100%;
     color: var(--mars-text-color);
@@ -142,12 +166,9 @@ const clickMenu = ({ key }: any, index: number) => {
     // .active()
     // }
 
-    .image {
-      padding-left: 10px;
-    }
-
     .title {
       padding-left: 10px;
+      padding-bottom: 3px;
     }
 
     &:first-child {
@@ -158,13 +179,6 @@ const clickMenu = ({ key }: any, index: number) => {
     &:last-child {
       border-top-right-radius: 4px;
       border-bottom-right-radius: 4px;
-    }
-
-    .mars-icon {
-      color: var(--mars-text-color);
-      position: absolute;
-      left: 20%;
-      top: 10px;
     }
   }
 

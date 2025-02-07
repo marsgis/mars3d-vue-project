@@ -1,12 +1,5 @@
 <template>
-  <mars-dialog custom-class="manage-layer_pannel" :draggable="true" width="300" :min-width="250" top="60" right="10">
-    <template #title>
-      <div class="title">
-        <img src="/img/icon/layer.png" alt="" />
-        图层
-      </div>
-    </template>
-
+  <mars-dialog title="图层" icon="layers" custom-class="manage-layer_pannel" :draggable="true" width="300" :min-width="250" top="60" right="10">
     <mars-tree
       class="layer-tree"
       checkable
@@ -27,12 +20,11 @@
             </a-menu>
           </template>
         </mars-dropdown-menu>
-        <span v-if="node.hasOpacity" v-show="node.checked" class="tree-slider">
-          <mars-slider v-model:value="node.opacity" :min="0" :step="1" :max="100" @change="opcityChange(node)" />
+        <span v-if="node.hasOpacity && node.checked" class="tree-slider">
+          <mars-slider v-model:value="opacityValue[node.key]" :min="0" :step="0.1" :max="1" @change="(value) => opcityChange(node, value)" />
         </span>
       </template>
     </mars-tree>
-
     <template #footer>
       <div class="tips">提示：双击可定位视域至其所在位置</div>
     </template>
@@ -40,11 +32,11 @@
 </template>
 
 <script lang="ts" setup>
-import { onUnmounted, nextTick, reactive, ref, onMounted, toRaw } from "vue"
+import { onUnmounted, ref, onMounted } from "vue"
 import useLifecycle from "@mars/common/uses/use-lifecycle"
 import * as mapWork from "./map"
 import { useWidget } from "@mars/common/store/widget"
-import { cloneDeep } from "lodash"
+import { logInfo } from "@mars/utils/mars-util"
 
 const { activate, disable, updateWidget, currentWidget } = useWidget()
 useLifecycle(mapWork)
@@ -70,31 +62,33 @@ const treeData = ref<any[]>()
 const expandedKeys = ref<string[]>()
 const checkedKeys = ref<string[]>()
 
+const opacityValue = ref<{ id: number }>({} as any)
+
 let lastWidget: any
 
 // 初始化树构件
 function initTree() {
   const showIds = [] // 是显示状态的图层id集合
   const openIds = [] // 展开的树节点id集合（如果不想展开，对应图层配置open:false）
+
   const result = mapWork.getLayrsTree({
     basemaps: true, // 是否取config.json中的basempas
     filter: function (layer) {
       if (!layer.name) {
-        console.log("未命名图层不加入图层管理", layer)
+        logInfo("未命名图层不加入图层管理", layer)
         return false // 未命名图层不在管理器展示
       }
       return true
     },
     forEach: function (item, layer) {
-      delete item.icon // 与tree控件冲突，需要移除
-
       item.key = item.id // 树控件api需要的唯一标识
       item.title = item.name || `未命名(${layer.type})` // 树控件api需要的显示文本字段
 
       item.hasZIndex = layer.hasZIndex // 当前vue绑定使用的属性
       item.hasOpacity = layer.hasOpacity
-      item.opacity = 100 * (layer.opacity ?? 1)
 
+      // 记录在item中，会导致卡顿
+      opacityValue.value[item.id] = layer.opacity ?? 1
       if (item.show) {
         showIds.push(item.id)
       }
@@ -103,7 +97,7 @@ function initTree() {
       }
     }
   })
-  console.log("获取到的map图层树", result)
+  logInfo("获取到的map图层树", result)
 
   // 赋予树控件
   treeData.value = result.tree
@@ -157,17 +151,16 @@ function checkedChange(keys: string[], e: any) {
     // 处理子节点
     if (e.node.children && e.node.children.length) {
       e.node.children.forEach((child) => {
-        checkedChange(keys, child)
+        checkedChange(keys, { node: child })
       })
     }
   }
 }
 
-const opcityChange = (node: any) => {
-  const id = node.id
-  const layer = mapWork.getLayerById(id)
+const opcityChange = (node: any, value: string | number) => {
+  const layer = mapWork.getLayerById(node.id)
   if (layer) {
-    layer.opacity = node.opacity / 100
+    layer.opacity = value
   }
 }
 
@@ -218,9 +211,6 @@ const onContextMenuClick = (node: any, type: string) => {
   }
 
   parent.children = children.sort((a: any, b: any) => a._index - b._index)
-
-  // eslint-disable-next-line no-self-assign
-  // treeData.value = treeData.value
 }
 
 function flyTo(item: any) {

@@ -2,7 +2,7 @@
   <ConfigProvider :locale="locale">
     <div class="mars-main-view" id="mars-main-view">
       <div id="centerDiv" class="centerDiv-container">
-        <mars-map :url="configUrl" :options="mapOptions"  @onload="marsOnload"  />
+        <mars-map :url="configUrl" :options="mapOptions" @onload="marsOnload" />
       </div>
       <template v-if="loaded">
         <template v-for="comp in widgets" :key="comp.key">
@@ -25,6 +25,7 @@ import { ConfigProvider } from "ant-design-vue"
 import { useWidgetStore } from "@mars/common/store/widget"
 import MarsMap from "@mars/components/mars-work/mars-map.vue"
 import MarsWidget from "./widget.vue"
+import { logInfo } from "@mars/utils/mars-util"
 
 const locale = zhCN
 
@@ -33,11 +34,10 @@ const widgetStore = useWidgetStore()
 const widgets = computed(() => widgetStore.state.widgets)
 const openAtStart = computed(() => widgetStore.state.openAtStart)
 
-
 const props = withDefaults(
   defineProps<{
     mapOptions?: any
-    url?:string
+    url?: string
   }>(),
   {
     mapOptions: () => ({}),
@@ -45,7 +45,6 @@ const props = withDefaults(
   }
 )
 const configUrl = props.url ?? `${process.env.BASE_URL}config/config.json?time=${new Date().getTime()}`
-
 
 let mapInstance: any = null
 provide("getMapInstance", () => {
@@ -56,7 +55,7 @@ const emit = defineEmits(["mapLoaded"])
 
 const loaded = ref(false)
 const marsOnload = (map: any) => {
-  console.log("map构造完成", map)
+  logInfo("map构造完成", map)
   mapInstance = map
 
   emit("mapLoaded", mapInstance)

@@ -1,6 +1,5 @@
 <template>
-  <mars-dialog :nopadding="true" :draggable="false" top="10" bottom="10" right="10" width="330"
-    :before-close="beforeClose" :closeable="false">
+  <mars-dialog :nopadding="true" :draggable="false" top="10" bottom="10" right="10" width="330" :before-close="beforeClose" :closeable="false">
     <a-form :model="formState" :rules="rules" :label-col="{ span: 6 }" :wrapper-col="{ span: 18 }">
       <a-collapse v-model:activeKey="activeKey" expandIconPosition="end">
         <!-- 自定义切换图标 -->
@@ -16,12 +15,12 @@
             <mars-input v-model:value="formState.url" :allowClear="true" @change="onTextChange" />
           </a-form-item>
 
-            <a-form-item label="地图交互" name="extent">
-              <a-space>
-                <mars-input v-model:value="formState.extent" :allowClear="true"></mars-input>
-                <mars-button class="small-btn" @click="onClickDrawExtent">绘制</mars-button>
-              </a-space>
-            </a-form-item>
+          <a-form-item label="地图交互" name="extent">
+            <a-space>
+              <mars-input v-model:value="formState.extent" :allowClear="true"></mars-input>
+              <mars-button class="small-btn" @click="onClickDrawExtent">绘制</mars-button>
+            </a-space>
+          </a-form-item>
 
           <a-form-item label="数字输入">
             <mars-input-number v-model:value="formState.countCar" :step="0.1" @change="onNumberChange" />
@@ -36,22 +35,20 @@
           </a-form-item>
 
           <a-form-item label="滑动条">
-            <mars-slider v-model:value="formState.brightness" :min="-0.5" :max="1.5" :step="0.05"
-              @change="onSliderChange" />
+            <mars-slider v-model:value="formState.brightness" :min="-0.5" :max="1.5" :step="0.05" @change="onSliderChange" />
           </a-form-item>
 
           <a-form-item label="刻度滑动条">
-            <mars-slider v-model:value="formState.contrast" :marks="marks" :min="-255" :max="255" :step="1"
-              @change="onMarkSliderChange" />
+            <mars-slider v-model:value="formState.contrast" :marks="marks" :min="-255" :max="255" :step="1" @change="onMarkSliderChange" />
           </a-form-item>
 
-            <a-form-item label="多选" class="f-push-20-t">
-              <a-checkbox-group v-model:value="formState.checkboxVal" :indeterminate="true" @change="onCheckboxChange">
-                <a-checkbox value="mars">火星</a-checkbox>
-                <a-checkbox value="earth">地球</a-checkbox>
-                <a-checkbox value="sun">太阳</a-checkbox>
-              </a-checkbox-group>
-            </a-form-item>
+          <a-form-item label="多选" class="f-push-20-t">
+            <a-checkbox-group v-model:value="formState.checkboxVal" :indeterminate="true" @change="onCheckboxChange">
+              <a-checkbox value="mars">火星</a-checkbox>
+              <a-checkbox value="earth">地球</a-checkbox>
+              <a-checkbox value="sun">太阳</a-checkbox>
+            </a-checkbox-group>
+          </a-form-item>
 
           <a-form-item label="单选">
             <a-radio-group v-model:value="formState.radioVal">
@@ -61,12 +58,12 @@
             </a-radio-group>
           </a-form-item>
 
-            <a-form-item label="鼠标操作">
-              <a-space>
-                <mars-switch v-model:checked="formState.isScale" @change="onSwitchChange" />
-                <span class="f-fs12 f-ff0" style="color: rgba(234, 242, 255, 0.5)">是否允许</span>
-              </a-space>
-            </a-form-item>
+          <a-form-item label="鼠标操作">
+            <a-space>
+              <mars-switch v-model:checked="formState.isScale" @change="onSwitchChange" />
+              <span class="f-fs12 f-ff0" style="color: rgba(234, 242, 255, 0.5)">是否允许</span>
+            </a-space>
+          </a-form-item>
 
           <a-form-item label="颜色选择">
             <mars-color-picker v-model:value="formState.color" />
@@ -101,7 +98,8 @@
             :pagination="{ pageSize: 5 }"
             :columns="columns"
             :data-source="typhoonList"
-            rowKey="id">
+            rowKey="id"
+          >
             <template #bodyCell="{ column, text }">
               <template v-if="column.dataIndex === 'name'">
                 <a>{{ text }}</a>
@@ -111,9 +109,7 @@
         </a-collapse-panel>
 
         <a-collapse-panel key="3" header="树控件">
-          <mars-tree checkable :tree-data="treeData" v-model:expandedKeys="expandedKeys"
-            v-model:checkedKeys="checkedKeys"
-            @check="onCheckTreeItem">
+          <mars-tree checkable :tree-data="treeData" v-model:expandedKeys="expandedKeys" v-model:checkedKeys="checkedKeys" @check="onCheckTreeItem">
             <template #title="{ title }">
               <span>{{ title }}</span>
             </template>
@@ -139,7 +135,7 @@
 import { onMounted, reactive, ref } from "vue"
 import useLifecycle from "@mars/common/uses/use-lifecycle"
 import { TableProps } from "ant-design-vue"
-import axios from "axios"
+import { fetchJson } from "@mars/utils/mars-util"
 import type { Dayjs } from "dayjs"
 import * as mapWork from "./map"
 import { $alert, $notify, $message, $showLoading, $hideLoading } from "@mars/components/mars-ui/index"
@@ -206,12 +202,12 @@ const modelOptions = [
   {
     value: "jingche",
     label: "警车",
-    style: { scale: 8, url: "//data.mars3d.cn/gltf/mars/jingche/jingche.gltf" }
+    style: { scale: 8, url: "https://data.mars3d.cn/gltf/mars/jingche/jingche.gltf" }
   },
   {
     value: "qiche",
     label: "小汽车",
-    style: { scale: 1, url: "//data.mars3d.cn/gltf/mars/qiche.gltf" }
+    style: { scale: 1, url: "https://data.mars3d.cn/gltf/mars/qiche.gltf" }
   }
 ]
 
@@ -328,9 +324,8 @@ interface typhoon {
 const typhoonList = ref<typhoon[]>([]) // 列表数据
 onMounted(() => {
   // 访问后端接口，取台风列表数据
-  const url = "//data.mars3d.cn/file/apidemo/typhoon/list_2020.json"
-  axios.get(url).then(function (res: any) {
-    const data = res.data
+  const url = "https://data.mars3d.cn/file/apidemo/typhoon/list_2020.json"
+  fetchJson({ url }).then(function (data: any) {
     typhoonList.value = data.typhoonList.map((item: any) => ({
       id: item[0],
       name_en: item[1],
@@ -371,9 +366,8 @@ const checkedKeys = ref<string[]>([])
 onMounted(() => {
   // 取图层列表数据
   const url = `${process.env.BASE_URL}config/config.json`
-  axios.get(url).then(function (res: any) {
-    const data = res.data
-    const layers = data.map3d.layers
+  fetchJson({ url }).then(function (data: any) {
+    const layers = data.layers
     for (let i = layers?.length - 1; i >= 0; i--) {
       const layer = mapWork.createLayer(layers[i]) // 创建图层
       if (layer && layer.pid === 20) {

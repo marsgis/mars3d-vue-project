@@ -1,16 +1,15 @@
 <template>
-  <mars-dialog customClass="manage-basemap-pannel" :draggable="true" :width="340" :height="600"
-    :position="{ top: 60, right: 10 }">
-    <template #title>
-      <div class="title">
-        <img src="/img/icon/basemap.png" alt="" />
-        底图
-      </div>
-    </template>
-
+  <mars-dialog
+    title="底图"
+    icon="international"
+    customClass="manage-basemap-pannel"
+    :draggable="true"
+    :width="340"
+    :height="600"
+    :position="{ top: 60, right: 10 }"
+  >
     <ul class="basemap">
-      <li v-for="(item, i) in baseMaps" :key="i" class="basemap-card" :class="{ 'active-card': active === item.id }"
-        @click="changeBaseMaps(item)">
+      <li v-for="(item, i) in baseMaps" :key="i" class="basemap-card" :class="{ 'active-card': active === item.id }" @click="changeBaseMaps(item)">
         <img class="icon" :src="`${item.options.icon || '//data.mars3d.cn/img/thumbnail/basemap/bingAerial.png'}`" />
         <div class="name">{{ item.name }}</div>
       </li>

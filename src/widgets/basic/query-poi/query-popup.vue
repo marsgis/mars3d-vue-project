@@ -38,7 +38,7 @@ const closePopup = () => {
 }
 
 .mars3d-template-tri {
-  margin: 0 auto;
+  margin: 5px 10px;
   width: 0px;
   height: 0px;
   border: 10px solid rgba(39, 44, 54, 0.8);

@@ -6,6 +6,7 @@
 import { Store, StoreOptions, createStore, useStore } from "vuex"
 import { InjectionKey, computed, nextTick, onUnmounted, inject } from "vue"
 import { v4 as uuidV4 } from "uuid"
+import { logInfo, logWarn } from "@mars/utils/mars-util"
 
 // 为 store state 声明类型
 export interface DefaultOption {
@@ -92,7 +93,7 @@ export const injectState = (options: StoreOptions<WidgetState>): Store<WidgetSta
 
         const pannel = state.widgets.find((item) => item.name === value)
         if (!pannel) {
-          console.log("widget不存在", widget)
+          logWarn("widget不存在", widget)
           return
         }
 
@@ -130,6 +131,7 @@ export const injectState = (options: StoreOptions<WidgetState>): Store<WidgetSta
         if (!state.openAtStart.includes(value)) {
           commit("addAlive", value)
         }
+
       },
       disable({ state }, widget: string) {
         const value = widget
@@ -170,7 +172,7 @@ class Event {
     return this
   }
 
-  emit(type: string, ...args: any[]) {
+  fire(type: string, ...args: any[]) {
     const fns = this._cache[type]
     if (Array.isArray(fns)) {
       fns.forEach((fn) => {
@@ -252,7 +254,7 @@ export function useWidget() {
     },
     // 出发对应widget的onUpdate
     updateWidget(name: string, ...args: any[]) {
-      widgetEvent.emit(name, ...args)
+      widgetEvent.fire(name, ...args)
     },
     // 获取widget的当前激活状态
     isActivate: (name: string) => {
@@ -267,7 +269,6 @@ export function useWidget() {
       } else {
         widgets = option
       }
-      console.log("widgets", widgets)
       widgets.forEach((widget) => {
         let params: any
         if (typeof widget === "string") {
@@ -276,6 +277,7 @@ export function useWidget() {
           params = { reload, ...widget }
         }
         store.dispatch("activate", params)
+        logInfo("激活了widget", params)
       })
     },
     // 释放指定的widget

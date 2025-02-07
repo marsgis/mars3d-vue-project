@@ -10,12 +10,13 @@
 
 <script setup lang="ts">
 import MarsMap from "@mars/components/mars-work/mars-map.vue"
+import { logInfo } from "@mars/utils/mars-util"
 import { useRouter } from "vue-router"
 
 const configUrl = `${process.env.BASE_URL}config/config.json`
 
 const marsOnload = (map: any) => {
-  console.log("map构造完成", map)
+  logInfo("map构造完成", map)
 }
 
 const router = useRouter()

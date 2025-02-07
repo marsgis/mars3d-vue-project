@@ -2,9 +2,9 @@ import path from "path"
 import type { ConfigEnv } from "vite"
 import { defineConfig, loadEnv } from "vite" // 帮手函数，这样不用 jsdoc 注解也可以获取类型提示
 import vue from "@vitejs/plugin-vue"
-// import legacy from "@vitejs/plugin-legacy"
 import eslintPlugin from "vite-plugin-eslint"
 import { mars3dPlugin } from "vite-plugin-mars3d"
+
 import { createStyleImportPlugin, AndDesignVueResolve } from "vite-plugin-style-import"
 
 export default ({ mode }: ConfigEnv) => {
@@ -71,7 +71,6 @@ export default ({ mode }: ConfigEnv) => {
       rollupOptions: {
         input: {
           index: path.resolve(__dirname, "index.html"),
-          demo: path.resolve(__dirname, "demo.html")
         },
         output: {
           chunkFileNames: "assets/js/[name]-[hash].js",
@@ -97,30 +96,6 @@ export default ({ mode }: ConfigEnv) => {
     },
     plugins: [
       vue(),
-      // 兼容老版本浏览器配置
-      // legacy({
-      //   targets: ["> 5%", "last 2 major versions", "chrome >80", "not dead"], // 需要兼容的目标列表，可以设置多个,参考.browserslistrc等
-      //   additionalLegacyPolyfills: ["regenerator-runtime/runtime"],
-      //   renderLegacyChunks: true,
-      //   polyfills: [
-      //     "es.symbol",
-      //     "es.array.filter",
-      //     "es.promise",
-      //     "es.promise.finally",
-      //     "es/map",
-      //     "es/set",
-      //     "es.array.for-each",
-      //     "es.object.define-properties",
-      //     "es.object.define-property",
-      //     "es.object.get-own-property-descriptor",
-      //     "es.object.get-own-property-descriptors",
-      //     "es.object.keys",
-      //     "es.object.to-string",
-      //     "web.dom-collections.for-each",
-      //     "esnext.global-this",
-      //     "esnext.string.match-all"
-      //   ]
-      // }),
       eslintPlugin(),
       mars3dPlugin({ useStatic: false }),
       createStyleImportPlugin({

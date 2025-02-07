@@ -4,6 +4,7 @@
  * @copyright 火星科技 mars3d.cn
  * @author 木遥 2022-01-01
  */
+import axios from "axios"
 import * as mars3d from "mars3d"
 
 /**
@@ -54,10 +55,9 @@ export function setAutoHeight(callback: (v: number) => void, lose = 0, container
  * @param {string} [defaultVal] 默认值
  * @return {string | null}  参数值
  */
-export function getQueryString(parameter: string, defaultVal?:string): string | null {
+export function getQueryString(parameter: string, defaultVal?: string): string | null {
   return new URL(window.location.href).searchParams.get(parameter) ?? defaultVal
 }
-
 
 /**
  * 将指定的异步方法转为Promise
@@ -93,7 +93,6 @@ export function apiArrayToSync(context: any, apiNames: string[], success = "succ
         options[error] = function (error) {
           reject(error)
         }
-        // console.log("zhix", options)
         apiFunc.call(context, options)
       })
   })
@@ -119,4 +118,50 @@ export function printImage(base64: any) {
     iframe.contentWindow.print()
     document.body.removeChild(iframe)
   }, 500)
+}
+
+/**
+ * 请求服务返回JSON结果
+ *
+ * @param {object} options 请求参数
+ * @param {string} options.url 服务URL地址
+ * @return {Promise<object>} 返回Promise异步处理结果，对象为JSON数据
+ */
+export async function fetchJson(options) {
+  const result: any = await axios.get(options.url, options)
+  return result.data
+}
+
+
+// @ts-ignore 需要开启时请F12控制台执行：window.devProject()
+window.devProject = function (open = true) {
+  localStorage.setItem("project-debugger", open ? "1" : "0")
+}
+
+// 是否打印开发日志
+const hasWriteLog = localStorage.getItem("project-debugger") === "1"
+mars3d.Log.hasInfo(hasWriteLog)
+
+// 打印普通日志信息,方便开发调试
+export function logInfo(...sources) {
+  if (!hasWriteLog) {
+    return
+  }
+
+  // eslint-disable-next-line no-console
+  console.log("%c %s", "padding: 2px 1px; border-radius: 3px 0 0 3px; color: #fff; background: rgba(17, 106, 48, 0.85);", ...sources)
+}
+
+// 打印警告日志信息,方便开发调试
+export function logWarn(...sources) {
+  if (!hasWriteLog) {
+    return
+  }
+
+  // eslint-disable-next-line no-console
+  console.log(
+    "%c %s",
+    "padding: 2px 1px; border-radius: 0 3px 3px 0; color: #fff; background: rgba(181, 27, 29, 0.8); font-weight: bold;",
+    ...sources
+  )
 }
