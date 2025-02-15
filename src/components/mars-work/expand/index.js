@@ -1,4 +1,4 @@
-// 注册mars3d插件 (插件清单访问：http://mars3d.cn/dev/guide/start/architecture.html)
+// 注册mars3d插件 (插件清单访问：http://mars3d.cn/docs/guide/sdk/)
 import "mars3d-space"
 import "mars3d-heatmap"
 import "mars3d-echarts"

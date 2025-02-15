@@ -107,7 +107,7 @@ function initTree() {
 
 // 树控件 勾选事件
 function checkedChange(keys: string[], e: any) {
-  const layer = mapWork.getLayerById(e.node.key)
+  const layer = mapWork.getLayerById(e.node?.key)
 
   if (layer) {
     const show = keys.indexOf(e.node.key) !== -1
@@ -147,13 +147,13 @@ function checkedChange(keys: string[], e: any) {
     if (layer.options?.scenetree) {
       initSceneTree(layer)
     }
+  }
 
-    // 处理子节点
-    if (e.node.children && e.node.children.length) {
-      e.node.children.forEach((child) => {
-        checkedChange(keys, { node: child })
-      })
-    }
+  // 处理子节点
+  if (e.node.children && e.node.children.length) {
+    e.node.children.forEach((child) => {
+      checkedChange(keys, { node: child })
+    })
   }
 }
 

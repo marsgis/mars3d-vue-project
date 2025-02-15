@@ -32,7 +32,7 @@ const store: StoreOptions<WidgetState> = {
         disableOther: ["roamLine"]
       },
       {
-        component: markRaw(defineAsyncComponent(() => import("@mars/widgets/basic/manage-layers/scenetree.vue"))),
+        component: markRaw(defineAsyncComponent(() => import("@mars/widgets/basic/manage-layers/scene-tree.vue"))),
         name: "layer-scenetree"
       },
       {

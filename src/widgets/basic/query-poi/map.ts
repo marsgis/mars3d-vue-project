@@ -11,7 +11,7 @@ const Cesium = mars3d.Cesium
 
 let map: mars3d.Map // 地图对象
 export let graphicLayer: mars3d.layer.GraphicLayer
-let queryPoi: mars3d.query.TdtPOI // TdtPOI查询
+let queryPoi: mars3d.query.QueryPOI // TdtPOI查询
 let address: any = null
 let queryAddressDOM
 
@@ -37,7 +37,7 @@ export async function onMounted(mapInstance: mars3d.Map): Promise<void> {
     queryAddressDOM.style.marginRight = "50px"
   }
 
-  queryPoi = new mars3d.query.TdtPOI({
+  queryPoi = new mars3d.query.QueryPOI({
     // city: '合肥市',
   })
 

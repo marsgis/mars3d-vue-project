@@ -74,6 +74,7 @@ export default defineComponent({
   border-color: transparent
 }
 :deep(.ant-input-number-group-addon) {
+  padding: 0 8px !important;
   border-radius: 0px !important;
   border-color: transparent;
   color: var(--mars-control-placeholder);

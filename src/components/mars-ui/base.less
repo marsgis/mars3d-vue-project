@@ -121,7 +121,7 @@
     margin-bottom: 10px !important;
     color: var(--mars-control-text);
 
-    .ant-form-item-label>label {
+    .ant-form-item-label > label {
       font-size: 14px;
       font-family: var(--mars-font-family);
       color: var(--mars-sub-title-color);
@@ -247,7 +247,7 @@
 
   // 表格
   .ant-table,
-  .ant-table-thead>tr>th {
+  .ant-table-thead > tr > th {
     color: var(--mars-control-text);
     background: none !important;
     font-family: var(--mars-font-family);
@@ -286,13 +286,17 @@
     }
   }
 
-  .ant-table-tbody>tr.ant-table-placeholder>td {
+  .ant-table-tbody > tr.ant-table-placeholder > td {
     background: #141414;
   }
 
-  .ant-table-row:hover>td,
-  .ant-table-row-selected>td {
+  .ant-table-row:hover > td,
+  .ant-table-row-selected > td {
     background-color: transparent !important;
+  }
+  // 解决移入移出会闪一下
+  .ant-table-cell-row-hover {
+    background: transparent !important;
   }
 
   .ant-table-cell {
@@ -300,8 +304,10 @@
     font-size: 14px;
     font-weight: normal;
     color: var(--mars-control-text);
-    border: 0.5px solid var(--mars-control-border) !important;
-    background: transparent !important;
+    border: 0.5px solid var(--mars-control-border);
+    background: transparent;
+    border-top: 0.5px solid var(--mars-control-border) !important;// 这两行是为了覆盖原本and表格边框
+    border-bottom: 0.5px solid var(--mars-control-border) !important;
   }
 
 
@@ -320,15 +326,15 @@
     border-start-end-radius: 0;
 
     .ant-table-content {
-      >table {
+      > table {
         border-top: none !important;
         border-radius: 0;
 
-        >thead>tr:first-child>*:first-child {
+        > thead > tr:first-child > *:first-child {
           border-start-start-radius: 0;
         }
 
-        >thead>tr:first-child>*:last-child {
+        > thead > tr:first-child > *:last-child {
           border-start-end-radius: 0;
         }
       }
@@ -339,7 +345,7 @@
     color: var(--mars-control-text);
   }
 
-  .ant-table-placeholder>td {
+  .ant-table-placeholder > td {
     background: var(--mars-base-bg) !important;
 
     .ant-empty {
@@ -418,7 +424,7 @@
       background-color: transparent;
       color: var(--mars-sub-title-color);
 
-      >a,
+      > a,
       .ant-pagination-item-link {
         color: var(--mars-sub-title-color);
         font-family: var(--mars-font-family);
@@ -496,7 +502,7 @@
       border-color: var(--mars-primary-color);
       border-radius: 2px;
 
-      >a {
+      > a {
         color: var(--mars-primary-color);
       }
     }
@@ -671,6 +677,10 @@
         background: rgba(234, 242, 255, 0.2);
         margin-bottom: 10px;
         cursor: pointer;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
 
         &:hover {
           background: rgba(234, 242, 255, 0.4);
