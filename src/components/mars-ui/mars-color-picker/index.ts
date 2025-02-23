@@ -26,21 +26,33 @@ const MarsColorPicker = defineComponent({
   emits: ["update:value", "change"],
   setup(props, context) {
     let pointColor = props.value || ""
+    const oldColor = pointColor
     const visible = ref(false)
     let colorObject: any = null
 
     const changeColor = (color: any) => {
       pointColor = `rgba(${color.rgba.r},${color.rgba.g},${color.rgba.b},${color.rgba.a})` // color.hex
       colorObject = color
+
+      emitChangeEvent()
     }
     const cancel = () => {
       visible.value = false
-      pointColor = props.value
+      pointColor = oldColor
+      emitChangeEvent()
     }
     const choose = () => {
       visible.value = false
-      context.emit("update:value", pointColor)
-      context.emit("change", colorObject)
+      emitChangeEvent()
+    }
+
+    let timeTik // 防抖
+    const emitChangeEvent = () => {
+      clearTimeout(timeTik)
+      timeTik = setTimeout(() => {
+        context.emit("update:value", pointColor)
+        context.emit("change", colorObject)
+      }, 50)
     }
 
     const Buttons = [
