@@ -167,8 +167,8 @@ export function logWarn(...sources) {
 }
 
 export const aloneTypeStyle = {
-  fixedRoute: ["label", "billboard", "point", "model", "circle", "coneTrack", "path", "polyline", "wall"],
-  route: ["label", "billboard", "point", "model", "circle", "coneTrack", "path", "polyline", "wall"],
+  fixedRoute: [["clockLoop"], "label", "billboard", "point", "model", "circle", "coneTrack", "path", "polyline", "wall"],
+  route: [["clockLoop"], "label", "billboard", "point", "model", "circle", "coneTrack", "path", "polyline", "wall"],
   satellite: [["tle1", "tle2"], "model", "label", "billboard", "point", "path"]
 }
 

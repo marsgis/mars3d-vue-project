@@ -58,10 +58,10 @@ export async function onMounted(mapInstance: mars3d.Map): Promise<void> {
 
   map.addLayer(graphicLayer)
 
-  map.on(mars3d.EventType.cameraMoveEnd, cameraChanged)
+  map.on(mars3d.EventType.cameraMoveEnd, cameraMoveEnd)
 }
 
-async function cameraChanged() {
+async function cameraMoveEnd() {
   const radius = map.camera.positionCartographic.height // 单位：米
   if (radius > 100000) {
     address = null
@@ -80,11 +80,12 @@ export function onUnmounted(): void {
   if (!map) {
     return
   }
-  map.removeLayer(graphicLayer)
-  map.off(mars3d.EventType.cameraChanged, cameraChanged)
   graphicLayer.remove()
   queryPoi = null
   address = null
+
+  map.removeLayer(graphicLayer)
+  map.off(mars3d.EventType.cameraMoveEnd, cameraMoveEnd)
   map = null
 }
 
