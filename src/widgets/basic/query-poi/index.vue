@@ -14,7 +14,7 @@
             @input="handleSearch(searchTxt)"
           ></mars-input>
           <mars-button class="button">
-            <img src="./img/search.png" alt="" />
+            <img src="./img/search.png" alt="" @click="selectPoint(searchTxt)"/>
           </mars-button>
         </div>
       </div>

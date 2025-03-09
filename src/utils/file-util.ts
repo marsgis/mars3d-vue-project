@@ -5,7 +5,6 @@
  * @author 木遥 2022-01-01
  */
 import { toKml } from "kml-geojson"
-// import _ from "lodash"
 import { createApp } from "vue"
 
 export function saveJSON(data: any[]) {
