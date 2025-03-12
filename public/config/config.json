@@ -47,11 +47,11 @@
       "position":"left-bottom"
     },
     "homeButton": true,
+    "fullscreenButton": true,
+    "navigationHelpButton": true,
     "baseLayerPicker": false,
     "sceneModePicker": true,
     "vrButton": false,
-    "fullscreenButton": true,
-    "navigationHelpButton": true,
     "animation": false,
     "timeline": false,
     "infoBox": false,
@@ -86,7 +86,8 @@
   },
   "terrain": {
     "url": "https://data.mars3d.cn/terrain",
-    "show": true
+    "show": true,
+    "clip": true
   },
   "basemaps": [
     {
@@ -162,7 +163,7 @@
       "pid": 10,
       "name": "百度影像",
       "type": "group",
-      "icon": "./img/thumbnail/basemap/bd-img.png",
+      "icon": "./img/thumbnail/basemap/bd_img.png",
       "layers": [
         {
           "name": "底图",
@@ -179,7 +180,7 @@
     {
       "pid": 10,
       "name": "百度电子",
-      "icon": "./img/thumbnail/basemap/bd-vec.png",
+      "icon": "./img/thumbnail/basemap/bd_vec.png",
       "type": "baidu",
       "layer": "vec"
     },
@@ -209,25 +210,10 @@
       "layer": "vec"
     },
     {
-      "pid": 10,
-      "name": "ArcGIS影像",
-      "icon": "./img/thumbnail/basemap/esriWorldImagery.png",
-      "type": "xyz",
-      "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-      "enablePickFeatures": false
-    },
-    {
-      "pid": 10,
-      "name": "微软影像",
-      "icon": "./img/thumbnail/basemap/bingAerial.png",
-      "type": "bing",
-      "layer": "Aerial"
-    },
-    {
       "id": 2017,
       "pid": 10,
       "name": "蓝色底图",
-      "icon": "./img/thumbnail/basemap/bd-c-midnight.png",
+      "icon": "./img/thumbnail/basemap/my_blue.png",
       "type": "gaode",
       "layer": "vec",
       "chinaCRS": "GCJ02",
@@ -241,8 +227,23 @@
     },
     {
       "pid": 10,
+      "name": "绿色底图",
+      "icon": "./img/thumbnail/basemap/my_green.png",
+      "type": "gaode",
+      "layer": "vec",
+      "chinaCRS": "GCJ02",
+      "invertColor": true,
+      "filterColor": "rgba(12, 238, 230)",
+      "brightness": 1,
+      "contrast": 1.0,
+      "gamma": 0.2,
+      "hue": 1,
+      "saturation": 0
+    },
+    {
+      "pid": 10,
       "name": "黑色底图",
-      "icon": "./img/thumbnail/basemap/bd-c-dark.png",
+      "icon": "./img/thumbnail/basemap/my_dark.png",
       "type": "gaode",
       "layer": "vec",
       "chinaCRS": "GCJ02",
@@ -253,6 +254,22 @@
       "gamma": 0.3,
       "hue": 1,
       "saturation": 0
+    },
+
+    {
+      "pid": 10,
+      "name": "ArcGIS影像",
+      "icon": "./img/thumbnail/basemap/arcgis_img.png",
+      "type": "xyz",
+      "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+      "enablePickFeatures": false
+    },
+    {
+      "pid": 10,
+      "name": "微软影像",
+      "icon": "./img/thumbnail/basemap/bing_img.png",
+      "type": "bing",
+      "layer": "Aerial"
     },
     {
       "pid": 10,
@@ -265,7 +282,7 @@
     },
     {
       "pid": 10,
-      "name": "单张图片 (本地离线)",
+      "name": "单张图片",
       "icon": "./img/thumbnail/basemap/offline.png",
       "type": "image",
       "url": "https://data.mars3d.cn/img/map/world/world.jpg"

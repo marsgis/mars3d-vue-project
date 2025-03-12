@@ -165,15 +165,15 @@ function getContextMenu() {
   const children = []
   const iconStyle: any = { theme: "outline", fill: "#fff", size: "18" }
   const widgetList = [
-    { name: "底图切换", icon: LandSurveying(iconStyle), widget: "manage-basemap" },
+    // { name: "底图切换", icon: LandSurveying(iconStyle), widget: "manage-basemap" },
     { name: "图层管理", icon: Layers(iconStyle), widget: "manage-layers" },
-    // { name: "图上量算", icon: Ruler(iconStyle), widget: "measure" },
-    // { name: "空间分析", icon: Analysis(iconStyle), widget: "analysis" },
+    { name: "图上量算", icon: Ruler(iconStyle), widget: "measure" },
+    { name: "空间分析", icon: Analysis(iconStyle), widget: "analysis" },
     { name: "坐标定位", icon: Local(iconStyle), widget: "location-point" },
-    // { name: "地区导航", icon: Navigation(iconStyle), widget: "location-region" },
-    // { name: "我的标记", icon: Mark(iconStyle), widget: "addmarker" },
-    // { name: "视角书签", icon: Bookmark(iconStyle), widget: "bookmark" },
-    // { name: "地图打印", icon: Printer(iconStyle), widget: "print" },
+    { name: "地区导航", icon: Navigation(iconStyle), widget: "location-region" },
+    { name: "我的标记", icon: Mark(iconStyle), widget: "addmarker" },
+    { name: "视角书签", icon: Bookmark(iconStyle), widget: "bookmark" },
+    { name: "地图打印", icon: Printer(iconStyle), widget: "print" },
     // { name: "飞行漫游", icon: TakeOff(iconStyle), widget: "roamLine-list" },
     // { name: "图上标绘", icon: HandPaintedPlate(iconStyle), widget: "plot" },
     // { name: "卷帘对比", icon: SwitchContrast(iconStyle), widget: "map-split" },
