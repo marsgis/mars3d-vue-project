@@ -8,26 +8,26 @@ export const eventTarget = new mars3d.BaseClass()
 let currEffect // 当前生效的效果
 let weather
 // 雨效果
-const rainEffect = new mars3d.effect.RainEffect({
+const rainEffect = new mars3d.effect.Rain({
   speed: 10,
   size: 20,
   direction: -30,
   enabled: false
 })
 // 雾效果
-const fogEffect = new mars3d.effect.FogEffect({
+const fogEffect = new mars3d.effect.Fog({
   maxHeight: 20000, // 大于此高度后不显示
   fogByDistance: new Cesium.Cartesian4(1600, 0.0, 37602, 0.9),
   color: Cesium.Color.WHITE,
   enabled: false
 })
 
-const snowEffect = new mars3d.effect.SnowEffect({
+const snowEffect = new mars3d.effect.Snow({
   speed: 20,
   enabled: false
 })
 
-const snowCover = new mars3d.effect.SnowCoverEffect({
+const snowCover = new mars3d.effect.SnowCover({
   maxHeight: 8000, // 大于此高度后不显示
   alpha: 0.2,
   enabled: false

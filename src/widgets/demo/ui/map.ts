@@ -5,7 +5,7 @@ let map: mars3d.Map // 地图对象
 /**
  * 构造bloom效果对象
  */
-let bloomEffect: mars3d.effect.BloomEffect
+let bloomEffect: mars3d.effect.Bloom
 
 // 事件对象，用于抛出事件给vue
 export const eventTarget = new mars3d.BaseClass()
@@ -20,7 +20,7 @@ export function onMounted(mapInstance: mars3d.Map): void {
   map = mapInstance // 记录首次创建的map
 
   // 构造bloom效果 用于滑动条测试
-  bloomEffect = new mars3d.effect.BloomEffect({})
+  bloomEffect = new mars3d.effect.Bloom({})
   map.addEffect(bloomEffect)
 }
 

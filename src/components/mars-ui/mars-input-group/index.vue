@@ -21,8 +21,8 @@ watchEffect(() => {
 const emits = defineEmits(["update:value", "change"])
 
 function itemChange(v, i) {
-  emits("update:value", values)
-  emits("change", values)
+  emits("update:value", values.value)
+  emits("change", values.value)
 }
 </script>
 <script lang="ts">

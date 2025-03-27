@@ -24,10 +24,10 @@ import {
   ClearFormat,
   Effects,
   LightRain,
-  Snow,
-  Fog,
+  Snow as SnowIcon,
+  Fog as FogIcon,
   Halo,
-  Brightness,
+  Brightness as BrightnessIcon,
   DarkMode,
   Blackboard,
   HighLight,
@@ -62,7 +62,7 @@ const { addPositionsHeight } = mars3d.PointUtil
 const { proj4Trans } = mars3d.PointTrans
 const { logInfo } = mars3d.Log
 const { RotatePoint, Measure, KeyboardRoam } = mars3d.thing
-const { BloomEffect, BrightnessEffect, BlackAndWhiteEffect, NightVisionEffect, OutlineEffect, RainEffect, SnowEffect, FogEffect } = mars3d.effect
+const { Bloom, Brightness, BlackAndWhite, NightVision, Outline, Rain, Snow, Fog } = mars3d.effect
 
 
 
@@ -89,17 +89,12 @@ export function getDefaultContextMenu(map) {
         const ptNew = proj4Trans([mpt.lng, mpt.lat], "EPSG:4326", CRS.CGCS2000_GK_Zone_3)
 
         const inhtml = `
-         经度:${mpt.lng}, 纬度:${mpt.lat}, 海拔:${mpt.alt},
-
-         横坐标:${ptNew[0].toFixed(1)}, 纵坐标:${ptNew[1].toFixed(1)} (CGCS2000)
+         ${map.getLangText("_经度")}:${mpt.lng}, ${map.getLangText("_纬度")}:${mpt.lat}, ${map.getLangText("_海拔")}:${mpt.alt},
+         ${map.getLangText("_横坐标")}:${ptNew[0].toFixed(1)}, ${map.getLangText("_纵坐标")}:${ptNew[1].toFixed(1)} (CGCS2000)
         `
-        globalAlert(inhtml, "位置信息")
+        globalAlert(inhtml, map.getLangText("_位置信息"))
 
-        // 打印方便测试
-        const ptX = formatNum(e.cartesian.x, 1) // 笛卡尔
-        const ptY = formatNum(e.cartesian.y, 1)
-        const ptZ = formatNum(e.cartesian.z, 1)
-        logInfo(`经纬度：${mpt.toString()} , 笛卡尔：${ptX},${ptY},${ptZ}`)
+        logInfo(mpt.toString()) // 打印方便测试
       }
     },
     {
@@ -109,8 +104,9 @@ export function getDefaultContextMenu(map) {
       icon: PreviewOpen(iconStyle),
       callback: function (e) {
         const mpt = JSON.stringify(map.getCameraView())
-        logInfo(mpt)
         globalAlert(mpt, map.getLangText("_当前视角信息"))
+
+        logInfo(mpt)
       }
     },
     // 下面是工具类
@@ -326,7 +322,9 @@ export function getDefaultContextMenu(map) {
             return map.graphicLayer.length > 0
           },
           callback: function (e) {
-            downloadFile("graphic标绘.json", JSON.stringify(map.graphicLayer.toGeoJSON()))
+            const json = map.graphicLayer.toJSON()
+            logInfo(json)
+            downloadFile("标绘图层数据.json", JSON.stringify(json))
           }
         },
         {
@@ -529,7 +527,7 @@ export function getDefaultContextMenu(map) {
           },
           callback: function (e) {
             if (!that_effect.rainEffect) {
-              that_effect.rainEffect = new RainEffect()
+              that_effect.rainEffect = new Rain()
               map.addEffect(that_effect.rainEffect)
             }
           }
@@ -553,13 +551,13 @@ export function getDefaultContextMenu(map) {
           text: function () {
             return map.getLangText("_开启下雪")
           },
-          icon: Snow(iconStyle),
+          icon: SnowIcon(iconStyle),
           show: function (e) {
             return !that_effect.snowEffect
           },
           callback: function (e) {
             if (!that_effect.snowEffect) {
-              that_effect.snowEffect = new SnowEffect()
+              that_effect.snowEffect = new Snow()
               map.addEffect(that_effect.snowEffect)
             }
           }
@@ -584,14 +582,14 @@ export function getDefaultContextMenu(map) {
           text: function () {
             return map.getLangText("_开启雾天气")
           },
-          icon: Fog(iconStyle),
+          icon: FogIcon(iconStyle),
           show: function (e) {
             return !that_effect.fogEffect
           },
           callback: function (e) {
             if (!that_effect.fogEffect) {
               const height = map.camera.positionCartographic.height * 2
-              that_effect.fogEffect = new FogEffect({
+              that_effect.fogEffect = new Fog({
                 fogByDistance: new Cesium.Cartesian4(0.1 * height, 0.1, height, 0.8)
               })
               map.addEffect(that_effect.fogEffect)
@@ -624,7 +622,7 @@ export function getDefaultContextMenu(map) {
           },
           callback: function (e) {
             if (!that_effect.bloomEffect) {
-              that_effect.bloomEffect = new BloomEffect()
+              that_effect.bloomEffect = new Bloom()
               map.addEffect(that_effect.bloomEffect)
             }
           }
@@ -649,13 +647,13 @@ export function getDefaultContextMenu(map) {
           text: function () {
             return map.getLangText("_开启亮度")
           },
-          icon: Brightness(iconStyle),
+          icon: BrightnessIcon(iconStyle),
           show: function (e) {
             return !that_effect.brightnessEffect
           },
           callback: function (e) {
             if (!that_effect.brightnessEffect) {
-              that_effect.brightnessEffect = new BrightnessEffect()
+              that_effect.brightnessEffect = new Brightness()
               map.addEffect(that_effect.brightnessEffect)
             }
           }
@@ -686,7 +684,7 @@ export function getDefaultContextMenu(map) {
           },
           callback: function (e) {
             if (!that_effect.nightVisionEffect) {
-              that_effect.nightVisionEffect = new NightVisionEffect()
+              that_effect.nightVisionEffect = new NightVision()
               map.addEffect(that_effect.nightVisionEffect)
             }
           }
@@ -717,7 +715,7 @@ export function getDefaultContextMenu(map) {
           },
           callback: function (e) {
             if (!that_effect.blackAndWhiteEffect) {
-              that_effect.blackAndWhiteEffect = new BlackAndWhiteEffect()
+              that_effect.blackAndWhiteEffect = new BlackAndWhite()
               map.addEffect(that_effect.blackAndWhiteEffect)
             }
           }
@@ -748,7 +746,7 @@ export function getDefaultContextMenu(map) {
           },
           callback: function (e) {
             if (!that_effect.outlineEffect) {
-              that_effect.outlineEffect = new OutlineEffect()
+              that_effect.outlineEffect = new Outline()
               map.addEffect(that_effect.outlineEffect)
             }
           }
@@ -917,7 +915,9 @@ export function getDefaultContextMenu(map) {
             return e.layer.toJSON
           },
           callback: function (e) {
-            downloadFile("layer图层配置.json", JSON.stringify(e.layer.toJSON()))
+            const json = e.layer.toJSON()
+            logInfo(json)
+            downloadFile("layer图层配置.json", JSON.stringify(json))
           }
         }
       ]
@@ -1043,7 +1043,9 @@ export function getDefaultContextMenu(map) {
           },
           icon: Export(iconStyle),
           callback: function (e) {
-            downloadFile("Map场景配置.json", JSON.stringify(map.toJSON()))
+            const json = map.toJSON()
+            logInfo(json)
+            downloadFile("Map场景配置.json", JSON.stringify(json))
           }
         },
         {
