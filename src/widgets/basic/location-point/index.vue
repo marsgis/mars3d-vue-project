@@ -154,7 +154,7 @@ const options: GuiItem[] = [
   {
     type: "input",
     field: "gk6X",
-    label: "纵坐标",
+    label: "横坐标",
     value: "",
     show(data) {
       return data.type === "3"
@@ -166,7 +166,7 @@ const options: GuiItem[] = [
   {
     type: "input",
     field: "gk6Y",
-    label: "横坐标",
+    label: "纵坐标",
     value: "",
     show(data) {
       return data.type === "3"
