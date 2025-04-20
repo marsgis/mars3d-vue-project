@@ -1,4 +1,5 @@
 import * as mars3d from "mars3d"
+const Cesium = mars3d.Cesium
 
 /**
  * 进入时创建对象，离开时销毁对象
@@ -89,9 +90,13 @@ class CreateTarget extends mars3d.TaskItem {
       })
       delete this._effects
     }
+
+    if (this._controls) {
+      this._controls.forEach((control) => {
+        control.remove(true)
+      })
+      delete this._controls
+    }
   }
 }
 mars3d.thing.Task.register("createTarget", CreateTarget)
-
-
-
