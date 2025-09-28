@@ -30,7 +30,7 @@ Mars3D 基础项目 是基于[Mars3D 平台](http://mars3d.cn)做的一个应用
 - **适用于地图场景的widget模块化**: 继续沿用了原生 JS 版本 widget 架构的一些思想，使用 vue 方式实现了各 widget 功能
  
 
- > 如果您不熟悉Vue，也可以阅读：[基础项目原生JS版](http://mars3d.cn/dev/guide/project/jcxm-es5.html)  、[基础项目React版](http://mars3d.cn/dev/guide/project/jcxm-react.html)
+ > 如果您不熟悉Vue，也可以阅读：[基础项目原生JS版](http://mars3d.cn/docs/guide/project-es5/)  、[基础项目React版](http://mars3d.cn/docs/guide/project-react/)
 
  
 
@@ -182,7 +182,7 @@ mars3d-vue-project
 
 项目所有功能主要在 `src/widgets/*/*`目录下，每一个功能对应了叶子目录下的一个`index.vue`和 `map.ts` 文件，复杂的 widget 目录下也会有相关子组件 `xxx.vue`。
 
-vue 下的 widget 设计，沿用了我们 [原生 JS 版基础项目](http://mars3d.cn/dev/guide/project/jcxm-es5.html)的设计理念：
+vue 下的 widget 设计，沿用了我们 [原生 JS 版基础项目](http://mars3d.cn/docs/guide/project-es5/)的设计理念：
 
 - 所有的 widget 都是按需加载
 - 只需要通过简单的配置，即可控制不同业务面板间的互斥关系
@@ -683,7 +683,7 @@ app.use(injectState(widgetStore), key)
 
 ### 1. 如何切换mars3d到授权版
 
- 参考 [获取Mars3D](http://mars3d.cn/dev/guide/start/download.html)中“从 Mars3D官网 下载获取”章节介绍。
+ 参考 [获取Mars3D](http://mars3d.cn/docs/guide/npm-integration/)中描述集成mars3d。
 
 流程大概是：
 - 配置后，无需改动源码，在项目代码中使用时与使用npm包是一样的方式，如 `import * as mars3d from "mars3d";`
@@ -704,7 +704,7 @@ app.use(injectState(widgetStore), key)
 
 - 修改 config.json 中`terrain`配置中，将已有的`"show": true`配置，改为`"show": false`
 - 修改 config.json 中`basemaps`数组配置中，将已有的`"show": true`的图层，将该值改为`"show": false` ，并将单张图片或离线地图加上`"show": true`，并修改相关 URL 地址。
-- 您也可以参考教程[发布三维数据服务](http://mars3d.cn/dev/guide/data/server.html)进行部署离线地图服务，里面也有一些示例离线数据。
+- 您也可以参考教程[发布三维数据服务](http://mars3d.cn/docs/data/server/)进行部署离线地图服务，里面也有一些示例离线数据。
 
 ## Mars3D 是什么
 
