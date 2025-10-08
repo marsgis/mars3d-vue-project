@@ -20,17 +20,19 @@ class SceneOptions extends mars3d.TaskItem {
 
     const noKey = []
     for (const key in newOptions) {
-      if (Cesium.defined(this._map.options.scene[key])) {
-        oldOptions[key] = this._map.options.scene[key]
-      } else {
+      oldOptions[key] = this._map.options.scene[key]
+
+      if (!mars3d.Cesium.defined(this._map.options.scene[key])) {
         noKey.push(key)
       }
     }
+
     if (noKey.length > 0) {
       console.log("SceneOptions:原有场景参数中不存在以下属性，关闭时将无法恢复", noKey)
     }
 
     this._oldOptions = oldOptions
+
     this._map.setSceneOptions(newOptions)
   }
 

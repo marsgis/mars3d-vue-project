@@ -19,7 +19,17 @@ export class CameraList extends mars3d.TaskItem {
   }
 
   _disableWork() {
+    this._map.cancelFlyTo()
+  }
+
+  // 暂停
+  _pauseWork() {
     this._map.pauseCameraViewList()
+  }
+
+  // 继续
+  _proceedWork() {
+    this._map.proceedCameraViewList()
   }
 }
 mars3d.thing.Task.register("cameraList", CameraList)

@@ -3,7 +3,8 @@ import * as mars3d from "mars3d"
 const Cesium = mars3d.Cesium
 
 /**
- * 修改地图上矢量对象的样式（可用于高亮、更换动态材质、闪烁目标）
+ *
+ * 修改地图上矢量对象的样式（可用于show:出现、消失、闪烁、availability显示、postions移动、比例、popup属性）
  *
  * @param {object} [options] 参数对象，包括以下：
  * @param {string} [options.name]  标题名称
@@ -15,18 +16,19 @@ const Cesium = mars3d.Cesium
  * @param {string[]|number[]} [options.graphicIds]  矢量对象ID集合，可以多个
  * @param {boolean} [options.interval] 是否定时修改切换原样式（比如：达到闪烁效果）
  * @param {number} [options.intervalTime] 传定时器毫秒数
- * @param {object} [options.style] 需要修改的样式，原样式中必须有对应键值否则无法还原。
- * @param {boolean} [options.reset=true] 离开时是否恢复原有值
+ * @param {object} [options.options] 需要修改的graphic的options
+ * @param {boolean} [options.reset=false] 离开时是否恢复原有值
  */
-class GraphicStyle extends mars3d.TaskItem {
+class GraphicOptions extends mars3d.TaskItem {
   // 进入，激活开始处理事务
-  _activateWork() {
+  _activateWork () {
     if (!this._map.clock.shouldAnimate) {
       return
     }
 
     const layer = this._map.getLayerById(this.options.layerId)
-    if (layer && this.options.style) {
+    const graphicOptions = this.options.graphicOptions
+    if (layer && graphicOptions) {
       if (!layer.show) {
         layer.show = true
         this._old_show = false
@@ -44,12 +46,8 @@ class GraphicStyle extends mars3d.TaskItem {
           const graphic = layer.getGraphicById(arrIds[index])
           if (graphic) {
             graphic.show = true
-            this._updateGraphic(graphic, this.options.style)
+            this._updateGraphic(graphic, graphicOptions)
 
-            if (graphic.availability) {
-              graphic._oldAvailability = graphic.availability
-              graphic.availability = undefined
-            }
             arrGraphic.push(graphic)
           }
         }
@@ -64,9 +62,9 @@ class GraphicStyle extends mars3d.TaskItem {
             for (let index = 0; index < this._arrGraphic.length; index++) {
               const graphic = this._arrGraphic[index]
               if (tag) {
-                graphic.setStyle(graphic._task_old_style)
+                graphic.setOptions(graphic._task_old_options)
               } else {
-                graphic.setStyle(graphic._task_new_style)
+                graphic.setOptions(graphic._task_new_options)
               }
             }
 
@@ -79,56 +77,46 @@ class GraphicStyle extends mars3d.TaskItem {
     }
   }
 
-  _updateGraphic(graphic, newStyle) {
-    const allStyle = mars3d.Util.clone(graphic.style)
-    const oldStyle = {}
-
+  _updateGraphic (graphic, newOptions) {
+    const oldOptions = {}
     const noKey = []
-    for (const key in newStyle) {
-      if (key === "type") {
-        continue
-      }
-      oldStyle[key] = allStyle[key]
-
-      if (!Cesium.defined(oldStyle[key])) {
+    for (const key in newOptions) {
+      oldOptions[key] = mars3d.Util.clone(graphic.options[key])
+      if (!Cesium.defined(oldOptions[key])) {
         noKey.push(key)
       }
     }
-    if (noKey.length > 0 && this.options.reset !== false) {
-      console.log("_updateGraphic：原有style中不存在以下属性，关闭时将无法恢复", noKey)
+    if (this.options.reset && noKey.length > 0) {
+      console.log("_updateGraphic：原有options中不存在以下属性，关闭时将无法恢复", noKey)
     }
+    graphic._task_old_options = oldOptions
+    graphic._task_new_options = newOptions
 
-    graphic._task_old_style = oldStyle
-    graphic._task_new_style = newStyle
-
-    graphic.setStyle(newStyle)
+    graphic.setOptions(newOptions)
   }
 
   // 离开，释放相关对象
-  _disableWork() {
+  _disableWork () {
     if (this._interVal) {
       clearInterval(this._interVal)
       delete this._interVal
     }
-    if (this._arrGraphic && this.options.reset !== false) {
+
+    if (this._arrGraphic && this.options.reset) {
       for (let index = 0; index < this._arrGraphic.length; index++) {
         const graphic = this._arrGraphic[index]
 
-        graphic.setStyle(graphic._task_old_style)
-        delete graphic._task_old_style
-        delete graphic._task_new_style
-
-        if (graphic._oldAvailability) {
-          graphic.availability = graphic._oldAvailability
-          delete graphic._oldAvailability
-        }
+        graphic.setOptions(graphic._task_old_options)
+        delete graphic._task_old_options
+        delete graphic._task_new_options
       }
       delete this._arrGraphic
     }
+
     if (Cesium.defined(this._old_show)) {
       this._layer.show = false
       delete this._old_show
     }
   }
 }
-mars3d.thing.Task.register("graphicStyle", GraphicStyle)
+mars3d.thing.Task.register("graphicOptions", GraphicOptions)

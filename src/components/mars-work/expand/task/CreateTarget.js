@@ -16,8 +16,54 @@ const Cesium = mars3d.Cesium
  * @param {object[]} [options.controls]  控件对象创建参数 列表
  */
 class CreateTarget extends mars3d.TaskItem {
+
+
+  _mountedHook () {
+    const graphicsOptions = this.options.graphics || []
+    if (graphicsOptions && graphicsOptions.length > 0) {
+      const layerId = graphicsOptions[0].layer.id
+      const graphicLayer = this._map.getLayerById(layerId)
+      if (graphicLayer) {
+        graphicLayer.remove(true)
+      }
+    }
+
+    const layersOptions = this.options.layers
+    if (layersOptions && layersOptions.length > 0) {
+      layersOptions.forEach((options) => {
+        const layer = this._map.getLayerById(options.id)
+        if (layer) {
+          layer.remove(true)
+        }
+      })
+    }
+
+    // 存在需要创建的特效时
+    const effectsOptions = this.options.effects
+    if (effectsOptions && effectsOptions.length > 0) {
+      effectsOptions.forEach((options) => {
+        const effect = this._map.getEffect(options.type, "type")
+        if (effect) {
+          effect.remove()
+        }
+      })
+    }
+
+
+    const controlsOptions = this.options.controls
+    if (controlsOptions && controlsOptions.length > 0) {
+      controlsOptions.forEach((options) => {
+        const control = this._map.control[options.type]
+        if (control) {
+          control.enabled = false
+        }
+      })
+    }
+
+  }
+
   // 进入，激活开始处理事务
-  _activateWork() {
+  _activateWork () {
     // 存在需要创建的矢量对象时
     const graphicsOptions = this.options.graphics || []
     if (graphicsOptions && graphicsOptions.length > 0) {
@@ -60,18 +106,21 @@ class CreateTarget extends mars3d.TaskItem {
     if (controlsOptions && controlsOptions.length > 0) {
       const controls = []
       controlsOptions.forEach((options) => {
-        const control = mars3d.ControlUtil.create(options)
-        if (control) {
-          this._map.addControl(control)
-          controls.push(control)
-        }
+        const controlOptions = { control: {} }
+        const oldOpts = this._map.options.control[options.type]
+        controlOptions.control[options.type] = { ...oldOpts, ...options }
+
+        this._map.setOptions(controlOptions)
+
+        const control = this._map.getControl(options.type)
+        controls.push(control)
       })
       this._controls = controls
     }
   }
 
   // 离开，释放相关对象
-  _disableWork() {
+  _disableWork () {
     if (this._graphicLayer) {
       this._graphicLayer.remove(true)
       delete this._graphicLayer
@@ -93,7 +142,7 @@ class CreateTarget extends mars3d.TaskItem {
 
     if (this._controls) {
       this._controls.forEach((control) => {
-        control.remove(true)
+        control.enabled = false
       })
       delete this._controls
     }

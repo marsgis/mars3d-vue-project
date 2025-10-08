@@ -12,20 +12,47 @@ import * as mars3d from "mars3d"
  * @param {object} [options.route]  FixedRoute对应的构造参数
  */
 export class RouteLine extends mars3d.TaskItem {
-  // constructor(options) {
-  //   super(options)
-  // }
+  _mountedHook() {
+    if (this.options.graphicId && this._map.availabilityEnabled) {
+      const layer = this._map.getLayerById(this.options.layerId)
+      if (layer) {
+        const that = this
+        layer.readyPromise.then(() => {
+          that._fixedRoute = layer.getGraphicById(that.options.graphicId)
+          that._fixedRoute && that._fixedRoute.setOptions({ showStop: false }) // 播放前后不展示
+        })
+      }
+    }
+  }
 
   // 进入，激活开始处理事务
   _activateWork() {
-    this._graphicLayer = new mars3d.layer.GraphicLayer()
-    this._map.addLayer(this._graphicLayer)
+    // if (this.options.goBack) {
+    //   this._backCameraView = this._map.getCameraView({ simplify: false })
+    // }
 
-    const fixedRoute = new mars3d.graphic.FixedRoute(this.options.route)
-    this._graphicLayer.addGraphic(fixedRoute)
-    this._fixedRoute = fixedRoute
+    if (this.options.graphicId) {
+      const layer = this._map.getLayerById(this.options.layerId)
+      if (layer) {
+        this._fixedRoute = layer.getGraphicById(this.options.graphicId)
+        if (this.options.camera) {
+          this._fixedRoute.setCameraOptions(this.options.camera)
+        }
+      } else {
+        console.warn("地图上未找到该漫游路线图层")
+      }
+    } else if (this.options.route) {
+      this._graphicLayer = new mars3d.layer.GraphicLayer()
+      this._map.addLayer(this._graphicLayer)
 
-    fixedRoute.start()
+      const fixedRoute = new mars3d.graphic.FixedRoute(this.options.route)
+      this._map.graphicLayer.addGraphic(fixedRoute)
+      this._fixedRoute = fixedRoute
+    }
+
+    if (this._fixedRoute) {
+      this._fixedRoute.start()
+    }
   }
 
   // 暂停(非必须)
@@ -52,6 +79,11 @@ export class RouteLine extends mars3d.TaskItem {
     if (this._graphicLayer) {
       this._graphicLayer.destroy()
       delete this._graphicLayer
+    }
+
+    if (this._backCameraView) {
+      this._map.setCameraView(this._backCameraView, { duration: 0 })
+      delete this._backCameraView
     }
   }
 }

@@ -22,8 +22,8 @@ export class PointRotate extends mars3d.TaskItem {
       this._map.setCameraView(this.options.center, { duration: 0 })
     }
 
-    if (this.options.autoStop) {
-      delete this.options.autoStopAngle // 是否自动停止
+    if (!this.options.autoStop) {
+      delete this.options?.autoStopAngle // 是否自动停止
     }
 
     if (this.options.isRotateOut) {
