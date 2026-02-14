@@ -26,7 +26,7 @@ export class CanvasBillboard extends mars3d.graphic.BillboardPrimitive {
     style.image = "./img/marker/bg/textPnl.png"
     style.label = {
       ...style,
-      text: this.style.text,
+      text: this.style?.label?.text || this.style?.text,
       font_size: 55,
       color: style.textColor ?? "#ffffff",
       hasPixelOffset: true,
