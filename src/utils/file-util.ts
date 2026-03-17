@@ -1,7 +1,7 @@
 /**
  * 文件处理相关 静态Util方法
  *
- * @copyright 火星科技 mars3d.cn
+ * @copyright mars3d.cn
  * @author 木遥 2022-01-01
  */
 import { toKml } from "kml-geojson"

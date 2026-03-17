@@ -6,7 +6,7 @@ import { App } from "vue"
  * loading组件
  * @export
  * @param {App} app vue实例
- * @copyright 火星科技 mars3d.cn
+ * @copyright mars3d.cn
  * @author 火星渣渣灰 2022-02-19
  * @returns { void }
  */

@@ -45,7 +45,7 @@
 <script setup lang="ts">
 /**
  * 导航菜单按钮 （右上角）
- * @copyright 火星科技 mars3d.cn
+ * @copyright mars3d.cn
  * @author 火星渣渣灰 2022-01-10
  */
 import { ref } from "vue"

@@ -5,7 +5,7 @@ import "./tree.less"
 
 /**
  * 树控件
- * @copyright 火星科技 mars3d.cn
+ * @copyright mars3d.cn
  * @author 火星渣渣灰 2022-01-01
  */
 const MarsTree = defineComponent({
@@ -14,7 +14,7 @@ const MarsTree = defineComponent({
   setup(props, context) {
     const icon = (isLeaf: boolean, expanded: boolean, group: boolean) => {
       if (isLeaf && !group) {
-        return [  
+        return [
           h(Icon, {
             icon: "bring-to-front",
             width: "14",
@@ -22,9 +22,9 @@ const MarsTree = defineComponent({
             key: new Date().getTime()
           })
         ]
-      } else if (!expanded) { 
+      } else if (!expanded) {
         return [h(Icon, { icon: "folder-close", width: "14", theme: "outline", key: new Date().getTime() })]
-      } else if (expanded) { 
+      } else if (expanded) {
         return [h(Icon, { icon: "folder-open", width: "14", theme: "outline", key: new Date().getTime() })]
       }
     }
