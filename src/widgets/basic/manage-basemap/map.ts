@@ -19,6 +19,10 @@ export function onUnmounted(): void {
 }
 
 export function changeBaseMaps(id: string) {
+  const basemapLayer = map.getLayerById(id)
+  if (!basemapLayer.show) {
+    basemapLayer.show = true
+  }
   map.basemap = id
 }
 
