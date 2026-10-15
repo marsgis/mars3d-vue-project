@@ -9,24 +9,24 @@
     "clean-lib": "rimraf node_modules",
     "preview": "vite preview",
     "build": "npm run lint && vite build",
-    "build2": "node --max_old_space_size=1024000 ./node_modules/vite/bin/vite.js build",
+    "build2": "node --max_old_space_size=8192 ./node_modules/vite/bin/vite.js build",
     "serve:dist": "http-server ./dist",
     "lint": "vue-tsc --noEmit --skipLibCheck && npm run eslint",
     "eslint": "eslint ./src/**/*.{js,vue,ts} --fix",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "type": "module",
   "dependencies": {
     "@icon-park/svg": "^1.4.2",
-    "@turf/turf": "^7.2.0",
+    "@turf/turf": "^7.4.0",
     "ant-design-vue": "^4.2.6",
-    "axios": "^1.10.0",
-    "core-js": "^3.43.0",
-    "dayjs": "^1.11.13",
+    "axios": "^1.20.0",
+    "core-js": "^3.50.0",
+    "dayjs": "^1.11.23",
     "echarts": "^5.6.0",
-    "echarts-gl": "^2.0.9",
+    "echarts-gl": "^2.1.0",
     "font-awesome": "^4.7.0",
-    "kml-geojson": "^2.0.1",
+    "kml-geojson": "^2.0.3",
     "localforage": "^1.10.0",
     "lodash": "^4.17.21",
     "mapv": "^2.0.62",
@@ -74,8 +74,8 @@
     "vue-tsc": "^1.8.27"
   },
   "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=9.0.0"
+    "node": ">=20.19.0",
+    "npm": ">=10.0.0"
   },
   "repository": {
     "type": "git",
@@ -94,7 +94,7 @@
     "gis",
     "webgis"
   ],
-  "author": "火星科技",
+  "author": "mars3d",
   "license": "Apache-2.0",
   "homepage": "http://mars3d.cn",
   "lint-staged": {

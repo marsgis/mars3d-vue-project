@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "node10", // 即原 "node" 的非废弃别名，TS 5.x/6.x 均合法，避免配合 ignoreDeprecations 的版本分歧
     "strict": true,
     "useDefineForClassFields": true,
     "forceConsistentCasingInFileNames": true,

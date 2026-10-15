@@ -88,7 +88,7 @@ git clone git@gitee.com:marsgis/mars3d-vue-project.git
 ```
 
 ### 运行命令
-请将机器Node版本升级到v18及以上版本(建议下载安装官网最新稳定版本)
+请将机器Node版本升级到v20.19及以上版本(建议下载安装官网最新稳定版本，见 package.json 的 engines 字段)
 
 #### 首次运行前安装依赖
 
@@ -161,20 +161,19 @@ mars3d-vue-project
 └───src                 主要项目代码
 │   └───common          公共核心文件
 │   └───components      公共组件
-│   └───directive       指令
 │   └───misc            ts模块定义
 │   └───pages           页面入口
 │   └───utils           工具方法
-│   └───widget          功能相关的widget控件【重要】
+│   └───widgets         功能相关的widget控件【重要】
 │
 └───public              静态资源
 │   └───config          地图的配置文件等
 │   └───img             图片资源
 │
-│─── .eslintrc.js        eslint配置文件
+│─── .eslintrc.json      eslint配置文件
 │─── package.json        项目配置信息
 └─── vite.config.ts      vite 配置文件
-└─── tsconfig.js         ts 配置文件
+└─── tsconfig.json       ts 配置文件
 └─── *.html              各页面入口
 ```
 
@@ -242,7 +241,7 @@ index.vue 完整代码为：
 
 ```vue
 <template>
-  <mars-dialog title="弹窗标题" width="300" height="400" top="400" bottom="10" :right="10">
+  <mars-dialog :nopadding="true" title="弹窗标题" width="300" height="400" top="400" bottom="10" :right="10">
     <a-row :gutter="5">
       <a-col :span="19">
         <mars-input v-model:value="extent" :allowClear="true"></mars-input>
@@ -254,7 +253,7 @@ index.vue 完整代码为：
       </a-col>
     </a-row>
     <template #icon>
-      <bookmark-one theme="outline" size="18" />
+      <mars-icon icon="bookmark-one" width="18" />
     </template>
   </mars-dialog>
 </template>
@@ -262,7 +261,6 @@ index.vue 完整代码为：
 <script setup lang="ts">
 import { onUnmounted, ref } from "vue"
 import useLifecycle from "@mars/common/uses/use-lifecycle"
-import MarsDialog from "@mars/components/mars-work/mars-dialog.vue"
 import * as mapWork from "./map"
 
 // 启用map.ts生命周期
@@ -286,13 +284,15 @@ onUnmounted(() => {
 <style lang="less"></style>
 ```
 
+> 说明：mars-dialog、mars-button、mars-input、mars-icon 等 mars-ui 组件已在入口全局注册（app.use(MarsUI)），widget 内无需单独 import。
+
 其中：
 
 ##### mars-dialog.vue
 
-mars-dialog 是弹窗组件，我们 widget 内可以按需选择下面 2 个使用：
+mars-dialog 是弹窗组件，我们 widget 内可以按需选择使用：
 
-- mars-dialog 弹框 组件: `src/components/mars-work/mars-dialog.vue` 
+- mars-dialog 弹框 组件: `src/components/mars-ui/mars-dialog/index.vue` 
 
 mars-dialog 支持的配置参数包括：
 
@@ -549,7 +549,6 @@ activate 和 disable 函数支持 string（直接传递 name） 和 Widget（传
 </template>
 
 <script setup lang="ts">
-import MarsDialog from "@mars/components/mars-work/mars-dialog.vue"
 import { useWidget } from "@mars/common/store/widget"
 
 const { activate } = useWidget()
@@ -580,7 +579,7 @@ const show = (name: string) => {
 
 - `/src/` 拷贝到 `/src/marsgis`
 - `/public/` 拷贝到 `/public/`
-- `/src/pages/index/widget-store.ts` 拷贝到`/src/marsgis/widget-store.ts`
+- `/src/pages/map/widget-store.ts` 拷贝到`/src/marsgis/widget-store.ts`
 
 需要修改自己项目的文件：
 
@@ -604,21 +603,21 @@ const show = (name: string) => {
 复制 package.json 依赖包，保证依赖存在且版本正确。
 
 ```json
-// dependencies中添加
+// dependencies中添加（版本以本项目 package.json 为准）
 {
   "mars3d": "~3.11.0",
-  "mars3d-cesium": "~1.143.0",
-  "@turf/turf": "^7.2.0",
-  "kml-geojson": "^2.0.1",
-  "vue": "^3.5.13",
-  "vuex": "^4.0.2",
-  "vue-color-kit": "^1.0.5",
-  "axios": "^0.23.0",
-  "core-js": "^3.6.5",
-  "ant-design-vue": "^3.2.5",
-  "@icon-park/vue-next": "^1.3.5",
+  "mars3d-cesium": "~1.145.0",
+  "@turf/turf": "^7.4.0",
+  "kml-geojson": "^2.0.3",
+  "vue": "^3.5.43",
+  "vuex": "^4.1.0",
+  "vue-color-kit": "^1.0.6",
+  "axios": "^1.20.0",
+  "core-js": "^3.50.0",
+  "ant-design-vue": "^4.2.6",
+  "@icon-park/svg": "^1.4.2",
   "nprogress": "^0.2.0",
-  "echarts": "^5.2.2",
+  "echarts": "^5.6.0",
   "localforage": "^1.10.0"
 }
 ```
@@ -628,12 +627,11 @@ const show = (name: string) => {
 修改`vite.config.ts` 或 `vue.config.js` 配置文件中的项目别名配置和 process 相关配置
 
 ```js
-alias: {
-  {
-    find: /@mars\//,
-    replacement: pathResolve('src/marsgis') + '/',
+resolve: {
+  alias: {
+    "@mars": path.join(import.meta.dirname, "src/marsgis")
   }
-}
+},
 
 define: {
   'process.env': {
@@ -644,7 +642,7 @@ define: {
 
 ### 5. 修改初始化相关依赖
 
-将`src/pages/index/widget-store.ts`配置文件拷贝`src/marsgis/widget-store.ts`位置。
+将`src/pages/zhts/widget-store.ts`配置文件拷贝`src/marsgis/widget-store.ts`位置。
 
 再在`src/main.js`文件中加载和初始化相关依赖。
 
@@ -667,7 +665,7 @@ app.use(injectState(widgetStore), key)
 如果已有对应文件，可以对比参数，按需拷贝相关配置进已有文件中。
 
 - 复制`/.editorconfig` 文件到`src/marsgis/`目录下
-- 复制`/.eslintrc.js` 文件到`src/marsgis/`目录下
+- 复制`/.eslintrc.json` 文件到`src/marsgis/`目录下
 - 复制`/.prettierrc` 文件到`src/marsgis/`目录下
 - 修改`/tsconfig.json` 文件
 

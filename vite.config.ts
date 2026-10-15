@@ -28,11 +28,11 @@ export default ({ mode }: ConfigEnv) => {
         API_BASE: ENV.VITE_API_URL,
         API_LOCAL: ENV.VITE_LOCAL_API
       },
-      buildTime: new Date()
+      buildTime: JSON.stringify(new Date().toLocaleString())
     },
     resolve: {
       alias: {
-        "@mars": path.join(__dirname, "src")
+        "@mars": path.join(import.meta.dirname, "src")
       },
       extensions: [".js", ".ts", ".jsx", ".tsx", ".json"]
     },
@@ -48,7 +48,7 @@ export default ({ mode }: ConfigEnv) => {
       preprocessorOptions: {
         less: {
           javascriptEnabled: true,
-          additionalData: `@import "${path.resolve(__dirname, "src/components/mars-ui/base.less")}";`
+          additionalData: `@import "${path.resolve(import.meta.dirname, "src/components/mars-ui/base.less")}";`
         }
       }
     },
@@ -70,7 +70,7 @@ export default ({ mode }: ConfigEnv) => {
       // 自定义底层的 Rollup 打包配置
       rollupOptions: {
         input: {
-          index: path.resolve(__dirname, "index.html"),
+          index: path.resolve(import.meta.dirname, "index.html"),
         },
         output: {
           chunkFileNames: "assets/js/[name]-[hash].js",
