@@ -85,7 +85,8 @@ const MarsColorPicker = defineComponent({
         overlayClassName: props.hiddenAlpha ? "overlay-className" : "", // 打开的面板样式,隐藏透明度面板
         // overlayClassName: "overlayClassName", // 打开的面板样式,隐藏透明度面板
         open: visible.value,
-        "onUpdate:visible": (v: boolean) => {
+        // ant-design-vue v4 Popover 受控属性为 open，对应事件为 update:open
+        "onUpdate:open": (v: boolean) => {
           visible.value = v
         },
         color: "var(--mars-control-bg)"

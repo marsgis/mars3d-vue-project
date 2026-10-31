@@ -605,8 +605,8 @@ const show = (name: string) => {
 ```json
 // dependencies中添加（版本以本项目 package.json 为准）
 {
-  "mars3d": "~3.11.0",
-  "mars3d-cesium": "~1.145.0",
+  "mars3d": "~3.12.0",
+  "mars3d-cesium": "~1.146.0",
   "@turf/turf": "^7.4.0",
   "kml-geojson": "^2.0.3",
   "vue": "^3.5.43",

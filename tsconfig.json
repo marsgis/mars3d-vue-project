@@ -18,6 +18,7 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "isolatedModules": false,
+    "ignoreDeprecations": "6.0", // TS 6.0 下 node10/moduleResolution=baseUrl 废弃但可用，需此开关抑制告警
     "baseUrl": ".",
     "outDir": "dist",
     "types": ["vite/client", "node"],

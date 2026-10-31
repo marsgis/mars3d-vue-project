@@ -1,4 +1,4 @@
-import { logInfo } from "@mars/utils/mars-util"
+import { logInfo, logWarn } from "@mars/utils/mars-util"
 import * as mars3d from "mars3d"
 const Cesium = mars3d.Cesium
 
@@ -47,31 +47,37 @@ export function onMounted(mapInstance) {
   map.addEffect(snowEffect)
   map.addEffect(snowCover)
 
-  // 天气接口，若失效请自行替换
-  Cesium.Resource.fetchJson({ url: "http://wthrcdn.etouch.cn/weather_mini?city=青岛" }).then((msg) => {
-    const data = JSON.parse(msg)
-    logInfo("天气接口的数据data", data)
-    const tianqiForcat = data.data.forecast[0].type
-    if (tianqiForcat.search("雪") !== -1) {
-      snowEffect.enabled = true
-      snowCover.enabled = true
-      currEffect = snowEffect
-      weather = "snow"
-    } else if (tianqiForcat.search("雨") !== -1) {
-      rainEffect.enabled = true
-      currEffect = rainEffect
-      weather = "rain"
-    } else if (tianqiForcat.search("雾") !== -1) {
-      fogEffect.enabled = true
-      currEffect = fogEffect
-      weather = "fog"
-    } else {
-      currEffect = null
-      weather = "normal"
-    }
+  // 天气接口，若失效请自行替换；fetchJson 已返回解析后的对象，无需再 JSON.parse
+  Cesium.Resource.fetchJson({ url: "http://wthrcdn.etouch.cn/weather_mini?city=青岛" })
+    .then((data) => {
+      logInfo("天气接口的数据data", data)
+      const tianqiForcat = data.data.forecast[0].type
+      if (tianqiForcat.search("雪") !== -1) {
+        snowEffect.enabled = true
+        snowCover.enabled = true
+        currEffect = snowEffect
+        weather = "snow"
+      } else if (tianqiForcat.search("雨") !== -1) {
+        rainEffect.enabled = true
+        currEffect = rainEffect
+        weather = "rain"
+      } else if (tianqiForcat.search("雾") !== -1) {
+        fogEffect.enabled = true
+        currEffect = fogEffect
+        weather = "fog"
+      } else {
+        currEffect = null
+        weather = "normal"
+      }
 
-    eventTarget.fire("weather", { weather })
-  })
+      eventTarget.fire("weather", { weather })
+    })
+    .catch((err) => {
+      // 天气接口已不稳定或失效，降级为正常天气，不影响地图其他功能
+      logWarn("天气接口请求失败，降级为 normal", err)
+      weather = "normal"
+      eventTarget.fire("weather", { weather })
+    })
 }
 
 /**

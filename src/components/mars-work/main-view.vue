@@ -44,8 +44,9 @@ const props = withDefaults(
     url: null
   }
 )
-const configUrl = props.url ?? `${process.env.BASE_URL}config/config.json?time=${new Date().getTime()}`
+const configUrl = props.url ?? `${process.env.BASE_URL}config/config.json?time=${new Date().getTime()}` // 加时间戳防止配置文件被缓存
 
+// 地图实例通过 provide 暴露给所有后代组件（useLifecycle 中注入使用）
 let mapInstance: any = null
 provide("getMapInstance", () => {
   return mapInstance
@@ -53,6 +54,7 @@ provide("getMapInstance", () => {
 
 const emit = defineEmits(["mapLoaded"])
 
+// loaded 控制 widget 在地图构造完成后才渲染，保证 widget 内 useLifecycle 能拿到 map
 const loaded = ref(false)
 const marsOnload = (map: any) => {
   logInfo("map构造完成", map)

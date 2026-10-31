@@ -65,7 +65,7 @@
     border-radius: 4px 4px 0px 0px;
 
     .ant-collapse-header-text {
-      font-family: 思源黑体;
+      font-family: var(--mars-font-family);
       font-size: 16px;
       font-weight: normal;
       line-height: normal;
@@ -96,19 +96,20 @@
 
   // 切换按钮
   .ant-radio-button-wrapper {
-    background: rgba(32, 160, 255, 0.2);
-    color: #ffffff;
+    background: var(--mars-list-select);
+    color: var(--mars-text-color);
     box-shadow: none !important;
   }
 
   // 选中按钮
   .ant-radio-button-checked {
-    background-color: #1890ff;
+    background-color: var(--mars-primary-color);
+    color: #ffffff;
   }
 
   // 表单元素
   .ant-form {
-    color: rgba(255, 255, 255, 0.925);
+    color: var(--mars-control-text);
     // 如单个页面不需要，在单页面中设置,给个class pad-none
     padding: 14px 7px;
 
@@ -219,11 +220,11 @@
 
     .ant-radio-checked {
       .ant-radio-inner {
-        border-color: #1677ff;
+        border-color: var(--mars-primary-color);
         box-shadow: 0px 0px 0px 2px rgba(5, 145, 255, 0.1);
 
         &::after {
-          background-color: #1677ff;
+          background-color: var(--mars-primary-color);
         }
       }
     }
@@ -235,10 +236,10 @@
 
       .ant-radio-checked {
         .ant-radio-inner {
-          border-color: #1677ff;
+          border-color: var(--mars-primary-color);
 
           &::after {
-            background-color: #4096ff;
+            background-color: var(--mars-hover-color);
           }
         }
       }
@@ -287,7 +288,7 @@
   }
 
   .ant-table-tbody > tr.ant-table-placeholder > td {
-    background: #141414;
+    background: var(--mars-base-bg);
   }
 
   .ant-table-row:hover > td,
@@ -372,7 +373,6 @@
       color: var(--mars-control-text);
       background-color: var(--mars-control-bg);
       font-size: 12px !important;
-      border-radius: 0;
       border: 1px solid;
       border-color: var(--mars-control-border);
       border-radius: 2px;
@@ -465,7 +465,7 @@
 
         &:hover,
         &:focus {
-          border-color: #4db3ff !important;
+          border-color: var(--mars-hover-color) !important;
         }
       }
 
@@ -513,7 +513,7 @@
       color: rgba(234, 242, 255, 0.5);
 
       input {
-        color: #ffffff;
+        color: var(--mars-text-color);
       }
     }
 
@@ -537,7 +537,7 @@
     }
 
     .ant-list-item {
-      border-bottom: 1px solid #303030;
+      border-bottom: 1px solid var(--mars-control-border);
     }
 
     .ant-list-item-meta-description {
@@ -580,11 +580,11 @@
 
     &.ant-tabs-card {
       .ant-tabs-nav .ant-tabs-tab-active {
-        background: #20a0ff33;
+        background: var(--mars-list-active);
       }
 
       .ant-tabs-tab {
-        background: #20a0ff33 !important;
+        background: var(--mars-list-select) !important;
         border-color: var(--mars-control-border);
       }
     }
@@ -664,8 +664,9 @@
 }
 
 // 无头部自定义 table 样式
+// 注意：本文件为全局样式，不能使用 :deep()（scoped 专属语法），直接用后代选择器
 .mars-noHeader-table {
-  :deep(.ant-table) {
+  .ant-table {
     margin-top: 10px;
 
     .ant-table-tbody {

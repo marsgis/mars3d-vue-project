@@ -89,7 +89,7 @@ const data: any = [
 
 const activeTools = ref<any[]>([])
 
-const isIncludesMenu = (menu: any, index: number) => {
+const isIncludesMenu = (menu: any, index: string | number) => {
   if (menu.filter((child) => activeTools.value.includes(child.widget) || activeTools.value.includes(index))?.length) {
     return true
   }
@@ -126,7 +126,7 @@ const showWidget = (widget: string) => {
   activate(widget)
 }
 
-const clickMenu = ({ key }: any, index: number) => {
+const clickMenu = ({ key }: any, index: string | number) => {
   // 功能菜单弹窗出现，工具栏高亮,如不需要注释
   leaveWidget(index)
   enterWidget(key)

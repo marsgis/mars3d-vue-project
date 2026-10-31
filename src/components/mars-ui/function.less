@@ -465,28 +465,33 @@
   color: var(--mars-sub-title-color);
 }
 
-.zhyq-dialog {
-  background: rgba(23, 49, 71, 0.8) !important;
-  padding: 0 !important;
-  backdrop-filter: none !important;
-  border-bottom: 1px solid #008aff70;
-  border-left: 1px solid #008aff70;
-  border-right: 1px solid #008aff70;
-
-  .mars-dialog__content {
-    background-color: transparent !important;
-  }
-
-  .mars-dialog__header {
-    background: url("@mars/components/mars-ui/assets/images/msg-title-bg.png") !important;
-    background-repeat: no-repeat !important;
-    background-size: 100% 100% !important;
-  }
-}
-
 // 渐变边框，可用于其他需要渐变边框的div
 .mars-base-border_gradient {
   background: var(--mars-base-border);
   padding: 1px;
   border-radius: 4px;
+}
+
+// 任务 video/image 默认样式
+.mars-task-video {
+  width: 200px;
+  height: 200px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  z-index: 998; // 层级小于 字幕div层级
+  object-fit: fill;
+
+}
+
+.mars-task-img {
+  width: 200px;
+  height: 200px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  z-index: 998; // 层级小于 字幕div层级
+
 }

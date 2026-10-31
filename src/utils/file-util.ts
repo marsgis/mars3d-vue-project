@@ -20,6 +20,7 @@ export function saveJSON(data: any[]) {
     document.body.appendChild(aLink)
     aLink.click()
     document.body.removeChild(aLink)
+    URL.revokeObjectURL(aLink.href)
   }
 }
 
@@ -30,22 +31,34 @@ export function saveJSON(data: any[]) {
  * @param {*} file 文件选择框选择的文件对象
  * @return {*}  {Promise<T>}
  */
-export function readJSON<T>(file: any): Promise<T> {
-  return new Promise((resolve) => {
-    const fileName = file.name
-    const fileType = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length).toLowerCase()
+export function readJSON<T>(file: Blob & { name?: string }): Promise<T> {
+  return new Promise((resolve, reject) => {
+    const fileName = file?.name || ""
+    const fileType = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase()
     if (fileType !== "json") {
-      alert("文件类型不合法,请选择json格式标注文件！")
+      const message = "文件类型不合法,请选择json格式标注文件！"
+      alert(message)
+      reject(new Error(message))
       return
     }
 
-    if (window.FileReader) {
-      const reader = new FileReader()
-      reader.readAsText(file, "UTF-8")
-      reader.onloadend = function () {
-        resolve(JSON.parse(this.result as string))
+    if (!window.FileReader) {
+      reject(new Error("当前浏览器不支持读取本地文件"))
+      return
+    }
+
+    const reader = new FileReader()
+    reader.onerror = () => {
+      reject(reader.error || new Error("读取文件失败"))
+    }
+    reader.onloadend = () => {
+      try {
+        resolve(JSON.parse(String(reader.result)) as T)
+      } catch (error) {
+        reject(error)
       }
     }
+    reader.readAsText(file, "UTF-8")
   })
 }
 

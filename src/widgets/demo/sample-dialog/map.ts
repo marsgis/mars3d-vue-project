@@ -12,6 +12,7 @@ export function onMounted(mapInstance: mars3d.Map): void {
 
 // 释放当前业务
 export function onUnmounted(): void {
+  eventTarget.off() // 清空vue侧注册的事件，避免widget重开后回调累积
   map = null
 }
 

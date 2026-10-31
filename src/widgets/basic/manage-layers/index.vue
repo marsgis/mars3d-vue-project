@@ -294,7 +294,7 @@ function onClickBimLayer(event: any) {
   width: 100%;
   text-align: center;
   margin-top: 10px;
-  color: #9e9e9e;
+  color: var(--mars-extra-text-color);
   position: absolute;
   bottom: 10px;
   left: 50%;

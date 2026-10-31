@@ -246,16 +246,8 @@ onUnmounted(() => {
 /* 自定义Popup样式*/
 .mars3d-popup-btn-custom {
   padding: 3px 10px;
-  border: 1px solid #209ffd;
-  background: #209ffd1c;
-  color: #ffffff;
-}
-
-/* 自定义Popup样式*/
-.mars3d-popup-btn-custom {
-  padding: 3px 10px;
-  border: 1px solid #209ffd;
-  background: #209ffd1c;
+  border: 1px solid var(--mars-primary-color, #209ffd);
+  background: var(--mars-list-select, #209ffd1c);
   color: var(--mars-text-color, #ffffff);
 }
 </style>

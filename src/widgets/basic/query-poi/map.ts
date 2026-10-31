@@ -14,6 +14,7 @@ export let graphicLayer: mars3d.layer.GraphicLayer
 let queryPoi: mars3d.query.QueryPOI // TdtPOI查询
 let address: any = null
 let queryAddressDOM
+let addressRequest = 0
 
 const imgArr = []
 
@@ -63,16 +64,30 @@ export async function onMounted(mapInstance: mars3d.Map): Promise<void> {
 
 async function cameraMoveEnd() {
   const radius = map.camera.positionCartographic.height // 单位：米
+  const requestId = ++addressRequest
   if (radius > 100000) {
     address = null
-    if (queryAddressDOM) { queryAddressDOM.innerHTML = "" }
+    if (queryAddressDOM) {
+      queryAddressDOM.textContent = ""
+    }
     return
   }
 
-  address = await queryPoi.getAddress({
-    location: map.getCenter()
-  })
-  if (address && queryAddressDOM) { queryAddressDOM.innerHTML = "地址：" + address.address }
+  let result = null
+  try {
+    result = await queryPoi.getAddress({
+      location: map.getCenter()
+    })
+  } catch (error) {
+    console.warn("地址查询失败", error)
+  }
+  if (requestId !== addressRequest) {
+    return
+  }
+  address = result
+  if (address && queryAddressDOM) {
+    queryAddressDOM.textContent = "地址：" + (address.address || "")
+  }
 }
 
 // 释放当前业务
@@ -83,6 +98,11 @@ export function onUnmounted(): void {
   graphicLayer.remove()
   queryPoi = null
   address = null
+  addressRequest += 1
+  if (queryAddressDOM) {
+    queryAddressDOM.remove()
+    queryAddressDOM = null
+  }
 
   map.removeLayer(graphicLayer)
   map.off(mars3d.EventType.cameraMoveEnd, cameraMoveEnd)

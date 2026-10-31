@@ -29,6 +29,7 @@ export function onMounted(mapInstance: mars3d.Map): void {
  * @returns {void} 无
  */
 export function onUnmounted() {
+  eventTarget.off() // 清空vue侧注册的事件，避免widget重开后回调累积
   map.graphicLayer.clear()
   map.removeEffect(bloomEffect, true)
   bloomEffect = null

@@ -130,7 +130,7 @@ function changeTerrain() {
 }
 
 .active-card {
-  color: #337fe5 !important;
-  border-color: #337fe5;
+  color: var(--mars-primary-color) !important;
+  border-color: var(--mars-primary-color);
 }
 </style>

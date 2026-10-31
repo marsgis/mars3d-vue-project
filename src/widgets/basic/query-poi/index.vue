@@ -127,7 +127,13 @@ const showHistoryList = () => {
   if (searchTxt.value) {
     return
   }
-  const historys = JSON.parse(localStorage.getItem(storageName)!)
+  // 首次访问或本地数据损坏时回退为空列表，避免JSON.parse异常导致面板崩溃
+  let historys: any[] = []
+  try {
+    historys = JSON.parse(localStorage.getItem(storageName)!) || []
+  } catch {
+    historys = []
+  }
   if (historys) {
     dataSource.value = (historys || []).map((item: any) => ({ value: item }))
     searchListShow.value = true
@@ -218,8 +224,8 @@ function addHistory(data: any) {
       arrHistory.unshift(data)
     }
     localStorage.setItem(storageName, JSON.stringify(arrHistory.slice(0, 10)))
-  } catch (err: any) {
-    throw new Error(err)
+  } catch {
+    // 本地存储不可用或历史数据损坏时忽略，不影响查询主流程
   }
 }
 </script>
@@ -240,7 +246,7 @@ function addHistory(data: any) {
 </style>
 <style lang="less" scoped>
 .query-poi {
-  color: #fff;
+  color: var(--mars-text-color);
   border-radius: 4px;
 
   .mars-base-border_gradient {
